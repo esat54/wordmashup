@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Words - Karikatür Temalı</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">v
+
+    <link rel="stylesheet" href="/styles/header.css">
+    <link rel="stylesheet" href="/styles/wordstyle.css">
+
+
+</head>
+
+<body>
+
+
+    <header>
+
+        <div class="header-left">
+            <a href="/" class="logo">
+                <img src="/logo.png" alt="WordMashup Logo">
+            </a>
+        </div>
+
+
+        <nav class="header-center">
+            <ul>
+                <li><a href="/words">Words</a></li>
+                <li><a href="/card-quiz">Card Quiz</a></li>
+                <li><a href="/calendar">Calendar</a></li>
+            </ul>
+        </nav>
+
+        <div class="header-right">
+
+            <button id="theme-toggle" aria-label="Toggle dark/light theme">
+                <span class="icon"></span>
+            </button>
+
+            <div class="user-box">
+                <i class="fa-solid fa-user"></i>
+            </div>
+        </div>
+
+    </header>
+
+
+    <div class="container">
+        <!-- Sol: Form -->
+        <div class="word-add-content">
+            <h2>Kelime Ekle</h2>
+
+            <form>
+                <label for="word">Kelime Adı</label>
+                <input type="text" id="word" class="form-input">
+
+                <label for="meaning">Kelime Anlamı</label>
+                <input type="text" id="meaning" class="form-input">
+
+                <label for="note">Not (Opsiyonel)</label>
+                <textarea id="note" class="form-textarea"></textarea>
+
+                <button type="submit" class="word-add-btn">Ekle</button>
+            </form>
+        </div>
+
+        <!-- Sağ: Eklenen kelimeler -->
+        <div class="word-list-content">
+            <h2>Eklenen Kelimeler</h2>
+            <div class="placeholder">
+                Henüz kelime eklenmedi.
+            </div>
+        </div>
+
+    </div>
+
+    
+</body>
+
+</html>

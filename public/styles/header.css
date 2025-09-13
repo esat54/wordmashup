@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
+
+
+/*
+    font-family: 'Montserrat', sans-serif;
+      font-family: 'Poppins', sans-serif;
+*/
+
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+    background-color: #fafafa;
+    background-image:
+        repeating-linear-gradient(to right,
+            transparent 0,
+            transparent 24px,
+            #e0e0e0 24px,
+            #e0e0e0 25px),
+        repeating-linear-gradient(to bottom,
+            transparent 0,
+            transparent 24px,
+            #e0e0e0 24px,
+            #e0e0e0 25px);
+    background-size: 25px 25px;
+}
+
+
+
+
+
+/* header styles */
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 13px 24px;
+    background-color: rgba(255, 255, 255, 0.209);
+    backdrop-filter: blur(90px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.logo {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    margin-top: 5px;
+}
+
+.logo img {
+    height: 40px;
+    width: auto;
+    object-fit: contain;
+    user-select: none;
+}
+
+
+.header-center ul {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+    margin: 0;
+    padding: 0;
+    margin-right: 40px;
+}
+
+.header-center a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    font-size: 17px;
+    transition: color 0.2s ease;
+}
+
+.header-center a:hover {
+    color: #ff0808;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+#theme-toggle {
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    background-color: violet;
+}
+
+.user-box i {
+    font-size: 1.4rem;
+    color: #333;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.user-box i:hover {
+    color: #0070f3;
+}

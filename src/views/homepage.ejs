@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ana Sayfa</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/styles/homestyle.css">
+    <link rel="stylesheet" href="/styles/header.css">
+
+</head>
+
+<body>
+
+
+    <header>
+
+        <div class="header-left">
+            <a href="/" class="logo">
+                <img src="/logo.png" alt="WordMashup Logo">
+            </a>
+        </div>
+
+        <nav class="header-center">
+            <ul>
+                <li><a href="/words">Words</a></li>
+                <li><a href="/card-quiz">Card Quiz</a></li>
+                <li><a href="/calendar">Calendar</a></li>
+            </ul>
+        </nav>
+
+        <div class="header-right">
+
+            <button id="theme-toggle" aria-label="Toggle dark/light theme">
+                <span class="icon"></span>
+            </button>
+
+            <div class="user-box">
+                <i class="fa-solid fa-user"></i>
+            </div>
+        </div>
+
+    </header>
+
+    <main>
+
+        <div class="text-container">
+            <img src="/text.png" alt="Logo" class="logo">
+            <div class="shape shape1"></div>
+            <div class="shape shape2"></div>
+            <div class="shape shape3"></div>
+            <div class="shape shape4"></div>
+        </div>
+
+
+        <div class="words">
+
+            <div class="word-container">
+
+                <img src="shape3.png" class="background-shape" alt="Arka plan şekli">
+
+                <div class="word-text-content">
+                    <h1>Kendi Kelime Dünyanı Oluştur</h1>
+
+                    <p class="word-altbaslik">Her gün 10 yeni kelime ekle, onları kartlarla çalış ve ilerlemeni takvimde
+                        takip et.
+                    </p>
+
+                    <p class="word-text">Kelime eklemek sadece birkaç saniye sürer. Başlamak için aşağıdaki butona
+                        tıkla.
+                    </p>
+
+                    <button class="word-button" onclick="window.location.href='/words'">
+                        Kelime Eklemeye Başla
+                    </button>
+
+                </div>
+
+                <div class="image-content">
+                    <img src="https://placehold.co/600x400/e9ecef/2c3e50?text=Kelime+Dünyanız"
+                        alt="Kelime öğrenme uygulaması görseli">
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+
+    </main>
+
+
+</body>
+
+</html>
