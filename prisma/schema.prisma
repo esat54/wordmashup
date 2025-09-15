@@ -10,7 +10,7 @@ datasource db {
 
 model User {
   userId          Int      @id @default(autoincrement())
-  username        String  // Zorunlu alan haline getirildi
+  username        String @unique
   useremail       String   @unique
   userpassword    String
   usercreateddate DateTime @default(now())

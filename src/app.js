@@ -2,7 +2,9 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const session = require('express-session');
+
 const authRoutes = require('./routes/authRoutes');
+const wordRoutes = require('./routes/wordRoutes');
 
 
 const app = express();
@@ -26,6 +28,8 @@ app.set('views', path.join(__dirname, 'views'));
 
 
 app.use('/', authRoutes);
+app.use('/words', wordRoutes);
+
 
 
 

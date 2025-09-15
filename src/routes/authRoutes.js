@@ -1,14 +1,23 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/', (req, res) => {
+const authController = require('../controllers/authController');
 
-    res.render('homepage');
-});
 
-router.get('/words', (req, res) => {
-    res.render('wordpage');
-});
+
+
+
+router.get('/', authController.getHomepage);
+
+router.get('/login', authController.getLogin);
+router.get('/register', authController.getRegister);
+
+
+
+router.post('/login', authController.postLogin);
+router.post('/register', authController.postRegister);
+
+
 
 module.exports = router;
 

@@ -4,14 +4,14 @@
     justify-content: center;
     align-items: center;
     gap: 75px;
-    margin-top: 90px;
+    margin-top: 100px;
     color: #333;
     font-weight: 300;
     font-size: 13px;
 }
 
 .word-add-content {
-    background: #ffffff1d;
+    background: #ffffff3b;
     backdrop-filter: blur(1.5px);
     border-radius: 12px;
     border-left: 4px solid #cc0000;
@@ -22,8 +22,7 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
-    min-height: 70vh;
-
+    height: 70vh;
 }
 
 
@@ -37,10 +36,15 @@
     box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
     padding: 20px;
     width: 100vh;
-    min-height: 70vh;
+    height: 70vh;
 }
 
-
+.word-list-container {
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 10px;
+    margin-top: 20px;    
+}
 
 
 h2 {
@@ -61,6 +65,7 @@ label {
     display: block;
     margin: 10px 0 5px;
     font-weight: bold;
+
 }
 
 /* Ortak form stilleri */
@@ -84,12 +89,11 @@ label {
     box-shadow: 0 0 4px rgba(204, 0, 0, 0.4);
 }
 
-/* Textarea sabit boy */
+
 .form-textarea {
     height: 80px;
     resize: none;
 }
-
 
 .word-add-btn {
     width: 220px;
@@ -104,6 +108,7 @@ label {
     cursor: pointer;
     transition: background 0.2s, transform 0.1s;
     margin-left: 10px;
+
 }
 
 .word-add-btn:hover {
@@ -122,9 +127,75 @@ label {
     box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.20);
     min-height: 350px;
     margin-top: 20px;
+}
+
+
+
+.words {
+    background: #fff;
+    border-radius: 3px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 6px;
+    margin-bottom: 15px;
+    border: 0.5px solid #00000043;
+    padding: 10px;
+}
+
+.words:hover {
+    transform: scale(2px);
+}
+
+.words li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.words p {
+    margin: 0;
+    line-height: 1.6;
+}
+
+.words p:first-child {
+    font-size: 15px;
+    font-weight: 400;
+    color: #222222;
+}
+
+.words .note {
+    font-size: 14px;
+    color: #666;
+    margin-top: 8px;
+    font-style: italic;
+    border-top: 1px solid #e0e0e0;
+    padding-top: 8px;
+}
+
+ul {
+    padding: 0;
+}
+
+
+.word-info {
     display: flex;
-    justify-content: row;
+    justify-content: space-between;
     align-items: center;
-    gap: 10px;
-    flex-direction: column;
+    margin-bottom: 4px;
+}
+
+.word-info p {
+    font-size: 16px;
+}
+
+.delete-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #d9534f;
+    font-size: 16px;
+    transition: color 0.2s;
+}
+
+.delete-btn:hover {
+    color: #c9302c;
 }
