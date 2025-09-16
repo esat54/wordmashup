@@ -4,19 +4,63 @@
     justify-content: center;
     align-items: center;
     gap: 75px;
-    margin-top: 100px;
-    color: #333;
+    margin-top: 75px;
     font-weight: 300;
     font-size: 13px;
+    height: 100vh;
+
 }
 
+
+.shape {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.1;
+    z-index: -1;
+    filter: blur(1px);
+}
+
+.shape1 {
+    width: 180px;
+    height: 180px;
+    background: #8f84e8;
+    top: 7%;
+    left: 4%;
+}
+
+.shape2 {
+    width: 200px;
+    height: 90px;
+    background: #ffe17d;
+    border-radius: 40% 60% 50% 50%;
+    bottom: 10%;
+    right: 2%;
+}
+
+.shape3 {
+    width: 150px;
+    height: 150px;
+    background: #55efc4;
+    top: 15%;
+    right: 30%;
+}
+
+.shape4 {
+    width: 150px;
+    height: 100px;
+    background: #ff7675;
+    bottom: 25%;
+    left: 30%;
+}
+
+
 .word-add-content {
-    background: #ffffff3b;
-    backdrop-filter: blur(1.5px);
+    background-color: #f7f9fc;
     border-radius: 12px;
-    border-left: 4px solid #cc0000;
+    border-top: 4px solid #cc0000;
     border-bottom: 4px solid #cc0000;
     box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+
     padding: 20px;
     width: 250px;
     display: flex;
@@ -25,56 +69,18 @@
     height: 70vh;
 }
 
-
-.word-list-content {
-    background: #ffffff81;
-    backdrop-filter: blur(1.5px);
-    border-radius: 12px;
-    border-left: 4px solid #cc0000;
-    border-bottom: 4px solid #cc0000;
-    padding: 20px;
-    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    width: 100vh;
-    height: 70vh;
-}
-
-.word-list-container {
-    max-height: 400px;
-    overflow-y: auto;
-    padding-right: 10px;
-    margin-top: 20px;    
-}
-
-
-h2 {
-    margin-top: 0;
-    text-align: center;
-    padding: 10px;
-    border-radius: 12px;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.309), rgba(220, 220, 220, 0.4));
-    backdrop-filter: blur(4px);
-    background-color: rgba(255, 255, 255, 0.25);
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.12),
-        inset 1px 1px 3px rgba(255, 255, 255, 0.5);
-}
-
-
 label {
     display: block;
     margin: 10px 0 5px;
     font-weight: bold;
-
 }
 
-/* Ortak form stilleri */
 .form-input,
 .form-textarea {
     width: 220px;
     padding: 10px 12px;
     border-radius: 8px;
-    border: 1px solid #ccc;
+    border: 1px solid #a3a3a3;
     font-size: 14px;
     outline: none;
     transition: border 0.2s, box-shadow 0.2s;
@@ -82,13 +88,23 @@ label {
     backdrop-filter: blur(2px);
 }
 
-
 .form-input:focus,
 .form-textarea:focus {
     border-color: #cc0000;
     box-shadow: 0 0 4px rgba(204, 0, 0, 0.4);
 }
 
+.word-list-content {
+    background-color: #f7f9fc;
+    border-radius: 12px;
+    border-top: 4px solid #cc0000;
+    border-bottom: 4px solid #cc0000;
+    padding: 20px;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 100vh;
+    height: 70vh;
+}
 
 .form-textarea {
     height: 80px;
@@ -115,30 +131,41 @@ label {
     background: #a50000;
 }
 
-
+h2 {
+    margin-top: 0;
+    text-align: center;
+    padding: 10px;
+    border-radius: 12px;
+    color: #000000;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.309), rgba(220, 220, 220, 0.4));
+    backdrop-filter: blur(4px);
+    background-color: rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.12),
+        inset 1px 1px 3px rgba(255, 255, 255, 0.5);
+}
 
 .placeholder {
     font-size: 14px;
-    color: #666;
-    background: #fff;
-    border-radius: 10px;
-    padding: 12px;
     text-align: center;
-    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.20);
-    min-height: 350px;
+    height: 370px;
     margin-top: 20px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    box-shadow: inset 0 3px 3px -3px rgba(0, 0, 0, 0.3),
+        inset 0 -3px 3px -3px rgba(0, 0, 0, 0.3);
 }
-
-
 
 .words {
     background: #fff;
-    border-radius: 3px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 6px;
+    box-shadow: 2px 2px rgba(0, 0, 0, 0.1);
     margin-bottom: 15px;
-    border: 0.5px solid #00000043;
     padding: 10px;
+    border-top: 0.5px solid #000000b0;
+    border-bottom: 0.5px solid #000000b0;
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
 }
 
 .words:hover {
@@ -159,7 +186,8 @@ label {
 .words p:first-child {
     font-size: 15px;
     font-weight: 400;
-    color: #222222;
+    color: #000000;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .words .note {
@@ -167,14 +195,13 @@ label {
     color: #666;
     margin-top: 8px;
     font-style: italic;
-    border-top: 1px solid #e0e0e0;
+    border-top: 1px solid #c2c2c2;
     padding-top: 8px;
 }
 
 ul {
     padding: 0;
 }
-
 
 .word-info {
     display: flex;
@@ -198,4 +225,150 @@ ul {
 
 .delete-btn:hover {
     color: #c9302c;
+}
+
+
+
+
+
+
+
+
+
+.word-management-section {
+    /* Kelime Yönetimi Bölümü */
+    padding: 40px 45px;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.wordlist-container {
+    /* kelime container */
+    width: 85vw;
+    background-color: #f7f9fc;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    min-height: 30vh;
+    box-sizing: border-box;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    border-radius: 10px;
+    border-top: 4px solid #cc0000;
+    border-bottom: 4px solid #cc0000;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Ana header container: 3 bölüm yatay */
+.wordheadermenu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Sol bölüm */
+.word-header-left {
+    display: flex;
+    gap: 10px;
+}
+
+/* Ortak buton stilleri */
+.allwords-btn,
+.favoritewords-btn,
+.search-btn {
+    font-family: 'Nunito', sans-serif;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: transform 0.15s, background-color 0.15s;
+    color: #fff;
+    /* hepsinde yazı beyaz */
+}
+
+
+.allwords-btn {
+    background-color: #c0392b;
+}
+
+.allwords-btn:hover {
+    background-color: #a93226;
+    transform: scale(1.01);
+}
+
+.favoritewords-btn {
+    background-color: #2980b9;
+}
+
+.favoritewords-btn:hover {
+    background-color: #2471a3;
+    transform: scale(1.01);
+}
+
+.search-btn {
+    background-color: #27ae60;
+}
+
+.search-btn:hover {
+    background-color: #229954;
+    transform: scale(1.01);
+}
+
+
+
+/* Orta bölüm */
+.word-header-center {
+    display: flex;
+    justify-content: center;
+    flex: 1;
+}
+
+.date-picker {
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-family: 'Nunito', sans-serif;
+    color: #000000;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 15px;
+    cursor: pointer;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.309), rgba(220, 220, 220, 0.4));
+    background-color: rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.12),
+        inset 1px 1px 3px rgba(255, 255, 255, 0.5);
+}
+
+/* Sağ bölüm */
+.word-header-right {
+    display: flex;
+    gap: 8px;
+}
+
+.search-word-input {
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+
+.kelimelist {
+    width: 100%;
+    font-size: 14px;
+    text-align: center;
+    min-height: 300px;
+    max-height: 70vh;
+    box-sizing: border-box;
+    overflow-y: auto;
+    border-top: 2px solid #b8b8b8;
+    border-bottom: 2px solid #b8b8b8;
+
 }

@@ -14,7 +14,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
 
     <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/styles/header.css">
+    <link rel="stylesheet" href="/styles/header2.css">
     <link rel="stylesheet" href="/styles/wordstyle.css">
 
 
@@ -36,7 +36,7 @@
             <ul>
                 <li><a href="/words">Words</a></li>
                 <li><a href="/card-quiz">Card Quiz</a></li>
-                <li><a href="/calendar">Calendar</a></li>
+                <li><a href="/dictionary">Dictionary</a></li>
             </ul>
         </nav>
 
@@ -53,9 +53,16 @@
 
     </header>
 
+    <div class="text-container">
+        <div class="shape shape1"></div>
+        <div class="shape shape2"></div>
+        <div class="shape shape3"></div>
+        <div class="shape shape4"></div>
+    </div>
 
-    <div class="container">
-        <!-- Sol: Form -->
+    <section class="container">
+        <!-- Kelime ekleme  -->
+
         <div class="word-add-content">
             <h2>Kelime Ekle</h2>
 
@@ -78,9 +85,9 @@
         <div class="word-list-content">
 
             <h2>Eklenen Kelimeler</h2>
+            <div class="placeholder">
+                <% if (words && words.length> 0) { %>
 
-            <% if (words && words.length> 0) { %>
-                <div class="word-list-container">
                     <ul>
                         <% words.forEach(i=> { %>
 
@@ -91,8 +98,10 @@
                                             <%= i.word %> - <%= i.meaning %>
                                         </p>
 
-                                        <form action="/words/deleteWord/<%= i.wordId %>" method="POST" class="delete-form">
-                                            <button type="submit" class="delete-btn"> <i class="fa fa-trash"> </i></button>
+                                        <form action="/words/deleteWord/<%= i.wordId %>" method="POST"
+                                            class="delete-form">
+                                            <button type="submit" class="delete-btn"> <i class="fa fa-trash">
+                                                </i></button>
                                         </form>
                                     </div>
 
@@ -106,19 +115,86 @@
 
                             <% }); %>
                     </ul>
-                </div>
-                
-                <% } else { %>
 
-                    <div class="placeholder">
-                        Henüz kelime eklenmedi.
-                    </div>
-                    <% } %>
+                    <% } else { %>
+                        <p>Henüz kelime eklenmedi. </p>
+                        <% } %>
+            </div>
+
         </div>
 
-    </div>
+    </section>
 
 
+
+
+    <section class="word-management-section">
+
+
+        <div class="wordlist-container">
+
+            <div class="wordheadermenu">
+                <div class="word-header-left">
+                    <button class="allwords-btn">Tüm kelimeler</button>
+                    <button class="favoritewords-btn">Favori kelimeler</button>
+                </div>
+
+                <div class="word-header-center">
+                    <input type="date" class="date-picker">
+                </div>
+
+                <div class="word-header-right">
+                    <input type="text" class="search-word-input" placeholder="Kelime ara...">
+                    <button class="search-btn">Ara</button>
+                </div>
+            </div>
+
+            <div class="kelimelist">
+                <% if (words && words.length> 0) { %>
+
+                    <ul>
+                        <% words.forEach(i=> { %>
+
+                            <div class="words">
+                                <li>
+                                    <div class="word-info">
+                                        <p>
+                                            <%= i.word %> - <%= i.meaning %>
+                                        </p>
+
+                                        <form action="/words/deleteWord/<%= i.wordId %>" method="POST"
+                                            class="delete-form">
+                                            <button type="submit" class="delete-btn"> <i class="fa fa-trash">
+                                                </i></button>
+                                        </form>
+                                    </div>
+
+                                    <% if (i.wordnotes) { %>
+                                        <p class="note">
+                                            <%= i.wordnotes %>
+                                        </p>
+                                        <% } %>
+                                </li>
+                            </div>
+
+                            <% }); %>
+                    </ul>
+
+                    <% } else { %>
+                        <p>Henüz kelime eklenmedi. </p>
+                        <% } %>
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+
+
+    <script src="/scripts/word-management.js"></script>
 </body>
 
 </html>

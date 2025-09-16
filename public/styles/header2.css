@@ -2,30 +2,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
 
-
-/*
-    font-family: 'Montserrat', sans-serif;
-      font-family: 'Poppins', sans-serif;
-*/
-
 body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Nunito', sans-serif;
-    background-color: #fafafa;
-    background-image:
-        repeating-linear-gradient(to right,
-            transparent 0,
-            transparent 24px,
-            #e0e0e0 24px,
-            #e0e0e0 25px),
-        repeating-linear-gradient(to bottom,
-            transparent 0,
-            transparent 24px,
-            #e0e0e0 24px,
-            #e0e0e0 25px);
-    background-size: 25px 25px;
+    background-color: #fcfbfe;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23dbd9dd' fill-opacity='0.57' d='M1 1h0.5v0.5H1V1z'%3E%3C/path%3E%3C/svg%3E");
+    background-size: 15px 15px; /* noktalar arasındaki mesafe */
 }
 
 
