@@ -7,8 +7,7 @@
     margin-top: 75px;
     font-weight: 300;
     font-size: 13px;
-    height: 100vh;
-
+    height: 90vh;
 }
 
 
@@ -59,14 +58,14 @@
     border-radius: 12px;
     border-top: 4px solid #cc0000;
     border-bottom: 4px solid #cc0000;
-    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
-
     padding: 20px;
     width: 250px;
     display: flex;
     flex-direction: column;
     gap: 12px;
     height: 70vh;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.4),
+        -2px 0 8px rgba(0, 0, 0, 0.4);
 }
 
 label {
@@ -100,10 +99,11 @@ label {
     border-top: 4px solid #cc0000;
     border-bottom: 4px solid #cc0000;
     padding: 20px;
-    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
     padding: 20px;
     width: 100vh;
     height: 70vh;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.4),
+        -2px 0 8px rgba(0, 0, 0, 0.4);
 }
 
 .form-textarea {
@@ -157,19 +157,19 @@ h2 {
 }
 
 .words {
-    background: #fff;
     box-shadow: 2px 2px rgba(0, 0, 0, 0.1);
     margin-bottom: 15px;
     padding: 10px;
-    border-top: 0.5px solid #000000b0;
-    border-bottom: 0.5px solid #000000b0;
     background-color: #fff;
     border: 1px solid #e0e0e0;
     border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+
 .words:hover {
-    transform: scale(2px);
+    transform: scale(1.001);
+    box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.050);
 }
 
 .words li {
@@ -261,7 +261,8 @@ ul {
     border-radius: 10px;
     border-top: 4px solid #cc0000;
     border-bottom: 4px solid #cc0000;
-    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.4),
+        -2px 0 8px rgba(0, 0, 0, 0.4);
 }
 
 /* Ana header container: 3 bölüm yatay */

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Words - Karikatür Temalı</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/header2.css">
+    <link rel="stylesheet" href="/styles/dictionary.css">
+
+
+
+</head>
+
+<body>
+
+
+    <header>
+
+        <div class="header-left">
+            <a href="/" class="logo">
+                <img src="/logo.png" alt="WordMashup Logo">
+            </a>
+        </div>
+
+
+        <nav class="header-center">
+            <ul>
+                <li><a href="/words">Words</a></li>
+                <li><a href="/dictionary">Dictionary</a></li>
+                <li><a href="/card-quiz">Card Quiz</a></li>
+            </ul>
+        </nav>
+
+        <div class="header-right">
+
+            <button id="theme-toggle" aria-label="Toggle dark/light theme">
+                <span class="icon"></span>
+            </button>
+
+            <div class="user-box">
+                <i class="fa-solid fa-user"></i>
+            </div>
+        </div>
+
+    </header>
+
+
+
+
+
+    <section class="dictionary-management-section">
+        <div class="dictionary-container">
+
+            <!-- Form -->
+            <form class="dictionary-search-box">
+                <input type="text" id="wordInput" name="text" class="dictionary-input" placeholder="Kelimeyi girin..."
+                    required>
+                <button type="submit" id="searchBtn" class="dictionary-search-btn">Ara</button>
+            </form>
+
+            <!-- Sonuç placeholder -->
+
+            <div class="dictionary-result-placeholder centered">
+                <p>Henüz bir kelime aranmadı.</p>
+            </div>
+
+        </div>
+    </section>
+
+
+
+
+
+
+
+    <script src="/scripts/dictionary.js"></script>
+</body>
+
+</html>
