@@ -6,6 +6,7 @@ const session = require('express-session');
 const authRoutes = require('./routes/authRoutes');
 const wordRoutes = require('./routes/wordRoutes');
 const dictionaryRoutes = require('./routes/dictionaryRoutes');
+const cardquizRoutes = require('./routes/cardquizRoutes');
 
 
 
@@ -32,6 +33,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.use('/', authRoutes);
 app.use('/words', wordRoutes);
 app.use('/dictionary', dictionaryRoutes);
+app.use('/cardquiz', cardquizRoutes);
 
 
 

@@ -6,25 +6,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Words - Karikatür Temalı</title>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
+
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/styles/header2.css">
-    <link rel="stylesheet" href="/styles/dictionarystyle.css">
 </head>
+
+<style>
+    .placeholder-section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 70vh;
+        text-align: center;
+        font-family: 'Nunito', sans-serif;
+        font-size: 20px;
+        color: #333;
+        padding: 20px;
+        margin-top: 40px;
+        /* header’dan biraz boşluk */
+    }
+</style>
 
 <body>
 
     <header>
-
         <div class="header-left">
             <a href="/" class="logo">
                 <img src="/logo.png" alt="WordMashup Logo">
             </a>
         </div>
-
 
         <nav class="header-center">
             <ul>
@@ -39,27 +53,12 @@
                 <i class="fa-solid fa-user"></i>
             </div>
         </div>
-
     </header>
 
-    <section class="dictionary-management-section">
-        <div class="dictionary-container">
-
-            <!-- Form -->
-            <form class="dictionary-search-box">
-                <input type="text" id="wordInput" name="text" class="dictionary-input" placeholder="Kelimeyi girin..."
-                    required>
-                <button type="submit" id="searchBtn" class="dictionary-search-btn">Ara</button>
-            </form>
-
-            <div class="dictionary-result-placeholder centered">
-                <p>Henüz bir kelime aranmadı.</p>
-            </div>
-
-        </div>
+    <section class="placeholder-section">
+        <p>Bu bölüm üzerinde çalışmalar devam ediyor. Yakında aktif olacak 🚀</p>
     </section>
 
-    <script src="/scripts/dictionary.js"></script>
 </body>
 
 </html>

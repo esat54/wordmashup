@@ -12,12 +12,6 @@ body {
     background-size: 15px 15px; 
 }
 
-
-
-
-
-/* header styles */
-
 header {
     position: fixed;
     top: 0;
@@ -74,13 +68,7 @@ header {
     display: flex;
     align-items: center;
     gap: 16px;
-}
-
-#theme-toggle {
-    border: none;
-    cursor: pointer;
-    padding: 6px;
-    background-color: violet;
+    margin-left: 20px;
 }
 
 .user-box i {

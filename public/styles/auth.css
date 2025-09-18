@@ -31,10 +31,9 @@ body {
 }
 
 /* Sol taraftaki resim */
-/* Resmi yukarı-aşağı hareket ettirme animasyonu */
 @keyframes float {
   0% { transform: translateY(0px); }
-  50% { transform: translateY(-5px); } /* sadece 5px yukarı */
+  50% { transform: translateY(-5px); }
   100% { transform: translateY(0px); }
 }
 
@@ -42,7 +41,7 @@ body {
   width: 350px;
   max-width: 100%;
   margin-right: 50px;
-  animation: float 6s ease-in-out infinite; /* daha yavaş */
+  animation: float 6s ease-in-out infinite; 
 }
 
 /* Sağ taraftaki auth box */
@@ -62,7 +61,6 @@ body {
   backdrop-filter: blur(1.5px);
 }
 
-/* Login ve Register kutuları */
 .form-box {
   display: none;
   width: 100%;
@@ -89,7 +87,6 @@ h2 {
   margin-top: -70px;
 }
 
-/* Ortak form stilleri */
 label {
   display: block;
   margin: 10px 0 5px;
@@ -112,7 +109,6 @@ label {
   box-shadow: 0 0 4px rgba(204, 0, 0, 0.4);
 }
 
-/* Ortak buton */
 .auth-btn {
   width: 100%;
   padding: 12px;
@@ -131,7 +127,6 @@ label {
   background: #a50000;
 }
 
-/* Toggle link */
 .toggle-text {
   text-align: center;
   margin-top: 15px;

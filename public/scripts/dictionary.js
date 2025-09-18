@@ -34,8 +34,7 @@ document.querySelector(".dictionary-search-box").addEventListener("submit", asyn
             placeholder.innerHTML = `<p>Kelime bulunamadı.</p>`;
             return;
         }
-
-        // Sonuç geldiğinde ortalama sınıfını kaldır
+        
         placeholder.classList.remove("centered");
 
         let html = `
