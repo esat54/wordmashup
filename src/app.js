@@ -16,12 +16,25 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Oturum yönetimini kurun (kullanıcı girişi için gerekli)
 app.use(session({
     secret: 'hidden-key',
     resave: false,
     saveUninitialized: false
 }));
+
+// session'dan user bilgisini tüm view'lara aktar
+app.use((req, res, next) => {
+    if (req.session.userId) {
+        res.locals.user = {
+            id: req.session.userId,
+            username: req.session.username,
+            createdDate: req.session.createdDate
+        };
+    } else {
+        res.locals.user = null;
+    }
+    next();
+});
 
 
 app.use(express.static(path.join(__dirname, '..', 'public')));
@@ -34,6 +47,19 @@ app.use('/', authRoutes);
 app.use('/words', wordRoutes);
 app.use('/dictionary', dictionaryRoutes);
 app.use('/cardquiz', cardquizRoutes);
+
+
+app.post('/logout', (req, res) => {
+    const redirectTo = req.get('referer') || '/'; // Önceki sayfaya yönlendirir
+    req.session.destroy(err => {
+        if (err) {
+            console.error('Logout error:', err);
+            return res.redirect('/'); 
+        }
+        res.clearCookie('connect.sid'); 
+        res.redirect(redirectTo);
+    });
+});
 
 
 

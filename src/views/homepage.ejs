@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ana Sayfa</title>
+    <title>WordMashup</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
@@ -14,14 +14,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Caveat&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="/styles/homestyle.css">
-    <link rel="stylesheet" href="/styles/header.css">
+    <link rel="stylesheet" href="/styles/header2.css">
 
 </head>
 
-<body>
+<body class="homepage">
 
 
     <header>
+        <button class="hamburger" id="hamburgerMenu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
 
         <div class="header-left">
             <a href="/" class="logo">
@@ -29,7 +34,7 @@
             </a>
         </div>
 
-        <nav class="header-center">
+        <nav class="header-center" id="navMenu">
             <ul>
                 <li><a href="/words">Words</a></li>
                 <li><a href="/dictionary">Dictionary</a></li>
@@ -38,11 +43,28 @@
         </nav>
 
         <div class="header-right">
-            <div class="user-box">
-                <i class="fa-solid fa-user"></i>
-            </div>
-        </div>
+            <% if (user) { %>
+                <div class="user-box">
+                    <i class="fa-solid fa-user" id="userIcon"></i>
+                    <div class="user-dropdown" id="userDropdown">
+                        <p class="username">
+                            <%= user.username %>
+                        </p>
+                        <p class="created">
+                            Oluşturma Tarihi:
+                            <%= user && user.createdDate ? new Date(user.createdDate).toLocaleDateString("tr-TR") : "-"
+                                %>
+                        </p>
 
+                        <form action="/logout" method="POST">
+                            <button type="submit" class="logout-btn">Çıkış Yap</button>
+                        </form>
+                    </div>
+                </div>
+                <% } else { %>
+                    <a href="/login" class="login-btn">Giriş Yap</a>
+                    <% } %>
+        </div>
     </header>
 
     <main>
@@ -56,44 +78,34 @@
         </div>
 
 
-        <div class="words">
+        <div class="word-container">
+            <img src="shape3.png" class="background-shape" alt="Arka plan şekli">
 
-            <div class="word-container">
+            <div class="word-text-content">
+                <h1>Kendi Kelime Dünyanı Oluştur</h1>
 
-                <img src="shape3.png" class="background-shape" alt="Arka plan şekli">
+                <p class="word-altbaslik">Her gün 10 yeni kelime ekle, eklediğin kelimeleri listede görebilir ve
+                    gelişimini takip edebilirsin
+                </p>
 
-                <div class="word-text-content">
-                    <h1>Kendi Kelime Dünyanı Oluştur</h1>
+                <p class="word-text">Kelime eklemek sadece birkaç saniye sürer. Başlamak için aşağıdaki butona
+                    tıkla.
+                </p>
 
-                    <p class="word-altbaslik">Her gün 10 yeni kelime ekle, onları kartlarla çalış ve ilerlemeni takvimde
-                        takip et.
-                    </p>
+                <button class="word-button" onclick="window.location.href='/words'">
+                    Kelime Eklemeye Başla
+                </button>
 
-                    <p class="word-text">Kelime eklemek sadece birkaç saniye sürer. Başlamak için aşağıdaki butona
-                        tıkla.
-                    </p>
+            </div>
 
-                    <button class="word-button" onclick="window.location.href='/words'">
-                        Kelime Eklemeye Başla
-                    </button>
-
-                </div>
-
-                <div class="image-content">
-                    <img src="https://placehold.co/600x400/e9ecef/2c3e50?text=Kelime+Dünyanız"
-                        alt="Kelime öğrenme uygulaması görseli">
-                </div>
-
+            <div class="image-content">
+                <img src="/logo.png">
             </div>
         </div>
 
-
-
-
-
     </main>
 
-
+    <script src="/scripts/icon.js" defer></script>
 </body>
 
 </html>

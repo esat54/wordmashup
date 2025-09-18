@@ -19,7 +19,6 @@ exports.getWords = (req, res) => {
 };
 
 
-
 exports.postLogin = async (req, res) => {
   try {
     const { username, password } = req.body;
@@ -40,6 +39,10 @@ exports.postLogin = async (req, res) => {
     }
 
     req.session.userId = user.userId; 
+    req.session.username = user.username;
+    req.session.createdDate = user.usercreateddate; 
+
+
     console.log("Kullanıcı giriş yaptı:", user.username, user.userId);
 
     res.redirect('/');

@@ -25,6 +25,11 @@
 
 
     <header>
+        <button class="hamburger" id="hamburgerMenu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
 
         <div class="header-left">
             <a href="/" class="logo">
@@ -32,8 +37,7 @@
             </a>
         </div>
 
-
-        <nav class="header-center">
+        <nav class="header-center" id="navMenu">
             <ul>
                 <li><a href="/words">Words</a></li>
                 <li><a href="/dictionary">Dictionary</a></li>
@@ -42,11 +46,28 @@
         </nav>
 
         <div class="header-right">
-            <div class="user-box">
-                <i class="fa-solid fa-user"></i>
-            </div>
-        </div>
+            <% if (user) { %>
+                <div class="user-box">
+                    <i class="fa-solid fa-user" id="userIcon"></i>
+                    <div class="user-dropdown" id="userDropdown">
+                        <p class="username">
+                            <%= user.username %>
+                        </p>
+                        <p class="created">
+                            Oluşturma Tarihi:
+                            <%= user && user.createdDate ? new Date(user.createdDate).toLocaleDateString("tr-TR") : "-"
+                                %>
+                        </p>
 
+                        <form action="/logout" method="POST">
+                            <button type="submit" class="logout-btn">Çıkış Yap</button>
+                        </form>
+                    </div>
+                </div>
+                <% } else { %>
+                    <a href="/login" class="login-btn">Giriş Yap</a>
+                    <% } %>
+        </div>
     </header>
 
 
@@ -56,7 +77,7 @@
         <div class="word-add-content">
             <h2>Kelime Ekle</h2>
 
-            <form action="/words" method="POST">
+            <form action="/words" method="POST"> <!-- kelime ekleme formu-->
                 <label for="word">Kelime Adı</label>
                 <input type="text" id="word" name="word" class="form-input">
 
@@ -72,9 +93,10 @@
         </div>
 
         <!-- Eklenen kelimeler -->
-        <div class="word-list-content">
+        <div class="word-list-content"> <!-- eklenen kelimeler ilk form-->
 
             <h2>Eklenen Kelimeler</h2>
+
             <div class="placeholder">
                 <% if (words && words.length> 0) { %>
 
@@ -87,14 +109,20 @@
                                         <p>
                                             <%= i.word %> - <%= i.meaning %>
                                         </p>
-
-                                        <form action="/words/deleteWord/<%= i.wordId %>" method="POST"
-                                            class="delete-form">
-                                            <button type="submit" class="delete-btn"> <i class="fa fa-trash">
-                                                </i></button>
-                                        </form>
+                                        <div class="word-actions">
+                                            <form action="/words/toggleFavorite/<%= i.wordId %>" method="POST"
+                                                class="favorite-form">
+                                                <button type="submit" class="favorite-btn">
+                                                    <i class="<%= i.isfavorite ? 'fas fa-star' : 'far fa-star' %>"></i>
+                                                </button>
+                                            </form>
+                                            <form action="/words/deleteWord/<%= i.wordId %>" method="POST"
+                                                class="delete-form">
+                                                <button type="submit" class="delete-btn"> <i
+                                                        class="fa fa-trash"></i></button>
+                                            </form>
+                                        </div>
                                     </div>
-
                                     <% if (i.wordnotes) { %>
                                         <p class="note">
                                             <%= i.wordnotes %>
@@ -112,53 +140,50 @@
             </div>
 
         </div>
-
     </section>
 
 
-
-
     <section class="word-management-section">
-
-
         <div class="wordlist-container">
-
             <div class="wordheadermenu">
                 <div class="word-header-left">
-                    <button class="allwords-btn">Tüm kelimeler</button>
-                    <button class="favoritewords-btn">Favori kelimeler</button>
+                    <!-- Data attributes ile filtreleme bilgisini taşıyoruz -->
+                    <button class="allwords-btn active" data-filter="all">Tüm kelimeler</button>
+                    <button class="favoritewords-btn" data-filter="favorites">Favori kelimeler</button>
                 </div>
-
                 <div class="word-header-center">
                     <input type="date" class="date-picker">
                 </div>
-
                 <div class="word-header-right">
                     <input type="text" class="search-word-input" placeholder="Kelime ara...">
                     <button class="search-btn">Ara</button>
                 </div>
             </div>
-
             <div class="kelimelist">
                 <% if (words && words.length> 0) { %>
-
-                    <ul>
+                    <ul id="word-list">
                         <% words.forEach(i=> { %>
-
-                            <div class="words">
+                            <div class="words" data-is-favorite="<%= i.isfavorite %>">
                                 <li>
                                     <div class="word-info">
                                         <p>
                                             <%= i.word %> - <%= i.meaning %>
                                         </p>
-
+                                        <!-- Favori butonu ve ikon -->
+                                        <form action="/words/toggleFavorite/<%= i.wordId %>" method="POST"
+                                            class="favorite-form">
+                                            <button type="submit" class="favorite-btn">
+                                                <i class="<%= i.isfavorite ? 'fas fa-star' : 'far fa-star' %>"></i>
+                                            </button>
+                                        </form>
+                                        <!-- Silme butonu -->
                                         <form action="/words/deleteWord/<%= i.wordId %>" method="POST"
                                             class="delete-form">
-                                            <button type="submit" class="delete-btn"> <i class="fa fa-trash">
-                                                </i></button>
+                                            <button type="submit" class="delete-btn">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
                                         </form>
                                     </div>
-
                                     <% if (i.wordnotes) { %>
                                         <p class="note">
                                             <%= i.wordnotes %>
@@ -166,21 +191,18 @@
                                         <% } %>
                                 </li>
                             </div>
-
                             <% }); %>
                     </ul>
-
                     <% } else { %>
-                        <p>Henüz kelime eklenmedi. </p>
+                        <p>Henüz kelime eklenmedi.</p>
                         <% } %>
             </div>
-
         </div>
-
     </section>
 
 
-
+    <script src="/scripts/icon.js" defer></script>
+    <script src="/scripts/word.js" defer></script>
 </body>
 
 </html>

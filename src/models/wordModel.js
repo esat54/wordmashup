@@ -33,10 +33,32 @@ export async function getTodayWordCount(userId) {
 
 
 export async function deleteWord(wordId, userId) {
-  return await prisma.word.deleteMany({
-    where: {
-      wordId: parseInt(wordId), // wordId'yi integer'a dönüştürmeyi unutma
-      userId: userId, // Güvenlik için kullanıcının kendi kelimesini sildiğinden emin ol
-    },
-  });
+    return await prisma.word.deleteMany({
+        where: {
+            wordId: parseInt(wordId), // wordId'yi integer'a dönüştürmeyi unutma
+            userId: userId, // Güvenlik için kullanıcının kendi kelimesini sildiğinden emin ol
+        },
+    });
+}
+
+export async function toggleFavorite(wordId, userId) {
+    const word = await prisma.word.findFirst({
+        where: {
+            wordId: parseInt(wordId),
+            userId: userId,
+        },
+    });
+
+    if (!word) {
+        throw new Error('Kelime bulunamadı veya yetkiniz yok.');
+    }
+
+    return await prisma.word.update({
+        where: {
+            wordId: parseInt(wordId),
+        },
+        data: {
+            isfavorite: !word.isfavorite, // isfavorite değerini tersine çevir
+        },
+    });
 }

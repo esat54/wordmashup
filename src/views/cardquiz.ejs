@@ -4,43 +4,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Words - Karikatür Temalı</title>
+    <title>Card Quiz</title>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-
-
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/styles/header2.css">
+
+
 </head>
 
-<style>
-    .placeholder-section {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 70vh;
-        text-align: center;
-        font-family: 'Nunito', sans-serif;
-        font-size: 20px;
-        color: #333;
-        padding: 20px;
-        margin-top: 40px;
-        /* header’dan biraz boşluk */
-    }
-</style>
-
 <body>
-
     <header>
+        <button class="hamburger" id="hamburgerMenu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
         <div class="header-left">
             <a href="/" class="logo">
                 <img src="/logo.png" alt="WordMashup Logo">
             </a>
         </div>
 
-        <nav class="header-center">
+        <nav class="header-center" id="navMenu">
             <ul>
                 <li><a href="/words">Words</a></li>
                 <li><a href="/dictionary">Dictionary</a></li>
@@ -49,16 +36,37 @@
         </nav>
 
         <div class="header-right">
-            <div class="user-box">
-                <i class="fa-solid fa-user"></i>
-            </div>
+            <% if (user) { %>
+                <div class="user-box">
+                    <i class="fa-solid fa-user" id="userIcon"></i>
+                    <div class="user-dropdown" id="userDropdown">
+                        <p class="username">
+                            <%= user.username %>
+                        </p>
+                        <p class="created">
+                            Oluşturma Tarihi:
+                            <%= user && user.createdDate ? new Date(user.createdDate).toLocaleDateString("tr-TR") : "-"
+                                %>
+                        </p>
+
+                        <form action="/logout" method="POST">
+                            <button type="submit" class="logout-btn">Çıkış Yap</button>
+                        </form>
+                    </div>
+                </div>
+                <% } else { %>
+                    <a href="/login" class="login-btn">Giriş Yap</a>
+                    <% } %>
         </div>
     </header>
 
-    <section class="placeholder-section">
+
+    <section class="placeholder-section"
+        style="display:flex; justify-content:center; align-items:center; height:70vh; text-align:center; font-family:'Nunito', sans-serif; font-size:20px; color:#333; padding:20px; margin-top:100px;">
         <p>Bu bölüm üzerinde çalışmalar devam ediyor. Yakında aktif olacak 🚀</p>
     </section>
 
+    <script src="/scripts/icon.js" defer></script>
 </body>
 
 </html>

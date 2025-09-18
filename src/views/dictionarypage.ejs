@@ -7,7 +7,6 @@
     <title>Words - Karikatür Temalı</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
     <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
@@ -18,6 +17,11 @@
 <body>
 
     <header>
+        <button class="hamburger" id="hamburgerMenu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
 
         <div class="header-left">
             <a href="/" class="logo">
@@ -25,8 +29,7 @@
             </a>
         </div>
 
-
-        <nav class="header-center">
+        <nav class="header-center" id="navMenu">
             <ul>
                 <li><a href="/words">Words</a></li>
                 <li><a href="/dictionary">Dictionary</a></li>
@@ -35,11 +38,28 @@
         </nav>
 
         <div class="header-right">
-            <div class="user-box">
-                <i class="fa-solid fa-user"></i>
-            </div>
-        </div>
+            <% if (user) { %>
+                <div class="user-box">
+                    <i class="fa-solid fa-user" id="userIcon"></i>
+                    <div class="user-dropdown" id="userDropdown">
+                        <p class="username">
+                            <%= user.username %>
+                        </p>
+                        <p class="created">
+                            Oluşturma Tarihi:
+                            <%= user && user.createdDate ? new Date(user.createdDate).toLocaleDateString("tr-TR") : "-"
+                                %>
+                        </p>
 
+                        <form action="/logout" method="POST">
+                            <button type="submit" class="logout-btn">Çıkış Yap</button>
+                        </form>
+                    </div>
+                </div>
+                <% } else { %>
+                    <a href="/login" class="login-btn">Giriş Yap</a>
+                    <% } %>
+        </div>
     </header>
 
     <section class="dictionary-management-section">
@@ -60,6 +80,7 @@
     </section>
 
     <script src="/scripts/dictionary.js"></script>
+    <script src="/scripts/icon.js" defer></script>
 </body>
 
 </html>

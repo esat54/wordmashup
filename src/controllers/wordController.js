@@ -69,3 +69,24 @@ exports.deleteWords = async (req, res) => {
         res.status(500).send('Sunucu hatası');
     }
 };
+
+exports.toggleFavorite = async (req, res) => {
+    try {
+        const userId = req.session.userId;
+
+        if (!userId) {
+            return res.status(401).send('Giriş yapmalısınız.');
+        }
+
+        const { id } = req.params; 
+
+        await wordModel.toggleFavorite(id, userId);
+        console.log(`Kelime favori durumu değiştirildi: ${id}`);
+        
+        res.redirect('/words');
+
+    } catch (err) {
+        console.error("Favori durumu değiştirme hatası:", err);
+        res.status(500).send('Sunucu hatası');
+    }
+};

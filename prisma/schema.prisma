@@ -15,7 +15,6 @@ model User {
   userpassword    String
   usercreateddate DateTime @default(now())
 
-  // İlişki: Bir kullanıcıya ait birden fazla kelime olabilir.
   words           Word[]
 }
 

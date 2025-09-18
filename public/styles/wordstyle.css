@@ -309,6 +309,40 @@ ul {
     border-bottom: 2px solid #b8b8b8;
 }
 
+/* İkonları yan yana getirmek için yeni stil */
+.word-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    /* İkonlar arasında boşluk bırakır */
+}
+
+/* Favori butonu için stil */
+.favorite-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: #f7d20b;
+    /* Dolu yıldız için renk */
+    transition: transform 0.2s, color 0.2s;
+}
+
+.favorite-btn:hover {
+    transform: scale(1.1);
+}
+
+.favorite-btn .far.fa-star {
+    color: #999;
+    /* Boş yıldız için renk */
+}
+
+.favorite-form,
+.delete-form {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+}
 
 
 
@@ -688,6 +722,7 @@ ul {
     .words .note {
         font-size: 12px;
     }
+
     .wordheadermenu>* {
         max-width: 100%;
         box-sizing: border-box;
