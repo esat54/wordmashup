@@ -6,6 +6,4 @@ const dictionaryController = require('../controllers/dictionaryController');
 router.get('/', dictionaryController.getDictionary);
 router.post('/', dictionaryController.postDictionary);
 
-
-
 module.exports = router;

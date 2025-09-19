@@ -1,5 +1,18 @@
-node_modules
-# Keep environment variables out of version control
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json 
+
 .env
 
-/src/generated/prisma
+prisma/migrations/* 
+prisma/migration_lock.toml
+
+logs/
+*.log
+
+.DS_Store
+Thumbs.db
+
+.vscode/
+.idea/

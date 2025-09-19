@@ -7,7 +7,9 @@ exports.getHomepage = (req, res) => {
 };
 
 exports.getLogin = (req, res) => {
-  res.render('auth');
+  const message = req.session.message;
+  delete req.session.message; // sadece 1 kere görünür
+  res.render('auth', { message });
 };
 
 exports.getRegister = (req, res) => {
@@ -18,41 +20,42 @@ exports.getWords = (req, res) => {
   res.render('wordpage');
 };
 
-
 exports.postLogin = async (req, res) => {
   try {
     const { username, password } = req.body;
-    console.log( "Giriş denemesi", req.body); 
+    console.log("Giriş denemesi", req.body);
 
     if (!username || !password) {
-      return res.status(400).json({ message: "Lütfen tüm alanları doldurun" });
+      req.session.message = "Lütfen tüm alanları doldurun";
+      return res.redirect('/login');
     }
 
     const user = await authModel.findUserByUsername(username);
     if (!user) {
-      return res.status(401).json({ message: "Geçersiz kullanıcı adı veya şifre" });
+      req.session.message = "Geçersiz kullanıcı adı veya şifre.";
+      return res.redirect('/login');
     }
 
     const isMatch = await bcrypt.compare(password, user.userpassword);
     if (!isMatch) {
-      return res.status(401).json({ message: "Geçersiz kullanıcı adı veya şifre" });
+      req.session.message = "Geçersiz kullanıcı adı veya şifre.";
+      return res.redirect('/login');
     }
 
-    req.session.userId = user.userId; 
+    req.session.userId = user.userId;
     req.session.username = user.username;
-    req.session.createdDate = user.usercreateddate; 
-
+    req.session.createdDate = user.usercreateddate;
 
     console.log("Kullanıcı giriş yaptı:", user.username, user.userId);
 
     res.redirect('/');
 
   } catch (err) {
-    console.error("Login error:", err);
-    res.status(500).json({ message: "Sunucu hatası" });
+    req.session.message = "Sunucu hatası";
+    console.log(err)
+    return res.render('/login');
   }
 };
-
 
 exports.postRegister = async (req, res) => {
   try {
@@ -79,12 +82,15 @@ exports.postRegister = async (req, res) => {
 
     req.session.userId = newUser.userId;
 
-    console.log("Kullanıcı kaydedildi:", newUser .username, newUser.userId);
+    console.log("Kullanıcı kaydedildi:", newUser.username, newUser.userId);
 
-    res.redirect('/');
-    
+    req.session.message = "Kayıt başarılı! Şimdi giriş yapabilirsiniz.";
+    res.redirect('/login');
+
+
   } catch (err) {
-    console.error("Registration error:", err);
-    res.status(500).json({ message: "Sunucu hatası" });
+    req.session.message = "Sunucu hatası";
+    console.log(err)
+    return res.render('/login');
   }
 };

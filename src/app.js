@@ -8,8 +8,6 @@ const wordRoutes = require('./routes/wordRoutes');
 const dictionaryRoutes = require('./routes/dictionaryRoutes');
 const cardquizRoutes = require('./routes/cardquizRoutes');
 
-
-
 const app = express();
 
 app.use(cors());
@@ -50,14 +48,12 @@ app.use('/cardquiz', cardquizRoutes);
 
 
 app.post('/logout', (req, res) => {
-    const redirectTo = req.get('referer') || '/'; // Önceki sayfaya yönlendirir
     req.session.destroy(err => {
         if (err) {
-            console.error('Logout error:', err);
-            return res.redirect('/'); 
+            console.error("Session destroy error:", err);
+            return res.status(500).send("Çıkış yapılamadı.");
         }
-        res.clearCookie('connect.sid'); 
-        res.redirect(redirectTo);
+        res.redirect('/');         
     });
 });
 

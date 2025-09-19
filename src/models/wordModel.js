@@ -13,6 +13,24 @@ export async function getWordsByUserId(userId) {
     });
 }
 
+export async function getDailyWordsByUserId(userId) {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+
+    return await prisma.word.findMany({
+        where: {
+            userId: userId,
+            wordcreateddate: {
+                gte: today,
+                lt: tomorrow
+            }
+        },
+    });
+}
+
 export async function getTodayWordCount(userId) {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -31,14 +49,13 @@ export async function getTodayWordCount(userId) {
     });
 }
 
-
 export async function deleteWord(wordId, userId) {
-    return await prisma.word.deleteMany({
-        where: {
-            wordId: parseInt(wordId), // wordId'yi integer'a dönüştürmeyi unutma
-            userId: userId, // Güvenlik için kullanıcının kendi kelimesini sildiğinden emin ol
-        },
-    });
+  return await prisma.word.deleteMany({
+    where: {
+      wordId: parseInt(wordId),
+      userId: userId,
+    },
+  });
 }
 
 export async function toggleFavorite(wordId, userId) {
@@ -58,7 +75,7 @@ export async function toggleFavorite(wordId, userId) {
             wordId: parseInt(wordId),
         },
         data: {
-            isfavorite: !word.isfavorite, // isfavorite değerini tersine çevir
+            isfavorite: !word.isfavorite,
         },
     });
 }

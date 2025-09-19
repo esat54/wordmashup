@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Words - Karikatür Temalı</title>
+    <title>WordMashup</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
@@ -15,7 +15,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
 
     <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/styles/header2.css">
+    <link rel="stylesheet" href="/styles/pagestyle.css">
     <link rel="stylesheet" href="/styles/wordstyle.css">
 
 
@@ -33,7 +33,7 @@
 
         <div class="header-left">
             <a href="/" class="logo">
-                <img src="/logo.png" alt="WordMashup Logo">
+                <img src="/images/logo.png" alt="WordMashup Logo">
             </a>
         </div>
 
@@ -70,10 +70,9 @@
         </div>
     </header>
 
-
     <section class="container">
-        <!-- Kelime ekleme  -->
 
+        <!-- Kelime ekleme  -->
         <div class="word-add-content">
             <h2>Kelime Ekle</h2>
 
@@ -98,11 +97,9 @@
             <h2>Eklenen Kelimeler</h2>
 
             <div class="placeholder">
-                <% if (words && words.length> 0) { %>
-
-                    <ul>
-                        <% words.forEach(i=> { %>
-
+                <% if (dailyWords && dailyWords.length> 0) { %>
+                    <ul id="daily-words-list">
+                        <% dailyWords.forEach(i=> { %>
                             <div class="words">
                                 <li>
                                     <div class="word-info">
@@ -130,15 +127,12 @@
                                         <% } %>
                                 </li>
                             </div>
-
                             <% }); %>
                     </ul>
-
                     <% } else { %>
-                        <p>Henüz kelime eklenmedi. </p>
+                        <p>Henüz kelime eklenmedi.</p>
                         <% } %>
             </div>
-
         </div>
     </section>
 
@@ -147,9 +141,9 @@
         <div class="wordlist-container">
             <div class="wordheadermenu">
                 <div class="word-header-left">
-                    <!-- Data attributes ile filtreleme bilgisini taşıyoruz -->
-                    <button class="allwords-btn active" data-filter="all">Tüm kelimeler</button>
-                    <button class="favoritewords-btn" data-filter="favorites">Favori kelimeler</button>
+                    <button id="all-words-btn" class="allwords-btn active" data-filter="all">Tüm kelimeler</button>
+                    <button id="favorite-words-btn" class="favoritewords-btn" data-filter="favorites">Favori
+                        kelimeler</button>
                 </div>
                 <div class="word-header-center">
                     <input type="date" class="date-picker">
@@ -160,29 +154,29 @@
                 </div>
             </div>
             <div class="kelimelist">
-                <% if (words && words.length> 0) { %>
-                    <ul id="word-list">
-                        <% words.forEach(i=> { %>
-                            <div class="words" data-is-favorite="<%= i.isfavorite %>">
+                <% if (allWords && allWords.length> 0) { %>
+                    <ul id="all-words-list">
+                        <% allWords.forEach(i=> { %>
+                            <div class="words" data-is-favorite="<%= i.isfavorite %>"
+                                data-created-date="<%= i.wordcreateddate.toISOString().split('T')[0] %>">
                                 <li>
                                     <div class="word-info">
                                         <p>
                                             <%= i.word %> - <%= i.meaning %>
                                         </p>
-                                        <!-- Favori butonu ve ikon -->
-                                        <form action="/words/toggleFavorite/<%= i.wordId %>" method="POST"
-                                            class="favorite-form">
-                                            <button type="submit" class="favorite-btn">
-                                                <i class="<%= i.isfavorite ? 'fas fa-star' : 'far fa-star' %>"></i>
-                                            </button>
-                                        </form>
-                                        <!-- Silme butonu -->
-                                        <form action="/words/deleteWord/<%= i.wordId %>" method="POST"
-                                            class="delete-form">
-                                            <button type="submit" class="delete-btn">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
-                                        </form>
+                                        <div class="word-actions">
+                                            <form action="/words/toggleFavorite/<%= i.wordId %>" method="POST"
+                                                class="favorite-form">
+                                                <button type="submit" class="favorite-btn">
+                                                    <i class="<%= i.isfavorite ? 'fas fa-star' : 'far fa-star' %>"></i>
+                                                </button>
+                                            </form>
+                                            <form action="/words/deleteWord/<%= i.wordId %>" method="POST"
+                                                class="delete-form">
+                                                <button type="submit" class="delete-btn"> <i
+                                                        class="fa fa-trash"></i></button>
+                                            </form>
+                                        </div>
                                     </div>
                                     <% if (i.wordnotes) { %>
                                         <p class="note">
@@ -199,7 +193,6 @@
             </div>
         </div>
     </section>
-
 
     <script src="/scripts/icon.js" defer></script>
     <script src="/scripts/word.js" defer></script>

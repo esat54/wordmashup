@@ -1,0 +1,21 @@
+body { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Nunito', sans-serif; background-color: #fafafa; background-image: repeating-linear-gradient(to right, transparent 0, transparent 24px, #e0e0e0 24px, #e0e0e0 25px), repeating-linear-gradient(to bottom, transparent 0, transparent 24px, #e0e0e0 24px, #e0e0e0 25px); background-size: 25px 25px; }
+.container { display: flex; flex-direction: row; justify-content: center; align-items: center; gap: 100px; margin-top: 90px; color: #333; font-weight: 300; font-size: 14px; }
+@keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-5px); } 100% { transform: translateY(0px); } }
+.image-content img { width: 350px; max-width: 100%; margin-right: 50px; animation: float 6s ease-in-out infinite; }
+.auth-content { border-radius: 12px; border-top: 4px solid #cc0000; border-bottom: 4px solid #cc0000; padding: 30px 20px; width: 300px; min-height: 60vh; display: flex; justify-content: center; align-items: center; background-color: #f7f9fc; box-shadow: 2px 0 8px rgba(0, 0, 0, 0.4), -2px 0 8px rgba(0, 0, 0, 0.4); }
+.form-box { display: none; width: 100%; }
+.form-box.active { display: block; }
+h2 { margin-top: 0; text-align: center; padding: 10px; border-radius: 12px; background: linear-gradient(135deg, rgba(255, 255, 255, 0.309), rgba(220, 220, 220, 0.4)); backdrop-filter: blur(4px); border: 1px solid rgba(255, 255, 255, 0.4); box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.12), inset 1px 1px 3px rgba(255, 255, 255, 0.5); }
+.login-content { margin-top: -70px; }
+label { display: block; margin: 10px 0 5px; font-weight: bold; }
+.form-input { width: 90%; padding: 10px 12px; border-radius: 8px; border: 1px solid #ccc; font-size: 14px; outline: none; transition: border 0.2s, box-shadow 0.2s; background: #ffffffc0; }
+.form-input:focus { border-color: #cc0000; box-shadow: 0 0 4px rgba(204, 0, 0, 0.4); }
+.auth-btn { width: 100%; padding: 12px; border-radius: 8px; border: none; font-size: 15px; margin-top: 15px; font-weight: bold; background: #cc0000; color: #fff; cursor: pointer; transition: background 0.2s; }
+.auth-btn:hover { background: #a50000; }
+.toggle-text { text-align: center; margin-top: 15px; font-size: 13px; }
+.toggle-text a { color: #cc0000; font-weight: bold; text-decoration: none; }
+.toggle-text a:hover { text-decoration: underline; }
+.flash-message { background-color: #d1fae5; color: #065f46; padding: 10px; margin-bottom: 15px; border-radius: 8px; text-align: center; font-weight: 600; }
+@media screen and (max-width: 768px) { .container { flex-direction: column; gap: 50px; margin-top: 60px; padding: 0 20px; } .image-content { width: 100%; display: flex; justify-content: center; margin-right: 0; order: 1; padding-top: 20px; } .image-content img { width: 280px; margin-right: 0; } .auth-content { width: 90%; max-width: 400px; min-height: auto; order: 2; margin: 0 auto 40px auto; padding: 30px 25px; } .login-content { margin-top: 0; } h2 { font-size: 1.4rem; padding: 12px; margin: 0 0 20px 0; } .form-input { width: 92%; margin: 0 auto 15px auto; display: block; } label { margin-left: 4%; } .auth-btn { width: 96%; margin: 20px auto 0 auto; display: block; } .toggle-text { margin-top: 20px; } }
+@media screen and (max-width: 480px) { .container { margin-top: 50px; gap: 40px; padding: 0 15px; } .image-content img { width: 300px; margin-top: 50px; } .auth-content { width: 88%; padding: 25px 20px; margin-bottom: 30px; } h2 { font-size: 1.3rem; padding: 10px; margin-bottom: 18px; } .form-input { width: 91%; padding: 10px 12px; font-size: 14px; } .auth-btn { width: 95%; padding: 11px; font-size: 15px; } .toggle-text { font-size: 13px; margin-top: 18px; } }
+@media screen and (max-width: 360px) { .container { margin-top: 60px; gap: 35px; padding: 0 12px; } .image-content img { width: 220px; } .auth-content { width: 86%; padding: 22px 18px; margin-bottom: 25px; } h2 { font-size: 1.2rem; padding: 9px; margin-bottom: 16px; } .form-input { width: 90%; padding: 9px 11px; font-size: 13px; } label { margin-left: 5%; font-size: 13px; } .auth-btn { width: 94%; padding: 10px; font-size: 14px; } .toggle-text { font-size: 12px; margin-top: 16px; } }

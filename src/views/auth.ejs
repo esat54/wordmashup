@@ -4,9 +4,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WordMashup | Giriş & Kayıt</title>
+  <title>WordMashup</title>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/styles/auth.css">
+  <link rel="stylesheet" href="/styles/authstyle.css">
 </head>
 
 <body>
@@ -14,7 +14,7 @@
 
     <!-- Resim -->
     <div class="image-content">
-      <img src="/logo.png" alt="Illustration">
+      <img src="/images/logo.png">
     </div>
 
     <!--  Auth Form -->
@@ -25,9 +25,11 @@
         <div class="login-content">
           <h2 class="logintitle">Giriş Yap</h2>
 
+
           <form action="/login" method="POST">
             <label for="loginusername">Kullanıcı adı</label>
-            <input type="text" max="10" id="loginusername" name="username" class="form-input" placeholder="Kullanıcı adınızı girin">
+            <input type="text" max="10" id="loginusername" name="username" class="form-input"
+              placeholder="Kullanıcı adınızı girin">
 
             <label for="loginpassword">Şifre</label>
             <input type="password" id="loginpassword" name="password" class="form-input" placeholder="Şifrenizi girin">
@@ -36,10 +38,17 @@
 
             <p class="toggle-text">
               Hesabınız yok mu?
-              <a href="/register" onclick="event.preventDefault(); showRegister(); history.pushState(null, '', '/register');">Kayıt Ol</a>
+              <a href="/register"
+                onclick="event.preventDefault(); showRegister(); history.pushState(null, '', '/register');">Kayıt Ol</a>
             </p>
           </form>
-          
+
+          <% if (typeof message !=="undefined" && message) { %>
+            <div class="flash-message">
+              <%= message %>
+            </div>
+            <% } %>
+
         </div>
       </div>
 
@@ -48,9 +57,10 @@
 
         <h2>Kayıt Ol</h2>
 
-          <form action="/register" method="POST">
+        <form action="/register" method="POST">
           <label for="registerusername">Kullanıcı Adı</label>
-          <input type="text" id="registerusername" name="username" class="form-input" placeholder="Kullanıcı adınızı girin">
+          <input type="text" id="registerusername" name="username" class="form-input"
+            placeholder="Kullanıcı adınızı girin">
 
           <label for="registeremail">E-posta</label>
           <input type="email" id="registeremail" name="email" class="form-input" placeholder="E-posta adresinizi girin">
@@ -73,7 +83,6 @@
     </div>
   </div>
 
-  <!-- Script -->
   <script>
     function showRegister() {
       document.getElementById("loginForm").classList.remove("active");
@@ -102,7 +111,7 @@
     });
 
   </script>
-  
+
 </body>
 
 </html>
