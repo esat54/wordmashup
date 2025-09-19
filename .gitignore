@@ -1,18 +1,20 @@
+# Node modules
 node_modules/
-npm-debug.log
-yarn-error.log
-package-lock.json 
 
-.env
-
-prisma/migrations/* 
-prisma/migration_lock.toml
-
+# Log dosyaları
 logs/
 *.log
+npm-debug.log*
+yarn-error.log*
 
+# Env dosyası
+.env
+
+prisma/migrations/*/migration_lock.toml
+prisma/migrations/**/*.lock
+
+# IDE / OS dosyaları
 .DS_Store
 Thumbs.db
-
 .vscode/
 .idea/
