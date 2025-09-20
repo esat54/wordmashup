@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WordMashup</title>
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="icon" href="/images/favicon.png" type="image/png">
@@ -15,20 +14,17 @@
 </head>
 
 <body>
-
     <header>
         <button class="hamburger" id="hamburgerMenu">
             <span></span>
             <span></span>
             <span></span>
         </button>
-
         <div class="header-left">
             <a href="/" class="logo">
                 <img src="/images/logo.png" alt="WordMashup Logo">
             </a>
         </div>
-
         <nav class="header-center" id="navMenu">
             <ul>
                 <li><a href="/words">Words</a></li>
@@ -36,7 +32,6 @@
                 <li><a href="/cardquiz">Card Quiz</a></li>
             </ul>
         </nav>
-
         <div class="header-right">
             <% if (user) { %>
                 <div class="user-box">
@@ -50,7 +45,6 @@
                             <%= user && user.createdDate ? new Date(user.createdDate).toLocaleDateString("tr-TR") : "-"
                                 %>
                         </p>
-
                         <form action="/logout" method="POST">
                             <button type="submit" class="logout-btn">Çıkış Yap</button>
                         </form>
@@ -61,24 +55,18 @@
                     <% } %>
         </div>
     </header>
-
     <section class="dictionary-management-section">
         <div class="dictionary-container">
-
-            <!-- Form -->
             <form class="dictionary-search-box">
                 <input type="text" id="wordInput" name="text" class="dictionary-input" placeholder="Kelimeyi girin..."
                     required>
                 <button type="submit" id="searchBtn" class="dictionary-search-btn">Ara</button>
             </form>
-
             <div class="dictionary-result-placeholder centered">
                 <p>Henüz bir kelime aranmadı.</p>
             </div>
-
         </div>
     </section>
-
     <script src="/scripts/dictionary.js"></script>
     <script src="/scripts/icon.js" defer></script>
 </body>

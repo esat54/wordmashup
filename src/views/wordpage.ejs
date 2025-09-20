@@ -8,35 +8,24 @@
     <link rel="icon" href="/images/favicon.png" type="image/png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
-
     <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/styles/pagestyle.css">
     <link rel="stylesheet" href="/styles/wordstyle.css">
-
-
 </head>
 
 <body>
-
-
     <header>
         <button class="hamburger" id="hamburgerMenu">
             <span></span>
             <span></span>
             <span></span>
         </button>
-
         <div class="header-left">
             <a href="/" class="logo">
                 <img src="/images/logo.png" alt="WordMashup Logo">
             </a>
         </div>
-
         <nav class="header-center" id="navMenu">
             <ul>
                 <li><a href="/words">Words</a></li>
@@ -44,7 +33,6 @@
                 <li><a href="/cardquiz">Card Quiz</a></li>
             </ul>
         </nav>
-
         <div class="header-right">
             <% if (user) { %>
                 <div class="user-box">
@@ -58,7 +46,6 @@
                             <%= user && user.createdDate ? new Date(user.createdDate).toLocaleDateString("tr-TR") : "-"
                                 %>
                         </p>
-
                         <form action="/logout" method="POST">
                             <button type="submit" class="logout-btn">Çıkış Yap</button>
                         </form>
@@ -69,33 +56,21 @@
                     <% } %>
         </div>
     </header>
-
     <section class="container">
-
-        <!-- Kelime ekleme  -->
         <div class="word-add-content">
             <h2>Kelime Ekle</h2>
-
-            <form action="/words" method="POST"> <!-- kelime ekleme formu-->
+            <form action="/words" method="POST">
                 <label for="word">Kelime Adı</label>
                 <input type="text" id="word" name="word" class="form-input">
-
                 <label for="meaning">Kelime Anlamı</label>
                 <input type="text" id="meaning" name="meaning" class="form-input">
-
                 <label for="note">Not (Opsiyonel)</label>
                 <textarea id="note" name="note" class="form-textarea"></textarea>
-
                 <button type="submit" class="word-add-btn">Ekle</button>
             </form>
-
         </div>
-
-        <!-- Eklenen kelimeler -->
-        <div class="word-list-content"> <!-- eklenen kelimeler ilk form-->
-
+        <div class="word-list-content">
             <h2>Eklenen Kelimeler</h2>
-
             <div class="placeholder">
                 <% if (dailyWords && dailyWords.length> 0) { %>
                     <ul id="daily-words-list">
@@ -135,8 +110,6 @@
             </div>
         </div>
     </section>
-
-
     <section class="word-management-section">
         <div class="wordlist-container">
             <div class="wordheadermenu">
@@ -193,7 +166,6 @@
             </div>
         </div>
     </section>
-
     <script src="/scripts/icon.js" defer></script>
     <script src="/scripts/word.js" defer></script>
 </body>
