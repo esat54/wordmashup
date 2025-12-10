@@ -1,0 +1,96 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Base system colors */
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --radius: 0.5rem;
+    
+    /* Primary colors - Blue theme */
+    --primary: 217 91% 60%; /* #2563eb - Blue-600 */
+    --primary-foreground: 0 0% 100%; /* White text */
+    --primary-dark: 217 91% 50%; /* Darker blue */
+    --ring: 217 91% 60%; /* Blue focus ring */
+  }
+
+  .dark {
+    /* Dark theme base colors */
+    --background: 20 14.3% 4.1%;
+    --foreground: 0 0% 95%;
+    --card: 24 9.8% 10%;
+    --card-foreground: 0 0% 95%;
+    --popover: 0 0% 9%;
+    --popover-foreground: 0 0% 95%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 12 6.5% 15.1%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 85.7% 97.3%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    
+    /* Dark mode primary colors */
+    --primary: 217 91% 65%; /* Brighter blue */
+    --primary-foreground: 0 0% 100%; /* White text */
+    --primary-dark: 217 91% 55%; /* Medium blue */
+    --ring: 217 91% 65%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+
+/* Selection styles - blue theme */
+::selection {
+  background-color: #2563eb; /* blue-600 */
+  color: white;
+}
+
+/* Focus styles */
+:focus-visible {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 2px;
+}
+
+.bg-dot-grid {
+  background-image: radial-gradient(circle, rgba(0, 0, 0, 0.052) 1px, transparent 1px);
+  background-size: 16px 16px; /* nokta boşlukları */
+}
+
+/* Next.js development badge'ini gizle */
+div[data-next-badge="true"] {
+  display: none !important;
+}
