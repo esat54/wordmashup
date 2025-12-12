@@ -1,15 +1,40 @@
 require('dotenv').config();
 const express = require('express'); 
 const cors = require('cors'); 
-const morgan = require('morgan'); // Hata görmek için 
+const morgan = require('morgan');
 
+const connectDB = require('./config/db');
 const authRoutes = require('./routes/authRoutes');
+
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-app.use(cors({ origin: 'http://localhost:3000' }));
-app.use(morgan('dev')); // Sunucuya gelen her isteği terminale yazar
+connectDB().catch(err => {
+  console.error('Failed to connect to MongoDB:', err);
+  process.exit(1);
+});
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (!origin || origin.startsWith('http://localhost:') || origin.startsWith('http://127.0.0.1:')) {
+      callback(null, true);
+    } else {
+      callback(null, true);
+    }
+  },
+  credentials: true
+};
+app.use(cors(corsOptions));
+app.use(morgan('dev'));
 app.use(express.json());
+
+app.get('/api/health', (req, res) => {
+  res.status(200).json({ 
+    status: 'ok', 
+    message: 'Server is running',
+    timestamp: new Date().toISOString()
+  });
+});
 
 app.use('/api/auth', authRoutes);
 

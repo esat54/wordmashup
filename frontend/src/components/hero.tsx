@@ -1,13 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Play } from "lucide-react";
 
 export default function HeroArea() {
   return (
     <div className="relative min-h-[calc(100vh-5rem)] sm:min-h-[calc(100vh-4rem)] flex items-center pt-[calc(2.5rem+4px)] pb-8 sm:pt-14 sm:pb-12">
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 w-full text-center">
-        {/* Main Heading */}
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -22,7 +20,6 @@ export default function HeroArea() {
           {" "}ve kelimeleri hafızana yerleştir
         </motion.h1>
 
-        {/* Description */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -32,7 +29,6 @@ export default function HeroArea() {
           Her kelime için kişisel örnekler ekle, akıllı tekrar sistemiyle doğru zamanda tekrar gör ve bilgiyi kalıcı hâle getir.
         </motion.p>
 
-        {/* CTA Buttons */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -40,11 +36,10 @@ export default function HeroArea() {
           className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12 sm:mb-16"
         >
           <button className="inline-flex items-center justify-center px-6 py-3 text-base font-semibold text-white bg-gray-900 hover:bg-gray-800 rounded-lg transition-colors">
-            6 ay ücretsiz dene
+            Ücretsiz Dene
           </button>
           <button className="inline-flex items-center justify-center px-6 py-3 text-base font-semibold text-blue-600 bg-white hover:bg-gray-50 rounded-lg border-2 border-gray-300 transition-colors">
-            <Play className="w-5 h-5 mr-2 fill-blue-600" />
-            Video izle
+            Kayıt Ol
           </button>
         </motion.div>
       </div>

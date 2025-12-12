@@ -5,12 +5,14 @@ import { useState } from "react";
 import Link from "next/link";
 import { Mail, Lock, Eye, EyeOff, ArrowRight } from "lucide-react";
 import Image from "next/image";
+import { authApi } from "@/lib/api";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
 
   const validateForm = () => {
@@ -30,21 +32,31 @@ export default function LoginPage() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (validateForm()) {
-      // Login logic here
-      console.log("Login:", { email, password, rememberMe });
+    if (!validateForm()) return;
+
+    setIsLoading(true);
+    try {
+      const response = await authApi.login({ email, password }) as any;
+      
+      if (response.user) {
+        localStorage.setItem('user', JSON.stringify(response.user));
+      }
+      
+      window.location.href = "/dashboard";
+    } catch (error: any) {
+      setErrors({ email: error.message || "Giriş başarısız oldu" });
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
     <div className="min-h-screen bg-white flex">
 
-      {/* Left Side - Login Form */}
       <div className="flex-1 flex flex-col justify-center px-4 sm:px-6 lg:px-8 py-12 sm:px-16">
         <div className="mx-auto w-full max-w-sm">
-          {/* Logo */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -58,7 +70,6 @@ export default function LoginPage() {
             </Link>
           </motion.div>
 
-          {/* Heading */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -79,9 +90,7 @@ export default function LoginPage() {
             </p>
           </motion.div>
 
-          {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Email Input */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -118,7 +127,6 @@ export default function LoginPage() {
               )}
             </motion.div>
 
-            {/* Password Input */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -164,7 +172,6 @@ export default function LoginPage() {
               )}
             </motion.div>
 
-            {/* Remember Me & Forgot Password */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -188,7 +195,6 @@ export default function LoginPage() {
               </Link>
             </motion.div>
 
-            {/* Submit Button */}
             <motion.button
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -196,17 +202,17 @@ export default function LoginPage() {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               type="submit"
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-blue-600/30"
+              disabled={isLoading}
+              className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 disabled:cursor-not-allowed text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-blue-600/30"
             >
-              Giriş Yap
-              <ArrowRight className="h-5 w-5" />
+              {isLoading ? "Giriş yapılıyor..." : "Giriş Yap"}
+              {!isLoading && <ArrowRight className="h-5 w-5" />}
             </motion.button>
 
           </form>
         </div>
       </div>
 
-      {/* Right Side - Image (Hidden on mobile) */}
       <div className="hidden lg:block relative w-0 lg:flex-1">
         <div className="absolute inset-0">
           <Image

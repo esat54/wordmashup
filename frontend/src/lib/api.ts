@@ -1,24 +1,39 @@
 const API_BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:3001";
 
 async function apiRequest<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
-    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
-        headers: {
-            "Content-Type": "application/json",
-            ...options.headers,
-        },
-        ...options,
-    });
+    try {
+        const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+            headers: {
+                "Content-Type": "application/json",
+                ...options.headers,
+            },
+            ...options,
+        });
 
-    const data = await response.json();
+        if (!response) {
+            throw new Error("Backend sunucusuna bağlanılamıyor. Lütfen backend sunucusunun çalıştığından emin olun.");
+        }
 
-    if (!response.ok) {
-        throw new Error(data.message || data.error || "Bir hata oluştu");
+        let data;
+        try {
+            data = await response.json();
+        } catch (parseError) {
+            throw new Error("Sunucudan geçersiz yanıt alındı.");
+        }
+
+        if (!response.ok) {
+            throw new Error(data.message || data.error || "Bir hata oluştu");
+        }
+
+        return data;
+    } catch (error: any) {
+        if (error.message === "Failed to fetch" || error.name === "TypeError") {
+            throw new Error("Backend sunucusuna bağlanılamıyor. Lütfen backend sunucusunun çalıştığından emin olun.");
+        }
+        throw error;
     }
-
-    return data;
 }
 
-// Auth endpoints
 export const authApi = {
     
     register: (data: { name: string; email: string; password: string }) =>

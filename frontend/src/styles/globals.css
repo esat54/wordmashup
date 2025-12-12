@@ -4,7 +4,6 @@
 
 @layer base {
   :root {
-    /* Base system colors */
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
@@ -23,15 +22,13 @@
     --input: 240 5.9% 90%;
     --radius: 0.5rem;
     
-    /* Primary colors - Blue theme */
-    --primary: 217 91% 60%; /* #2563eb - Blue-600 */
-    --primary-foreground: 0 0% 100%; /* White text */
-    --primary-dark: 217 91% 50%; /* Darker blue */
-    --ring: 217 91% 60%; /* Blue focus ring */
+    --primary: 217 91% 60%;
+    --primary-foreground: 0 0% 100%;
+    --primary-dark: 217 91% 50%;
+    --ring: 217 91% 60%;
   }
 
   .dark {
-    /* Dark theme base colors */
     --background: 20 14.3% 4.1%;
     --foreground: 0 0% 95%;
     --card: 24 9.8% 10%;
@@ -49,10 +46,9 @@
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
     
-    /* Dark mode primary colors */
-    --primary: 217 91% 65%; /* Brighter blue */
-    --primary-foreground: 0 0% 100%; /* White text */
-    --primary-dark: 217 91% 55%; /* Medium blue */
+    --primary: 217 91% 65%;
+    --primary-foreground: 0 0% 100%;
+    --primary-dark: 217 91% 55%;
     --ring: 217 91% 65%;
   }
 }
@@ -72,14 +68,11 @@
   }
 }
 
-
-/* Selection styles - blue theme */
 ::selection {
-  background-color: #2563eb; /* blue-600 */
+  background-color: #2563eb;
   color: white;
 }
 
-/* Focus styles */
 :focus-visible {
   outline: 2px solid hsl(var(--ring));
   outline-offset: 2px;
@@ -87,10 +80,9 @@
 
 .bg-dot-grid {
   background-image: radial-gradient(circle, rgba(0, 0, 0, 0.06) 1px, transparent 1px);
-  background-size: 16px 16px; /* nokta boşlukları */
+  background-size: 16px 16px;
 }
 
-/* Next.js development badge'ini gizle */
 div[data-next-badge="true"] {
   display: none !important;
 }

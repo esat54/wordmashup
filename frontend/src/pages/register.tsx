@@ -49,11 +49,17 @@ export default function RegisterPage() {
     if (!validateForm()) return;
 
     setIsLoading(true);
+    setErrors({});
     try {
       await authApi.register({ name, email, password });
       window.location.href = "/login";
     } catch (error: any) {
-      setErrors({ email: error.message || "Kayıt başarısız oldu" });
+      const errorMessage = error.message || "Kayıt başarısız oldu";
+      if (errorMessage.toLowerCase().includes("e-posta") || errorMessage.toLowerCase().includes("email")) {
+        setErrors({ email: errorMessage });
+      } else {
+        setErrors({ email: errorMessage });
+      }
     } finally {
       setIsLoading(false);
     }
@@ -61,10 +67,8 @@ export default function RegisterPage() {
 
   return (
     <div className="min-h-screen bg-white flex">
-      {/* Left Side - Register Form */}
       <div className="flex-1 flex flex-col justify-center px-4 sm:px-6 lg:px-8 py-8 sm:px-16">
         <div className="mx-auto w-full max-w-sm">
-          {/* Logo */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -78,7 +82,6 @@ export default function RegisterPage() {
             </Link>
           </motion.div>
 
-          {/* Heading */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -99,9 +102,7 @@ export default function RegisterPage() {
             </p>
           </motion.div>
 
-          {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-4">
-            {/* Name Input */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -138,7 +139,6 @@ export default function RegisterPage() {
               )}
             </motion.div>
 
-            {/* Email Input */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -175,7 +175,6 @@ export default function RegisterPage() {
               )}
             </motion.div>
 
-            {/* Password Input */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -224,7 +223,6 @@ export default function RegisterPage() {
               )}
             </motion.div>
 
-            {/* Submit Button */}
             <motion.button
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -242,7 +240,6 @@ export default function RegisterPage() {
         </div>
       </div>
 
-      {/* Right Side - Image (Hidden on mobile) */}
       <div className="hidden lg:block relative w-0 lg:flex-1">
         <div className="absolute inset-0">
           <Image

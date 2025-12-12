@@ -6,12 +6,10 @@ export default function Home() {
     <>
       <div className="min-h-screen bg-white relative">
 
-        {/* Background image only at top */}
         <div
           className="absolute top-0 left-0 w-full h-screen bg-dot-grid bg-white"
         ></div>
 
-        {/* Gradient overlay to fade out the image */}
         <div
           className="absolute top-0 left-0 w-full h-screen"
           style={{
