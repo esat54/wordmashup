@@ -3,11 +3,13 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { Mail, Lock, Eye, EyeOff, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { authApi } from "@/lib/api";
 
 export default function LoginPage() {
+  const router = useRouter(); {/* Dashboard yönlendirmesi için*/ }
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -37,15 +39,42 @@ export default function LoginPage() {
     if (!validateForm()) return;
 
     setIsLoading(true);
+    setErrors({});
+    
     try {
       const response = await authApi.login({ email, password }) as any;
-      
-      if (response.user) {
+
+      if (!response) {
+        setErrors({ email: "Sunucudan yanıt alınamadı" });
+        return;
+      }
+
+      const hasUser = response.user !== undefined && response.user !== null;
+      let tokenValue = response.token;
+
+
+      if (!tokenValue && response.user && response.user.email) {
+        tokenValue = response.user.email;
+        console.log("Token not in response, using user.email as token:", tokenValue);
+      }
+
+      const hasToken = tokenValue !== undefined && tokenValue !== null && tokenValue !== "";
+
+      if (hasUser) {
         localStorage.setItem('user', JSON.stringify(response.user));
       }
-      
-      window.location.href = "/dashboard";
+
+      if (hasToken) {
+        localStorage.setItem('token', tokenValue);
+      }
+
+      if (hasUser && hasToken) {
+        router.push("/dashboard");
+      } else {
+        setErrors({ email: "Giriş başarılı ancak veriler kaydedilemedi" });
+      }
     } catch (error: any) {
+      console.error("Login error:", error);
       setErrors({ email: error.message || "Giriş başarısız oldu" });
     } finally {
       setIsLoading(false);
@@ -57,6 +86,7 @@ export default function LoginPage() {
 
       <div className="flex-1 flex flex-col justify-center px-4 sm:px-6 lg:px-8 py-12 sm:px-16">
         <div className="mx-auto w-full max-w-sm">
+
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -91,7 +121,11 @@ export default function LoginPage() {
           </motion.div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
-            <motion.div
+
+
+
+
+            <motion.div           // email alanı
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
@@ -111,23 +145,22 @@ export default function LoginPage() {
                   id="email"
                   type="email"
                   value={email}
-                  onChange={(e) => { setEmail(e.target.value);
-
+                  onChange={(e) => {
+                    setEmail(e.target.value);
                     if (errors.email) setErrors({ ...errors, email: undefined });
                   }}
-                  className={`block w-full pl-10 pr-3 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all ${errors.email
-                      ? "border-red-300 bg-red-50"
-                      : "border-gray-300 bg-white hover:border-gray-400"
-                    }`}
+                  className={`block w-full pl-10 pr-3 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all 
+                    ${errors.email ? "border-red-300 bg-red-50" : "border-gray-300 bg-white hover:border-gray-400"}`}
                   placeholder="ornek@email.com"
                 />
               </div>
-              {errors.email && (
-                <p className="mt-1 text-sm text-red-600">{errors.email}</p>
-              )}
+              {errors.email && (<p className="mt-1 text-sm text-red-600">{errors.email}</p>)}
             </motion.div>
 
-            <motion.div
+
+
+
+            <motion.div       // şifre alanı
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
@@ -146,13 +179,12 @@ export default function LoginPage() {
                   id="password"
                   type={showPassword ? "text" : "password"}
                   value={password}
-                  onChange={(e) => { setPassword(e.target.value);
-                  if (errors.password) setErrors({ ...errors, password: undefined });
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                    if (errors.password) setErrors({ ...errors, password: undefined });
                   }}
-                  className={`block w-full pl-10 pr-12 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all ${errors.password
-                      ? "border-red-300 bg-red-50"
-                      : "border-gray-300 bg-white hover:border-gray-400"
-                    }`}
+                  className={`block w-full pl-10 pr-12 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all 
+                    ${errors.password ? "border-red-300 bg-red-50" : "border-gray-300 bg-white hover:border-gray-400"}`}
                   placeholder="••••••••"
                 />
                 <button
@@ -160,19 +192,16 @@ export default function LoginPage() {
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 transition-colors"
                 >
-                  {showPassword ? (
-                    <EyeOff className="h-5 w-5" />
-                  ) : (
-                    <Eye className="h-5 w-5" />
-                  )}
+                  {showPassword ? (<EyeOff className="h-5 w-5" />) : (<Eye className="h-5 w-5" />)}
                 </button>
               </div>
-              {errors.password && (
-                <p className="mt-1 text-sm text-red-600">{errors.password}</p>
-              )}
+              {errors.password && (<p className="mt-1 text-sm text-red-600">{errors.password}</p>)}
             </motion.div>
 
-            <motion.div
+
+
+
+            <motion.div          // Beni hatırla ve Şifremi unuttum
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.4 }}
@@ -195,12 +224,12 @@ export default function LoginPage() {
               </Link>
             </motion.div>
 
-            <motion.button
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
+
+
+            <motion.button     // Giriş yap butonu
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.5 }}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
               type="submit"
               disabled={isLoading}
               className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 disabled:cursor-not-allowed text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-blue-600/30"
