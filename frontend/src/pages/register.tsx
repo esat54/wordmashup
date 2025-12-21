@@ -13,6 +13,7 @@ export default function RegisterPage() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   const [errors, setErrors] = useState<{
     name?: string;
     email?: string;
@@ -49,10 +50,14 @@ export default function RegisterPage() {
     if (!validateForm()) return;
 
     setIsLoading(true);
+    setIsSuccess(false);
     setErrors({});
     try {
       await authApi.register({ name, email, password });
-      window.location.href = "/login";
+      setIsSuccess(true);
+      setTimeout(() => {
+        window.location.href = "/login";
+      }, 3000);
     } catch (error: any) {
       const errorMessage = error.message || "Kayıt başarısız oldu";
       if (errorMessage.toLowerCase().includes("e-posta") || errorMessage.toLowerCase().includes("email")) {
@@ -126,11 +131,8 @@ export default function RegisterPage() {
                     setName(e.target.value);
                     if (errors.name) setErrors({ ...errors, name: undefined });
                   }}
-                  className={`block w-full pl-10 pr-3 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all ${
-                    errors.name
-                      ? "border-red-300 bg-red-50"
-                      : "border-gray-300 bg-white hover:border-gray-400"
-                  }`}
+                  className={`block w-full pl-10 pr-3 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all 
+                    ${errors.name ? "border-red-300 bg-red-50" : "border-gray-300 bg-white hover:border-gray-400"}`}
                   placeholder="Tam adınızı giriniz"
                 />
               </div>
@@ -162,11 +164,8 @@ export default function RegisterPage() {
                     setEmail(e.target.value);
                     if (errors.email) setErrors({ ...errors, email: undefined });
                   }}
-                  className={`block w-full pl-10 pr-3 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all ${
-                    errors.email
-                      ? "border-red-300 bg-red-50"
-                      : "border-gray-300 bg-white hover:border-gray-400"
-                  }`}
+                  className={`block w-full pl-10 pr-3 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all ${errors.email
+                    ? "border-red-300 bg-red-50" : "border-gray-300 bg-white hover:border-gray-400"}`}
                   placeholder="ornek@email.com"
                 />
               </div>
@@ -199,11 +198,8 @@ export default function RegisterPage() {
                     if (errors.password)
                       setErrors({ ...errors, password: undefined });
                   }}
-                  className={`block w-full pl-10 pr-12 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all ${
-                    errors.password
-                      ? "border-red-300 bg-red-50"
-                      : "border-gray-300 bg-white hover:border-gray-400"
-                  }`}
+                  className={`block w-full pl-10 pr-12 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all ${errors.password
+                    ? "border-red-300 bg-red-50" : "border-gray-300 bg-white hover:border-gray-400"}`}
                   placeholder="••••••••"
                 />
                 <button
@@ -212,10 +208,7 @@ export default function RegisterPage() {
                   className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 transition-colors"
                 >
                   {showPassword ? (
-                    <EyeOff className="h-5 w-5" />
-                  ) : (
-                    <Eye className="h-5 w-5" />
-                  )}
+                    <EyeOff className="h-5 w-5" />) : (<Eye className="h-5 w-5" />)}
                 </button>
               </div>
               {errors.password && (
@@ -230,11 +223,11 @@ export default function RegisterPage() {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               type="submit"
-              disabled={isLoading}
+              disabled={isLoading || isSuccess}
               className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 disabled:cursor-not-allowed text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-blue-600/30"
             >
-              {isLoading ? "Kaydediliyor..." : "Kayıt Ol"}
-              {!isLoading && <ArrowRight className="h-5 w-5" />}
+              {isLoading
+                ? "Kaydediliyor..." : isSuccess ? "Kayıt başarılı, giriş sayfasına yönlendiriliyorsunuz" : "Kayıt Ol"}
             </motion.button>
           </form>
         </div>
