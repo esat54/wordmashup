@@ -40,41 +40,26 @@ export default function LoginPage() {
 
     setIsLoading(true);
     setErrors({});
-    
+
     try {
       const response = await authApi.login({ email, password }) as any;
 
-      if (!response) {
-        setErrors({ email: "Sunucudan yanıt alınamadı" });
-        return;
-      }
+      if (response && response.token) {
+        localStorage.setItem('token', response.token);
 
-      const hasUser = response.user !== undefined && response.user !== null;
-      let tokenValue = response.token;
+        if (response.user) {
+          localStorage.setItem('user', JSON.stringify(response.user));
+        }
 
-
-      if (!tokenValue && response.user && response.user.email) {
-        tokenValue = response.user.email;
-        console.log("Token not in response, using user.email as token:", tokenValue);
-      }
-
-      const hasToken = tokenValue !== undefined && tokenValue !== null && tokenValue !== "";
-
-      if (hasUser) {
-        localStorage.setItem('user', JSON.stringify(response.user));
-      }
-
-      if (hasToken) {
-        localStorage.setItem('token', tokenValue);
-      }
-
-      if (hasUser && hasToken) {
         router.push("/dashboard");
+
       } else {
-        setErrors({ email: "Giriş başarılı ancak veriler kaydedilemedi" });
+        console.error("Login yanıtında token yok:", response);
+        setErrors({ email: "Giriş işlemi sırasında beklenmedik bir hata oluştu." });
       }
+
     } catch (error: any) {
-      console.error("Login error:", error);
+      console.error("Login hatası:", error);
       setErrors({ email: error.message || "Giriş başarısız oldu" });
     } finally {
       setIsLoading(false);
