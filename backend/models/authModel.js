@@ -17,6 +17,14 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         minlength: 6
+    },
+    lastActivityDate: {
+        type: Date,
+        default: null
+    },
+    streakCount: {
+        type: Number,
+        default: 0
     }
 }, {
     timestamps: true
@@ -43,4 +51,33 @@ exports.findUserByEmail = async (email) => {
 
 exports.findUserById = async (id) => {
     return await User.findById(id);
+};
+
+exports.updateUserActivity = async (userId) => {
+    const user = await User.findById(userId);
+    if (!user) return null;
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    
+    const lastActivity = user.lastActivityDate ? new Date(user.lastActivityDate) : null;
+    if (lastActivity) {
+        lastActivity.setHours(0, 0, 0, 0);
+    }
+
+    const daysDiff = lastActivity 
+        ? Math.floor((today.getTime() - lastActivity.getTime()) / (1000 * 60 * 60 * 24))
+        : 999;
+
+    if (daysDiff === 0) {
+        return user;
+    } else if (daysDiff === 1) {
+        user.streakCount += 1;
+    } else {
+        user.streakCount = 1;
+    }
+
+    user.lastActivityDate = today;
+    await user.save();
+    return user;
 };
