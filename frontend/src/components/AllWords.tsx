@@ -1,6 +1,8 @@
 "use client";
 
-import { Trash2, Star, Search } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Trash2, Star, Search, Loader2, X, Volume2 } from "lucide-react";
+import { wordsApi } from "../lib/api";
 
 const wordTypes = [
   { value: "", label: "Tümü" },
@@ -15,10 +17,89 @@ const wordTypes = [
 ];
 
 export default function AllWords() {
+  const [totalWords, setTotalWords] = useState<number>(0);
+  const [words, setWords] = useState<any[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [message, setMessage] = useState<string>("");
+
+  useEffect(() => {
+    loadData();
+  }, []);
+
+  const loadData = async () => {
+    try {
+      setLoading(true);
+      const wordsResponse = await wordsApi.getWords();
+      const wordsData = wordsResponse as any[];
+
+      setTimeout(() => {
+        setWords(wordsData);
+        setTotalWords(wordsData.length);
+        setLoading(false);
+      }, 300);
+    } catch (error: any) {
+      console.error("Veri yükleme hatası:", error);
+      setLoading(false);
+    }
+  };
+
+  const toggleFavorite = async (wordId: string) => {
+    wordsApi.addtoFavorites(wordId);
+    const yeniListem = words.map(w =>
+      w._id === wordId ? { ...w, favorite: !w.favorite } : w
+    );
+    setWords(yeniListem);
+  };
+
+  const removeWord = async (wordId: string) => {
+    if (!window.confirm("Bu kelimeyi silmek istediğinize emin misiniz?")) return;
+
+    try {
+      const response = await wordsApi.deleteWord(wordId) as any;
+      setMessage(response.message);
+
+      // Mesajı 3 saniye sonra temizle
+      setTimeout(() => setMessage(""), 3000);
+
+      setWords(prevWords => prevWords.filter(word => word._id !== wordId));
+      setTotalWords(prev => prev - 1);
+    } catch (error: any) {
+      console.error("Silme hatası:", error);
+      setMessage(error.message || "Silme işlemi sırasında bir hata oluştu");
+      setTimeout(() => setMessage(""), 3000);
+    }
+  };
+
+  const speak = (text: string) => {
+    if (!window.speechSynthesis) {
+      alert("Tarayıcınız seslendirme özelliğini desteklemiyor.");
+      return;
+    }
+    window.speechSynthesis.cancel();
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = "en-US";
+
+    utterance.rate = 0.7;
+    utterance.pitch = 1;
+
+    window.speechSynthesis.speak(utterance);
+  };
+
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+    <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 relative">
+
+      {/* mesaj kutusu */}
+      {message && (
+        <div className="fixed top-5 right-5 z-[9999] flex items-center gap-2 bg-gray-800 text-white px-4 py-3 rounded-lg shadow-2xl border border-gray-700 transition-all">
+          <span className="text-sm font-medium">{message}</span>
+          <button onClick={() => setMessage("")} className="hover:text-gray-400">
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+      )}
+
       <div className="flex flex-col md:flex-row gap-4 mb-6">
-        
         <div className="flex-1 relative">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
           <input
@@ -49,23 +130,70 @@ export default function AllWords() {
           {[10, 20, 50].map((limit) => (
             <button
               key={limit}
-              className={`px-3 py-1 text-sm rounded ${
-                limit === 20
-                  ? "bg-blue-600 text-white"
-                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-              }`}
+              className={`px-3 py-1 text-sm rounded ${limit === 20
+                ? "bg-blue-600 text-white"
+                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                }`}
             >
               {limit}
             </button>
           ))}
         </div>
         <div className="text-sm text-gray-600">
-          Toplam: 0 kelime
+          Toplam: {totalWords} kelime
         </div>
       </div>
 
-      <div className="text-center py-12 text-gray-600">Kelime bulunamadı</div>
+      {loading ? (
+        <div className="flex justify-center items-center py-12">
+          <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
+          <span className="ml-2 text-gray-600">Kelimeler yükleniyor...</span>
+        </div>
+      ) : words.length > 0 ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {words.map((word) => (
+            <div key={word._id} className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+              <div className="flex items-start justify-between mb-2">
+                <div>
+                  <h3 className="font-semibold text-gray-900">{word.text}</h3>
+                  <p className="text-sm text-gray-600">{word.translation}</p>
+                </div>
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => speak(word.text)}
+                    className="text-gray-400 hover:text-blue-500 transition-colors"
+                    title="Dinle"
+                  >
+                    <Volume2 className="w-5 h-5" />
+                  </button>
+
+                  <button onClick={() => toggleFavorite(word._id)}
+                    className="text-gray-400 hover:text-yellow-500 transition-colors"
+                  >
+                    <Star className={`w-5 h-5 ${word.favorite ? 'fill-current text-yellow-500' : 'text-gray-400'}`} />
+                  </button>
+
+                  <button
+                    onClick={() => removeWord(word._id)}
+                    className="text-gray-400 hover:text-red-500 transition-colors"
+                  >
+                    <Trash2 className="w-5 h-5" />
+                  </button>
+                </div>
+              </div>
+              <div className="text-xs text-gray-500 mb-2">
+                Tür: {wordTypes.find(type => type.value === word.type)?.label || word.type}
+              </div>
+              <div className="text-sm text-gray-700">
+                <p className="mb-1"><strong>Örnek:</strong> {word.exampleSentence}</p>
+                <p><strong>Çeviri:</strong> {word.sentenceTranslation}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className="text-center py-12 text-gray-600">Kelime bulunamadı</div>
+      )}
     </div>
   );
 }
-
