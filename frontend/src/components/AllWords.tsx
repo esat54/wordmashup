@@ -19,22 +19,22 @@ const wordTypes = [
 export default function AllWords() {
   const [totalWords, setTotalWords] = useState<number>(0);
   const [words, setWords] = useState<any[]>([]);
+  const [limit, setLimit] = useState<number>(20);
   const [loading, setLoading] = useState<boolean>(false);
   const [message, setMessage] = useState<string>("");
 
   useEffect(() => {
     loadData();
-  }, []);
+  }, [limit]);
 
   const loadData = async () => {
     try {
       setLoading(true);
-      const wordsResponse = await wordsApi.getWords();
-      const wordsData = wordsResponse as any[];
+      const response = await wordsApi.getWords(limit) as any;
 
       setTimeout(() => {
-        setWords(wordsData);
-        setTotalWords(wordsData.length);
+        setWords(response.words || []);
+        setTotalWords(response.totalCount || 0);
         setLoading(false);
       }, 300);
     } catch (error: any) {
@@ -124,22 +124,28 @@ export default function AllWords() {
         </select>
       </div>
 
-      <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center gap-2">
-          <span className="text-sm text-gray-600">Sayfa başına:</span>
-          {[10, 20, 50].map((limit) => (
-            <button
-              key={limit}
-              className={`px-3 py-1 text-sm rounded ${limit === 20
-                ? "bg-blue-600 text-white"
-                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                }`}
-            >
-              {limit}
-            </button>
-          ))}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 border-b border-gray-100 pb-4 sm:border-none sm:pb-0">
+
+        <div className="w-full sm:w-auto flex items-center justify-between bg-white border border-gray-200 rounded-lg px-3 py-2 sm:border-none sm:bg-transparent sm:p-0 sm:justify-start sm:gap-4">
+          <span className="text-xs sm:text-sm text-gray-500 font-medium">Sayfa başına:</span>
+          <div className="flex items-center gap-2">
+            {[10, 20, 50].map((item) => (
+              <button
+                key={item}
+                onClick={() => setLimit(item)}
+                className={`px-3 py-1.5 text-xs sm:text-sm rounded-lg font-medium transition-all ${limit === item
+                  ? "bg-blue-600 text-white shadow-sm ring-2 ring-blue-100"
+                  : "bg-gray-50 text-gray-600 border border-gray-200 hover:bg-gray-100"
+                  }`}
+              >
+                {item}
+              </button>
+            ))}
+          </div>
         </div>
-        <div className="text-sm text-gray-600">
+
+        <div className="w-full sm:w-auto flex items-center justify-center px-3 py-2.5 bg-gray-100 text-gray-700 rounded-lg text-xs sm:text-sm font-medium">
+          <span className="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>
           Toplam: {totalWords} kelime
         </div>
       </div>
@@ -149,7 +155,7 @@ export default function AllWords() {
           <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
           <span className="ml-2 text-gray-600">Kelimeler yükleniyor...</span>
         </div>
-      ) : words.length > 0 ? (
+      ) : words && words.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {words.map((word) => (
             <div key={word._id} className="bg-gray-50 rounded-lg p-4 border border-gray-200">
