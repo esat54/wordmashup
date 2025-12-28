@@ -4,7 +4,7 @@
   "description": "WordMashup Backend API",
   "main": "dist/server.js",
   "scripts": {
-    "dev": "node server.js",
+    "dev": "nodemon server.js",
     "start": "node server.js",
     "lint": "eslint . --ext .js"
   },
@@ -33,6 +33,7 @@
     "@typescript-eslint/eslint-plugin": "^6.15.0",
     "@typescript-eslint/parser": "^6.15.0",
     "eslint": "^8.56.0",
+    "nodemon": "^3.1.11",
     "tsx": "^4.7.0",
     "typescript": "^5.3.3"
   }
