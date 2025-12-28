@@ -3,13 +3,14 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/router";
-import { LogOut, Menu, X, Home, BookOpen, Settings, User, ChevronLeft, ChevronRight, BarChart3, FileText } from "lucide-react";
+import { LogOut, Menu, X, Home, BookOpen, Settings, User, ChevronLeft, ChevronRight, BarChart3, FileText, FileSearch } from "lucide-react";
 
 import WordsPage from "@/components/WordsPage";
 import StatsPage from "@/components/StatsPage";
 import SettingsPage from "@/components/SettingsPage";
 import CardsPage from "@/components/CardsPage";
 import DashboardHero from "@/components/DashboardHero";
+import DictionaryPage from "@/components/DictionaryPage";
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -51,6 +52,7 @@ export default function DashboardPage() {
   const menuItems = [
     { icon: Home, label: "Anasayfa", href: "home", active: currentPage === "home" },
     { icon: BookOpen, label: "Kelimelerim", href: "words", active: currentPage === "words" },
+    { icon: FileSearch, label: "Sözlük", href: "dictionary", active: currentPage === "dictionary" },
     { icon: FileText, label: "Kartlarım", href: "cards", active: currentPage === "cards" },
     { icon: BarChart3, label: "İstatistikler", href: "stats", active: currentPage === "stats" },
     { icon: Settings, label: "Ayarlar", href: "settings", active: currentPage === "settings" },
@@ -125,6 +127,7 @@ export default function DashboardPage() {
 
         <main className="flex-1 p-4 sm:p-6 lg:p-7 overflow-y-auto">     {/* Current Page Selector*/}
           {currentPage === "words" && <WordsPage />}
+          {currentPage === "dictionary" && <DictionaryPage />}
           {currentPage === "cards" && <CardsPage />}
           {currentPage === "stats" && <StatsPage />}
           {currentPage === "settings" && <SettingsPage user={user} />}
