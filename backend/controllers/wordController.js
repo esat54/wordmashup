@@ -2,8 +2,6 @@ const Word = require('../models/wordModel');
 
 exports.addWord = async (req, res) => {
     try {
-        console.log('Request body:', req.body);
-
         const { text, translation, exampleSentence, sentenceTranslation, type } = req.body;
 
         // Validation
@@ -11,15 +9,7 @@ exports.addWord = async (req, res) => {
             return res.status(400).json({ message: 'Tüm alanlar zorunludur' });
         }
 
-        const word = new Word({
-            text,
-            translation,
-            exampleSentence,
-            sentenceTranslation,
-            type,
-            addedBy: req.userId
-        });
-
+        const word = new Word({ text, translation, exampleSentence, sentenceTranslation, type, addedBy: req.userId });
         await word.save();
 
         res.status(201).json({
@@ -35,13 +25,61 @@ exports.addWord = async (req, res) => {
 
 exports.getWords = async (req, res) => {
     try {
-        const words = await Word.find({ addedBy: req.userId });
-        res.status(200).json(words);
+        const { limit = 20, type, favoriteFilter, search } = req.query;
+        const userId = req.userId;
+
+        let limitNum = 20;
+        if (typeof limit === 'string') {
+            const parsed = parseInt(limit, 10);
+            if (!isNaN(parsed) && parsed > 0) {
+                limitNum = parsed;
+            }
+        }
+
+        let filterConditions = [{ addedBy: userId }];
+
+        if (type && type !== "") {
+            filterConditions.push({ type: type });
+        }
+
+        if (favoriteFilter === "true") {
+            filterConditions.push({ favorite: true });
+        } else if (favoriteFilter === "false") {
+            filterConditions.push({ favorite: false });
+        }
+
+        if (search && search.toString().trim() !== "") {
+            const searchTerm = search.toString().trim();
+            filterConditions.push({
+                $or: [
+                    { text: { $regex: searchTerm, $options: "i" } },
+                    { translation: { $regex: searchTerm, $options: "i" } }
+                ]
+            });
+        }
+
+        const queryFilter = filterConditions.length > 1
+            ? { $and: filterConditions }
+            : filterConditions[0];
+
+        const words = await Word.find(queryFilter)
+            .sort({ createdAt: -1 })
+            .limit(limitNum);
+
+        const totalWords = await Word.countDocuments({ addedBy: userId });
+        const favoriteWords = await Word.countDocuments({ addedBy: userId, favorite: true });
+
+        res.status(200).json({
+            words,
+            totalWords,
+            favoriteWords
+        });
+
     } catch (error) {
-        console.error('Kelime getirme hatası:', error);
-        res.status(500).json({ message: 'Sunucu hatası' });
+        console.error("getWords error:", error);
+        res.status(500).json({ message: "Kelimeler getirilirken hata oluştu" });
     }
-}
+};
 
 
 exports.addtoFavorites = async (req, res) => {
