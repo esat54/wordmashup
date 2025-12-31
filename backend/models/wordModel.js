@@ -27,6 +27,10 @@ const wordSchema = new mongoose.Schema({
         enum: ['noun', 'verb', 'adjective', 'adverb', 'preposition', 'conjunction', 'pronoun', 'other'],
         trim: true
     },
+    isUnknown: {
+        type: Boolean,
+        default: false
+    },
     favorite: {
         type: Boolean,
         default: false

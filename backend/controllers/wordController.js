@@ -25,21 +25,18 @@ exports.addWord = async (req, res) => {
 
 exports.getWords = async (req, res) => {
     try {
-        const { limit = 20, type, favoriteFilter, search } = req.query;
+        const { limit = 20, type, favoriteFilter, unknownFilter, search } = req.query;
         const userId = req.userId;
 
         let limitNum = 20;
-        if (typeof limit === 'string') {
-            const parsed = parseInt(limit, 10);
-            if (!isNaN(parsed) && parsed > 0) {
-                limitNum = parsed;
-            }
+        if (!isNaN(parseInt(limit))) {
+            limitNum = parseInt(limit);
         }
 
-        let filterConditions = [{ addedBy: userId }];
+        const filterConditions = [{ addedBy: userId }];
 
         if (type && type !== "") {
-            filterConditions.push({ type: type });
+            filterConditions.push({ type });
         }
 
         if (favoriteFilter === "true") {
@@ -48,33 +45,36 @@ exports.getWords = async (req, res) => {
             filterConditions.push({ favorite: false });
         }
 
-        if (search && search.toString().trim() !== "") {
-            const searchTerm = search.toString().trim();
+        if (unknownFilter === "true") {
+            filterConditions.push({ isUnknown: true });
+        }
+
+        if (search && search.trim() !== "") {
             filterConditions.push({
                 $or: [
-                    { text: { $regex: searchTerm, $options: "i" } },
-                    { translation: { $regex: searchTerm, $options: "i" } }
-                ]
+                    { text: { $regex: search, $options: "i" } },
+                    { translation: { $regex: search, $options: "i" } },
+                ],
             });
         }
 
-        const queryFilter = filterConditions.length > 1
-            ? { $and: filterConditions }
-            : filterConditions[0];
+        const query =
+            filterConditions.length > 1 ? { $and: filterConditions } : filterConditions[0];
 
-        const words = await Word.find(queryFilter)
+        const words = await Word.find(query)
             .sort({ createdAt: -1 })
             .limit(limitNum);
 
         const totalWords = await Word.countDocuments({ addedBy: userId });
         const favoriteWords = await Word.countDocuments({ addedBy: userId, favorite: true });
+        const unknownWords = await Word.countDocuments({ addedBy: userId, isUnknown: true });
 
         res.status(200).json({
             words,
             totalWords,
-            favoriteWords
+            favoriteWords,
+            unknownWords,
         });
-
     } catch (error) {
         console.error("getWords error:", error);
         res.status(500).json({ message: "Kelimeler getirilirken hata oluştu" });
@@ -95,7 +95,30 @@ exports.addtoFavorites = async (req, res) => {
     } catch (error) {
         console.error('Kelime getirme hatası:', error);
     }
-}
+};
+
+
+exports.addtoUnknown = async (req, res) => {
+    try {
+        const { wordId } = req.params;
+
+        const word = await Word.findById(wordId);
+        if (!word) {
+            return res.status(404).json({ message: "Kelime bulunamadı" });
+        }
+
+        word.isUnknown = !word.isUnknown;
+        await word.save();
+
+        res.status(200).json({
+            isUnknown: word.isUnknown,
+            word,
+        });
+    } catch (error) {
+        console.error("Unknown toggle hatası:", error);
+        res.status(500).json({ message: "Bilinmeyen durumu değiştirilemedi" });
+    }
+};
 
 
 exports.deleteWord = async (req, res) => {

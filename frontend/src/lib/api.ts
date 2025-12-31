@@ -111,19 +111,29 @@ export const wordsApi = {
         });
     },
 
-    getWords: (params: { limit?: number; type?: string; favoriteFilter?: string; searchTerm?: string } = {}) => {
-        const { limit = 20, type = "", favoriteFilter = "", searchTerm = "" } = params;
-
-        return apiRequest(`/api/words?limit=${limit}&type=${type}&favoriteFilter=${favoriteFilter}&search=${searchTerm}`, {
-            method: "GET"
-        });
+    getWords: (params: {
+        limit?: number; type?: string; favoriteFilter?: string; unknownFilter?: string; searchTerm?: string;
+    } = {}) => {
+        const { limit = 20, type = "", favoriteFilter = "", unknownFilter = "", searchTerm = "", } = params;
+        return apiRequest(
+            `/api/words?limit=${limit}&type=${type}&favoriteFilter=${favoriteFilter}&unknownFilter=${unknownFilter}&search=${searchTerm}`,
+            { method: "GET" }
+        );
     },
+
 
     addtoFavorites: (wordId: string) => {
         return apiRequest(`/api/words/${wordId}/favorite`, {
             method: "POST",
         });
     },
+
+    addtoUnknown: (wordId: string) => {
+        return apiRequest(`/api/words/${wordId}/unknown`, {
+            method: "POST",
+        });
+    },
+
 
     deleteWord: (wordId: string) => {
         return apiRequest(`/api/words/${wordId}`, {
