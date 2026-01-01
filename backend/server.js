@@ -7,6 +7,8 @@ const connectDB = require('./config/db');
 const authRoutes = require('./routes/authRoutes');
 const wordRoutes = require('./routes/wordRoutes');
 const dictionaryRoutes = require("./routes/dictionaryRoutes");
+const oxfordRoutes = require("./routes/oxfordRoutes");
+const grammarRoutes = require("./routes/grammarRoutes");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -41,5 +43,7 @@ app.get('/api/health', (req, res) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/words', wordRoutes);
 app.use("/api/dictionary", dictionaryRoutes);
+app.use("/api/oxford", oxfordRoutes);
+app.use("/api/grammar", grammarRoutes);
 
 app.listen(PORT, () => console.log(`Server running on ${PORT}`));
