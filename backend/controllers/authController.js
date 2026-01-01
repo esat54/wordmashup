@@ -179,3 +179,49 @@ exports.getUserInfo = async (req, res) => {
         });
     }
 };
+
+exports.deleteAccount = async (req, res) => {
+    const { password } = req.body;
+    const userId = req.userId;
+
+    try {
+        if (!password) {
+            return res.status(400).json({
+                error: 'Validation error',
+                message: 'Şifre gereklidir'
+            });
+        }
+
+        const user = await authModel.findUserById(userId);
+        if (!user) {
+            return res.status(404).json({
+                error: 'Not found',
+                message: 'Kullanıcı bulunamadı'
+            });
+        }
+
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+        if (!isPasswordValid) {
+            return res.status(401).json({
+                error: 'Invalid credentials',
+                message: 'Şifre hatalı'
+            });
+        }
+
+        const Word = require('../models/wordModel');
+
+        await Word.deleteMany({ addedBy: userId });
+        await authModel.deleteUser(userId);
+
+        res.status(200).json({
+            success: true,
+            message: 'Hesap başarıyla silindi'
+        });
+    } catch (error) {
+        console.error('Delete account error:', error);
+        res.status(500).json({
+            error: 'Internal server error',
+            message: 'Hesap silinirken bir hata oluştu'
+        });
+    }
+};

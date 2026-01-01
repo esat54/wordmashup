@@ -81,3 +81,7 @@ exports.updateUserActivity = async (userId) => {
     await user.save();
     return user;
 };
+
+exports.deleteUser = async (userId) => {
+    return await User.findByIdAndDelete(userId);
+};
