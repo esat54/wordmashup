@@ -3,14 +3,15 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/router";
-import { LogOut, Menu, X, Home, BookOpen, Settings, User, ChevronLeft, ChevronRight, BarChart3, FileText, FileSearch } from "lucide-react";
+import { LogOut, Menu, X, Home, BookOpen, Settings, User, ChevronLeft, ChevronRight, BarChart3, FileText, FileSearch, FileMinus } from "lucide-react";
 
 import WordsPage from "@/components/WordsPage";
-import StatsPage from "@/components/StatsPage";
 import SettingsPage from "@/components/SettingsPage";
-import CardsPage from "@/components/CardsPage";
 import DashboardHero from "@/components/DashboardHero";
 import DictionaryPage from "@/components/DictionaryPage";
+import GramerPage from "@/components/GramerPage";
+import OxfordListPage from "@/components/OxfordListPage";
+import GrammarDetailPage from "@/components/GrammarDetailPage";
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -18,6 +19,7 @@ export default function DashboardPage() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState("home");
+  const [grammarDetailId, setGrammarDetailId] = useState<string | null>(null);
 
   useEffect(() => {  // Validation 
     const userData = localStorage.getItem("user");
@@ -34,6 +36,7 @@ export default function DashboardPage() {
       handleLogout();
     }
   }, [router]);
+
 
   const handleLogout = () => {
     localStorage.removeItem("user");
@@ -52,9 +55,9 @@ export default function DashboardPage() {
   const menuItems = [
     { icon: Home, label: "Anasayfa", href: "home", active: currentPage === "home" },
     { icon: BookOpen, label: "Kelimelerim", href: "words", active: currentPage === "words" },
+    { icon: FileText, label: "Oxford Liste", href: "oxford", active: currentPage === "oxford" },
     { icon: FileSearch, label: "Sözlük", href: "dictionary", active: currentPage === "dictionary" },
-    { icon: FileText, label: "Kartlarım", href: "cards", active: currentPage === "cards" },
-    { icon: BarChart3, label: "İstatistikler", href: "stats", active: currentPage === "stats" },
+    { icon: FileMinus, label: "Gramer", href: "grammer", active: currentPage === "grammer" },
     { icon: Settings, label: "Ayarlar", href: "settings", active: currentPage === "settings" },
   ];
 
@@ -86,6 +89,9 @@ export default function DashboardPage() {
                   setCurrentPage(page);
                   setMobileMenuOpen(false);
                 }}
+                grammarDetailId={grammarDetailId}
+                setGrammarDetailId={setGrammarDetailId}
+                setCurrentPage={setCurrentPage}
               />
             </motion.div>
           </>
@@ -100,11 +106,14 @@ export default function DashboardPage() {
           sidebarOpen={sidebarOpen}
           onToggle={() => setSidebarOpen(!sidebarOpen)}
           onPageChange={setCurrentPage}
+          grammarDetailId={grammarDetailId}
+          setGrammarDetailId={setGrammarDetailId}
+          setCurrentPage={setCurrentPage}
         />
       </aside>  {/* Sidebar */}
 
       <div className="flex-1 flex flex-col min-w-0">
-        <header className="bg-white border-b border-gray-200 sticky top-0 z-30">   {/* Header */}
+        <header className="bg-white border-b border-gray-200 sticky top-0 z-30 ">   {/* Header */}
           <div className="px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between lg:justify-end">
             <button onClick={() => setMobileMenuOpen(true)} className="lg:hidden p-2 rounded-lg text-gray-600 hover:bg-gray-100">
               <Menu className="w-6 h-6" />
@@ -128,8 +137,23 @@ export default function DashboardPage() {
         <main className="flex-1 p-4 sm:p-6 lg:p-7 overflow-y-auto">     {/* Current Page Selector*/}
           {currentPage === "words" && <WordsPage />}
           {currentPage === "dictionary" && <DictionaryPage />}
-          {currentPage === "cards" && <CardsPage />}
-          {currentPage === "stats" && <StatsPage />}
+          {currentPage === "grammer" && !grammarDetailId && <GramerPage onGrammarClick={(id, slug) => {
+            setGrammarDetailId(id);
+            setCurrentPage("grammar-detail");
+            const newUrl = `/dashboard/${slug}`;
+            window.history.pushState({}, '', newUrl);
+          }} />}
+          {((currentPage === "grammar-detail" && grammarDetailId) || (currentPage === "grammer" && grammarDetailId)) && (
+            <GrammarDetailPage
+              grammarId={grammarDetailId}
+              onBack={() => {
+                setGrammarDetailId(null);
+                setCurrentPage("grammer");
+                window.history.pushState({}, '', '/dashboard');
+              }}
+            />
+          )}
+          {currentPage === "oxford" && <OxfordListPage />}
           {currentPage === "settings" && <SettingsPage user={user} />}
           {currentPage === "home" && <DashboardHero user={user} />}
         </main>
@@ -146,6 +170,9 @@ function SidebarContent({
   onToggle,
   onClose,
   onPageChange,
+  grammarDetailId,
+  setGrammarDetailId,
+  setCurrentPage,
 }: {
   user: { name: string; email: string };
   menuItems: Array<{ icon: any; label: string; href: string; active?: boolean }>;
@@ -154,6 +181,9 @@ function SidebarContent({
   onToggle?: () => void;
   onClose?: () => void;
   onPageChange?: (page: string) => void;
+  grammarDetailId?: string | null;
+  setGrammarDetailId?: (id: string | null) => void;
+  setCurrentPage?: (page: string) => void;
 }) {
   return (
     <div className="h-full flex flex-col bg-white overflow-hidden">
@@ -208,7 +238,15 @@ function SidebarContent({
             return (
               <li key={index}>
                 <button
-                  onClick={() => onPageChange && onPageChange(item.href)}
+                  onClick={() => {
+                    if (item.href === "grammer" && grammarDetailId && setGrammarDetailId && setCurrentPage) {
+                      setGrammarDetailId(null);
+                      setCurrentPage("grammer");
+                      window.history.pushState({}, '', '/dashboard');
+                    } else {
+                      onPageChange && onPageChange(item.href);
+                    }
+                  }}
                   className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors ${item.active
                     ? "bg-blue-50 text-blue-600 font-medium"
                     : "text-gray-700 hover:bg-gray-100"
