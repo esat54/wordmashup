@@ -9,7 +9,7 @@ import Image from "next/image";
 import { authApi } from "@/lib/api";
 
 export default function LoginPage() {
-  const router = useRouter(); {/* Dashboard yönlendirmesi için*/ }
+  const router = useRouter(); 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -69,7 +69,7 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen bg-white flex">
 
-      <div className="flex-1 flex flex-col justify-center px-4 sm:px-6 lg:px-8 py-12 sm:px-16">
+      <div className="flex-1 flex flex-col justify-center px-4 lg:px-8 py-12 sm:px-16">
         <div className="mx-auto w-full max-w-sm">
 
           <motion.div
@@ -107,9 +107,6 @@ export default function LoginPage() {
 
           <form onSubmit={handleSubmit} className="space-y-6">
 
-
-
-
             <motion.div           // email alanı
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -141,9 +138,6 @@ export default function LoginPage() {
               </div>
               {errors.email && (<p className="mt-1 text-sm text-red-600">{errors.email}</p>)}
             </motion.div>
-
-
-
 
             <motion.div       // şifre alanı
               initial={{ opacity: 0, x: -20 }}
@@ -183,9 +177,6 @@ export default function LoginPage() {
               {errors.password && (<p className="mt-1 text-sm text-red-600">{errors.password}</p>)}
             </motion.div>
 
-
-
-
             <motion.div          // Beni hatırla ve Şifremi unuttum
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -208,8 +199,6 @@ export default function LoginPage() {
                 Şifremi unuttum
               </Link>
             </motion.div>
-
-
 
             <motion.button     // Giriş yap butonu
               initial={{ opacity: 0 }}

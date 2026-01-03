@@ -72,7 +72,7 @@ export default function RegisterPage() {
 
   return (
     <div className="min-h-screen bg-white flex">
-      <div className="flex-1 flex flex-col justify-center px-4 sm:px-6 lg:px-8 py-8 sm:px-16">
+      <div className="flex-1 flex flex-col justify-center px-4 lg:px-8 py-8 sm:px-16">
         <div className="mx-auto w-full max-w-sm">
           <motion.div
             initial={{ opacity: 0, y: -20 }}
@@ -108,7 +108,8 @@ export default function RegisterPage() {
           </motion.div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            <motion.div
+
+            <motion.div      // isim alanı
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
@@ -141,7 +142,7 @@ export default function RegisterPage() {
               )}
             </motion.div>
 
-            <motion.div
+            <motion.div   // email alanı
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
@@ -174,7 +175,7 @@ export default function RegisterPage() {
               )}
             </motion.div>
 
-            <motion.div
+            <motion.div   // şifre alanı
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
@@ -216,12 +217,10 @@ export default function RegisterPage() {
               )}
             </motion.div>
 
-            <motion.button
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
+            <motion.button    // submit butonu
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.5 }}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
               type="submit"
               disabled={isLoading || isSuccess}
               className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 disabled:cursor-not-allowed text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-blue-600/30"
@@ -229,6 +228,7 @@ export default function RegisterPage() {
               {isLoading
                 ? "Kaydediliyor..." : isSuccess ? "Kayıt başarılı, giriş sayfasına yönlendiriliyorsunuz" : "Kayıt Ol"}
             </motion.button>
+
           </form>
         </div>
       </div>
