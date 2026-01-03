@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useRouter } from "next/router";
-import { LogOut, Menu, X, Home, BookOpen, Settings, User, ChevronLeft, ChevronRight, BarChart3, FileText, FileSearch, FileMinus } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { LogOut, Menu, X, Home, BookOpen, Settings, User, ChevronLeft, ChevronRight, FileText, FileSearch, FileMinus } from "lucide-react";
 
 import WordsPage from "@/components/WordsPage";
 import SettingsPage from "@/components/SettingsPage";
@@ -98,7 +98,7 @@ export default function DashboardPage() {
         )}
       </AnimatePresence>
 
-      <aside className={`hidden lg:block bg-white border-r border-gray-200 sticky top-0 h-screen transition-all duration-300 ${sidebarOpen ? "w-64" : "w-20"}`}>
+      <aside className={`hidden lg:block bg-white border-r border-gray-200 sticky top-0 h-screen transition-all duration-300 ease-in-out ${sidebarOpen ? "w-64" : "w-20"}`}>
         <SidebarContent
           user={user}
           menuItems={menuItems}
@@ -113,28 +113,57 @@ export default function DashboardPage() {
       </aside>  {/* Sidebar */}
 
       <div className="flex-1 flex flex-col min-w-0">
-        <header className="bg-white border-b border-gray-200 sticky top-0 z-30 ">   {/* Header */}
-          <div className="px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between lg:justify-end">
-            <button onClick={() => setMobileMenuOpen(true)} className="lg:hidden p-2 rounded-lg text-gray-600 hover:bg-gray-100">
-              <Menu className="w-6 h-6" />
-            </button>
-            <span className="text-xl font-bold text-gray-900 lg:hidden">
-              Word<span className="text-blue-600">Mashup</span>
-            </span>
-            <div className="flex items-center gap-3">
-              <div className="hidden sm:flex items-center gap-2 text-sm text-gray-600">
-                <User className="w-4 h-4" />
-                <span className="font-medium text-gray-900">{user.name}</span>
+        <header className="sticky top-0 z-30 px-4 sm:px-6 lg:px-8 py-4">
+          <div className="max-w-7xl mx-auto bg-white border border-gray-200 shadow-sm rounded-xl h-16 px-4 flex items-center justify-between">
+
+            <div className="flex items-center gap-4 flex-1">
+              <button
+                onClick={() => setMobileMenuOpen(true)}
+                className="lg:hidden p-2 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors"
+              >
+                <Menu className="w-6 h-6" />
+              </button>
+
+              <div className="hidden lg:flex items-center relative max-w-md w-full">
+                <div className="absolute left-3 text-gray-400">
+                  <FileSearch size={18} />
+                </div>
+                <input
+                  type="text"
+                  placeholder="Kelime veya konu ara..."
+                  className="w-full bg-gray-50 border border-gray-200 text-sm rounded-lg pl-10 pr-4 py-2 outline-none 
+           focus:bg-white focus:border-gray-300 focus:shadow-[0_0_0_1px_rgba(0,0,0,0.05),0_10px_15px_-3px_rgba(0,0,0,0.1)] 
+           focus:ring-0 transition-all placeholder:text-gray-400"                />
+                <div className="absolute right-3 text-[10px] font-bold text-gray-400 border border-gray-200 px-1.5 py-0.5 rounded bg-white select-none">
+                  ⌘ K
+                </div>
               </div>
-              <button onClick={handleLogout} className="inline-flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg">
-                <LogOut className="w-4 h-4" />
-                <span className="hidden sm:inline">Çıkış</span>
+            </div>
+
+            <div className="flex items-center justify-center lg:hidden flex-1">
+              <span className="text-xl font-bold text-gray-900 tracking-tight">
+                Word<span className="text-blue-600">Mashup</span>
+              </span>
+            </div>
+
+            <div className="flex items-center justify-end gap-3 flex-1">
+              <div className="hidden sm:flex items-center gap-2 text-sm text-gray-600 px-3 py-1.5 bg-gray-50 rounded-lg border border-gray-100">
+                <User size={14} className="text-gray-400" />
+                <span className="font-semibold text-gray-900">{user.name}</span>
+              </div>
+
+              <button
+                onClick={handleLogout}
+                title="Çıkış Yap"
+                className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all border border-transparent hover:border-red-100"
+              >
+                <LogOut size={20} />
               </button>
             </div>
           </div>
         </header>
 
-        <main className="flex-1 p-4 sm:p-6 lg:p-7 overflow-y-auto">     {/* Current Page Selector*/}
+        <main className="flex-1 p-4 sm:p-6 lg:p-7 overflow-y-auto">     {/* current page selector*/}
           {currentPage === "words" && <WordsPage />}
           {currentPage === "dictionary" && <DictionaryPage />}
           {currentPage === "grammer" && !grammarDetailId && <GramerPage onGrammarClick={(id, slug) => {
@@ -162,113 +191,69 @@ export default function DashboardPage() {
   );
 }
 
-function SidebarContent({
-  user,
-  menuItems,
-  onLogout,
-  sidebarOpen = true,
-  onToggle,
-  onClose,
-  onPageChange,
-  grammarDetailId,
-  setGrammarDetailId,
-  setCurrentPage,
-}: {
-  user: { name: string; email: string };
-  menuItems: Array<{ icon: any; label: string; href: string; active?: boolean }>;
-  onLogout: () => void;
-  sidebarOpen?: boolean;
-  onToggle?: () => void;
-  onClose?: () => void;
-  onPageChange?: (page: string) => void;
-  grammarDetailId?: string | null;
-  setGrammarDetailId?: (id: string | null) => void;
-  setCurrentPage?: (page: string) => void;
-}) {
+function SidebarContent({ user, menuItems, onLogout, sidebarOpen = true, onToggle, onClose, onPageChange, grammarDetailId, setGrammarDetailId, setCurrentPage, }: any) {
   return (
-    <div className="h-full flex flex-col bg-white overflow-hidden">
-      <div className="h-16 flex-shrink-0 flex items-center justify-between px-4 border-b border-gray-200">
-        {sidebarOpen && (
-          <span className="text-xl font-bold text-gray-900">
-            Word<span className="text-blue-600">Mashup</span>
-          </span>
-        )}
-        {onToggle && (
-          <button
-            onClick={onToggle}
-            className="p-2 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors"
-          >
-            {sidebarOpen ? (
-              <ChevronLeft className="w-5 h-5" />
-            ) : (
-              <ChevronRight className="w-5 h-5 ml-1" />
-            )}
-          </button>
-        )}
-        {onClose && (
-          <button
-            onClick={onClose}
-            className="p-2 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors"
-          >
-            <X className="w-5 h-5" />
-          </button>
-        )}
-      </div>
-
-      <div className="p-4 flex-shrink-0 border-b border-gray-200 bg-white">
-        <div className={`flex items-center gap-3 ${!sidebarOpen && "justify-center"}`}>
-          <div className="w-10 h-10 rounded-full flex-shrink-0 bg-blue-600 flex items-center justify-center text-white font-semibold">
-            {user.name.charAt(0).toUpperCase()}
+    <div className="h-full flex flex-col">
+      <div className="h-16 flex-shrink-0 flex items-center px-4 border-b border-gray-100 overflow-hidden">      {/* logo  */}
+        <div className="flex items-center min-w-0 w-full">
+          <div className={`transition-all duration-300 flex items-center overflow-hidden ${sidebarOpen ? "opacity-100 w-auto" : "opacity-0 w-0"}`}>
+            <span className="text-xl font-bold text-gray-900 tracking-tight whitespace-nowrap">
+              Word<span className="text-blue-600">Mashup</span>
+            </span>
           </div>
-          {sidebarOpen && (
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-semibold text-gray-900 truncate">
-                {user.name}
-              </p>
-              <p className="text-xs text-gray-500 truncate">{user.email}</p>
-            </div>
-          )}
+          <div className="ml-auto">
+            {onToggle && (
+              <button onClick={onToggle} className="p-2 rounded-lg  text-gray-400 hover:bg-gray-100 transition-colors">
+                {sidebarOpen ? <ChevronLeft size={23} /> : <ChevronRight size={25} className="mr-0.5" />}
+              </button>
+            )}
+          </div>
         </div>
       </div>
 
-      <nav className="flex-1 overflow-y-auto p-4 scrollbar-thin scrollbar-thumb-gray-200">
-        <ul className="space-y-2">
-          {menuItems.map((item, index) => {
-            const Icon = item.icon;
-            return (
-              <li key={index}>
-                <button
-                  onClick={() => {
-                    if (item.href === "grammer" && grammarDetailId && setGrammarDetailId && setCurrentPage) {
-                      setGrammarDetailId(null);
-                      setCurrentPage("grammer");
-                      window.history.pushState({}, '', '/dashboard');
-                    } else {
-                      onPageChange && onPageChange(item.href);
-                    }
-                  }}
-                  className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors ${item.active
-                    ? "bg-blue-50 text-blue-600 font-medium"
-                    : "text-gray-700 hover:bg-gray-100"
-                    }`}
-                >
-                  <Icon className="w-5 h-5 flex-shrink-0" />
-                  {sidebarOpen && <span className="text-sm">{item.label}</span>}
-                </button>
-              </li>
-            );
-          })}
-        </ul>
+      <div className="p-4 bg-gray-50/50 border-b border-gray-100 overflow-hidden">  {/* character icon */}
+        <div className="flex items-center ml-1 ">
+          <div className="w-10 h-10 rounded-xl flex-shrink-0 bg-blue-600 flex items-center justify-center text-white font-bold shadow-lg shadow-blue-100">
+            {user.name.charAt(0).toUpperCase()}
+          </div>
+          <div className={`transition-all duration-300 overflow-hidden whitespace-nowrap ${sidebarOpen ? "opacity-100 max-w-xs ml-3" : "opacity-0 max-w-0 ml-0"
+            }`}>
+            <p className="text-sm font-bold text-gray-900 truncate">{user.name}</p>
+            <p className="text-[13px] text-gray-500 truncate font-medium">{user.email}</p>
+          </div>
+        </div>
+      </div>
+
+      <nav className="flex-1 overflow-y-auto p-3 space-y-1 ">        {/* menu list */}
+        {menuItems.map((item: any, index: number) => {
+          const Icon = item.icon;
+          return (
+            <button
+              key={index}
+              onClick={() => onPageChange(item.href)}
+              className={`w-full flex items-center px-3 py-3 rounded-xl transition-all font-semibold text-sm overflow-hidden 
+                ${item.active ? "bg-blue-50 text-blue-600" : "text-gray-500 hover:bg-gray-50 hover:text-gray-900"}`}
+            >
+              <Icon size={21} className={`flex-shrink-0 ml-1.5 ${item.active ? "text-blue-600" : "text-gray-400"}`} />
+              <span className={`transition-all duration-300 overflow-hidden whitespace-nowrap ${sidebarOpen ? "opacity-100 max-w-xs ml-3" : "opacity-0 max-w-0 ml-0"
+                }`}>
+                {item.label}
+              </span>
+            </button>
+          );
+        })}
       </nav>
 
-      <div className="p-4 flex-shrink-0 border-t border-gray-200 bg-white">
+      <div className="p-4 border-t border-gray-100">     {/* logout button */}
         <button
           onClick={onLogout}
-          className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors 
-            ${!sidebarOpen && "justify-center"}`}
+          className="w-full flex items-center px-3 py-2.5 rounded-xl text-gray-500 hover:bg-red-50 hover:text-red-600 transition-all font-bold text-sm overflow-hidden"
         >
-          <LogOut className="w-5 h-5 flex-shrink-0" />
-          {sidebarOpen && <span className="text-sm font-medium">Çıkış</span>}
+          <LogOut size={21} className="flex-shrink-0" />
+          <span className={`transition-all duration-300 overflow-hidden whitespace-nowrap ${sidebarOpen ? "opacity-100 max-w-xs ml-3" : "opacity-0 max-w-0 ml-0"
+            }`}>
+            Oturumu Kapat
+          </span>
         </button>
       </div>
     </div>
