@@ -25,12 +25,17 @@ exports.addWord = async (req, res) => {
 
 exports.getWords = async (req, res) => {
     try {
-        const { limit = 20, type, favoriteFilter, unknownFilter, search } = req.query;
+        const { limit = 20, skip = 0, type, favoriteFilter, unknownFilter, search } = req.query;
         const userId = req.userId;
 
         let limitNum = 20;
         if (!isNaN(parseInt(limit))) {
             limitNum = parseInt(limit);
+        }
+
+        let skipNum = 0;
+        if (!isNaN(parseInt(skip))) {
+            skipNum = parseInt(skip);
         }
 
         const filterConditions = [{ addedBy: userId }];
@@ -63,6 +68,7 @@ exports.getWords = async (req, res) => {
 
         const words = await Word.find(query)
             .sort({ createdAt: -1 })
+            .skip(skipNum)
             .limit(limitNum);
 
         const totalWords = await Word.countDocuments({ addedBy: userId });
@@ -136,5 +142,144 @@ exports.deleteWord = async (req, res) => {
     } catch (error) {
         console.error('Kelime silme hatası:', error);
         return res.status(500).json({ message: 'Sunucu hatası' });
+    }
+};
+
+
+exports.getLast7DaysStats = async (req, res) => {
+    try {
+        const userId = req.userId;
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        
+        const sevenDaysAgo = new Date(today);
+        sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 6);
+
+        const dailyStats = [];
+        
+        for (let i = 0; i < 7; i++) {
+            const currentDate = new Date(sevenDaysAgo);
+            currentDate.setDate(currentDate.getDate() + i);
+            
+            const startOfDay = new Date(currentDate);
+            startOfDay.setHours(0, 0, 0, 0);
+            
+            const endOfDay = new Date(currentDate);
+            endOfDay.setHours(23, 59, 59, 999);
+            
+            const count = await Word.countDocuments({
+                addedBy: userId,
+                createdAt: {
+                    $gte: startOfDay,
+                    $lte: endOfDay
+                }
+            });
+            
+            const dateStr = currentDate.toLocaleDateString('tr-TR', { 
+                day: '2-digit', 
+                month: '2-digit' 
+            });
+            
+            dailyStats.push({
+                date: dateStr,
+                count: count
+            });
+        }
+
+        res.status(200).json({
+            dailyStats
+        });
+    } catch (error) {
+        console.error("getLast7DaysStats error:", error);
+        res.status(500).json({ message: "İstatistikler getirilirken hata oluştu" });
+    }
+};
+
+
+exports.getTypeStats = async (req, res) => {
+    try {
+        const userId = req.userId;
+        
+        const types = ['noun', 'verb', 'adjective', 'adverb', 'preposition', 'conjunction', 'pronoun', 'other'];
+        
+        const typeNames = {
+            'noun': 'İsim',
+            'verb': 'Fiil',
+            'adjective': 'Sıfat',
+            'adverb': 'Zarf',
+            'preposition': 'Edat',
+            'conjunction': 'Bağlaç',
+            'pronoun': 'Zamir',
+            'other': 'Diğer'
+        };
+        
+        const typeStats = [];
+        let totalWords = 0;
+        
+        for (const type of types) {
+            const count = await Word.countDocuments({
+                addedBy: userId,
+                type: type
+            });
+            
+            if (count > 0) {
+                typeStats.push({
+                    type: type,
+                    name: typeNames[type],
+                    count: count
+                });
+                totalWords += count;
+            }
+        }
+
+        res.status(200).json({
+            typeStats,
+            totalWords
+        });
+    } catch (error) {
+        console.error("getTypeStats error:", error);
+        res.status(500).json({ message: "Tür istatistikleri getirilirken hata oluştu" });
+    }
+};
+
+
+exports.getStreak = async (req, res) => {
+    try {
+        const userId = req.userId;
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        
+        let streak = 0;
+        let currentDate = new Date(today);
+        
+        while (true) {
+            const startOfDay = new Date(currentDate);
+            startOfDay.setHours(0, 0, 0, 0);
+            
+            const endOfDay = new Date(currentDate);
+            endOfDay.setHours(23, 59, 59, 999);
+            
+            const count = await Word.countDocuments({
+                addedBy: userId,
+                createdAt: {
+                    $gte: startOfDay,
+                    $lte: endOfDay
+                }
+            });
+            
+            if (count > 0) {
+                streak++;
+                currentDate.setDate(currentDate.getDate() - 1);
+            } else {
+                break;
+            }
+        }
+
+        res.status(200).json({
+            streak
+        });
+    } catch (error) {
+        console.error("getStreak error:", error);
+        res.status(500).json({ message: "Seri hesaplanırken hata oluştu" });
     }
 };

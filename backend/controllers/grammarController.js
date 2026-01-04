@@ -1,12 +1,13 @@
-const Grammar = require('../models/Grammar');
-const GrammarUserFavorite = require('../models/GrammarUserFavorite');
+const Grammar = require('../models/grammarModel');
 
 exports.getAllGrammars = async (req, res) => {
     try {
         const { category, search } = req.query;
         const userId = req.userId;
 
-        let query = {};
+        let query = {
+            addedBy: userId
+        };
 
         if (category && category !== "all") {
             query.category = category;
@@ -22,29 +23,8 @@ exports.getAllGrammars = async (req, res) => {
 
         const grammars = await Grammar.find(query).sort({ createdAt: -1 });
 
-        const grammarIds = grammars.map(g => g._id);
-        const userFavorites = await GrammarUserFavorite.find({
-            userId: userId,
-            grammarId: { $in: grammarIds }
-        });
-
-        const favoritesMap = {};
-        userFavorites.forEach(fav => {
-            favoritesMap[fav.grammarId.toString()] = {
-                isPinned: fav.isPinned
-            };
-        });
-
-        const grammarsWithFavorites = grammars.map(grammar => {
-            const favorite = favoritesMap[grammar._id.toString()] || { isPinned: false };
-            return {
-                ...grammar.toObject(),
-                isPinned: favorite.isPinned
-            };
-        });
-
-        const pinnedGrammars = grammarsWithFavorites.filter(g => g.isPinned);
-        const unpinnedGrammars = grammarsWithFavorites.filter(g => !g.isPinned);
+        const pinnedGrammars = grammars.filter(g => g.isPinned);
+        const unpinnedGrammars = grammars.filter(g => !g.isPinned);
         const sortedGrammars = [...pinnedGrammars, ...unpinnedGrammars];
 
         res.status(200).json({
@@ -62,20 +42,16 @@ exports.getGrammarById = async (req, res) => {
         const { id } = req.params;
         const userId = req.userId;
 
-        const grammar = await Grammar.findById(id);
+        const grammar = await Grammar.findOne({
+            _id: id,
+            addedBy: userId
+        });
+
         if (!grammar) {
             return res.status(404).json({ message: 'Gramer konusu bulunamadı' });
         }
 
-        const favorite = await GrammarUserFavorite.findOne({
-            userId: userId,
-            grammarId: id
-        });
-
-        res.status(200).json({
-            ...grammar.toObject(),
-            isPinned: favorite?.isPinned || false
-        });
+        res.status(200).json(grammar);
     } catch (error) {
         console.error("getGrammarById error:", error);
         res.status(500).json({ message: "Gramer konusu getirilirken hata oluştu" });
@@ -87,31 +63,21 @@ exports.togglePin = async (req, res) => {
         const { id } = req.params;
         const userId = req.userId;
 
-        const grammar = await Grammar.findById(id);
+        const grammar = await Grammar.findOne({
+            _id: id,
+            addedBy: userId
+        });
+
         if (!grammar) {
             return res.status(404).json({ message: 'Gramer konusu bulunamadı' });
         }
 
-        let favorite = await GrammarUserFavorite.findOne({
-            userId: userId,
-            grammarId: id
-        });
-
-        if (!favorite) {
-            favorite = new GrammarUserFavorite({
-                userId: userId,
-                grammarId: id,
-                isPinned: true
-            });
-        } else {
-            favorite.isPinned = !favorite.isPinned;
-        }
-
-        await favorite.save();
+        grammar.isPinned = !grammar.isPinned;
+        await grammar.save();
 
         res.status(200).json({
-            message: favorite.isPinned ? 'Sabitlendi' : 'Sabit kaldırıldı',
-            isPinned: favorite.isPinned
+            message: grammar.isPinned ? 'Sabitlendi' : 'Sabit kaldırıldı',
+            isPinned: grammar.isPinned
         });
     } catch (error) {
         console.error("togglePin error:", error);
@@ -121,7 +87,8 @@ exports.togglePin = async (req, res) => {
 
 exports.getCategories = async (req, res) => {
     try {
-        const categories = await Grammar.distinct("category");
+        const userId = req.userId;
+        const categories = await Grammar.distinct("category", { addedBy: userId });
         res.status(200).json({ categories });
     } catch (error) {
         console.error("getCategories error:", error);
@@ -132,6 +99,7 @@ exports.getCategories = async (req, res) => {
 exports.createGrammar = async (req, res) => {
     try {
         const { category, title, description, formula, rules, notes, examples } = req.body;
+        const userId = req.userId;
 
         if (!category || !title) {
             return res.status(400).json({ message: 'Kategori ve başlık zorunludur' });
@@ -144,7 +112,8 @@ exports.createGrammar = async (req, res) => {
             formula: formula || "",
             rules: rules || "",
             notes: notes || "",
-            examples: examples || []
+            examples: examples || [],
+            addedBy: userId
         });
 
         await grammar.save();
@@ -163,8 +132,13 @@ exports.updateGrammar = async (req, res) => {
     try {
         const { id } = req.params;
         const { category, title, description, formula, rules, notes, examples } = req.body;
+        const userId = req.userId;
 
-        const grammar = await Grammar.findById(id);
+        const grammar = await Grammar.findOne({
+            _id: id,
+            addedBy: userId
+        });
+
         if (!grammar) {
             return res.status(404).json({ message: 'Gramer konusu bulunamadı' });
         }
@@ -192,17 +166,18 @@ exports.updateGrammar = async (req, res) => {
 exports.deleteGrammar = async (req, res) => {
     try {
         const { id } = req.params;
+        const userId = req.userId;
 
-        const grammar = await Grammar.findById(id);
+        const grammar = await Grammar.findOne({
+            _id: id,
+            addedBy: userId
+        });
+
         if (!grammar) {
             return res.status(404).json({ message: 'Gramer konusu bulunamadı' });
         }
 
-        // Grammar'ı sil
         await Grammar.findByIdAndDelete(id);
-        
-        // User favorites'ları da temizle
-        await GrammarUserFavorite.deleteMany({ grammarId: id });
 
         res.status(200).json({
             message: 'Gramer konusu başarıyla silindi'
@@ -216,22 +191,17 @@ exports.deleteGrammar = async (req, res) => {
 exports.deleteCategory = async (req, res) => {
     try {
         const { categoryName } = req.body;
+        const userId = req.userId;
 
         if (!categoryName) {
             return res.status(400).json({ message: 'Kategori adı gereklidir' });
         }
 
-        // Önce silinecek grammar ID'lerini al
-        const grammarsToDelete = await Grammar.find({ category: categoryName });
-        const deletedGrammarIds = grammarsToDelete.map(g => g._id);
-        
-        // Kategoriyi kullanan tüm gramer konularını sil
-        const result = await Grammar.deleteMany({ category: categoryName });
-        
-        // User favorites'ları da temizle (ilgili grammar'lar silindiği için)
-        if (deletedGrammarIds.length > 0) {
-            await GrammarUserFavorite.deleteMany({ grammarId: { $in: deletedGrammarIds } });
-        }
+        // Kullanıcının bu kategorideki tüm gramer konularını sil
+        const result = await Grammar.deleteMany({ 
+            category: categoryName,
+            addedBy: userId
+        });
 
         res.status(200).json({
             message: `Kategori ve ${result.deletedCount} gramer konusu başarıyla silindi`,

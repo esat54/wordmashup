@@ -1,12 +1,15 @@
 const express = require('express');
 const router = express.Router();
 
-const { addWord, getWords, addtoFavorites, addtoUnknown, deleteWord } = require('../controllers/wordController');
+const { addWord, getWords, addtoFavorites, addtoUnknown, deleteWord, getLast7DaysStats, getTypeStats, getStreak } = require('../controllers/wordController');
 const { authenticate } = require('../middleware/authMiddleware');
 
 
 router.post('/', authenticate, addWord);
 router.get('/', authenticate, getWords);
+router.get('/stats/last7days', authenticate, getLast7DaysStats);
+router.get('/stats/types', authenticate, getTypeStats);
+router.get('/stats/streak', authenticate, getStreak);
 router.post('/:wordId/favorite', authenticate, addtoFavorites);
 router.post('/:wordId/unknown', authenticate, addtoUnknown);
 router.delete('/:wordId', authenticate, deleteWord);
