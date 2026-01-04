@@ -48,12 +48,12 @@ Word: ${word}`;
       data = JSON.parse(text);
     } catch (e) {
       console.error("JSON parse hatası:", e.message);
-      return res.status(200).json(mockResult);
+      return res.status(200).json();
     }
 
     if (!Array.isArray(data) || data.length === 0) {
       console.error("Geçersiz format");
-      return res.status(200).json(mockResult);
+      return res.status(200).json();
     }
 
     res.status(200).json(data);
