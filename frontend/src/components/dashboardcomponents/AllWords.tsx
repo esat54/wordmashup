@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Trash2, Star, Search, Loader2, X, Volume2, MessageCircleQuestionMark } from "lucide-react";
-import { wordsApi } from "../lib/api";
+import { Trash2, Star, Search, Loader2, X, Volume2, MessageCircleQuestionMark, ChevronLeft, ChevronRight } from "lucide-react";
+import { wordsApi } from "@/lib/api";
 
 const wordTypes = [
   { value: "", label: "Tür" },
@@ -21,7 +21,8 @@ export default function AllWords() {
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState<string>("");
   const [totalWords, setTotalWords] = useState<number>(0);
   const [words, setWords] = useState<any[]>([]);
-  const [limit, setLimit] = useState<number>(20);
+  const [limit, setLimit] = useState<number>(50);
+  const [currentPage, setCurrentPage] = useState<number>(1);
   const [type, setType] = useState<string>("");
   const [favoriteFilter, setFavoriteFilter] = useState<string>("");
   const [unknownFilter, setUnknownFilter] = useState<string>("");
@@ -37,13 +38,18 @@ export default function AllWords() {
   }, [searchTerm]);
 
   useEffect(() => {
-    loadData();
+    setCurrentPage(1);
   }, [limit, type, favoriteFilter, unknownFilter, debouncedSearchTerm]);
+
+  useEffect(() => {
+    loadData();
+  }, [limit, currentPage, type, favoriteFilter, unknownFilter, debouncedSearchTerm]);
 
   const loadData = async () => {
     try {
       setLoading(true);
-      const response = await wordsApi.getWords({ limit, type, favoriteFilter, unknownFilter, searchTerm: debouncedSearchTerm, }) as any;
+      const skip = (currentPage - 1) * limit;
+      const response = await wordsApi.getWords({ limit, skip, type, favoriteFilter, unknownFilter, searchTerm: debouncedSearchTerm, }) as any;
 
       setTimeout(() => {
         setWords(response.words || []);
@@ -53,6 +59,20 @@ export default function AllWords() {
     } catch (error: any) {
       console.error("Veri yükleme hatası:", error);
       setLoading(false);
+    }
+  };
+
+  const totalPages = Math.ceil(totalWords / limit);
+
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
     }
   };
 
@@ -171,10 +191,13 @@ export default function AllWords() {
         <div className="w-full sm:w-auto flex items-center justify-between bg-white border border-gray-200 rounded-lg px-3 py-2 sm:border-none sm:bg-transparent sm:p-0 sm:justify-start sm:gap-4">
           <span className="text-xs sm:text-sm text-gray-500 font-medium">Sayfa başına:</span>
           <div className="flex items-center gap-2">
-            {[10, 20, 50].map((item) => (
+            {[10, 20, 50, 100].map((item) => (
               <button
                 key={item}
-                onClick={() => setLimit(item)}
+                onClick={() => {
+                  setLimit(item);
+                  setCurrentPage(1);
+                }}
                 className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${limit === item
                   ? "bg-blue-600 text-white shadow-sm"
                   : "bg-gray-100 text-gray-700 hover:bg-gray-200 hover:shadow-sm"
@@ -204,8 +227,9 @@ export default function AllWords() {
           <span className="ml-2 text-gray-600">Kelimeler yükleniyor...</span>
         </div>
       ) : words.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-          {words.map((word) => (
+        <>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+            {words.map((word) => (
             <div key={word._id} className="bg-gray-50 rounded-lg p-4 border border-gray-200">
               <div className="flex items-start justify-between mb-2">
                 <div> 
@@ -262,10 +286,46 @@ export default function AllWords() {
               </div>
             </div>
           ))}
-        </div>
+          </div>
+
+          {totalPages > 1 && (
+            <div className="flex items-center justify-center gap-2 mt-6 bg-white rounded-lg border border-gray-200 px-3 py-1.5">
+              <button
+                onClick={handlePreviousPage}
+                disabled={currentPage === 1}
+                className={`
+                  p-1 rounded transition-colors
+                  ${currentPage === 1
+                    ? "text-gray-300 cursor-not-allowed"
+                    : "text-gray-600 hover:bg-gray-100"
+                  }
+                `}
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+              <span className="text-xs text-gray-600 px-2">
+                {currentPage} / {totalPages}
+              </span>
+              <button
+                onClick={handleNextPage}
+                disabled={currentPage === totalPages}
+                className={`
+                  p-1 rounded transition-colors
+                  ${currentPage === totalPages
+                    ? "text-gray-300 cursor-not-allowed"
+                    : "text-gray-600 hover:bg-gray-100"
+                  }
+                `}
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
+          )}
+        </>
       ) : (
         <div className="text-center py-12 text-gray-600">Kelime bulunamadı</div>
       )}
     </div>
   );
 }
+

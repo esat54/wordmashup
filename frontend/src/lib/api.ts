@@ -72,6 +72,8 @@ async function apiRequest<T>(endpoint: string, options: RequestInit = {}): Promi
     }
 }
 
+
+
 export const authApi = {
 
     register: (data: { name: string; email: string; password: string }) =>
@@ -98,8 +100,14 @@ export const authApi = {
             method: "GET",
         });
     },
-};
 
+    deleteAccount: (data: { password: string }) => {
+        return apiRequest("/api/auth/account", {
+            method: "DELETE",
+            body: JSON.stringify(data),
+        });
+    },
+};
 
 
 export const wordsApi = {
@@ -112,15 +120,14 @@ export const wordsApi = {
     },
 
     getWords: (params: {
-        limit?: number; type?: string; favoriteFilter?: string; unknownFilter?: string; searchTerm?: string;
+        limit?: number; skip?: number; type?: string; favoriteFilter?: string; unknownFilter?: string; searchTerm?: string;
     } = {}) => {
-        const { limit = 20, type = "", favoriteFilter = "", unknownFilter = "", searchTerm = "", } = params;
+        const { limit = 20, skip = 0, type = "", favoriteFilter = "", unknownFilter = "", searchTerm = "", } = params;
         return apiRequest(
-            `/api/words?limit=${limit}&type=${type}&favoriteFilter=${favoriteFilter}&unknownFilter=${unknownFilter}&search=${searchTerm}`,
+            `/api/words?limit=${limit}&skip=${skip}&type=${type}&favoriteFilter=${favoriteFilter}&unknownFilter=${unknownFilter}&search=${searchTerm}`,
             { method: "GET" }
         );
     },
-
 
     addtoFavorites: (wordId: string) => {
         return apiRequest(`/api/words/${wordId}/favorite`, {
@@ -134,14 +141,30 @@ export const wordsApi = {
         });
     },
 
-
     deleteWord: (wordId: string) => {
         return apiRequest(`/api/words/${wordId}`, {
             method: "DELETE",
         });
+    },
+
+    getLast7DaysStats: () => {
+        return apiRequest("/api/words/stats/last7days", {
+            method: "GET",
+        });
+    },
+
+    getTypeStats: () => {
+        return apiRequest("/api/words/stats/types", {
+            method: "GET",
+        });
+    },
+
+    getStreak: () => {
+        return apiRequest("/api/words/stats/streak", {
+            method: "GET",
+        });
     }
 }
-
 
 
 export const dictionaryApi = {
@@ -150,6 +173,102 @@ export const dictionaryApi = {
         return apiRequest("/api/dictionary/analyze", {
             method: "POST",
             body: JSON.stringify({ word }),
+        });
+    },
+};
+
+
+export const oxfordApi = {
+
+    getWordsByCategory: (categoryId: number) => {
+        return apiRequest(`/api/oxford/category/${categoryId}`, {
+            method: "GET",
+        });
+    },
+
+    updateWordNote: (wordId: string, userNotes: string) => {
+        return apiRequest(`/api/oxford/${wordId}/note`, {
+            method: "PATCH",
+            body: JSON.stringify({ userNotes }),
+        });
+    },
+
+    updateWordStatus: (wordId: string, status: "new" | "learning" | "mastered") => {
+        return apiRequest(`/api/oxford/${wordId}/status`, {
+            method: "PATCH",
+            body: JSON.stringify({ status }),
+        });
+    },
+};
+
+
+export const grammarApi = {
+    
+    getAllGrammars: (params: { category?: string; search?: string } = {}) => {
+        const { category = "", search = "" } = params;
+        return apiRequest(`/api/grammar?category=${category}&search=${search}`, {
+            method: "GET",
+        });
+    },
+
+    getGrammarById: (id: string) => {
+        return apiRequest(`/api/grammar/${id}`, {
+            method: "GET",
+        });
+    },
+
+    getCategories: () => {
+        return apiRequest("/api/grammar/categories", {
+            method: "GET",
+        });
+    },
+
+    togglePin: (id: string) => {
+        return apiRequest(`/api/grammar/${id}/toggle-pin`, {
+            method: "POST",
+        });
+    },
+
+    createGrammar: (data: {
+        category: string;
+        title: string;
+        description?: string;
+        formula?: string;
+        rules?: string;
+        notes?: string;
+        examples?: Array<{ en: string; tr: string }>;
+    }) => {
+        return apiRequest("/api/grammar", {
+            method: "POST",
+            body: JSON.stringify(data),
+        });
+    },
+
+    updateGrammar: (id: string, data: {
+        category?: string;
+        title?: string;
+        description?: string;
+        formula?: string;
+        rules?: string;
+        notes?: string;
+        examples?: Array<{ en: string; tr: string }>;
+    }) => {
+        return apiRequest(`/api/grammar/${id}`, {
+            method: "PUT",
+            body: JSON.stringify(data),
+        });
+    },
+
+    deleteCategory: (categoryName: string) => {
+        return apiRequest("/api/grammar/categories", {
+            method: "DELETE",
+            body: JSON.stringify({ categoryName }),
+        });
+    },
+
+    deleteGrammar: (id: string) => {
+        return apiRequest(`/api/grammar/${id}`, {
+            method: "DELETE",
         });
     },
 };

@@ -24,8 +24,8 @@ export default function GrammarDetailPage({ grammarId, onBack }: { grammarId: st
     if (!grammar) return null;
 
     return (
-        <div className="max-w-7xl mx-auto space-y-5 antialiased text-slate-900 px-4 sm:px-0">
-            <header className="flex items-center justify-between bg-white border border-slate-200 rounded-xl px-5 py-4 shadow-sm">
+        <div className="max-w-7xl mx-auto space-y-5 antialiased text-slate-900">
+            <header className="flex items-center justify-between bg-white border border-slate-200 rounded-xl px-5 py-4 shadow-sm">  {/* header */}
                 <div className="flex items-center gap-5">
                     <button onClick={onBack} className="p-2 hover:bg-slate-50 rounded-lg transition-colors border border-slate-100 shadow-sm">
                         <ArrowLeft className="w-5 h-5 text-slate-600" />
@@ -44,7 +44,7 @@ export default function GrammarDetailPage({ grammarId, onBack }: { grammarId: st
 
             <div className="grid grid-cols-12 gap-5">
                 <div className="col-span-12 lg:col-span-8 space-y-5">
-                    <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">  {/* tanım ve formül */}
+                    <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">  {/* definition and formula */}
                         <div className="flex flex-col md:flex-row items-start justify-between gap-6">
                             <div className="flex-1">
                                 <h2 className="text-xs font-bold text-slate-400 uppercase mb-3 flex items-center gap-2 tracking-widest">
@@ -65,7 +65,7 @@ export default function GrammarDetailPage({ grammarId, onBack }: { grammarId: st
                         </div>
                     </div>
 
-                    <div className="bg-[#FFFCF0] border border-[#F1E5BC] rounded-xl p-6 shadow-sm"> {/* notlar */}
+                    <div className="bg-[#FFFCF0] border border-[#F1E5BC] rounded-xl p-6 shadow-sm"> {/* notes */}
                         <h2 className="text-xs font-bold text-[#854D0E] uppercase mb-4 flex items-center gap-2 tracking-widest">
                             <Info className="w-4 h-4" /> NOTLAR
                         </h2>
@@ -75,18 +75,18 @@ export default function GrammarDetailPage({ grammarId, onBack }: { grammarId: st
                     </div>
                 </div>
 
-                <div className="col-span-12 lg:col-span-4">  {/* kurallar */}
+                <div className="col-span-12 lg:col-span-4">  {/* rules */}
                     <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm h-full">
                         <h2 className="text-xs font-bold text-slate-400 uppercase mb-4 flex items-center gap-2 tracking-widest">
                             <FileText className="w-4 h-4 text-blue-600" /> KULLANIM KURALLARI
                         </h2>
                         <div className="text-[15px] leading-relaxed text-slate-700 whitespace-pre-wrap font-medium">
-                            {grammar.rules || "Kural bilgisi mevcut değil."}
+                            {grammar.rules || "Kural bilgisi mevcut değil."}    
                         </div>
                     </div>
                 </div>
 
-                <div className="col-span-12">  {/* örnek cümleler */}
+                <div className="col-span-12">  {/* example sentences */}
                     <div className="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
                         <div className="px-6 py-3 bg-slate-50 border-b border-slate-200 flex justify-between items-center">
                             <h2 className="text-xs font-bold text-slate-400 uppercase flex items-center gap-2 tracking-widest">

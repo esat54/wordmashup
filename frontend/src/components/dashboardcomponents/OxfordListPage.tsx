@@ -60,10 +60,10 @@ export default function OxfordListPage() {
         }
     };
 
-    const handleWordClick = (word: OxfordWord) => {
+    const handleEditClick = (word: OxfordWord) => {
         setSelectedWord(word);
         setEditedNotes(word.userNotes || "");
-        setIsEditing(false);
+        setIsEditing(true);
         setIsModalOpen(true);
     };
 
@@ -84,10 +84,6 @@ export default function OxfordListPage() {
         if (currentPage < totalPages) {
             setCurrentPage(currentPage + 1);
         }
-    };
-
-    const handleEditClick = () => {
-        setIsEditing(true);
     };
 
     const handleSaveNotes = async () => {
@@ -143,7 +139,7 @@ export default function OxfordListPage() {
             </div>
 
             <div className="mb-4 space-y-3">
-                <div className="bg-white rounded-lg border border-gray-200 p-2">   {/* Harf Butonları */}
+                <div className="bg-white rounded-lg border border-gray-200 p-2">   {/* letter buttons */}
                     <div className="grid grid-cols-9 gap-1.5 justify-items-center sm:flex sm:justify-between sm:gap-1 sm:flex-nowrap">
                         {letters.map((letter) => {
                             const categoryId = getCategoryIdForLetter(letter);
@@ -170,7 +166,7 @@ export default function OxfordListPage() {
                 </div>
 
                 {!loading && !error && allWords.length > 0 && (
-                    <div className="flex items-center justify-center gap-2 bg-white rounded-lg border border-gray-200 px-3 py-1.5">  {/* Sayfa Geçiş Butonları */}
+                    <div className="flex items-center justify-center gap-2 bg-white rounded-lg border border-gray-200 px-3 py-1.5">  {/* page navigation buttons */}
                         <button
                             onClick={handlePreviousPage}
                             disabled={currentPage === 1}
@@ -204,7 +200,7 @@ export default function OxfordListPage() {
                 )}
             </div>
 
-            <div className="flex-1 bg-white rounded-lg border border-gray-200 overflow-hidden flex flex-col">    {/* Tablo */}
+            <div className="flex-1 bg-white rounded-lg border border-gray-200 overflow-hidden flex flex-col">    {/* table */}
                 {loading ? (
                     <div className="flex-1 flex items-center justify-center py-12">
                         <div className="flex flex-col items-center gap-3">
@@ -263,8 +259,7 @@ export default function OxfordListPage() {
                                         return (
                                             <tr
                                                 key={word._id}
-                                                onClick={() => handleWordClick(word)}
-                                                className={`${rowBgColor} hover:bg-blue-50 cursor-pointer transition-colors`}
+                                                className={`${rowBgColor} hover:bg-blue-50 transition-colors`}
                                             >
                                                 <td className="px-3 py-2">
                                                     <span className="font-medium text-gray-900 text-sm">{word.word}</span>
@@ -291,7 +286,7 @@ export default function OxfordListPage() {
                                                     <button
                                                         onClick={(e) => {
                                                             e.stopPropagation();
-                                                            handleWordClick(word);
+                                                            handleEditClick(word);
                                                         }}
                                                         className={`p-1 transition-colors ${hasNotes
                                                             ? "text-blue-500 hover:text-blue-600"
@@ -313,7 +308,7 @@ export default function OxfordListPage() {
             </div>
 
            
-            <AnimatePresence>    {/* Kelime Detay */}
+            <AnimatePresence>    {/* word detail */}
                 {isModalOpen && selectedWord && (
                     <>
                         <motion.div
@@ -379,71 +374,45 @@ export default function OxfordListPage() {
                                     </div>
 
                                     <div>
-                                        <div className="flex items-center justify-end mb-2">
-                                            {!isEditing && (
-                                                <button
-                                                    onClick={handleEditClick}
-                                                    className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors"
-                                                >
-                                                    <Edit2 className="w-3.5 h-3.5" />
-                                                    Düzenle
-                                                </button>
-                                            )}
-                                        </div>
-
-                                        {isEditing ? (
-                                            <div className="space-y-3">
-                                                <textarea
-                                                    value={editedNotes}
-                                                    onChange={(e) => setEditedNotes(e.target.value)}
-                                                    placeholder="Notlarınızı buraya yazın..."
-                                                    className="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none max-h-[300px] overflow-y-auto"
-                                                    style={{ whiteSpace: "pre-wrap" }}
-                                                />
-                                                <div className="flex items-center gap-2">
-                                                    <button
-                                                        onClick={handleSaveNotes}
-                                                        disabled={saving}
-                                                        className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                                                    >
-                                                        {saving ? (
-                                                            <>
-                                                                <Loader2 className="w-4 h-4 animate-spin" />
-                                                                Kaydediliyor...
-                                                            </>
-                                                        ) : (
-                                                            <>
-                                                                <Save className="w-4 h-4" />
-                                                                Kaydet
-                                                            </>
-                                                        )}
-                                                    </button>
-                                                    <button
-                                                        onClick={() => {
-                                                            setIsEditing(false);
-                                                            setEditedNotes(selectedWord.userNotes || "");
-                                                        }}
-                                                        disabled={saving}
-                                                        className="px-4 py-2 bg-gray-100 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-200 disabled:opacity-50 transition-colors"
-                                                    >
-                                                        İptal
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        ) : (
-                                            <div
-                                                className="w-full px-3 py-2.5 border border-gray-200 rounded-lg bg-gray-50 min-h-[150px] max-h-[300px] overflow-y-auto text-sm text-gray-700 whitespace-pre-wrap"
+                                        <div className="space-y-3">
+                                            <textarea
+                                                value={editedNotes}
+                                                onChange={(e) => setEditedNotes(e.target.value)}
+                                                placeholder="Notlarınızı buraya yazın..."
+                                                className="w-full px-3 py-2.5 border border-gray-200 rounded-lg bg-gray-50 min-h-[150px] max-h-[300px] overflow-y-auto text-sm text-gray-700 whitespace-pre-wrap focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none"
                                                 style={{ whiteSpace: "pre-wrap" }}
-                                            >
-                                                {selectedWord.userNotes && selectedWord.userNotes.trim() ? (
-                                                    selectedWord.userNotes
-                                                ) : (
-                                                    <span className="text-gray-400 italic">
-                                                        Henüz not eklenmemiş. Düzenle butonuna tıklayarak not ekleyebilirsiniz.
-                                                    </span>
-                                                )}
+                                            />
+                                            <div className="flex items-center gap-2">
+                                                <button
+                                                    onClick={handleSaveNotes}
+                                                    disabled={saving}
+                                                    className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                                                >
+                                                    {saving ? (
+                                                        <>
+                                                            <Loader2 className="w-4 h-4 animate-spin" />
+                                                            Kaydediliyor...
+                                                        </>
+                                                    ) : (
+                                                        <>
+                                                            <Save className="w-4 h-4" />
+                                                            Kaydet
+                                                        </>
+                                                    )}
+                                                </button>
+                                                <button
+                                                    onClick={() => {
+                                                        if (selectedWord) {
+                                                            setEditedNotes(selectedWord.userNotes || "");
+                                                        }
+                                                    }}
+                                                    disabled={saving}
+                                                    className="px-4 py-2 bg-gray-100 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-200 disabled:opacity-50 transition-colors"
+                                                >
+                                                    İptal
+                                                </button>
                                             </div>
-                                        )}
+                                        </div>
                                     </div>
                                 </div>
                             </div>

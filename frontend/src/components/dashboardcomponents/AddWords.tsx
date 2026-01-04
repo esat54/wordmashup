@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { wordsApi } from "../lib/api";
+import { wordsApi } from "@/lib/api";
 
 const wordTypes = [
   { value: "noun", label: "İsim" },

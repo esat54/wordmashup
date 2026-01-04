@@ -4,7 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Lock, Save, User, Mail, Trash2, Loader2, X, AlertTriangle } from "lucide-react";
 import { authApi } from "@/lib/api";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 interface SettingsProps {
   user: {
@@ -13,7 +13,7 @@ interface SettingsProps {
   };
 }
 
-export default function SettingsPageComponent({ user }: SettingsProps) {
+export default function SettingsPage({ user }: SettingsProps) {
   const router = useRouter();
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -22,7 +22,6 @@ export default function SettingsPageComponent({ user }: SettingsProps) {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState("");
 
-  // Delete account states
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [deletePassword, setDeletePassword] = useState("");
   const [deleteConfirmText, setDeleteConfirmText] = useState("");
@@ -73,7 +72,6 @@ export default function SettingsPageComponent({ user }: SettingsProps) {
       setDeleteLoading(true);
       await authApi.deleteAccount({ password: deletePassword });
 
-      // Hesap silindi, logout yap ve login sayfasına yönlendir
       localStorage.removeItem("user");
       localStorage.removeItem("token");
       router.push("/login");
@@ -90,7 +88,7 @@ export default function SettingsPageComponent({ user }: SettingsProps) {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Hesap Bilgileri */}
+
         <div className="flex flex-col space-y-6">
           <div className="bg-white rounded-lg border border-gray-200 p-5 flex-1">
             <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
@@ -130,9 +128,9 @@ export default function SettingsPageComponent({ user }: SettingsProps) {
               Hesabı Sil
             </button>
           </div>
-        </div>
+        </div>  {/* account information */}
 
-        {/* Şifre Değiştirme */}
+        {/* change password */}
         <div className="flex flex-col">
           <div className="bg-white rounded-lg border border-gray-200 p-5 flex-1 flex flex-col">
             <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
@@ -208,11 +206,10 @@ export default function SettingsPageComponent({ user }: SettingsProps) {
               </button>
             </form>
           </div>
-        </div>
+        </div>  {/* change password */}
       </div>
 
-      {/* Delete Account Tab*/}
-      <AnimatePresence>
+      <AnimatePresence>  {/* delete account modal */}
         {isDeleteModalOpen && (
           <>
             <motion.div
@@ -228,7 +225,7 @@ export default function SettingsPageComponent({ user }: SettingsProps) {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              onClick={(e) => e.stopPropagation()}
+              onClick={(e: any) => e.stopPropagation()}
               className="fixed inset-0 flex items-center justify-center z-50 p-4"
             >
               <div className="bg-white rounded-lg shadow-2xl w-full max-w-md max-h-[85vh] flex flex-col">

@@ -37,7 +37,6 @@ export default function GramerPage({ onGrammarClick }: GramerPageProps) {
     const [error, setError] = useState<string | null>(null);
     const [newCategoryName, setNewCategoryName] = useState<string>("");
 
-    // Add form states
     const [formData, setFormData] = useState({
         category: "",
         title: "",
@@ -55,7 +54,6 @@ export default function GramerPage({ onGrammarClick }: GramerPageProps) {
         loadGrammars();
     }, []);
 
-    // Debounce search
     useEffect(() => {
         const timer = setTimeout(() => {
             setDebouncedSearchTerm(searchTerm);
@@ -112,7 +110,6 @@ export default function GramerPage({ onGrammarClick }: GramerPageProps) {
         try {
             await grammarApi.deleteCategory(categoryName);
             setCategories(categories.filter(c => c !== categoryName));
-            // Eğer seçili kategori silindi ise "all" seç
             if (selectedCategory === categoryName) {
                 setSelectedCategory("all");
             }
@@ -125,7 +122,6 @@ export default function GramerPage({ onGrammarClick }: GramerPageProps) {
     const handleViewClick = (e: React.MouseEvent, grammar: Grammar) => {
         e.stopPropagation();
         if (onGrammarClick) {
-            // Slug oluştur: başlıktan URL-friendly slug
             const slug = grammar.title.toLowerCase()
                 .replace(/[^a-z0-9]+/g, '-')
                 .replace(/^-+|-+$/g, '');
@@ -155,7 +151,6 @@ export default function GramerPage({ onGrammarClick }: GramerPageProps) {
             }
         }
     };
-
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -488,9 +483,7 @@ export default function GramerPage({ onGrammarClick }: GramerPageProps) {
                 </div>
             </div>
 
-            {/* Ana Kutu - AllWords gibi */}
             <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-                {/* Filtreleme ve Arama */}
                 <div className="flex flex-col md:flex-row gap-4 mb-6">
                     <div className="flex-1 relative">
                         <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
@@ -516,7 +509,6 @@ export default function GramerPage({ onGrammarClick }: GramerPageProps) {
                     </select>
                 </div>
 
-                {/* Loading */}
                 {loading ? (
                     <div className="flex justify-center items-center py-12">
                         <Loader2 className="w-8 h-8 animate-spin text-blue-600" />

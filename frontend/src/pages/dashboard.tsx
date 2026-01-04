@@ -5,13 +5,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { LogOut, Menu, X, Home, BookOpen, Settings, User, ChevronLeft, ChevronRight, FileText, FileSearch, FileMinus } from "lucide-react";
 
-import WordsPage from "@/components/WordsPage";
-import SettingsPage from "@/components/SettingsPage";
-import DashboardHero from "@/components/DashboardHero";
-import DictionaryPage from "@/components/DictionaryPage";
-import GramerPage from "@/components/GramerPage";
-import OxfordListPage from "@/components/OxfordListPage";
-import GrammarDetailPage from "@/components/GrammarDetailPage";
+import WordsPage from "@/components/dashboardcomponents/WordsPage";
+import SettingsPage from "@/components/dashboardcomponents/SettingsPage";
+import DashboardHero from "@/components/dashboardcomponents/DashboardHero";
+import DictionaryPage from "@/components/dashboardcomponents/DictionaryPage";
+import GramerPage from "@/components/dashboardcomponents/GramerPage";
+import OxfordListPage from "@/components/dashboardcomponents/OxfordListPage";
+import GrammarDetailPage from "@/components/dashboardcomponents/GrammarDetailPage";
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -57,7 +57,7 @@ export default function DashboardPage() {
     { icon: BookOpen, label: "Kelimelerim", href: "words", active: currentPage === "words" },
     { icon: FileText, label: "Oxford Liste", href: "oxford", active: currentPage === "oxford" },
     { icon: FileSearch, label: "Sözlük", href: "dictionary", active: currentPage === "dictionary" },
-    { icon: FileMinus, label: "Gramer", href: "grammar", active: currentPage === "grammar" },
+    { icon: FileMinus, label: "Gramer", href: "grammar", active: currentPage === "grammar" || currentPage === "grammar-detail" },
     { icon: Settings, label: "Ayarlar", href: "settings", active: currentPage === "settings" },
   ];
 
@@ -86,8 +86,10 @@ export default function DashboardPage() {
                 onLogout={handleLogout}
                 onClose={() => setMobileMenuOpen(false)}
                 onPageChange={(page: string) => {
+                  setGrammarDetailId(null);
                   setCurrentPage(page);
                   setMobileMenuOpen(false);
+                  window.history.pushState({}, '', '/dashboard');
                 }}
                 grammarDetailId={grammarDetailId}
                 setGrammarDetailId={setGrammarDetailId}
@@ -105,7 +107,11 @@ export default function DashboardPage() {
           onLogout={handleLogout}
           sidebarOpen={sidebarOpen}
           onToggle={() => setSidebarOpen(!sidebarOpen)}
-          onPageChange={setCurrentPage}
+          onPageChange={(page: string) => {
+            setGrammarDetailId(null);
+            setCurrentPage(page);
+            window.history.pushState({}, '', '/dashboard');
+          }}
           grammarDetailId={grammarDetailId}
           setGrammarDetailId={setGrammarDetailId}
           setCurrentPage={setCurrentPage}
@@ -184,7 +190,7 @@ export default function DashboardPage() {
           )}
           {currentPage === "oxford" && <OxfordListPage />}
           {currentPage === "settings" && <SettingsPage user={user} />}
-          {currentPage === "home" && <DashboardHero />}
+          {currentPage === "home" && <DashboardHero user={user} onPageChange={setCurrentPage} />}
         </main>
       </div>
     </div>
@@ -194,7 +200,7 @@ export default function DashboardPage() {
 function SidebarContent({ user, menuItems, onLogout, sidebarOpen = true, onToggle, onClose, onPageChange, }: any) {
   return (
     <div className="h-full flex flex-col">
-      <div className="h-16 flex-shrink-0 flex items-center px-4 border-b border-gray-100 overflow-hidden">      {/* logo  */}
+      <div className="h-16 flex-shrink-0 flex items-center px-4 border-b border-gray-100 overflow-hidden">      {/* logo and toggle button */}
         <div className="flex items-center min-w-0 w-full">
           <div className={`transition-all duration-300 flex items-center overflow-hidden ${sidebarOpen ? "opacity-100 w-auto" : "opacity-0 w-0"}`}>
             <span className="text-xl font-bold text-gray-900 tracking-tight whitespace-nowrap">
@@ -211,7 +217,7 @@ function SidebarContent({ user, menuItems, onLogout, sidebarOpen = true, onToggl
         </div>
       </div>
 
-      <div className="p-4 bg-gray-50/50 border-b border-gray-100 overflow-hidden">  {/* character icon */}
+      <div className="p-4 bg-gray-50/50 border-b border-gray-100 overflow-hidden">  {/* user information */}
         <div className="flex items-center ml-1 ">
           <div className="w-10 h-10 rounded-xl flex-shrink-0 bg-blue-600 flex items-center justify-center text-white font-bold shadow-lg shadow-blue-100">
             {user.name.charAt(0).toUpperCase()}
@@ -224,7 +230,7 @@ function SidebarContent({ user, menuItems, onLogout, sidebarOpen = true, onToggl
         </div>
       </div>
 
-      <nav className="flex-1 overflow-y-auto p-3 space-y-1 ">        {/* menu list */}
+      <nav className="flex-1 overflow-y-auto p-3 space-y-1 ">        {/* menu items */}
         {menuItems.map((item: any, index: number) => {
           const Icon = item.icon;
           return (
@@ -244,7 +250,7 @@ function SidebarContent({ user, menuItems, onLogout, sidebarOpen = true, onToggl
         })}
       </nav>
 
-      <div className="p-4 border-t border-gray-100">     {/* logout button */}
+      <div className="p-4 border-t border-gray-100">     {/* logout */}
         <button
           onClick={onLogout}
           className="w-full flex items-center px-3 py-2.5 rounded-xl text-gray-500 hover:bg-red-50 hover:text-red-600 transition-all font-bold text-sm overflow-hidden"

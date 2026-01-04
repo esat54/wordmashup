@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 export default function HeroArea() {
   return (
@@ -35,12 +36,12 @@ export default function HeroArea() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12 sm:mb-16"
         >
-          <button className="inline-flex items-center justify-center px-6 py-3 text-base font-semibold text-white bg-gray-900 hover:bg-gray-800 rounded-lg transition-colors">
+          <Link href="/login" className="inline-flex items-center justify-center px-6 py-3 text-base font-semibold text-white bg-gray-900 hover:bg-gray-800 rounded-lg transition-colors">
             Ücretsiz Dene
-          </button>
-          <button className="inline-flex items-center justify-center px-6 py-3 text-base font-semibold text-blue-600 bg-white hover:bg-gray-50 rounded-lg border-2 border-gray-300 transition-colors">
+          </Link>
+          <Link href="/register" className="inline-flex items-center justify-center px-6 py-3 text-base font-semibold text-blue-600 bg-white hover:bg-gray-50 rounded-lg border-2 border-gray-300 transition-colors">
             Kayıt Ol
-          </button>
+          </Link>
         </motion.div>
       </div>
     </div>

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Search, Loader2, Volume2, Plus, BookOpen, X, Info, Sparkles } from "lucide-react";
-import { dictionaryApi } from "../lib/api";
+import { dictionaryApi } from "@/lib/api";
 
 export default function DictionaryPage() {
     const [word, setWord] = useState("");
@@ -44,7 +44,7 @@ export default function DictionaryPage() {
             </div>
 
             {message && (
-                <div className="fixed top-5 right-5 z-[9999] flex items-center gap-2 bg-gray-800 text-white px-4 py-3 rounded-lg shadow-2xl border border-gray-700">
+                <div className="fixed top-5 right-5 z-[9999] flex items-center gap-2 bg-gray-800 text-white px-4 py-3 rounded-lg shadow-2xl border border-gray-700">  {/* message */}
                     <span className="text-sm font-medium">{message}</span>
                     <button onClick={() => setMessage("")} className="hover:text-gray-400">
                         <X className="w-4 h-4" />
@@ -73,9 +73,8 @@ export default function DictionaryPage() {
                         {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : "Analiz Et"}
                     </button>
                 </div>
-            </div>
+            </div>  {/* search input and button */}
 
-            {/* Sonuç konteynırı*/}
             <div className="bg-white rounded-lg border border-gray-200 min-h-[500px] flex flex-col relative transition-all overflow-hidden">
                 {loading ? (
                     <div className="flex-1 flex flex-col items-center justify-center py-20">
@@ -102,7 +101,7 @@ export default function DictionaryPage() {
                                     <span className="text-xs font-mono text-gray-400 mt-1 block uppercase font-medium">
                                         {i.ipa}
                                     </span>
-                                </div>
+                                </div>  {/* meaning and ipa */}
 
                                 <div className="p-5 space-y-5 flex-1">
                                     <div className="flex items-center gap-2 text-gray-400">
@@ -121,7 +120,7 @@ export default function DictionaryPage() {
                                             </div>
                                         ))}
                                     </div>
-                                </div>
+                                </div>  {/* examples */}
 
                                 <div className="p-4 border-t border-gray-200 bg-white rounded-b-lg">
                                     <button
@@ -131,12 +130,12 @@ export default function DictionaryPage() {
                                         <Plus className="w-4 h-4" />
                                         Listeye Ekle
                                     </button>
-                                </div>
+                                </div>  {/* add to list button */}
                             </div>
                         ))}
                     </div>
                 ) : (
-                    <div className="flex-1 flex flex-col items-center justify-center py-20 text-center">
+                    <div className="flex-1 flex flex-col items-center justify-center py-20 text-center">  {/* no results */}
                         <div className="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mb-5 border border-gray-100">
                             <BookOpen className="w-8 h-8 text-gray-200" />
                         </div>
