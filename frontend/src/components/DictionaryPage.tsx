@@ -4,35 +4,6 @@ import { useState } from "react";
 import { Search, Loader2, Volume2, Plus, BookOpen, X, Info, Sparkles } from "lucide-react";
 import { dictionaryApi } from "../lib/api";
 
-const mockResult = [
-    {
-        meaning: "Beğenmek, hoşlanmak",
-        type: "verb",
-        ipa: "/laɪk/",
-        examples: [
-            { en: "I like learning new languages.", tr: "Yeni diller öğrenmeyi severim." },
-            { en: "She likes the way you think.", tr: "Senin düşünme tarzını beğeniyor." }
-        ]
-    },
-    {
-        meaning: "Gibi, benzer şekilde",
-        type: "preposition",
-        ipa: "/laɪk/",
-        examples: [
-            { en: "He acts like a child.", tr: "Çocuk gibi davranıyor." },
-            { en: "There is no place like home.", tr: "Ev gibisi yok." }
-        ]
-    },
-    {
-        meaning: "Benzeri, eşi",
-        type: "noun",
-        ipa: "/laɪk/",
-        examples: [
-            { en: "We shall not see his like again.", tr: "Onun gibisini bir daha görmeyeceğiz." }
-        ]
-    }
-];
-
 export default function DictionaryPage() {
     const [word, setWord] = useState("");
     const [loading, setLoading] = useState(false);
@@ -47,10 +18,7 @@ export default function DictionaryPage() {
         setMessage("");
 
         try {
-            // Artık api.ts üzerinden güvenli bir şekilde çağırıyoruz
             const data = await dictionaryApi.analyzeWord(word) as any;
-
-            // apiRequest genellikle veriyi doğrudan döner, hata varsa catch'e düşer
             setResults(data);
 
         } catch (error: any) {
@@ -71,9 +39,9 @@ export default function DictionaryPage() {
 
     return (
         <div className="max-w-7xl mx-auto">
-            <h1 className="text-3xl font-bold text-gray-900 mb-6 flex items-center gap-3">
-                Sözlük
-            </h1>
+            <div className="mb-6">
+                <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Sözlük</h1>
+            </div>
 
             {message && (
                 <div className="fixed top-5 right-5 z-[9999] flex items-center gap-2 bg-gray-800 text-white px-4 py-3 rounded-lg shadow-2xl border border-gray-700">
@@ -84,20 +52,8 @@ export default function DictionaryPage() {
                 </div>
             )}
 
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
-                    <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shadow-sm">
-                            <Sparkles className="w-5 h-5 text-white" />
-                        </div>
-                        <div>
-                            <h2 className="text-xl font-bold text-gray-900">Kelime Analizi</h2>
-                            <p className="text-[10px] text-gray-400 font-medium uppercase tracking-widest">AI-Powered Dictionary</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="flex flex-col sm:flex-row gap-3">   {/* Input ve Buton */}
+            <div className="bg-white rounded-lg border border-gray-200 p-6 mb-6">
+                <div className="flex flex-col sm:flex-row gap-3">
                     <div className="flex-1 relative">
                         <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
                         <input
@@ -106,13 +62,13 @@ export default function DictionaryPage() {
                             onChange={(e) => setWord(e.target.value)}
                             onKeyDown={(e) => e.key === "Enter" && handleSearch()}
                             placeholder="İngilizce kelime yazın..."
-                            className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition-all"
+                            className="w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition-all text-sm"
                         />
                     </div>
                     <button
                         onClick={handleSearch}
                         disabled={loading}
-                        className="inline-flex items-center justify-center gap-2 px-8 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-blue-400 transition-all font-semibold shadow-sm"
+                        className="inline-flex items-center justify-center gap-2 px-6 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-blue-400 disabled:cursor-not-allowed transition-all font-medium text-sm shadow-sm"
                     >
                         {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : "Analiz Et"}
                     </button>
@@ -120,16 +76,16 @@ export default function DictionaryPage() {
             </div>
 
             {/* Sonuç konteynırı*/}
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200 min-h-[500px] flex flex-col relative transition-all overflow-hidden">
+            <div className="bg-white rounded-lg border border-gray-200 min-h-[500px] flex flex-col relative transition-all overflow-hidden">
                 {loading ? (
                     <div className="flex-1 flex flex-col items-center justify-center py-20">
                         <Loader2 className="w-12 h-12 animate-spin text-blue-600 mb-4" />
                         <p className="text-gray-500 text-sm font-medium animate-pulse uppercase tracking-wider">Kelime Çözümleniyor...</p>
                     </div>
                 ) : results ? (
-                    <div className="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 h-full">
+                    <div className="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 h-full">
                         {results.map((i, index) => (
-                            <div key={index} className="flex flex-col bg-gray-50/50 rounded-xl border border-gray-100 hover:border-blue-200 hover:bg-white hover:shadow-lg hover:shadow-gray-200/50 transition-all duration-300">
+                            <div key={index} className="flex flex-col bg-gray-50 rounded-lg border border-gray-200 hover:border-blue-300 hover:shadow-md transition-all duration-200">
 
                                 <div className="p-5 border-b border-gray-100">
                                     <div className="flex justify-between items-start mb-3">
@@ -167,9 +123,9 @@ export default function DictionaryPage() {
                                     </div>
                                 </div>
 
-                                <div className="p-4 border-t border-gray-50 bg-white/50 rounded-b-xl">
+                                <div className="p-4 border-t border-gray-200 bg-white rounded-b-lg">
                                     <button
-                                        className="w-full flex items-center justify-center gap-2 py-2 bg-white border border-gray-200 rounded-lg text-xs font-bold text-gray-600 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all active:scale-[0.98]"
+                                        className="w-full flex items-center justify-center gap-2 py-2 bg-white border border-gray-300 rounded-lg text-xs font-medium text-gray-700 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all"
                                         onClick={() => setMessage(`${word} listeye eklendi!`)}
                                     >
                                         <Plus className="w-4 h-4" />
