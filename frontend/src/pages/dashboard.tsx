@@ -57,7 +57,7 @@ export default function DashboardPage() {
     { icon: BookOpen, label: "Kelimelerim", href: "words", active: currentPage === "words" },
     { icon: FileText, label: "Oxford Liste", href: "oxford", active: currentPage === "oxford" },
     { icon: FileSearch, label: "Sözlük", href: "dictionary", active: currentPage === "dictionary" },
-    { icon: FileMinus, label: "Gramer", href: "grammer", active: currentPage === "grammer" },
+    { icon: FileMinus, label: "Gramer", href: "grammar", active: currentPage === "grammar" },
     { icon: Settings, label: "Ayarlar", href: "settings", active: currentPage === "settings" },
   ];
 
@@ -85,7 +85,7 @@ export default function DashboardPage() {
                 menuItems={menuItems}
                 onLogout={handleLogout}
                 onClose={() => setMobileMenuOpen(false)}
-                onPageChange={(page) => {
+                onPageChange={(page: string) => {
                   setCurrentPage(page);
                   setMobileMenuOpen(false);
                 }}
@@ -113,7 +113,7 @@ export default function DashboardPage() {
       </aside>  {/* Sidebar */}
 
       <div className="flex-1 flex flex-col min-w-0">
-        <header className="sticky top-0 z-30 px-4 sm:px-6 lg:px-8 py-4">
+        <header className="sticky top-0 z-30 px-4 sm:px-6 lg:px-7 pt-4 pb-4 lg:pb-0">
           <div className="max-w-7xl mx-auto bg-white border border-gray-200 shadow-sm rounded-xl h-16 px-4 flex items-center justify-between">
 
             <div className="flex items-center gap-4 flex-1">
@@ -166,32 +166,32 @@ export default function DashboardPage() {
         <main className="flex-1 p-4 sm:p-6 lg:p-7 overflow-y-auto">     {/* current page selector*/}
           {currentPage === "words" && <WordsPage />}
           {currentPage === "dictionary" && <DictionaryPage />}
-          {currentPage === "grammer" && !grammarDetailId && <GramerPage onGrammarClick={(id, slug) => {
+          {currentPage === "grammar" && !grammarDetailId && <GramerPage onGrammarClick={(id, slug) => {
             setGrammarDetailId(id);
             setCurrentPage("grammar-detail");
             const newUrl = `/dashboard/${slug}`;
             window.history.pushState({}, '', newUrl);
           }} />}
-          {((currentPage === "grammar-detail" && grammarDetailId) || (currentPage === "grammer" && grammarDetailId)) && (
+          {((currentPage === "grammar-detail" && grammarDetailId) || (currentPage === "grammar" && grammarDetailId)) && (
             <GrammarDetailPage
               grammarId={grammarDetailId}
               onBack={() => {
                 setGrammarDetailId(null);
-                setCurrentPage("grammer");
+                setCurrentPage("grammar");
                 window.history.pushState({}, '', '/dashboard');
               }}
             />
           )}
           {currentPage === "oxford" && <OxfordListPage />}
           {currentPage === "settings" && <SettingsPage user={user} />}
-          {currentPage === "home" && <DashboardHero user={user} />}
+          {currentPage === "home" && <DashboardHero />}
         </main>
       </div>
     </div>
   );
 }
 
-function SidebarContent({ user, menuItems, onLogout, sidebarOpen = true, onToggle, onClose, onPageChange, grammarDetailId, setGrammarDetailId, setCurrentPage, }: any) {
+function SidebarContent({ user, menuItems, onLogout, sidebarOpen = true, onToggle, onClose, onPageChange, }: any) {
   return (
     <div className="h-full flex flex-col">
       <div className="h-16 flex-shrink-0 flex items-center px-4 border-b border-gray-100 overflow-hidden">      {/* logo  */}
