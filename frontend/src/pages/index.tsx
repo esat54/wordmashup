@@ -1,5 +1,7 @@
 import Header from "@/components/header";
 import HeroArea from "@/components/hero";
+import Features from "@/components/features";
+
 
 export default function Home() {
   return (
@@ -21,6 +23,7 @@ export default function Home() {
           <Header />
           <main>
             <HeroArea />
+            <Features />
           </main>
         </div>
 
