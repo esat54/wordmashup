@@ -9,7 +9,7 @@ import Image from "next/image";
 import { authApi } from "@/lib/api";
 
 export default function LoginPage() {
-  const router = useRouter(); 
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -49,6 +49,11 @@ export default function LoginPage() {
 
         if (response.user) {
           localStorage.setItem('user', JSON.stringify(response.user));
+        }
+
+        if (response.user.role === 'admin') {
+          router.push("/admin");
+          return;
         }
 
         router.push("/dashboard");
