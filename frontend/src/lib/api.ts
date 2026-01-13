@@ -203,7 +203,7 @@ export const oxfordApi = {
 
 
 export const grammarApi = {
-    
+
     getAllGrammars: (params: { category?: string; search?: string } = {}) => {
         const { category = "", search = "" } = params;
         return apiRequest(`/api/grammar?category=${category}&search=${search}`, {
@@ -236,6 +236,7 @@ export const grammarApi = {
         formula?: string;
         rules?: string;
         notes?: string;
+        isGlobal?: boolean;
         examples?: Array<{ en: string; tr: string }>;
     }) => {
         return apiRequest("/api/grammar", {

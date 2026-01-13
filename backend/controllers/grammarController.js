@@ -98,8 +98,12 @@ exports.getCategories = async (req, res) => {
 
 exports.createGrammar = async (req, res) => {
     try {
-        const { category, title, description, formula, rules, notes, examples } = req.body;
+        const { category, title, description, formula, rules, notes, examples, isGlobal } = req.body;
         const userId = req.userId;
+
+        if (isGlobal === true && req.user.role !== 'admin') {
+            return res.status(403).json({ message: 'Sadece adminler global içerik ekleyebilir.' });
+        }
 
         if (!category || !title) {
             return res.status(400).json({ message: 'Kategori ve başlık zorunludur' });
@@ -113,7 +117,8 @@ exports.createGrammar = async (req, res) => {
             rules: rules || "",
             notes: notes || "",
             examples: examples || [],
-            addedBy: userId
+            addedBy: userId,
+            isGlobal: req.user.role === 'admin' ? (isGlobal || false) : false
         });
 
         await grammar.save();
@@ -198,7 +203,7 @@ exports.deleteCategory = async (req, res) => {
         }
 
         // Kullanıcının bu kategorideki tüm gramer konularını sil
-        const result = await Grammar.deleteMany({ 
+        const result = await Grammar.deleteMany({
             category: categoryName,
             addedBy: userId
         });

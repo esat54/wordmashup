@@ -18,6 +18,11 @@ const userSchema = new mongoose.Schema({
         required: true,
         minlength: 6
     },
+    role: {
+        type: String,
+        enum: ['user', 'admin', 'tester'],
+        default: 'user'
+    },
     lastActivityDate: {
         type: Date,
         default: null
@@ -59,13 +64,13 @@ exports.updateUserActivity = async (userId) => {
 
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    
+
     const lastActivity = user.lastActivityDate ? new Date(user.lastActivityDate) : null;
     if (lastActivity) {
         lastActivity.setHours(0, 0, 0, 0);
     }
 
-    const daysDiff = lastActivity 
+    const daysDiff = lastActivity
         ? Math.floor((today.getTime() - lastActivity.getTime()) / (1000 * 60 * 60 * 24))
         : 999;
 

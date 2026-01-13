@@ -43,8 +43,11 @@ const GrammarSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true
+    },
+    isGlobal: {
+        type: Boolean,
+        default: false
     }
 }, { timestamps: true });
 
 module.exports = mongoose.model("Grammar", GrammarSchema);
-
