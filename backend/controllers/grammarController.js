@@ -37,6 +37,16 @@ exports.getAllGrammars = async (req, res) => {
     }
 };
 
+exports.getGlobalGrammars = async (req, res) => {
+    try {
+        const grammars = await Grammar.find({ isGlobal: true }).sort({ createdAt: -1 });
+        res.status(200).json({ grammars });
+    } catch (error) {
+        console.error("getGlobalGrammars error:", error);
+        res.status(500).json({ message: "Hazır gramer konuları getirilirken hata oluştu" });
+    }
+};
+
 exports.getGrammarById = async (req, res) => {
     try {
         const { id } = req.params;
@@ -44,7 +54,10 @@ exports.getGrammarById = async (req, res) => {
 
         const grammar = await Grammar.findOne({
             _id: id,
-            addedBy: userId
+            $or: [
+                { addedBy: userId },
+                { isGlobal: true }  
+            ]
         });
 
         if (!grammar) {
@@ -217,4 +230,3 @@ exports.deleteCategory = async (req, res) => {
         res.status(500).json({ message: "Kategori silinirken hata oluştu" });
     }
 };
-

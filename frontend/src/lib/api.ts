@@ -211,6 +211,12 @@ export const grammarApi = {
         });
     },
 
+    getGlobalGrammars: () => {
+        return apiRequest("/api/grammar/global", {
+            method: "GET",
+        });
+    },
+
     getGrammarById: (id: string) => {
         return apiRequest(`/api/grammar/${id}`, {
             method: "GET",
@@ -236,7 +242,6 @@ export const grammarApi = {
         formula?: string;
         rules?: string;
         notes?: string;
-        isGlobal?: boolean;
         examples?: Array<{ en: string; tr: string }>;
     }) => {
         return apiRequest("/api/grammar", {
