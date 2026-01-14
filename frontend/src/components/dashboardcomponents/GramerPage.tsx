@@ -19,6 +19,7 @@ interface Grammar {
     notes?: string;
     examples?: GrammarExample[];
     isPinned?: boolean;
+    isGlobal?: boolean;
 }
 
 
@@ -29,6 +30,7 @@ interface GramerPageProps {
 export default function GramerPage({ onGrammarClick }: GramerPageProps) {
     const [currentView, setCurrentView] = useState<"list" | "add">("list");
     const [grammars, setGrammars] = useState<Grammar[]>([]);
+    const [globalGrammars, setGlobalGrammars] = useState<Grammar[]>([]);
     const [categories, setCategories] = useState<string[]>([]);
     const [selectedCategory, setSelectedCategory] = useState<string>("all");
     const [searchTerm, setSearchTerm] = useState<string>("");
@@ -36,7 +38,6 @@ export default function GramerPage({ onGrammarClick }: GramerPageProps) {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [newCategoryName, setNewCategoryName] = useState<string>("");
-
     const [formData, setFormData] = useState({
         category: "",
         title: "",
@@ -52,6 +53,7 @@ export default function GramerPage({ onGrammarClick }: GramerPageProps) {
     useEffect(() => {
         loadCategories();
         loadGrammars();
+        loadGlobalGrammars();
     }, []);
 
     useEffect(() => {
@@ -91,6 +93,20 @@ export default function GramerPage({ onGrammarClick }: GramerPageProps) {
             console.error("Gramer konuları yüklenirken hata:", err);
             setError(err.message || "Gramer konuları yüklenirken bir hata oluştu");
             setGrammars([]);
+            setLoading(false);
+        }
+    };
+
+    const loadGlobalGrammars = async () => {
+        try {
+            setLoading(true);
+            setError(null);
+            const response = await grammarApi.getGlobalGrammars() as any;
+            setGlobalGrammars(response.grammars || []);
+        } catch (err: any) {
+            console.error("Gramer konuları yüklenirken hata:", err);
+            setError(err.message || "Hazır Gramer konuları yüklenirken bir hata oluştu");
+            setGlobalGrammars([]);
             setLoading(false);
         }
     };
@@ -518,61 +534,92 @@ export default function GramerPage({ onGrammarClick }: GramerPageProps) {
                     <div className="bg-red-50 border border-red-200 rounded-lg p-4 text-sm text-red-700">
                         {error}
                     </div>
-                ) : grammars.length > 0 ? (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-                        {grammars.map((grammar) => (
-                            <div
-                                key={grammar._id}
-                                className="bg-gray-50 rounded-lg p-4 border border-gray-200"
-                            >
-                                <div className="flex items-start justify-between mb-2">
-                                    <div className="flex-1 min-w-0">
-                                        <div className="text-xs text-gray-500 mb-1">
-                                            {grammar.category}
-                                        </div>
-                                        <h3 className="font-semibold text-gray-900">{grammar.title}</h3>
-                                        {grammar.description && (
-                                            <p className="text-sm text-gray-600 mt-1 line-clamp-2">
-                                                {grammar.description}
-                                            </p>
-                                        )}
-                                    </div>
-                                    <div className="flex flex-row gap-1 mt-[2px]">
-                                        <button
-                                            onClick={(e) => handleViewClick(e, grammar)}
-                                            className="text-gray-400 hover:text-blue-500 transition-colors"
-                                            title="Görüntüle"
-                                        >
-                                            <Eye className="w-[18px] h-[18px]" />
-                                        </button>
-                                        <button
-                                            onClick={(e) => handleTogglePin(e, grammar._id)}
-                                            className={`transition-colors ${grammar.isPinned ? "text-blue-500" : "text-gray-400 hover:text-blue-500"}`}
-                                            title="Sabitle"
-                                        >
-                                            {grammar.isPinned ? (
-                                                <Pin className="w-[18px] h-[18px]" />
-                                            ) : (
-                                                <PinOff className="w-[18px] h-[18px]" />
-                                            )}
-                                        </button>
-                                        <button
-                                            onClick={(e) => handleDeleteGrammar(e, grammar._id, grammar.title)}
-                                            className="text-gray-400 hover:text-red-500 transition-colors"
-                                            title="Sil"
-                                        >
-                                            <Trash2 className="w-[18px] h-[18px]" />
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
                 ) : (
-                    <div className="text-center py-12 text-gray-600">
-                        {searchTerm || selectedCategory !== "all"
-                            ? "Arama kriterlerinize uygun konu bulunamadı."
-                            : "Henüz gramer konusu eklenmemiş."}
+                    <div className="space-y-10">
+                        <section> {/* kullanıcı notları */}
+                            <div className="flex items-center gap-2 mb-6">
+                                <div className="p-1.5 bg-blue-50 rounded-lg">
+                                    <Plus className="w-4 h-4 text-blue-600" />
+                                </div>
+                                <h2 className="text-xs font-bold text-gray-700 uppercase tracking-widest">
+                                    Benim Notlarım
+                                </h2>
+                            </div>
+
+                            {grammars.length > 0 ? (
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                                    {grammars.map((grammar) => (
+                                        <div
+                                            key={grammar._id}
+                                            className="bg-gray-50 rounded-lg p-4 border border-gray-200 transition-all duration-300 hover:shadow-sm"                                        >
+                                            <div className="flex items-start justify-between mb-2">
+                                                <div className="flex-1 min-w-0">
+                                                    <div className="text-xs text-gray-500 mb-1">{grammar.category}</div>
+                                                    <h3 className="font-semibold text-gray-900 truncate">{grammar.title}</h3>
+                                                    {grammar.description && (
+                                                        <p className="text-sm text-gray-600 mt-1 line-clamp-2">{grammar.description}</p>
+                                                    )}
+                                                </div>
+                                                <div className="flex flex-row gap-1 mt-[2px]">
+                                                    <button onClick={(e) => handleViewClick(e, grammar)} className="text-gray-400 hover:text-blue-500 transition-colors" title="Görüntüle"><Eye className="w-[18px] h-[18px]" /></button>
+                                                    <button onClick={(e) => handleTogglePin(e, grammar._id)} className={`transition-colors ${grammar.isPinned ? "text-blue-500" : "text-gray-400 hover:text-blue-500"}`} title="Sabitle">{grammar.isPinned ? <Pin className="w-[18px] h-[18px]" /> : <PinOff className="w-[18px] h-[18px]" />}</button>
+                                                    <button onClick={(e) => handleDeleteGrammar(e, grammar._id, grammar.title)} className="text-gray-400 hover:text-red-500 transition-colors" title="Sil"><Trash2 className="w-[18px] h-[18px]" /></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            ) : (
+                                <div className="bg-gray-50/50 border border-dashed border-gray-200 rounded-xl py-8 text-center text-sm text-gray-500">
+                                    {searchTerm || selectedCategory !== "all" ? "Arama kriterlerinize uygun not bulunamadı." : "Henüz kendi gramer konunuzu eklemediniz."}
+                                </div>
+                            )}
+                        </section>
+
+
+                        {globalGrammars.length > 0 && (  // hazır gramer notları
+                            <section className="pt-8 border-t border-gray-100">
+                                <div className="flex items-center gap-2 mb-6">
+                                    <div className="p-1.5 bg-indigo-50 rounded-lg">
+                                        <BookOpen className="w-4 h-4 text-indigo-600" />
+                                    </div>
+                                    <h2 className="text-xs font-bold text-gray-700 uppercase tracking-widest">
+                                        Hazır Gramer Kütüphanesi
+                                    </h2>
+                                </div>
+
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                    {globalGrammars.map((global: any) => (
+                                        <div
+                                            key={global._id}
+                                            onClick={(e) => handleViewClick(e, global)}
+                                            className="group h-full bg-gray-50/80 rounded-lg p-4 border border-gray-200 hover:border-blue-400/50 hover:bg-blue-50/30 transition-all duration-300 cursor-pointer shadow-sm"
+                                        >
+                                            <div className="flex flex-col h-full">
+                                                <div className="flex items-start justify-between mb-2">
+                                                    <div className="flex-1 min-w-0">
+                                                        <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1 block">
+                                                            {global.category}
+                                                        </span>
+                                                        <h3 className="font-semibold text-gray-900 truncate">
+                                                            {global.title}
+                                                        </h3>
+                                                        {global.description && (
+                                                            <p className="text-sm text-gray-600 mt-1 line-clamp-2 leading-relaxed">
+                                                                {global.description}
+                                                            </p>
+                                                        )}
+                                                    </div>
+                                                    <div className="flex flex-row gap-1 ml-2">
+                                                        <Eye className="w-4 h-4 text-gray-300 group-hover:text-blue-400 transition-colors mt-[2px]" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </section>
+                        )}
                     </div>
                 )}
             </div>
