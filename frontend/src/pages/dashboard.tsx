@@ -21,6 +21,8 @@ export default function DashboardPage() {
   const [currentPage, setCurrentPage] = useState("home");
   const [grammarDetailId, setGrammarDetailId] = useState<string | null>(null);
 
+  const isTester = user?.email === "tester@gmail.com";
+
   useEffect(() => {  // Validation 
     const userData = localStorage.getItem("user");
     const token = localStorage.getItem("token");
@@ -153,18 +155,32 @@ export default function DashboardPage() {
             </div>
 
             <div className="flex items-center justify-end gap-3 flex-1">
-              <div className="hidden sm:flex items-center gap-2 text-sm text-gray-600 px-3 py-1.5 bg-gray-50 rounded-lg border border-gray-100">
-                <User size={14} className="text-gray-400" />
-                <span className="font-semibold text-gray-900">{user.name}</span>
-              </div>
+              {isTester ? (
+                <div className="hidden sm:flex items-center gap-2.5 px-4 py-2 bg-indigo-50 border border-indigo-100 rounded-xl shadow-sm select-none">
+                  <div className="relative flex items-center justify-center">
+                    <div className="w-2 h-2 bg-indigo-500 rounded-full" />
+                    <div className="absolute w-2 h-2 bg-indigo-400 rounded-full" />
+                  </div>
+                  <span className="text-[11px] font-bold text-indigo-600 uppercase tracking-[0.15em]">
+                    TEST ACCOUNT
+                  </span>
+                </div>
+              ) : (
+                <>
+                  <div className="hidden sm:flex items-center gap-2 text-sm text-gray-600 px-3 py-1.5 bg-gray-50 rounded-lg border border-gray-100">
+                    <User size={14} className="text-gray-400" />
+                    <span className="font-semibold text-gray-900">{user.name}</span>
+                  </div>
 
-              <button
-                onClick={handleLogout}
-                title="Çıkış Yap"
-                className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all border border-transparent hover:border-red-100"
-              >
-                <LogOut size={20} />
-              </button>
+                  <button
+                    onClick={handleLogout}
+                    title="Çıkış Yap"
+                    className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all border border-transparent hover:border-red-100"
+                  >
+                    <LogOut size={20} />
+                  </button>
+                </>
+              )}
             </div>
           </div>
         </header>
@@ -189,7 +205,9 @@ export default function DashboardPage() {
             />
           )}
           {currentPage === "oxford" && <OxfordListPage />}
-          {currentPage === "settings" && <SettingsPage user={user} />}
+          {currentPage === "settings" && (
+            isTester ? <DashboardHero user={user} onPageChange={setCurrentPage} /> : <SettingsPage user={user} />
+          )}
           {currentPage === "home" && <DashboardHero user={user} onPageChange={setCurrentPage} />}
         </main>
       </div>
@@ -197,10 +215,13 @@ export default function DashboardPage() {
   );
 }
 
-function SidebarContent({ user, menuItems, onLogout, sidebarOpen = true, onToggle, onClose, onPageChange, }: any) {
+function SidebarContent({ user, menuItems, onLogout, sidebarOpen = true, onToggle, onPageChange, }: any) {
+
+  const isTester = user?.email === "tester@gmail.com";
+
   return (
     <div className="h-full flex flex-col">
-      <div className="h-16 flex-shrink-0 flex items-center px-4 border-b border-gray-100 overflow-hidden">      {/* logo and toggle button */}
+      <div className="h-16 flex-shrink-0 flex items-center px-4 border-b border-gray-100 overflow-hidden">
         <div className="flex items-center min-w-0 w-full">
           <div className={`transition-all duration-300 flex items-center overflow-hidden ${sidebarOpen ? "opacity-100 w-auto" : "opacity-0 w-0"}`}>
             <span className="text-xl font-bold text-gray-900 tracking-tight whitespace-nowrap">
@@ -209,7 +230,7 @@ function SidebarContent({ user, menuItems, onLogout, sidebarOpen = true, onToggl
           </div>
           <div className="ml-auto">
             {onToggle && (
-              <button onClick={onToggle} className="p-2 rounded-lg  text-gray-400 hover:bg-gray-100 transition-colors">
+              <button onClick={onToggle} className="p-2 rounded-lg text-gray-400 hover:bg-gray-100 transition-colors">
                 {sidebarOpen ? <ChevronLeft size={23} /> : <ChevronRight size={25} className="mr-0.5" />}
               </button>
             )}
@@ -217,47 +238,70 @@ function SidebarContent({ user, menuItems, onLogout, sidebarOpen = true, onToggl
         </div>
       </div>
 
-      <div className="p-4 bg-gray-50/50 border-b border-gray-100 overflow-hidden">  {/* user information */}
+      <div className="p-4 bg-gray-50/50 border-b border-gray-100 overflow-hidden">
         <div className="flex items-center ml-1 ">
           <div className="w-10 h-10 rounded-xl flex-shrink-0 bg-blue-600 flex items-center justify-center text-white font-bold shadow-lg shadow-blue-100">
-            {user.name.charAt(0).toUpperCase()}
+            {isTester ? "T" : user.name.charAt(0).toUpperCase()}
           </div>
-          <div className={`transition-all duration-300 overflow-hidden whitespace-nowrap ${sidebarOpen ? "opacity-100 max-w-xs ml-3" : "opacity-0 max-w-0 ml-0"
-            }`}>
-            <p className="text-sm font-bold text-gray-900 truncate">{user.name}</p>
-            <p className="text-[13px] text-gray-500 truncate font-medium">{user.email}</p>
+          <div className={`transition-all duration-300 overflow-hidden whitespace-nowrap ${sidebarOpen ? "opacity-100 max-w-xs ml-3" : "opacity-0 max-w-0 ml-0"}`}>
+            <p className="text-sm font-bold text-gray-700 truncate">
+              {isTester ? "Deneme Hesabı" : user.name}
+            </p>
+            <p className="text-[13px] text-gray-500 truncate font-medium">
+              {isTester ? "" : user.email}
+            </p>
           </div>
         </div>
       </div>
 
-      <nav className="flex-1 overflow-y-auto p-3 space-y-1 ">        {/* menu items */}
+      <nav className="flex-1 overflow-y-auto p-3 space-y-1">
         {menuItems.map((item: any, index: number) => {
           const Icon = item.icon;
+          const isDisabled = isTester && item.href === "settings";
+
           return (
-            <button
-              key={index}
-              onClick={() => onPageChange(item.href)}
-              className={`w-full flex items-center px-3 py-3 rounded-xl transition-all font-semibold text-sm overflow-hidden 
-                ${item.active ? "bg-blue-50 text-blue-600" : "text-gray-500 hover:bg-gray-50 hover:text-gray-900"}`}
-            >
-              <Icon size={21} className={`flex-shrink-0 ml-1.5 ${item.active ? "text-blue-600" : "text-gray-400"}`} />
-              <span className={`transition-all duration-300 overflow-hidden whitespace-nowrap ${sidebarOpen ? "opacity-100 max-w-xs ml-3" : "opacity-0 max-w-0 ml-0"
-                }`}>
-                {item.label}
-              </span>
-            </button>
+            <div key={index} className="relative group/item">
+              <button
+                disabled={isDisabled}
+                onClick={(e) => {
+                  if (isDisabled) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    return;
+                  }
+                  onPageChange(item.href);
+                }}
+                className={`w-full flex items-center px-3 py-3 rounded-xl transition-all font-semibold text-sm overflow-hidden 
+          ${item.active ? "bg-blue-50 text-blue-600" : "text-gray-500 hover:bg-gray-50 hover:text-gray-900"}
+          ${isDisabled ? "opacity-40 cursor-not-allowed pointer-events-auto" : ""}`}
+              >
+                <div className="relative flex items-center justify-center ml-1.5">
+                  <Icon
+                    size={21}
+                    className={`flex-shrink-0 ${item.active ? "text-blue-600" : "text-gray-400"}`}
+                  />
+                  {isDisabled && (
+                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                      <div className="w-5 h-[2px] bg-red-600 rotate-45 rounded-full z-10" />
+                    </div>
+                  )}
+                </div>
+                <span className={`transition-all duration-300 overflow-hidden whitespace-nowrap ${sidebarOpen ? "opacity-100 max-w-xs ml-3" : "opacity-0 max-w-0 ml-0"}`}>
+                  {item.label}
+                </span>
+              </button>
+            </div>
           );
         })}
       </nav>
 
-      <div className="p-4 border-t border-gray-100">     {/* logout */}
+      <div className="p-4 border-t border-gray-100">
         <button
           onClick={onLogout}
           className="w-full flex items-center px-3 py-2.5 rounded-xl text-gray-500 hover:bg-red-50 hover:text-red-600 transition-all font-bold text-sm overflow-hidden"
         >
           <LogOut size={21} className="flex-shrink-0" />
-          <span className={`transition-all duration-300 overflow-hidden whitespace-nowrap ${sidebarOpen ? "opacity-100 max-w-xs ml-3" : "opacity-0 max-w-0 ml-0"
-            }`}>
+          <span className={`transition-all duration-300 overflow-hidden whitespace-nowrap ${sidebarOpen ? "opacity-100 max-w-xs ml-3" : "opacity-0 max-w-0 ml-0"}`}>
             Oturumu Kapat
           </span>
         </button>

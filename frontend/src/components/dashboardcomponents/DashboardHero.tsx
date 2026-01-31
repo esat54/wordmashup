@@ -1,7 +1,7 @@
 "use client";
-
+import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-import { Flame, BarChart3, PieChart, BookOpen, Heart, FileText, Calendar, ArrowRight, BookMarked } from "lucide-react";
+import { Flame, BarChart3, PieChart, BookOpen, Heart, FileText, Calendar, ArrowRight, BookMarked, Infinity } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart as RechartsPieChart, Pie, Cell, Legend } from "recharts";
 import { wordsApi, grammarApi } from "@/lib/api";
 
@@ -35,7 +35,10 @@ interface Grammar {
 
 const COLORS = ['#8b5cf6', '#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#ec4899', '#06b6d4', '#6366f1'];
 
-export default function DashboardHero({ user, onPageChange }: { user: { name: string }; onPageChange?: (page: string) => void }) {
+export default function DashboardHero({ user, onPageChange }: { user: { name: string; email: string }; onPageChange?: (page: string) => void }) {
+  const router = useRouter();
+  const isTester = user?.email === "tester@gmail.com";
+
   const [dailyStats, setDailyStats] = useState<DailyStat[]>([]);
   const [typeStats, setTypeStats] = useState<TypeStat[]>([]);
   const [totalWords, setTotalWords] = useState(0);
@@ -93,12 +96,30 @@ export default function DashboardHero({ user, onPageChange }: { user: { name: st
   return (
     <div className="max-w-7xl mx-auto space-y-4 antialiased">
 
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5 px-6">  {/* name and streak */}
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5 px-6">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           {isLoading ? (
             <div className="flex-1">
               <div className="h-8 bg-gray-200 rounded animate-pulse w-48 mb-2"></div>
               <div className="h-4 bg-gray-100 rounded animate-pulse w-40"></div>
+            </div>
+          ) : isTester ? (
+            <div className="flex-1">
+              <h1 className="text-2xl font-black text-gray-900 tracking-tight">
+                Hoş Geldiniz! ✨
+              </h1>
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2 mt-1">
+                <p className="text-sm text-gray-500 font-medium">
+                  Tam erişim için hemen{" "}
+                  <button
+                    type="button"
+                    onClick={() => router.push('/register')}
+                    className="text-sm text-indigo-600 font-bold hover:text-indigo-700 transition-colors underline underline-offset-4"
+                  >
+                    kayıt olun
+                  </button>
+                </p>
+              </div>
             </div>
           ) : (
             <div>
@@ -109,8 +130,7 @@ export default function DashboardHero({ user, onPageChange }: { user: { name: st
             </div>
           )}
 
-          {/* Rafine Seri Rozeti */}
-          {isLoading ? (
+          {isLoading ? ( //badge
             <div className="flex items-center gap-3 bg-gray-50 border border-gray-200 pl-2 pr-4 py-1.5 rounded-full">
               <div className="bg-gray-300 p-1.5 rounded-full shadow-sm animate-pulse">
                 <Flame size={16} className="text-gray-400" />
@@ -119,8 +139,19 @@ export default function DashboardHero({ user, onPageChange }: { user: { name: st
                 <span className="text-xs font-black text-gray-400 whitespace-nowrap">Yükleniyor...</span>
               </div>
             </div>
+          ) : isTester ? (
+            <div className="flex items-center gap-3 bg-gray-50/50 border border-gray-200 pl-2 pr-4 py-1.5 rounded-full shadow-sm">
+              <div className="bg-gray-400 p-1.5 rounded-full shadow-sm">
+                <Flame size={16} className="text-gray-300" />
+              </div>
+              <div className="flex items-center gap-1.5">
+                <span className="text-xs font-black text-gray-500 whitespace-nowrap">
+                  Seri: <span className="mx-2">--</span> Gün
+                </span>
+              </div>
+            </div>
           ) : streak > 0 ? (
-            <div className="flex items-center gap-3 bg-orange-50/50 border border-orange-100 pl-2 pr-4 py-1.5 rounded-full">
+            <div className="flex items-center gap-3 bg-orange-50/50 border border-orange-100 pl-2 pr-4 py-1.5 rounded-full shadow-sm">
               <div className="bg-orange-500 p-1.5 rounded-full shadow-sm">
                 <Flame size={16} className="text-white fill-orange-200" />
               </div>
@@ -131,7 +162,7 @@ export default function DashboardHero({ user, onPageChange }: { user: { name: st
               </div>
             </div>
           ) : (
-            <div className="flex items-center gap-3 bg-gray-50/50 border border-gray-200 pl-2 pr-4 py-1.5 rounded-full">
+            <div className="flex items-center gap-3 bg-gray-50/50 border border-gray-200 pl-2 pr-4 py-1.5 rounded-full shadow-sm">
               <div className="bg-gray-400 p-1.5 rounded-full shadow-sm">
                 <Flame size={16} className="text-gray-300" />
               </div>

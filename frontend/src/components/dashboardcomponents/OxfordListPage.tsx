@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { FileText, Edit2, X, Save, Loader2, AlertCircle, ChevronLeft, ChevronRight, Circle, Clock, CheckCircle2 } from "lucide-react";
+import { Edit2, X, Save, Loader2, AlertCircle, ChevronLeft, ChevronRight, Circle, Clock, CheckCircle2, User } from "lucide-react";
 import { oxfordApi } from "@/lib/api";
 
 interface OxfordWord {
@@ -20,10 +21,11 @@ const WORDS_PER_PAGE = 50;
 
 const getCategoryIdForLetter = (letter: string): number => {
     const index = letters.indexOf(letter);
-    return index + 1; 
+    return index + 1;
 };
 
 export default function OxfordListPage() {
+    const [user, setUser] = useState<{ name: string; email: string } | null>(null);
     const [selectedCategory, setSelectedCategory] = useState<number>(1);
     const [allWords, setAllWords] = useState<OxfordWord[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -34,6 +36,19 @@ export default function OxfordListPage() {
     const [isEditing, setIsEditing] = useState(false);
     const [editedNotes, setEditedNotes] = useState("");
     const [saving, setSaving] = useState(false);
+
+    useEffect(() => {
+        const userData = localStorage.getItem("user");
+        if (userData) {
+            try {
+                setUser(JSON.parse(userData));
+            } catch (e) {
+                console.error("Kullanıcı verisi okunamadı");
+            }
+        }
+    }, []);
+
+    const isTester = user?.email === "tester@gmail.com";
 
     useEffect(() => {
         loadWords(selectedCategory);
@@ -307,7 +322,7 @@ export default function OxfordListPage() {
                 )}
             </div>
 
-           
+
             <AnimatePresence>    {/* word detail */}
                 {isModalOpen && selectedWord && (
                     <>
@@ -324,7 +339,7 @@ export default function OxfordListPage() {
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 0.95 }}
                             transition={{ type: "spring", damping: 25, stiffness: 300 }}
-                            onClick={(e : any) => e.stopPropagation()}
+                            onClick={(e: any) => e.stopPropagation()}
                             className="fixed inset-0 flex items-center justify-center z-50 p-4"
                         >
                             <div className="bg-white rounded-lg shadow-2xl w-full max-w-md max-h-[85vh] flex flex-col">
@@ -383,34 +398,46 @@ export default function OxfordListPage() {
                                                 style={{ whiteSpace: "pre-wrap" }}
                                             />
                                             <div className="flex items-center gap-2">
-                                                <button
-                                                    onClick={handleSaveNotes}
-                                                    disabled={saving}
-                                                    className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                                                >
-                                                    {saving ? (
-                                                        <>
-                                                            <Loader2 className="w-4 h-4 animate-spin" />
-                                                            Kaydediliyor...
-                                                        </>
-                                                    ) : (
-                                                        <>
-                                                            <Save className="w-4 h-4" />
-                                                            Kaydet
-                                                        </>
-                                                    )}
-                                                </button>
-                                                <button
-                                                    onClick={() => {
-                                                        if (selectedWord) {
-                                                            setEditedNotes(selectedWord.userNotes || "");
-                                                        }
-                                                    }}
-                                                    disabled={saving}
-                                                    className="px-4 py-2 bg-gray-100 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-200 disabled:opacity-50 transition-colors"
-                                                >
-                                                    İptal
-                                                </button>
+                                                {isTester ? (
+                                                    <Link
+                                                        href="/login"
+                                                        className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-50 text-indigo-600 border border-indigo-100 text-sm font-bold rounded-lg hover:bg-indigo-100 transition-colors shadow-sm"                                                    >
+                                                        <User size={16} />
+                                                        Kaydetmek için giriş yapınız
+                                                    </Link>
+                                                ) : (
+                                                    <>
+                                                        <button
+                                                            onClick={handleSaveNotes}
+                                                            disabled={saving}
+                                                            className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                                                        >
+                                                            {saving ? (
+                                                                <>
+                                                                    <Loader2 className="w-4 h-4 animate-spin" />
+                                                                    Kaydediliyor...
+                                                                </>
+                                                            ) : (
+                                                                <>
+                                                                    <Save className="w-4 h-4" />
+                                                                    Kaydet
+                                                                </>
+                                                            )}
+                                                        </button>
+
+                                                        <button
+                                                            onClick={() => {
+                                                                if (selectedWord) {
+                                                                    setEditedNotes(selectedWord.userNotes || "");
+                                                                }
+                                                            }}
+                                                            disabled={saving}
+                                                            className="px-4 py-2 bg-gray-100 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-200 disabled:opacity-50 transition-colors"
+                                                        >
+                                                            İptal
+                                                        </button>
+                                                    </>
+                                                )}
                                             </div>
                                         </div>
                                     </div>

@@ -59,13 +59,36 @@ export default function LoginPage() {
         router.push("/dashboard");
 
       } else {
-        console.error("Login yanıtında token yok:", response);
         setErrors({ email: "Giriş işlemi sırasında beklenmedik bir hata oluştu." });
       }
 
     } catch (error: any) {
       console.error("Login hatası:", error);
       setErrors({ email: error.message || "Giriş başarısız oldu" });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleTesterLogin = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setErrors({});
+
+    try {
+      const response = await authApi.testerLogin() as any;
+
+      if (response && response.token) {
+        localStorage.setItem('token', response.token);
+
+        if (response.user) {
+          localStorage.setItem('user', JSON.stringify(response.user));
+        }
+
+        router.push("/dashboard");
+      }
+    } catch (error: any) {
+      console.error("Tester login error:", error);
     } finally {
       setIsLoading(false);
     }
@@ -168,7 +191,7 @@ export default function LoginPage() {
                     if (errors.password) setErrors({ ...errors, password: undefined });
                   }}
                   className={`block w-full pl-10 pr-12 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all 
-                    ${errors.password ? "border-red-300 bg-red-50" : "border-gray-300 bg-white hover:border-gray-400"}`}
+          ${errors.password ? "border-red-300 bg-red-50" : "border-gray-300 bg-white hover:border-gray-400"}`}
                   placeholder="••••••••"
                 />
                 <button
@@ -216,6 +239,32 @@ export default function LoginPage() {
               {isLoading ? "Giriş yapılıyor..." : "Giriş Yap"}
               {!isLoading && <ArrowRight className="h-5 w-5" />}
             </motion.button>
+
+            <motion.div     // Tester hesabı 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.55 }}
+              className="flex flex-col items-center gap-4 py-2"
+            >
+              <div className="flex items-center gap-3 w-full">
+                <div className="h-[1px] flex-1 bg-gray-100"></div>
+                <span className="text-[10px] font-bold text-gray-300 uppercase tracking-[0.2em]">Veya</span>
+                <div className="h-[1px] flex-1 bg-gray-100"></div>
+              </div>
+
+              <button
+                type="button"
+                onClick={handleTesterLogin}
+                className="group w-full py-3 px-4 rounded-xl border border-dashed border-gray-200 bg-gray-50/30 hover:bg-white hover:border-blue-300 hover:shadow-sm transition-all duration-300 flex flex-col items-center text-center"
+              >
+                <span className="text-sm font-bold text-gray-500 group-hover:text-blue-600 transition-colors">
+                  Tester Hesabı ile Başla
+                </span>
+                <span className="text-[11px] text-gray-400 font-medium mt-0.5">
+                  Kayıt gerektirmez, hemen dashboard'u keşfedin.
+                </span>
+              </button>
+            </motion.div>
 
           </form>
         </div>

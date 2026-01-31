@@ -37,7 +37,7 @@ export default function HeroArea() {
           className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12 sm:mb-16"
         >
           <Link href="/login" className="inline-flex items-center justify-center px-6 py-3 text-base font-semibold text-white bg-gray-900 hover:bg-gray-800 rounded-lg transition-colors">
-            Ücretsiz Dene
+            Kayıt olmadan deneyin
           </Link>
           <Link href="/register" className="inline-flex items-center justify-center px-6 py-3 text-base font-semibold text-blue-600 bg-white hover:bg-gray-50 rounded-lg border-2 border-gray-300 transition-colors">
             Kayıt Ol

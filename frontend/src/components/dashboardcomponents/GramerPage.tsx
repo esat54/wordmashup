@@ -28,6 +28,8 @@ interface GramerPageProps {
 }
 
 export default function GramerPage({ onGrammarClick }: GramerPageProps) {
+    const [user, setUser] = useState<{ email: string } | null>(null);
+
     const [currentView, setCurrentView] = useState<"list" | "add">("list");
     const [grammars, setGrammars] = useState<Grammar[]>([]);
     const [globalGrammars, setGlobalGrammars] = useState<Grammar[]>([]);
@@ -49,6 +51,13 @@ export default function GramerPage({ onGrammarClick }: GramerPageProps) {
     });
     const [saving, setSaving] = useState(false);
     const [saveMessage, setSaveMessage] = useState("");
+
+    useEffect(() => {
+        const userData = localStorage.getItem("user");
+        if (userData) setUser(JSON.parse(userData));
+    }, []);
+
+    const isTester = user?.email === "tester@gmail.com";
 
     useEffect(() => {
         loadCategories();
@@ -231,8 +240,8 @@ export default function GramerPage({ onGrammarClick }: GramerPageProps) {
                             <List className="w-4 h-4 sm:w-5 sm:h-5" />
                             <span className="whitespace-nowrap">Gramer listesi</span>
                         </button>
+
                         <button
-                            onClick={() => setCurrentView("add")}
                             className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-3 py-2.5 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-all bg-blue-600 text-white shadow-md"
                         >
                             <Plus className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -482,20 +491,43 @@ export default function GramerPage({ onGrammarClick }: GramerPageProps) {
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
                 <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Gramer</h1>
                 <div className="flex items-center gap-2 w-full sm:w-auto">
-                    <button
-                        onClick={() => setCurrentView("list")}
-                        className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-3 py-2.5 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-all bg-blue-600 text-white shadow-md"
-                    >
-                        <List className="w-4 h-4 sm:w-5 sm:h-5" />
-                        <span className="whitespace-nowrap">Gramer listesi</span>
-                    </button>
-                    <button
-                        onClick={() => setCurrentView("add")}
-                        className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-3 py-2.5 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-all bg-gray-200 text-gray-700 hover:bg-gray-300"
-                    >
-                        <Plus className="w-4 h-4 sm:w-5 sm:h-5" />
-                        <span className="whitespace-nowrap">Yeni Konu Ekle</span>
-                    </button>
+                    {currentView === "list" ? (
+                        <div className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-3 py-2.5 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm font-medium bg-blue-600 text-white shadow-md cursor-default">
+                            <List className="w-4 h-4 sm:w-5 sm:h-5" />
+                            <span className="whitespace-nowrap">Gramer listesi</span>
+                        </div>
+                    ) : (
+                        <button
+                            onClick={() => setCurrentView("list")}
+                            className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-3 py-2.5 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm font-medium bg-gray-200 text-gray-700 hover:bg-gray-300 transition-all"
+                        >
+                            <List className="w-4 h-4 sm:w-5 sm:h-5" />
+                            <span className="whitespace-nowrap">Gramer listesi</span>
+                        </button>
+                    )}
+
+                    {isTester ? (
+                        <div className="relative group flex-1 sm:flex-none">
+                            <div className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-3 py-2.5 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm font-medium bg-gray-100 text-gray-400 border border-gray-200 cursor-not-allowed">
+                                <Plus className="w-4 h-4 sm:w-5 sm:h-5" />
+                                <span className="whitespace-nowrap">Yeni Konu Ekle</span>
+                            </div>
+                            <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 hidden group-hover:flex flex-col items-center z-50">
+                                <div className="w-1.5 h-1.5 bg-gray-800 rotate-45 -mb-1"></div>
+                                <div className="bg-gray-800 text-white text-[9px] py-1 px-2.5 rounded-md whitespace-nowrap shadow-lg font-medium tracking-wide">
+                                    Gramer konusu eklemek için lütfen giriş yapın
+                                </div>
+                            </div>
+                        </div>
+                    ) : (
+                        <button
+                            onClick={() => setCurrentView("add")}
+                            className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-3 py-2.5 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm font-medium bg-gray-200 text-gray-700 hover:bg-gray-300 transition-all"
+                        >
+                            <Plus className="w-4 h-4 sm:w-5 sm:h-5" />
+                            <span className="whitespace-nowrap">Yeni Konu Ekle</span>
+                        </button>
+                    )}
                 </div>
             </div>
 
@@ -536,7 +568,7 @@ export default function GramerPage({ onGrammarClick }: GramerPageProps) {
                     </div>
                 ) : (
                     <div className="space-y-10">
-                        <section> {/* kullanıcı notları */}
+                        <section>
                             <div className="flex items-center gap-2 mb-6">
                                 <div className="p-1.5 bg-blue-50 rounded-lg">
                                     <Plus className="w-4 h-4 text-blue-600" />
@@ -570,8 +602,32 @@ export default function GramerPage({ onGrammarClick }: GramerPageProps) {
                                     ))}
                                 </div>
                             ) : (
-                                <div className="bg-gray-50/50 border border-dashed border-gray-200 rounded-xl py-8 text-center text-sm text-gray-500">
-                                    {searchTerm || selectedCategory !== "all" ? "Arama kriterlerinize uygun not bulunamadı." : "Henüz kendi gramer konunuzu eklemediniz."}
+                                <div className="bg-gray-50/50 border border-dashed border-gray-200 rounded-xl py-12 text-center">
+                                    {isTester ? (
+                                        <div className="flex flex-col items-center gap-3">
+                                            <div className="p-3 bg-indigo-50 rounded-full">
+                                                <BookOpen className="w-6 h-6 text-indigo-600" />
+                                            </div>
+                                            <div className="max-w-[300px] mx-auto">
+                                                <p className="text-sm font-bold text-gray-900">
+                                                    Kendi gramer notlarınızı eklemek için giriş yapın
+                                                </p>
+                                                <p className="text-[11px] text-gray-500 mt-1 px-4 leading-relaxed font-medium">
+                                                    Notlarınızı kaydedebilir, sabitleyebilir ve dilediğiniz zaman erişebilirsiniz.
+                                                </p>
+                                            </div>
+                                            <a
+                                                href="/login"
+                                                className="mt-2 px-6 py-2 bg-indigo-50 text-indigo-600 border border-indigo-100 text-xs font-bold rounded-lg hover:bg-indigo-100 transition-colors shadow-sm"
+                                            >
+                                                Giriş Yap
+                                            </a>
+                                        </div>
+                                    ) : (
+                                        <p className="text-sm text-gray-500 italic py-4">
+                                            {searchTerm || selectedCategory !== "all" ? "Arama kriterlerinize uygun not bulunamadı." : "Henüz kendi gramer konunuzu eklemediniz."}
+                                        </p>
+                                    )}
                                 </div>
                             )}
                         </section>

@@ -55,7 +55,7 @@ export default function AllWords() {
         setWords(response.words || []);
         setTotalWords(response.totalWords || 0);
         setLoading(false);
-      }, 300);
+      }, 100);
     } catch (error: any) {
       console.error("Veri yükleme hatası:", error);
       setLoading(false);
@@ -223,69 +223,69 @@ export default function AllWords() {
 
       {loading ? (
         <div className="flex justify-center items-center py-12">
-          <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
+          <Loader2 className="w-6 h-6 animate-spin text-blue-600" />
           <span className="ml-2 text-gray-600">Kelimeler yükleniyor...</span>
         </div>
       ) : words.length > 0 ? (
         <>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
             {words.map((word) => (
-            <div key={word._id} className="bg-gray-50 rounded-lg p-4 border border-gray-200">
-              <div className="flex items-start justify-between mb-2">
-                <div> 
-                  <h3 className="font-semibold text-gray-900">{word.text}</h3>
-                  <p className="text-sm text-gray-600">{word.translation}</p>
-                </div>
-                <div className="flex flex-row gap-1 mt-[2px]"> 
-                  <button
-                    onClick={() => toggleFavorite(word._id)}
-                    className="text-gray-400 hover:text-yellow-500 transition-colors"
-                  >
-                    <Star
-                      className={`w-[18px] h-[18px] ${word.favorite ? "fill-current text-yellow-500" : "text-gray-400"
+              <div key={word._id} className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                <div className="flex items-start justify-between mb-2">
+                  <div>
+                    <h3 className="font-semibold text-gray-900">{word.text}</h3>
+                    <p className="text-sm text-gray-600">{word.translation}</p>
+                  </div>
+                  <div className="flex flex-row gap-1 mt-[2px]">
+                    <button
+                      onClick={() => toggleFavorite(word._id)}
+                      className="text-gray-400 hover:text-yellow-500 transition-colors"
+                    >
+                      <Star
+                        className={`w-[18px] h-[18px] ${word.favorite ? "fill-current text-yellow-500" : "text-gray-400"
+                          }`}
+                      />
+                    </button>
+                    <button
+                      onClick={() => toggleUnknown(word._id)}
+                      className={`transition-colors ${word.isUnknown ? "text-blue-500" : "text-gray-400 hover:text-blue-500"
                         }`}
-                    />
-                  </button>
-                  <button
-                    onClick={() => toggleUnknown(word._id)}
-                    className={`transition-colors ${word.isUnknown ? "text-blue-500" : "text-gray-400 hover:text-blue-500"
-                      }`}
-                    title="Bilinmeyen"
-                  >
-                    <MessageCircleQuestionMark
-                      className={`w-[18px] h-[18px] ${word.isUnknown ? "text-blue-500" : ""
-                        }`}
-                    />
-                  </button>
-                  <button
-                    onClick={() => speak(word.text)}
-                    className="text-gray-400 hover:text-blue-500 transition-colors"
-                    title="Dinle"
-                  >
-                    <Volume2 className="w-[18px] h-[18px]" />
-                  </button>
-                  <button
-                    onClick={() => removeWord(word._id)}
-                    className="text-gray-400 hover:text-red-500 transition-colors"
-                  >
-                    <Trash2 className="w-[18px] h-[18px]" />
-                  </button>
+                      title="Bilinmeyen"
+                    >
+                      <MessageCircleQuestionMark
+                        className={`w-[18px] h-[18px] ${word.isUnknown ? "text-blue-500" : ""
+                          }`}
+                      />
+                    </button>
+                    <button
+                      onClick={() => speak(word.text)}
+                      className="text-gray-400 hover:text-blue-500 transition-colors"
+                      title="Dinle"
+                    >
+                      <Volume2 className="w-[18px] h-[18px]" />
+                    </button>
+                    <button
+                      onClick={() => removeWord(word._id)}
+                      className="text-gray-400 hover:text-red-500 transition-colors"
+                    >
+                      <Trash2 className="w-[18px] h-[18px]" />
+                    </button>
+                  </div>
+                </div>
+                <div className="text-xs text-gray-500 mb-2">
+                  Tür: {wordTypes.find((t) => t.value === word.type)?.label || word.type}
+                </div>
+                <hr className="my-2 border-gray-200" />
+                <div className="text-sm text-gray-700">
+                  <p className="mb-1">
+                    <strong>Örnek:</strong> {word.exampleSentence}
+                  </p>
+                  <p>
+                    <strong>Çeviri:</strong> {word.sentenceTranslation}
+                  </p>
                 </div>
               </div>
-              <div className="text-xs text-gray-500 mb-2">
-                Tür: {wordTypes.find((t) => t.value === word.type)?.label || word.type}
-              </div>
-              <hr className="my-2 border-gray-200" />
-              <div className="text-sm text-gray-700">  
-                <p className="mb-1">
-                  <strong>Örnek:</strong> {word.exampleSentence}
-                </p>
-                <p>
-                  <strong>Çeviri:</strong> {word.sentenceTranslation}
-                </p>
-              </div>
-            </div>
-          ))}
+            ))}
           </div>
 
           {totalPages > 1 && (
