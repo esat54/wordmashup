@@ -97,6 +97,50 @@ exports.login = async (req, res) => {
     }
 };
 
+exports.testerLogin = async (req, res) => {
+    const TESTER_EMAIL = 'tester@gmail.com';
+
+    try {
+        const user = await authModel.findUserByEmail(TESTER_EMAIL);
+
+        if (!user) {
+            return res.status(404).json({
+                error: 'Account not found',
+                message: 'Tester hesabı sistemde tanımlı değil. Lütfen önce bu mail ile bir hesap oluşturun.'
+            });
+        }
+
+        const token = jwt.sign(
+            {
+                userId: user._id,
+                email: user.email,
+                isTester: true 
+            },
+            process.env.JWT_SECRET,
+            { expiresIn: '1d' }
+        );
+
+        const responseData = {
+            success: true,
+            message: 'Tester girişi başarılı',
+            token: token,
+            user: {
+                name: user.name,
+                email: user.email,
+                role: user.role || 'tester' 
+            }
+        };
+
+        res.status(200).json(responseData);
+    } catch (error) {
+        console.error('Tester Login error:', error);
+        res.status(500).json({
+            error: 'Internal server error',
+            message: 'Tester girişi sırasında bir hata oluştu'
+        });
+    }
+};
+
 exports.changePassword = async (req, res) => {
     const { currentPassword, newPassword } = req.body;
     const userId = req.userId;
