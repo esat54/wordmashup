@@ -68,9 +68,9 @@ export default function DictionaryPage() {
                     <button
                         onClick={handleSearch}
                         disabled={loading}
-                        className="inline-flex items-center justify-center gap-2 px-6 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-blue-400 disabled:cursor-not-allowed transition-all font-medium text-sm shadow-sm"
+                        className="inline-flex items-center justify-center gap-2 px-6 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-blue-500 disabled:cursor-not-allowed transition-all font-medium text-sm shadow-sm"
                     >
-                        {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : "Analiz Et"}
+                        {"Analiz Et"}
                     </button>
                 </div>
             </div>  {/* search input and button */}

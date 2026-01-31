@@ -107,6 +107,13 @@ export const authApi = {
             body: JSON.stringify(data),
         });
     },
+
+    testerLogin: () => {
+        return apiRequest("/api/auth/tester-login", {
+            method: "POST",
+        });
+    },
+
 };
 
 
