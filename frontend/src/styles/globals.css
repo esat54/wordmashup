@@ -21,7 +21,7 @@
     --border: 240 5.9% 90%;
     --input: 240 5.9% 90%;
     --radius: 0.5rem;
-    
+
     --primary: 217 91% 60%;
     --primary-foreground: 0 0% 100%;
     --primary-dark: 217 91% 50%;
@@ -45,7 +45,7 @@
     --destructive-foreground: 0 85.7% 97.3%;
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
-    
+
     --primary: 217 91% 65%;
     --primary-foreground: 0 0% 100%;
     --primary-dark: 217 91% 55%;
@@ -57,19 +57,28 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground antialiased;
     font-feature-settings: "rlig" 1, "calt" 1;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
     overscroll-behavior-y: none;
   }
-  
+
   html {
     scroll-behavior: smooth;
     overflow-y: auto;
     overscroll-behavior-y: none;
   }
 }
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none !important;
+  box-shadow: none;
+}
+
 
 ::selection {
   background-color: #2563eb;
