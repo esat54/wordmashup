@@ -21,7 +21,6 @@ export default function SettingsPage({ user }: SettingsProps) {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState("");
-
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [deletePassword, setDeletePassword] = useState("");
   const [deleteConfirmText, setDeleteConfirmText] = useState("");
@@ -33,21 +32,31 @@ export default function SettingsPage({ user }: SettingsProps) {
     setError("");
     setSuccess("");
 
-    if (!currentPassword) { setError("Mevcut şifre gerekli."); return; }
-    if (!newPassword) { setError("Yeni şifre gerekli."); return; }
-    if (newPassword.length < 6) { setError("Yeni şifre en az 6 karakter olmalı."); return; }
-    if (newPassword !== confirmNewPassword) { setError("Yeni şifreler eşleşmiyor."); return; }
+    if (!currentPassword) {
+      setError("Mevcut şifre gerekli.");
+      return;
+    }
+    if (!newPassword) {
+      setError("Yeni şifre gerekli.");
+      return;
+    }
+    if (newPassword.length < 6) {
+      setError("Yeni şifre en az 6 karakter olmalı.");
+      return;
+    }
+    if (newPassword !== confirmNewPassword) {
+      setError("Yeni şifreler eşleşmiyor.");
+      return;
+    }
 
     try {
       setLoading(true);
-
       await authApi.changePassword({ currentPassword, newPassword });
 
       setSuccess("Şifre başarıyla değiştirildi.");
       setCurrentPassword("");
       setNewPassword("");
       setConfirmNewPassword("");
-
     } catch (err: any) {
       setError(err.message || "Şifre değiştirme sırasında bir hata oluştu.");
     } finally {
@@ -64,7 +73,7 @@ export default function SettingsPage({ user }: SettingsProps) {
     }
 
     if (deleteConfirmText !== "hesabı sil") {
-      setDeleteError('Lütfen onaylama metnini doğru yazınız.');
+      setDeleteError("Lütfen onaylama metnini doğru yazınız.");
       return;
     }
 
@@ -88,7 +97,6 @@ export default function SettingsPage({ user }: SettingsProps) {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-
         <div className="flex flex-col space-y-6">
           <div className="bg-white rounded-lg border border-gray-200 p-5 flex-1">
             <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
@@ -104,7 +112,9 @@ export default function SettingsPage({ user }: SettingsProps) {
                 </div>
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-500 mb-1.5">E-posta</label>
+                <label className="block text-xs font-medium text-gray-500 mb-1.5">
+                  E-posta
+                </label>
                 <div className="flex items-center gap-2 px-3 py-2 bg-gray-50 rounded-lg border border-gray-200">
                   <Mail className="w-4 h-4 text-gray-400" />
                   <p className="text-sm text-gray-900">{user.email}</p>
@@ -113,7 +123,6 @@ export default function SettingsPage({ user }: SettingsProps) {
             </div>
           </div>
 
-          {/* Tehlikeli Bölge */}
           <div className="bg-white rounded-lg border border-red-200 p-5 flex-1 flex flex-col">
             <h2 className="text-lg font-semibold text-red-600 mb-2 flex items-center gap-2">
               <AlertTriangle className="w-5 h-5" />
@@ -128,9 +137,8 @@ export default function SettingsPage({ user }: SettingsProps) {
               Hesabı Sil
             </button>
           </div>
-        </div>  {/* account information */}
+        </div>
 
-        {/* change password */}
         <div className="flex flex-col">
           <div className="bg-white rounded-lg border border-gray-200 p-5 flex-1 flex flex-col">
             <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
@@ -181,8 +189,13 @@ export default function SettingsPage({ user }: SettingsProps) {
               </div>
 
               {(error || success) && (
-                <div className={`p-3 rounded-lg text-sm ${error ? 'bg-red-50 text-red-700 border border-red-200' : 'bg-green-50 text-green-700 border border-green-200'
-                  }`}>
+                <div
+                  className={`p-3 rounded-lg text-sm ${
+                    error
+                      ? "bg-red-50 text-red-700 border border-red-200"
+                      : "bg-green-50 text-green-700 border border-green-200"
+                  }`}
+                >
                   {error || success}
                 </div>
               )}
@@ -206,10 +219,10 @@ export default function SettingsPage({ user }: SettingsProps) {
               </button>
             </form>
           </div>
-        </div>  {/* change password */}
+        </div>
       </div>
 
-      <AnimatePresence>  {/* delete account modal */}
+      <AnimatePresence>
         {isDeleteModalOpen && (
           <>
             <motion.div
@@ -246,7 +259,8 @@ export default function SettingsPage({ user }: SettingsProps) {
                   <div className="space-y-4">
                     <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
                       <p className="text-sm text-red-800">
-                        Bu işlem geri alınamaz! Hesabınız ve tüm verileriniz kalıcı olarak silinecektir.
+                        Bu işlem geri alınamaz! Hesabınız ve tüm verileriniz kalıcı olarak
+                        silinecektir.
                       </p>
                     </div>
 
@@ -265,7 +279,11 @@ export default function SettingsPage({ user }: SettingsProps) {
 
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Onaylamak için <span className="font-mono bg-gray-100 px-2 py-0.5 rounded">hesabı sil</span> yazın
+                        Onaylamak için{" "}
+                        <span className="font-mono bg-gray-100 px-2 py-0.5 rounded">
+                          hesabı sil
+                        </span>{" "}
+                        yazın
                       </label>
                       <input
                         type="text"

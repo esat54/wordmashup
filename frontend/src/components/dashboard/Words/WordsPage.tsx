@@ -27,9 +27,11 @@ export default function WordsPage() {
           <button
             onClick={() => setCurrentView("list")}
             className={`flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-3 py-2.5 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-all
-              ${currentView === "list"
-                ? "bg-blue-600 text-white shadow-md"
-                : "bg-gray-200 text-gray-700 hover:bg-gray-300"}`}
+              ${
+                currentView === "list"
+                  ? "bg-blue-600 text-white shadow-md"
+                  : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+              }`}
           >
             <List className="w-4 h-4 sm:w-5 sm:h-5" />
             <span className="whitespace-nowrap">Kelime listesi</span>
@@ -40,9 +42,11 @@ export default function WordsPage() {
               onClick={() => !isTester && setCurrentView("add")}
               disabled={isTester}
               className={`w-full sm:w-auto inline-flex items-center justify-center gap-2 px-3 py-2.5 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-all
-                ${currentView === "add"
-                  ? "bg-blue-600 text-white shadow-md"
-                  : "bg-gray-200 text-gray-700 hover:bg-gray-300"}
+                ${
+                  currentView === "add"
+                    ? "bg-blue-600 text-white shadow-md"
+                    : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                }
                 ${isTester ? "opacity-60 cursor-not-allowed" : ""}`}
             >
               <Plus className="w-4 h-4 sm:w-5 sm:h-5" />

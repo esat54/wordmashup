@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Trash2, Star, Search, Loader2, X, Volume2, MessageCircleQuestionMark, ChevronLeft, ChevronRight } from "lucide-react";
+import { Trash2, Star, Search, Loader2, X, Volume2, MessageCircleQuestionMark, ChevronLeft, ChevronRight, } from "lucide-react";
 import { wordsApi } from "@/lib/api";
 
 const wordTypes = [
@@ -49,13 +49,13 @@ export default function AllWords() {
     try {
       setLoading(true);
       const skip = (currentPage - 1) * limit;
-      const response = await wordsApi.getWords({ limit, skip, type, favoriteFilter, unknownFilter, searchTerm: debouncedSearchTerm, }) as any;
+      const response = (await wordsApi.getWords({ limit, skip, type, favoriteFilter, unknownFilter, searchTerm: debouncedSearchTerm, })) as any;
 
       setTimeout(() => {
         setWords(response.words || []);
         setTotalWords(response.totalWords || 0);
         setLoading(false);
-      }, 100);
+      }, 50);
     } catch (error: any) {
       console.error("Veri yükleme hatası:", error);
       setLoading(false);
@@ -79,7 +79,7 @@ export default function AllWords() {
   const toggleFavorite = async (wordId: string) => {
     try {
       await wordsApi.addtoFavorites(wordId);
-      setWords(words.map(w => w._id === wordId ? { ...w, favorite: !w.favorite } : w));
+      setWords(words.map((w) => (w._id === wordId ? { ...w, favorite: !w.favorite } : w)));
     } catch (error) {
       setMessage("Favori durumu değiştirilemedi.");
       setTimeout(() => setMessage(""), 3000);
@@ -89,9 +89,11 @@ export default function AllWords() {
   const toggleUnknown = async (wordId: string) => {
     try {
       await wordsApi.addtoUnknown(wordId);
-      setWords(words.map(w =>
-        w._id === wordId ? { ...w, isUnknown: !w.isUnknown } : w
-      ));
+      setWords(
+        words.map((w) =>
+          w._id === wordId ? { ...w, isUnknown: !w.isUnknown } : w,
+        ),
+      );
     } catch (error) {
       setMessage("Bilinmeyen durumu değiştirilemedi.");
       setTimeout(() => setMessage(""), 3000);
@@ -102,7 +104,7 @@ export default function AllWords() {
     if (!window.confirm("Bu kelimeyi silmek istediğinize emin misiniz?")) return;
 
     try {
-      const response = await wordsApi.deleteWord(wordId) as any;
+      const response = (await wordsApi.deleteWord(wordId)) as any;
       setMessage(response.message || "Kelime başarıyla silindi.");
 
       setTimeout(() => setMessage(""), 3000);
@@ -133,7 +135,7 @@ export default function AllWords() {
 
   return (
     <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 relative">
-      {message && (   // Mesaj kutusu
+      {message && (
         <div className="fixed top-5 right-5 z-[9999] flex items-center gap-2 bg-gray-800 text-white px-4 py-3 rounded-lg shadow-2xl border border-gray-700 transition-all">
           <span className="text-sm font-medium">{message}</span>
           <button onClick={() => setMessage("")} className="hover:text-gray-400">
@@ -143,14 +145,14 @@ export default function AllWords() {
       )}
 
       <div className="flex flex-col md:flex-row gap-4 mb-6">
-        <div className="flex-1 relative">   {/* İnput Alanı */}
+        <div className="flex-1 relative">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
           <input
             type="text"
             placeholder="Kelime ara (EN/TR)..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+            className="w-full pl-10 pr-3 py-2 rounded-lg border border-gray-300 transition hover:shadow-[0_0_3px_0_rgba(0,0,0,0.12)]"
           />
         </div>
 
@@ -186,7 +188,6 @@ export default function AllWords() {
         </select>
       </div>
 
-
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 border-b border-gray-100 pb-4 sm:border-none sm:pb-0">
         <div className="w-full sm:w-auto flex items-center justify-between bg-white border border-gray-200 rounded-lg px-3 py-2 sm:border-none sm:bg-transparent sm:p-0 sm:justify-start sm:gap-4">
           <span className="text-xs sm:text-sm text-gray-500 font-medium">Sayfa başına:</span>
@@ -207,7 +208,7 @@ export default function AllWords() {
               </button>
             ))}
           </div>
-        </div> {/* Sayfa başına alanı */}
+        </div>
 
         <div className="inline-flex items-center px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm font-medium border border-gray-200 min-w-[170px] relative">
           <span className="absolute left-3 w-2 h-2 bg-blue-500 rounded-full"></span>
@@ -218,7 +219,7 @@ export default function AllWords() {
               <span className="ml-3">Tüm kelimeler: {totalWords}</span>
             )}
           </div>
-        </div>  {/* Toplam kelime sayısı */}
+        </div>
       </div>
 
       {loading ? (
@@ -253,8 +254,7 @@ export default function AllWords() {
                       title="Bilinmeyen"
                     >
                       <MessageCircleQuestionMark
-                        className={`w-[18px] h-[18px] ${word.isUnknown ? "text-blue-500" : ""
-                          }`}
+                        className={`w-[18px] h-[18px] ${word.isUnknown ? "text-blue-500" : ""}`}
                       />
                     </button>
                     <button
@@ -328,4 +328,3 @@ export default function AllWords() {
     </div>
   );
 }
-
