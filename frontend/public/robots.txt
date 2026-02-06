@@ -12,5 +12,4 @@ Disallow: /_next/
 Disallow: /404
 Disallow: /500
 
-# Sitemap - Standart URL kullanımı daha iyidir
 Sitemap: https://www.wordmashup.xyz/sitemap.xml
