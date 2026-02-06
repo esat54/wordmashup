@@ -1,0 +1,73 @@
+{
+  "name": "WordMashup - AI Destekli İngilizce Öğrenme Platformu",
+  "short_name": "WordMashup",
+  "description": "AI destekli akıllı sözlük, Oxford 3000 kelime listesi ve kişiselleştirilmiş gramer notları ile İngilizce öğreniminizi dijitalleştirin.",
+  "start_url": "https://www.wordmashup.xyz",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#0F172A",
+  "background_color": "#ffffff",
+  "categories": ["education", "language", "learning"],
+  "screenshots": [
+    {
+      "src": "/og-image.webp",
+      "sizes": "1200x630",
+      "type": "image/webp",
+      "form_factor": "wide",
+      "purpose": "any"
+    }
+  ],
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "32x32",
+      "type": "image/x-icon",
+      "purpose": "any"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/og-image.webp",
+      "sizes": "1200x630",
+      "type": "image/webp"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Kelimelerim",
+      "short_name": "Kelimeler",
+      "description": "Kişisel kelime listenize gidin",
+      "url": "/dashboard/kelimeler",
+      "icons": []
+    },
+    {
+      "name": "Oxford 3000",
+      "short_name": "Oxford",
+      "description": "Oxford 3000 kelime listesine gidin",
+      "url": "/dashboard/oxfordliste",
+      "icons": []
+    },
+    {
+      "name": "AI Sözlük",
+      "short_name": "Sözlük",
+      "description": "AI sözlüğe gidin",
+      "url": "/dashboard/sozluk",
+      "icons": []
+    },
+    {
+      "name": "Gramer",
+      "short_name": "Gramer",
+      "description": "Gramer derslerine gidin",
+      "url": "/dashboard/gramer",
+      "icons": []
+    }
+  ],
+  "prefer_related_applications": false
+}
