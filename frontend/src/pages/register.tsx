@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Mail, Lock, User, Eye, EyeOff, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { authApi } from "@/lib/api";
+import SeoHead from "@/components/SeoHead";
 
 export default function RegisterPage() {
   const [name, setName] = useState("");
@@ -71,7 +72,13 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white flex">
+    <>
+      <SeoHead
+        title="Hesap Oluştur"
+        description="WordMashup'ta hesap oluşturun. AI destekli İngilizce öğrenme platformuna katılıp öğrenmeye başlayın."
+        noindex={true}
+      />
+      <div className="min-h-screen bg-white flex">
       <div className="flex-1 flex flex-col justify-center px-4 lg:px-8 py-8 sm:px-16">
         <div className="mx-auto w-full max-w-sm">
           <motion.div
@@ -244,6 +251,7 @@ export default function RegisterPage() {
           />
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 }

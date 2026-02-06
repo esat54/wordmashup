@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import { Mail, Lock, Eye, EyeOff, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { authApi } from "@/lib/api";
+import SeoHead from "@/components/SeoHead";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -95,7 +96,13 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white flex">
+    <>
+      <SeoHead
+        title="Giriş Yap"
+        description="WordMashup hesabınıza giriş yapın. AI destekli İngilizce öğrenme platformuna erişim sağlayın."
+        noindex={true}
+      />
+      <div className="min-h-screen bg-white flex">
 
       <div className="flex-1 flex flex-col justify-center px-4 lg:px-8 py-12 sm:px-16">
         <div className="mx-auto w-full max-w-sm">
@@ -281,6 +288,7 @@ export default function LoginPage() {
           />
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 }
