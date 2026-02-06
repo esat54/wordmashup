@@ -4,6 +4,7 @@
   "description": "WordMashup Backend API",
   "main": "dist/server.js",
   "scripts": {
+    "build": "echo 'Backend build step skipped (not needed for Node.js)'",
     "dev": "nodemon server.js",
     "start": "node server.js",
     "lint": "eslint . --ext .js"
