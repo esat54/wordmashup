@@ -303,7 +303,7 @@ export default function GrammarDetailPage({ grammarId, onBack }: GrammarDetailPa
       {/* notes/rules/divider*/}
       <div
         ref={containerRef}
-        className="flex items-stretch relative min-h-[400px]"
+        className="hidden sm:flex items-stretch relative min-h-[400px]"
         style={{ cursor: isDragging ? 'col-resize' : 'default' }}
       >
 
@@ -352,6 +352,40 @@ export default function GrammarDetailPage({ grammarId, onBack }: GrammarDetailPa
           </div>
         </div>
 
+      </div>
+
+      <div className="sm:hidden flex flex-col gap-6">
+        <div className="flex flex-col">
+          <div className="flex items-center mb-4 pb-2 border-b border-indigo-100">
+            <h2 className="text-xs font-bold text-slate-400 uppercase flex items-center gap-2 tracking-widest">
+              <FileText className="w-4 h-4 text-blue-600" /> KULLANIM KURALLARI
+            </h2>
+          </div>
+          <div className="bg-indigo-50/50 rounded-xl p-6">
+            <span
+              className="text-[15px] leading-relaxed text-slate-700 whitespace-pre-wrap font-medium break-words"
+              style={{ overflowWrap: "anywhere" }}
+            >
+              {grammar.rules || "Kural bilgisi mevcut değil."}
+            </span>
+          </div>
+        </div>
+
+        <div className="flex flex-col">
+          <div className="flex items-center mb-4 pb-2 border-b border-[#F1E5BC]">
+            <h2 className="text-xs font-bold text-[#854D0E] uppercase flex items-center gap-2 tracking-widest">
+              <Info className="w-4 h-4" /> ÖNEMLİ NOTLAR
+            </h2>
+          </div>
+          <div className="bg-[#FFFCF0] rounded-xl p-6">
+            <span
+              className="text-[15px] leading-relaxed text-[#78350f] whitespace-pre-wrap font-semibold italic break-words"
+              style={{ overflowWrap: "anywhere" }}
+            >
+              {grammar.notes || "Bu konu hakkında henüz bir not eklenmedi."}
+            </span>
+          </div>
+        </div>
       </div>
 
       {/* example sentences*/}
