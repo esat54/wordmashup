@@ -28,7 +28,13 @@ interface DashboardLayoutProps {
 export default function DashboardLayout({ activePage, children, }: DashboardLayoutProps) {
   const router = useRouter();
   const [user, setUser] = useState<DashboardUser | null>(null);
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('sidebarOpen');
+      return saved !== null ? JSON.parse(saved) : true;
+    }
+    return true;
+  });
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -46,6 +52,10 @@ export default function DashboardLayout({ activePage, children, }: DashboardLayo
       handleLogout();
     }
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem('sidebarOpen', JSON.stringify(sidebarOpen));
+  }, [sidebarOpen]);
 
   const handleLogout = () => {
     localStorage.removeItem("user");
@@ -82,7 +92,7 @@ export default function DashboardLayout({ activePage, children, }: DashboardLayo
         variant="desktop"
         open={true}
         sidebarOpen={sidebarOpen}
-        onToggle={() => setSidebarOpen((prev) => !prev)}
+        onToggle={() => setSidebarOpen((prev: boolean) => !prev)}
         user={user}
         isTester={isTester}
         activePage={activePage}
