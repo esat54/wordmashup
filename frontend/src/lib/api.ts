@@ -285,3 +285,30 @@ export const grammarApi = {
         });
     },
 };
+
+
+export const quizApi = {
+
+    getUserWords: () =>
+        apiRequest("/api/quiz/user", {
+            method: "GET",
+        }),
+
+    getGlobalWords: (level?: string, category?: string, type?: string) => {
+        const params = new URLSearchParams();
+        if (level) params.set("level", level);
+        if (category) params.set("category", category);
+        if (type) params.set("type", type);
+        const qs = params.toString();
+        return apiRequest(`/api/quiz/global${qs ? `?${qs}` : ""}`, {
+            method: "GET",
+        });
+    },
+
+    saveWord: (data: { word: string; translation: string; level?: string }) =>
+        apiRequest("/api/quiz/save", {
+            method: "POST",
+            body: JSON.stringify(data),
+        }),
+
+};
