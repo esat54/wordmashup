@@ -98,3 +98,10 @@ textarea:focus {
 div[data-next-badge="true"] {
   display: none !important;
 }
+
+.theme-transitioning,
+.theme-transitioning *,
+.theme-transitioning *::before,
+.theme-transitioning *::after {
+  transition: none !important;
+}
