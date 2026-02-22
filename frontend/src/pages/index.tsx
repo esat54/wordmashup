@@ -1,9 +1,14 @@
+import { useEffect } from "react";
 import Header from "@/components/header";
 import HeroArea from "@/components/hero";
 import Features from "@/components/features";
 import SeoHead from "@/components/SeoHead";
 
 export default function Home() {
+  useEffect(() => {
+    document.documentElement.classList.remove("dark");
+  }, []);
+
   return (
     <>
       <SeoHead

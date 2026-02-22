@@ -1,15 +1,15 @@
-"use client";
-
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Mail, Lock, Eye, EyeOff, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { authApi } from "@/lib/api";
 import SeoHead from "@/components/SeoHead";
+import { useAuth } from "@/context/AuthContext";
 
 export default function LoginPage() {
+  const { login } = useAuth();
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,6 +17,10 @@ export default function LoginPage() {
   const [rememberMe, setRememberMe] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
+
+  useEffect(() => {
+    document.documentElement.classList.remove("dark");
+  }, []);
 
   const validateForm = () => {
     const newErrors: { email?: string; password?: string } = {};
@@ -46,15 +50,13 @@ export default function LoginPage() {
       const response = await authApi.login({ email, password }) as any;
 
       if (response && response.token) {
-        localStorage.setItem('token', response.token);
-
         if (response.user) {
-          localStorage.setItem('user', JSON.stringify(response.user));
-        }
+          login(response.user, response.token);
 
-        if (response.user.role === 'admin') {
-          router.push("/admin");
-          return;
+          if (response.user.role === 'admin') {
+            router.push("/admin");
+            return;
+          }
         }
 
         router.push("/dashboard");
@@ -80,10 +82,8 @@ export default function LoginPage() {
       const response = await authApi.testerLogin() as any;
 
       if (response && response.token) {
-        localStorage.setItem('token', response.token);
-
         if (response.user) {
-          localStorage.setItem('user', JSON.stringify(response.user));
+          login(response.user, response.token);
         }
 
         router.push("/dashboard");
@@ -104,190 +104,190 @@ export default function LoginPage() {
       />
       <div className="min-h-screen bg-white flex">
 
-      <div className="flex-1 flex flex-col justify-center px-4 lg:px-8 py-12 sm:px-16">
-        <div className="mx-auto w-full max-w-sm">
+        <div className="flex-1 flex flex-col justify-center px-4 lg:px-8 py-12 sm:px-16">
+          <div className="mx-auto w-full max-w-sm">
 
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="mb-8"
-          >
-            <Link href="/" className="flex items-center">
-              <span className="text-2xl font-bold text-gray-900">
-                Word<span className="text-blue-600">Mashup</span>
-              </span>
-            </Link>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="mb-8"
-          >
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">
-              Hesabınıza giriş yapın
-            </h1>
-            <p className="text-sm text-gray-600">
-              Hesabınız yok mu?{" "}
-              <Link
-                href="/register"
-                className="text-blue-600 hover:text-blue-700 font-medium"
-              >
-                Ücretsiz deneme için kayıt olun
-              </Link>
-            </p>
-          </motion.div>
-
-          <form onSubmit={handleSubmit} className="space-y-6">
-
-            <motion.div           // email alanı
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="mb-8"
             >
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-700 mb-2"
-              >
-                E-posta adresi
-              </label>
-
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Mail className="h-5 w-5 text-gray-400" />
-                </div>
-                <input
-                  id="email"
-                  type="email"
-                  value={email}
-                  onChange={(e) => {
-                    setEmail(e.target.value);
-                    if (errors.email) setErrors({ ...errors, email: undefined });
-                  }}
-                  className={`block w-full pl-10 pr-3 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all 
-                    ${errors.email ? "border-red-300 bg-red-50" : "border-gray-300 bg-white hover:border-gray-400"}`}
-                  placeholder="ornek@email.com"
-                />
-              </div>
-              {errors.email && (<p className="mt-1 text-sm text-red-600">{errors.email}</p>)}
+              <Link href="/" className="flex items-center">
+                <span className="text-2xl font-bold text-gray-900">
+                  Word<span className="text-blue-600">Mashup</span>
+                </span>
+              </Link>
             </motion.div>
 
-            <motion.div       // şifre alanı
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="mb-8"
             >
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium text-gray-700 mb-2"
+              <h1 className="text-3xl font-bold text-gray-900 mb-2">
+                Hesabınıza giriş yapın
+              </h1>
+              <p className="text-sm text-gray-600">
+                Hesabınız yok mu?{" "}
+                <Link
+                  href="/register"
+                  className="text-blue-600 hover:text-blue-700 font-medium"
+                >
+                  Ücretsiz deneme için kayıt olun
+                </Link>
+              </p>
+            </motion.div>
+
+            <form onSubmit={handleSubmit} className="space-y-6">
+
+              <motion.div           // email alanı
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
               >
-                Şifre
-              </label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Lock className="h-5 w-5 text-gray-400" />
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-gray-700 mb-2"
+                >
+                  E-posta adresi
+                </label>
+
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <Mail className="h-5 w-5 text-gray-400" />
+                  </div>
+                  <input
+                    id="email"
+                    type="email"
+                    value={email}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                      if (errors.email) setErrors({ ...errors, email: undefined });
+                    }}
+                    className={`block w-full pl-10 pr-3 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all 
+                    ${errors.email ? "border-red-300 bg-red-50" : "border-gray-300 bg-white hover:border-gray-400"}`}
+                    placeholder="ornek@email.com"
+                  />
                 </div>
-                <input
-                  id="password"
-                  type={showPassword ? "text" : "password"}
-                  value={password}
-                  onChange={(e) => {
-                    setPassword(e.target.value);
-                    if (errors.password) setErrors({ ...errors, password: undefined });
-                  }}
-                  className={`block w-full pl-10 pr-12 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all 
+                {errors.email && (<p className="mt-1 text-sm text-red-600">{errors.email}</p>)}
+              </motion.div>
+
+              <motion.div       // şifre alanı
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+              >
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium text-gray-700 mb-2"
+                >
+                  Şifre
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <Lock className="h-5 w-5 text-gray-400" />
+                  </div>
+                  <input
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    value={password}
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                      if (errors.password) setErrors({ ...errors, password: undefined });
+                    }}
+                    className={`block w-full pl-10 pr-12 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all 
           ${errors.password ? "border-red-300 bg-red-50" : "border-gray-300 bg-white hover:border-gray-400"}`}
-                  placeholder="••••••••"
-                />
+                    placeholder="••••••••"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 transition-colors"
+                  >
+                    {showPassword ? (<EyeOff className="h-5 w-5" />) : (<Eye className="h-5 w-5" />)}
+                  </button>
+                </div>
+                {errors.password && (<p className="mt-1 text-sm text-red-600">{errors.password}</p>)}
+              </motion.div>
+
+              <motion.div          // Beni hatırla ve Şifremi unuttum
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                className="flex items-center justify-between"
+              >
+                <label className="flex items-center">
+                  <input
+                    type="checkbox"
+                    checked={rememberMe}
+                    onChange={(e) => setRememberMe(e.target.checked)}
+                    className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-600 focus:ring-2"
+                  />
+                  <span className="ml-2 text-sm text-gray-600">Beni hatırla</span>
+                </label>
+                <Link
+                  href="/forgot-password"
+                  className="text-sm text-blue-600 hover:text-blue-700 font-medium transition-colors"
+                >
+                  Şifremi unuttum
+                </Link>
+              </motion.div>
+
+              <motion.button     // Giriş yap butonu
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.5 }}
+                type="submit"
+                disabled={isLoading}
+                className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 disabled:cursor-not-allowed text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-blue-600/30"
+              >
+                {isLoading ? "Giriş yapılıyor..." : "Giriş Yap"}
+                {!isLoading && <ArrowRight className="h-5 w-5" />}
+              </motion.button>
+
+              <motion.div     // Tester hesabı 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.55 }}
+                className="flex flex-col items-center gap-4 py-2"
+              >
+                <div className="flex items-center gap-3 w-full">
+                  <div className="h-[1px] flex-1 bg-gray-100"></div>
+                  <span className="text-[10px] font-bold text-gray-300 uppercase tracking-[0.2em]">Veya</span>
+                  <div className="h-[1px] flex-1 bg-gray-100"></div>
+                </div>
+
                 <button
                   type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 transition-colors"
+                  onClick={handleTesterLogin}
+                  className="group w-full py-3 px-4 rounded-xl border border-dashed border-gray-200 bg-gray-50/30 hover:bg-white hover:border-blue-300 hover:shadow-sm transition-all duration-300 flex flex-col items-center text-center"
                 >
-                  {showPassword ? (<EyeOff className="h-5 w-5" />) : (<Eye className="h-5 w-5" />)}
+                  <span className="text-sm font-bold text-gray-500 group-hover:text-blue-600 transition-colors">
+                    Tester Hesabı ile Başla
+                  </span>
+                  <span className="text-[11px] text-gray-400 font-medium mt-0.5">
+                    Kayıt gerektirmez, hemen dashboard'u keşfedin.
+                  </span>
                 </button>
-              </div>
-              {errors.password && (<p className="mt-1 text-sm text-red-600">{errors.password}</p>)}
-            </motion.div>
+              </motion.div>
 
-            <motion.div          // Beni hatırla ve Şifremi unuttum
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="flex items-center justify-between"
-            >
-              <label className="flex items-center">
-                <input
-                  type="checkbox"
-                  checked={rememberMe}
-                  onChange={(e) => setRememberMe(e.target.checked)}
-                  className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-600 focus:ring-2"
-                />
-                <span className="ml-2 text-sm text-gray-600">Beni hatırla</span>
-              </label>
-              <Link
-                href="/forgot-password"
-                className="text-sm text-blue-600 hover:text-blue-700 font-medium transition-colors"
-              >
-                Şifremi unuttum
-              </Link>
-            </motion.div>
-
-            <motion.button     // Giriş yap butonu
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-              type="submit"
-              disabled={isLoading}
-              className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 disabled:cursor-not-allowed text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-blue-600/30"
-            >
-              {isLoading ? "Giriş yapılıyor..." : "Giriş Yap"}
-              {!isLoading && <ArrowRight className="h-5 w-5" />}
-            </motion.button>
-
-            <motion.div     // Tester hesabı 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.55 }}
-              className="flex flex-col items-center gap-4 py-2"
-            >
-              <div className="flex items-center gap-3 w-full">
-                <div className="h-[1px] flex-1 bg-gray-100"></div>
-                <span className="text-[10px] font-bold text-gray-300 uppercase tracking-[0.2em]">Veya</span>
-                <div className="h-[1px] flex-1 bg-gray-100"></div>
-              </div>
-
-              <button
-                type="button"
-                onClick={handleTesterLogin}
-                className="group w-full py-3 px-4 rounded-xl border border-dashed border-gray-200 bg-gray-50/30 hover:bg-white hover:border-blue-300 hover:shadow-sm transition-all duration-300 flex flex-col items-center text-center"
-              >
-                <span className="text-sm font-bold text-gray-500 group-hover:text-blue-600 transition-colors">
-                  Tester Hesabı ile Başla
-                </span>
-                <span className="text-[11px] text-gray-400 font-medium mt-0.5">
-                  Kayıt gerektirmez, hemen dashboard'u keşfedin.
-                </span>
-              </button>
-            </motion.div>
-
-          </form>
+            </form>
+          </div>
         </div>
-      </div>
 
-      <div className="hidden lg:block relative w-0 lg:flex-1">
-        <div className="absolute inset-0">
-          <Image
-            src="/login-image.jpg"
-            alt="Login illustration"
-            fill
-            className="object-cover"
-            priority
-          />
+        <div className="hidden lg:block relative w-0 lg:flex-1">
+          <div className="absolute inset-0">
+            <Image
+              src="/login-image.jpg"
+              alt="Login illustration"
+              fill
+              className="object-cover"
+              priority
+            />
+          </div>
         </div>
-      </div>
       </div>
     </>
   );

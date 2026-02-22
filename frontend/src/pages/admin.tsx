@@ -1,4 +1,3 @@
-"use client";
 
 import SeoHead from "@/components/SeoHead";
 
