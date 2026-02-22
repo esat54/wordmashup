@@ -1,5 +1,3 @@
-"use client";
-
 import { useState } from "react";
 import { Sparkles } from "lucide-react";
 
@@ -30,7 +28,7 @@ const features = [
     },
 ];
 
-export default function HeroArea() {
+export default function Features() {
     const [activeTab, setActiveTab] = useState(0);
 
     return (
