@@ -1,4 +1,3 @@
-"use client";
 
 import { useEffect, useState } from "react";
 import { X, Loader2, Plus, Trash2 } from "lucide-react";
@@ -24,6 +23,7 @@ export default function AddGrammar() {
   });
   const [saving, setSaving] = useState(false);
   const [saveMessage, setSaveMessage] = useState("");
+  const [isCategoryOpen, setIsCategoryOpen] = useState<boolean>(false);
 
   useEffect(() => {
     loadCategories();
@@ -117,12 +117,12 @@ export default function AddGrammar() {
   };
 
   const inputBase =
-    "w-full px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 bg-white border border-gray-300 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500";
+    "w-full px-4 py-2.5 text-sm text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg transition-colors focus:outline-none hover:shadow-[0_0_3px_0_rgba(0,0,0,0.12)]";
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+    <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
 
-      <h2 className="text-xl font-bold text-gray-800 tracking-tight mb-4">
+      <h2 className="text-xl font-bold text-gray-800 dark:text-white tracking-tight mb-4">
         Yeni Gramer Konusu Ekle
       </h2>
 
@@ -152,14 +152,14 @@ export default function AddGrammar() {
             <button
               type="button"
               onClick={handleAddCategory}
-              className="shrink-0 inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-gray-800 text-white text-sm font-medium rounded-lg hover:bg-gray-700 transition-colors"
+              className="shrink-0 inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-gray-800 dark:bg-gray-700 text-white text-sm font-medium rounded-lg hover:bg-gray-700 dark:hover:bg-gray-600 transition-colors border border-transparent dark:border-gray-600"
             >
               <Plus className="w-4 h-4" />
               Kategori Ekle
             </button>
           </div>
           {loadingCategories ? (
-            <div className="flex items-center gap-2 text-sm text-gray-500">
+            <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
               <Loader2 className="w-4 h-4 animate-spin" />
               <span>Kategoriler yükleniyor...</span>
             </div>
@@ -168,14 +168,14 @@ export default function AddGrammar() {
               {categories.map((cat) => (
                 <span
                   key={cat}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-100 text-gray-700 text-sm rounded-lg border border-gray-200"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-sm rounded-lg border border-gray-200 dark:border-gray-600"
                 >
                   {cat.length > 24 ? cat.slice(0, 24) + "…" : cat}
                   <button
                     type="button"
                     onClick={() => handleDeleteCategory(cat)}
                     disabled={loadingCategories}
-                    className="p-0.5 rounded text-gray-400 hover:text-red-600 hover:bg-red-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="p-0.5 rounded text-gray-400 dark:text-gray-500 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                     aria-label="Kategoriyi sil"
                   >
                     <X className="w-3.5 h-3.5" />
@@ -184,43 +184,68 @@ export default function AddGrammar() {
               ))}
             </div>
           ) : (
-            <p className="text-sm text-gray-400">
+            <p className="text-sm text-gray-400 dark:text-gray-500">
               Henüz kategori yok. Yukarıdan yeni kategori ekleyin.
             </p>
           )}
         </section>
 
         <section className="space-y-4">
-          <h3 className="text-sm font-semibold text-gray-800 border-b border-gray-200 pb-2">
+          <h3 className="text-sm font-semibold text-gray-800 dark:text-gray-200 border-b border-gray-200 dark:border-gray-700 pb-2">
             Konu bilgileri
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">
-                Kategori <span className="text-red-500">*</span>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
+                Kategori <span className="text-red-500 dark:text-red-400">*</span>
               </label>
-              <select
-                required
-                value={formData.category}
-                onChange={(e) =>
-                  setFormData({ ...formData, category: e.target.value })
-                }
-                disabled={loadingCategories}
-                className={`${inputBase} cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed`}
-              >
-                <option value="">
-                  {loadingCategories ? "Yükleniyor..." : "Seçin"}
-                </option>
-                {categories.map((cat) => (
-                  <option key={cat} value={cat}>
-                    {cat}
-                  </option>
-                ))}
-              </select>
+              <div className="relative w-full z-30">
+                <button
+                  type="button"
+                  disabled={loadingCategories}
+                  onClick={() => setIsCategoryOpen(!isCategoryOpen)}
+                  className={`grid w-full cursor-pointer grid-cols-1 rounded-lg bg-white dark:bg-gray-700 py-2 sm:py-2.5 px-3 sm:px-4 text-left border border-gray-300 dark:border-gray-600 shadow-sm outline-none focus:outline-none focus:ring-1 focus:ring-blue-500 transition-colors ${loadingCategories ? "opacity-60 cursor-not-allowed" : ""} ${!formData.category ? "text-gray-400 dark:text-gray-500" : "text-gray-900 dark:text-white"}`}
+                >
+                  <span className="col-start-1 row-start-1 flex items-center pr-4">
+                    <span className="block text-sm font-medium truncate">
+                      {loadingCategories ? "Yükleniyor..." : formData.category ? formData.category : "Seçin"}
+                    </span>
+                  </span>
+                  <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" className="col-start-1 row-start-1 size-4 self-center justify-self-end text-gray-400 dark:text-gray-500">
+                    <path d="M5.22 10.22a.75.75 0 0 1 1.06 0L8 11.94l1.72-1.72a.75.75 0 1 1 1.06 1.06l-2.25 2.25a.75.75 0 0 1-1.06 0l-2.25-2.25a.75.75 0 0 1 0-1.06ZM10.78 5.78a.75.75 0 0 1-1.06 0L8 4.06 6.28 5.78a.75.75 0 0 1-1.06-1.06l2.25-2.25a.75.75 0 0 1 1.06 0l2.25 2.25a.75.75 0 0 1 0 1.06Z" clipRule="evenodd" fillRule="evenodd" />
+                  </svg>
+                </button>
+
+                {isCategoryOpen && categories.length > 0 && (
+                  <>
+                    <div className="fixed inset-0 z-10" onClick={() => setIsCategoryOpen(false)}></div>
+                    <ul className="absolute z-20 left-0 mt-1 max-h-60 w-full overflow-auto rounded-lg bg-white dark:bg-gray-800 py-1 text-base shadow-lg ring-1 ring-black/5 dark:ring-white/10 outline-none sm:text-sm border border-gray-100 dark:border-gray-700">
+                      {categories.map((cat) => (
+                        <li
+                          key={cat}
+                          className={`relative cursor-pointer select-none py-2 pl-3 pr-9 ${formData.category === cat ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400' : 'text-gray-900 dark:text-gray-300 hover:bg-slate-50 dark:hover:bg-gray-700'}`}
+                          onClick={() => { setFormData({ ...formData, category: cat }); setIsCategoryOpen(false); }}
+                        >
+                          <div className="flex items-center">
+                            <span className={`block truncate ${formData.category === cat ? 'font-semibold' : 'font-medium'}`}>{cat}</span>
+                          </div>
+                          {formData.category === cat && (
+                            <span className="absolute inset-y-0 right-0 flex items-center pr-3 text-blue-600">
+                              <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" className="size-4">
+                                <path fillRule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clipRule="evenodd" />
+                              </svg>
+                            </span>
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+                  </>
+                )}
+              </div>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">
-                Başlık <span className="text-red-500">*</span>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
+                Başlık <span className="text-red-500 dark:text-red-400">*</span>
               </label>
               <input
                 type="text"
@@ -236,7 +261,7 @@ export default function AddGrammar() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
                 Kısa açıklama
               </label>
               <input
@@ -250,7 +275,7 @@ export default function AddGrammar() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
                 Formül
               </label>
               <input
@@ -268,7 +293,7 @@ export default function AddGrammar() {
 
         <section className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
               Kurallar
             </label>
             <textarea
@@ -283,7 +308,7 @@ export default function AddGrammar() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
               Notlar
             </label>
             <textarea
@@ -302,10 +327,10 @@ export default function AddGrammar() {
         <section className="space-y-4">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div>
-              <h3 className="text-sm font-semibold text-gray-800">
+              <h3 className="text-sm font-semibold text-gray-800 dark:text-gray-200">
                 Örnek cümleler
               </h3>
-              <p className="text-sm text-gray-500 mt-0.5">
+              <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">
                 İngilizce cümle ve Türkçe çeviri ekleyin.
               </p>
             </div>
@@ -317,7 +342,7 @@ export default function AddGrammar() {
                   examples: [...formData.examples, { en: "", tr: "" }],
                 })
               }
-              className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-blue-600 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors border border-blue-100"
+              className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors border border-blue-100 dark:border-blue-800"
             >
               <Plus className="w-4 h-4" />
               Örnek ekle
@@ -327,7 +352,7 @@ export default function AddGrammar() {
             {formData.examples.map((example, index) => (
               <div
                 key={index}
-                className="flex flex-col sm:flex-row gap-3 p-4 rounded-lg border border-gray-200 bg-gray-50/50"
+                className="flex flex-col sm:flex-row gap-3 p-4 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/50"
               >
                 <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <input
@@ -360,7 +385,7 @@ export default function AddGrammar() {
                       const next = formData.examples.filter((_, i) => i !== index);
                       setFormData({ ...formData, examples: next });
                     }}
-                    className="shrink-0 inline-flex items-center gap-1.5 px-3 py-2 text-sm text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                    className="shrink-0 inline-flex items-center gap-1.5 px-3 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
                   >
                     <Trash2 className="w-4 h-4" />
                     Sil
@@ -375,15 +400,15 @@ export default function AddGrammar() {
           <div
             role="alert"
             className={`p-4 rounded-lg text-sm font-medium ${saveMessage.includes("başarıyla")
-                ? "bg-emerald-50 text-emerald-800 border border-emerald-200"
-                : "bg-red-50 text-red-800 border border-red-200"
+              ? "bg-emerald-50 dark:bg-emerald-900/20 text-emerald-800 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-900/50"
+              : "bg-red-50 dark:bg-red-900/20 text-red-800 dark:text-red-400 border border-red-200 dark:border-red-900/50"
               }`}
           >
             {saveMessage}
           </div>
         )}
 
-        <div className="flex flex-wrap items-center justify-end gap-3 pt-2 border-t border-gray-200">
+        <div className="flex flex-wrap items-center justify-end gap-3 pt-2 border-t border-gray-200 dark:border-gray-700">
           <button
             type="submit"
             disabled={saving}

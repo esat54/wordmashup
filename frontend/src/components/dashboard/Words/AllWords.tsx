@@ -1,4 +1,3 @@
-"use client";
 
 import { useEffect, useState } from "react";
 import { Trash2, Star, Search, Loader2, X, Volume2, MessageCircleQuestionMark, ChevronLeft, ChevronRight, } from "lucide-react";
@@ -26,6 +25,9 @@ export default function AllWords() {
   const [type, setType] = useState<string>("");
   const [favoriteFilter, setFavoriteFilter] = useState<string>("");
   const [unknownFilter, setUnknownFilter] = useState<string>("");
+  const [isTypeOpen, setIsTypeOpen] = useState<boolean>(false);
+  const [isFavOpen, setIsFavOpen] = useState<boolean>(false);
+  const [isUnknownOpen, setIsUnknownOpen] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [message, setMessage] = useState<string>("");
 
@@ -134,9 +136,9 @@ export default function AllWords() {
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 relative">
+    <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 relative">
       {message && (
-        <div className="fixed top-5 right-5 z-[9999] flex items-center gap-2 bg-gray-800 text-white px-4 py-3 rounded-lg shadow-2xl border border-gray-700 transition-all">
+        <div className="fixed top-5 right-5 z-[9999] flex items-center gap-2 bg-gray-800 dark:bg-gray-700 text-white px-4 py-3 rounded-lg shadow-2xl border border-gray-700 dark:border-gray-600 transition-all">
           <span className="text-sm font-medium">{message}</span>
           <button onClick={() => setMessage("")} className="hover:text-gray-400">
             <X className="w-4 h-4" />
@@ -146,52 +148,164 @@ export default function AllWords() {
 
       <div className="flex flex-col md:flex-row gap-4 mb-6">
         <div className="flex-1 relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500 w-5 h-5" />
           <input
             type="text"
             placeholder="Kelime ara (EN/TR)..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-3 py-2 rounded-lg border border-gray-300 transition hover:shadow-[0_0_3px_0_rgba(0,0,0,0.12)]"
+            className="w-full pl-10 pr-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 transition hover:shadow-[0_0_3px_0_rgba(0,0,0,0.12)]"
           />
         </div>
 
-        <select
-          className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-          value={type}
-          onChange={(e) => setType(e.target.value)}
-        >
-          {wordTypes.map((t) => (
-            <option key={t.value} value={t.value}>
-              {t.label}
-            </option>
-          ))}
-        </select>
+        <div className="grid grid-cols-3 md:flex md:items-center md:justify-end gap-2 sm:gap-3 w-full md:w-auto pb-1 sm:pb-0">
+          {/* Tür Filter */}
+          <div className="relative w-full md:w-[150px] z-30">
+            <button
+              type="button"
+              onClick={() => { setIsTypeOpen(!isTypeOpen); setIsFavOpen(false); setIsUnknownOpen(false); }}
+              className="grid w-full cursor-pointer grid-cols-1 rounded-lg bg-white dark:bg-gray-700 py-2 sm:py-2.5 px-2 sm:px-3 text-left text-gray-900 dark:text-gray-300 border border-gray-300 dark:border-gray-600 shadow-sm outline-none focus:outline-none focus:ring-1 focus:ring-blue-500  sm:text-sm transition hover:shadow-[0_0_3px_0_rgba(0,0,0,0.12)]"
+            >
+              <span className="col-start-1 row-start-1 flex items-center pr-4">
+                <span className="block text-[11px] sm:text-[13px] font-semibold text-gray-700 dark:text-gray-300 truncate">
+                  {type ? wordTypes.find(t => t.value === type)?.label : "Tür"}
+                </span>
+              </span>
+              <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" className="col-start-1 row-start-1 size-4 self-center justify-self-end text-gray-400 dark:text-gray-500">
+                <path d="M5.22 10.22a.75.75 0 0 1 1.06 0L8 11.94l1.72-1.72a.75.75 0 1 1 1.06 1.06l-2.25 2.25a.75.75 0 0 1-1.06 0l-2.25-2.25a.75.75 0 0 1 0-1.06ZM10.78 5.78a.75.75 0 0 1-1.06 0L8 4.06 6.28 5.78a.75.75 0 0 1-1.06-1.06l2.25-2.25a.75.75 0 0 1 1.06 0l2.25 2.25a.75.75 0 0 1 0 1.06Z" clipRule="evenodd" fillRule="evenodd" />
+              </svg>
+            </button>
 
-        <select
-          className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-          value={favoriteFilter}
-          onChange={(e) => setFavoriteFilter(e.target.value)}
-        >
-          <option value="">Favori Durumu</option>
-          <option value="true">Favoriler</option>
-          <option value="false">Favori Olmayanlar</option>
-        </select>
+            {isTypeOpen && (
+              <>
+                <div className="fixed inset-0 z-10" onClick={() => setIsTypeOpen(false)}></div>
+                <ul className="absolute z-20 mt-1 max-h-60 w-full min-w-[120px] overflow-auto rounded-lg bg-white dark:bg-gray-800 py-1 text-base shadow-lg ring-1 ring-black/5 dark:ring-white/10 outline-none sm:text-sm border border-gray-100 dark:border-gray-700">
+                  {wordTypes.map((t) => (
+                    <li
+                      key={t.value}
+                      className={`relative cursor-pointer select-none py-2 pl-3 pr-9 ${type === t.value ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400' : 'text-gray-900 dark:text-gray-300 hover:bg-slate-50 dark:hover:bg-gray-700'}`}
+                      onClick={() => { setType(t.value); setIsTypeOpen(false); }}
+                    >
+                      <div className="flex items-center">
+                        <span className={`block truncate ${type === t.value ? 'font-semibold' : 'font-medium'}`}>{t.label}</span>
+                      </div>
+                      {type === t.value && (
+                        <span className="absolute inset-y-0 right-0 flex items-center pr-3 text-blue-600">
+                          <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" className="size-4">
+                            <path fillRule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clipRule="evenodd" />
+                          </svg>
+                        </span>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+          </div>
 
-        <select
-          className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-          value={unknownFilter}
-          onChange={(e) => setUnknownFilter(e.target.value)}
-        >
-          <option value="">Bilinmeyen Durumu</option>
-          <option value="true">Bilinmeyenler</option>
-        </select>
+          {/* Favori Filter */}
+          <div className="relative w-full md:w-[170px] z-20">
+            <button
+              type="button"
+              onClick={() => { setIsFavOpen(!isFavOpen); setIsTypeOpen(false); setIsUnknownOpen(false); }}
+              className="grid w-full cursor-pointer grid-cols-1 rounded-lg bg-white dark:bg-gray-700 py-2 sm:py-2.5 px-2 sm:px-3 text-left text-gray-900 dark:text-gray-300 border border-gray-300 dark:border-gray-600 shadow-sm outline-none focus:outline-none focus:ring-1 focus:ring-blue-500 sm:text-sm transition hover:shadow-[0_0_3px_0_rgba(0,0,0,0.12)]"
+            >
+              <span className="col-start-1 row-start-1 flex items-center pr-4">
+                <span className="block text-[11px] sm:text-[13px] font-semibold text-gray-700 dark:text-gray-300 truncate">
+                  {favoriteFilter === "true" ? "Favoriler" : favoriteFilter === "false" ? "Kal.(Fav Değil)" : "Favori Durumu"}
+                </span>
+              </span>
+              <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" className="col-start-1 row-start-1 size-4 self-center justify-self-end text-gray-400 dark:text-gray-500">
+                <path d="M5.22 10.22a.75.75 0 0 1 1.06 0L8 11.94l1.72-1.72a.75.75 0 1 1 1.06 1.06l-2.25 2.25a.75.75 0 0 1-1.06 0l-2.25-2.25a.75.75 0 0 1 0-1.06ZM10.78 5.78a.75.75 0 0 1-1.06 0L8 4.06 6.28 5.78a.75.75 0 0 1-1.06-1.06l2.25-2.25a.75.75 0 0 1 1.06 0l2.25 2.25a.75.75 0 0 1 0 1.06Z" clipRule="evenodd" fillRule="evenodd" />
+              </svg>
+            </button>
+
+            {isFavOpen && (
+              <>
+                <div className="fixed inset-0 z-10" onClick={() => setIsFavOpen(false)}></div>
+                <ul className="absolute z-20 mt-1 max-h-60 w-full min-w-[140px] overflow-auto rounded-lg bg-white dark:bg-gray-800 py-1 text-base shadow-lg ring-1 ring-black/5 dark:ring-white/10 outline-none sm:text-sm border border-gray-100 dark:border-gray-700">
+                  {[
+                    { value: "", label: "Favori Durumu" },
+                    { value: "true", label: "Favoriler" },
+                    { value: "false", label: "Favori Olmayanlar" }
+                  ].map((f) => (
+                    <li
+                      key={f.value}
+                      className={`relative cursor-pointer select-none py-2 pl-3 pr-9 ${favoriteFilter === f.value ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400' : 'text-gray-900 dark:text-gray-300 hover:bg-slate-50 dark:hover:bg-gray-700'}`}
+                      onClick={() => { setFavoriteFilter(f.value); setIsFavOpen(false); }}
+                    >
+                      <div className="flex items-center">
+                        <span className={`block truncate ${favoriteFilter === f.value ? 'font-semibold' : 'font-medium'}`}>{f.label}</span>
+                      </div>
+                      {favoriteFilter === f.value && (
+                        <span className="absolute inset-y-0 right-0 flex items-center pr-3 text-blue-600">
+                          <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" className="size-4">
+                            <path fillRule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clipRule="evenodd" />
+                          </svg>
+                        </span>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+          </div>
+
+          {/* Bilinmeyen Filter */}
+          <div className="relative w-full md:w-[170px] z-10">
+            <button
+              type="button"
+              onClick={() => { setIsUnknownOpen(!isUnknownOpen); setIsTypeOpen(false); setIsFavOpen(false); }}
+              className="grid w-full cursor-pointer grid-cols-1 rounded-lg bg-white dark:bg-gray-700 py-2 sm:py-2.5 px-2 sm:px-3 text-left text-gray-900 dark:text-gray-300 border border-gray-300 dark:border-gray-600 shadow-sm outline-none focus:outline-none focus:ring-1 focus:ring-blue-500 sm:text-sm transition hover:shadow-[0_0_3px_0_rgba(0,0,0,0.12)]"
+            >
+              <span className="col-start-1 row-start-1 flex items-center pr-4">
+                <span className="block text-[11px] sm:text-[13px] font-semibold text-gray-700 dark:text-gray-300 truncate">
+                  {unknownFilter === "true" ? "Bilinmeyenler" : "Bilinmeyen Durumu"}
+                </span>
+              </span>
+              <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" className="col-start-1 row-start-1 size-4 self-center justify-self-end text-gray-400 dark:text-gray-500">
+                <path d="M5.22 10.22a.75.75 0 0 1 1.06 0L8 11.94l1.72-1.72a.75.75 0 1 1 1.06 1.06l-2.25 2.25a.75.75 0 0 1-1.06 0l-2.25-2.25a.75.75 0 0 1 0-1.06ZM10.78 5.78a.75.75 0 0 1-1.06 0L8 4.06 6.28 5.78a.75.75 0 0 1-1.06-1.06l2.25-2.25a.75.75 0 0 1 1.06 0l2.25 2.25a.75.75 0 0 1 0 1.06Z" clipRule="evenodd" fillRule="evenodd" />
+              </svg>
+            </button>
+
+            {isUnknownOpen && (
+              <>
+                <div className="fixed inset-0 z-10" onClick={() => setIsUnknownOpen(false)}></div>
+                <ul className="absolute z-20 mt-1 max-h-60 w-full min-w-[145px] right-0 sm:right-auto overflow-auto rounded-lg bg-white dark:bg-gray-800 py-1 text-base shadow-lg ring-1 ring-black/5 dark:ring-white/10 outline-none sm:text-sm border border-gray-100 dark:border-gray-700">
+                  {[
+                    { value: "", label: "Bilinmeyen Durumu" },
+                    { value: "true", label: "Sadece Bilinmeyenler" }
+                  ].map((u) => (
+                    <li
+                      key={u.value}
+                      className={`relative cursor-pointer select-none py-2 pl-3 pr-9 ${unknownFilter === u.value ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400' : 'text-gray-900 dark:text-gray-300 hover:bg-slate-50 dark:hover:bg-gray-700'}`}
+                      onClick={() => { setUnknownFilter(u.value); setIsUnknownOpen(false); }}
+                    >
+                      <div className="flex items-center">
+                        <span className={`block truncate ${unknownFilter === u.value ? 'font-semibold' : 'font-medium'}`}>{u.label}</span>
+                      </div>
+                      {unknownFilter === u.value && (
+                        <span className="absolute inset-y-0 right-0 flex items-center pr-3 text-blue-600">
+                          <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" className="size-4">
+                            <path fillRule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clipRule="evenodd" />
+                          </svg>
+                        </span>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+          </div>
+        </div>
       </div>
 
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 border-b border-gray-100 pb-4 sm:border-none sm:pb-0">
-        <div className="w-full sm:w-auto flex items-center justify-between bg-white border border-gray-200 rounded-lg px-3 py-2 sm:border-none sm:bg-transparent sm:p-0 sm:justify-start sm:gap-4">
-          <span className="text-xs sm:text-sm text-gray-500 font-medium">Sayfa başına:</span>
-          <div className="flex items-center gap-2">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 border-b border-gray-100 dark:border-gray-700 pb-4 sm:border-none sm:pb-0">
+        <div className="w-full sm:w-auto flex items-center justify-between bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-2 sm:border-none sm:bg-transparent sm:p-0 sm:justify-start sm:gap-4">
+          <span className="hidden md:inline text-xs sm:text-sm text-gray-500 dark:text-gray-400 font-medium whitespace-nowrap">
+            Sayfa başına:
+          </span>
+          <div className="flex items-center justify-between w-full md:w-auto md:justify-start gap-2">
             {[10, 20, 50, 100].map((item) => (
               <button
                 key={item}
@@ -199,9 +313,9 @@ export default function AllWords() {
                   setLimit(item);
                   setCurrentPage(1);
                 }}
-                className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${limit === item
+                className={`flex-1 md:flex-none px-2 sm:px-4 py-2 text-xs sm:text-sm font-medium rounded-lg transition-all duration-200 ${limit === item
                   ? "bg-blue-600 text-white shadow-sm"
-                  : "bg-gray-100 text-gray-700 hover:bg-gray-200 hover:shadow-sm"
+                  : "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 hover:shadow-sm"
                   }`}
               >
                 {item}
@@ -210,7 +324,7 @@ export default function AllWords() {
           </div>
         </div>
 
-        <div className="inline-flex items-center px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm font-medium border border-gray-200 min-w-[170px] relative">
+        <div className="inline-flex items-center px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg text-sm font-medium border border-gray-200 dark:border-gray-600 min-w-[170px] relative">
           <span className="absolute left-3 w-2 h-2 bg-blue-500 rounded-full"></span>
           <div className="flex-1 flex justify-center items-center">
             {loading && words.length === 0 ? (
@@ -225,31 +339,31 @@ export default function AllWords() {
       {loading ? (
         <div className="flex justify-center items-center py-12">
           <Loader2 className="w-6 h-6 animate-spin text-blue-600" />
-          <span className="ml-2 text-gray-600">Kelimeler yükleniyor...</span>
+          <span className="ml-2 text-gray-600 dark:text-gray-400">Kelimeler yükleniyor...</span>
         </div>
       ) : words.length > 0 ? (
         <>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
             {words.map((word) => (
-              <div key={word._id} className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+              <div key={word._id} className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4 border border-gray-200 dark:border-gray-600">
                 <div className="flex items-start justify-between mb-2">
                   <div>
-                    <h3 className="font-semibold text-gray-900">{word.text}</h3>
-                    <p className="text-sm text-gray-600">{word.translation}</p>
+                    <h3 className="font-semibold text-gray-900 dark:text-white">{word.text}</h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">{word.translation}</p>
                   </div>
                   <div className="flex flex-row gap-1 mt-[2px]">
                     <button
                       onClick={() => toggleFavorite(word._id)}
-                      className="text-gray-400 hover:text-yellow-500 transition-colors"
+                      className="text-gray-400 dark:text-gray-500 hover:text-yellow-500 transition-colors"
                     >
                       <Star
-                        className={`w-[18px] h-[18px] ${word.favorite ? "fill-current text-yellow-500" : "text-gray-400"
+                        className={`w-[18px] h-[18px] ${word.favorite ? "fill-current text-yellow-500" : "text-gray-400 dark:text-gray-500"
                           }`}
                       />
                     </button>
                     <button
                       onClick={() => toggleUnknown(word._id)}
-                      className={`transition-colors ${word.isUnknown ? "text-blue-500" : "text-gray-400 hover:text-blue-500"
+                      className={`transition-colors ${word.isUnknown ? "text-blue-500" : "text-gray-400 dark:text-gray-500 hover:text-blue-500"
                         }`}
                       title="Bilinmeyen"
                     >
@@ -259,24 +373,24 @@ export default function AllWords() {
                     </button>
                     <button
                       onClick={() => speak(word.text)}
-                      className="text-gray-400 hover:text-blue-500 transition-colors"
+                      className="text-gray-400 dark:text-gray-500 hover:text-blue-500 transition-colors"
                       title="Dinle"
                     >
                       <Volume2 className="w-[18px] h-[18px]" />
                     </button>
                     <button
                       onClick={() => removeWord(word._id)}
-                      className="text-gray-400 hover:text-red-500 transition-colors"
+                      className="text-gray-400 dark:text-gray-500 hover:text-red-500 transition-colors"
                     >
                       <Trash2 className="w-[18px] h-[18px]" />
                     </button>
                   </div>
                 </div>
-                <div className="text-xs text-gray-500 mb-2">
+                <div className="text-xs text-gray-500 dark:text-gray-400 mb-2">
                   Tür: {wordTypes.find((t) => t.value === word.type)?.label || word.type}
                 </div>
-                <hr className="my-2 border-gray-200" />
-                <div className="text-sm text-gray-700">
+                <hr className="my-2 border-gray-200 dark:border-gray-600" />
+                <div className="text-sm text-gray-700 dark:text-gray-300">
                   <p className="mb-1">
                     <strong>Örnek:</strong> {word.exampleSentence}
                   </p>
@@ -289,21 +403,21 @@ export default function AllWords() {
           </div>
 
           {totalPages > 1 && (
-            <div className="flex items-center justify-center gap-2 mt-6 bg-white rounded-lg border border-gray-200 px-3 py-1.5">
+            <div className="flex items-center justify-center gap-2 mt-6 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 px-3 py-1.5">
               <button
                 onClick={handlePreviousPage}
                 disabled={currentPage === 1}
                 className={`
                   p-1 rounded transition-colors
                   ${currentPage === 1
-                    ? "text-gray-300 cursor-not-allowed"
-                    : "text-gray-600 hover:bg-gray-100"
+                    ? "text-gray-300 dark:text-gray-600 cursor-not-allowed"
+                    : "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700"
                   }
                 `}
               >
                 <ChevronLeft className="w-4 h-4" />
               </button>
-              <span className="text-xs text-gray-600 px-2">
+              <span className="text-xs text-gray-600 dark:text-gray-400 px-2">
                 {currentPage} / {totalPages}
               </span>
               <button
@@ -312,8 +426,8 @@ export default function AllWords() {
                 className={`
                   p-1 rounded transition-colors
                   ${currentPage === totalPages
-                    ? "text-gray-300 cursor-not-allowed"
-                    : "text-gray-600 hover:bg-gray-100"
+                    ? "text-gray-300 dark:text-gray-600 cursor-not-allowed"
+                    : "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700"
                   }
                 `}
               >
@@ -323,7 +437,7 @@ export default function AllWords() {
           )}
         </>
       ) : (
-        <div className="text-center py-12 text-gray-600">Kelime bulunamadı</div>
+        <div className="text-center py-12 text-gray-600 dark:text-gray-400">Kelime bulunamadı</div>
       )}
     </div>
   );

@@ -1,4 +1,4 @@
-"use client";
+
 
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -34,22 +34,22 @@ const menuItems: {
 
 export default function Sidebar({ user, isTester, activePage, onLogout, sidebarOpen = true, onToggle, variant, open, onClose, }: SidebarProps) {
   const content = (
-    <div className="h-full flex flex-col bg-white border-r border-gray-200">
-      <div className="h-16 flex-shrink-0 flex items-center px-4 border-b border-gray-100 overflow-hidden">
+    <div className="h-full flex flex-col bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700">
+      <div className="h-16 flex-shrink-0 flex items-center px-4 border-b border-gray-100 dark:border-gray-700 overflow-hidden">
         <div className="flex items-center min-w-0 w-full">
           <div
             className={`transition-all duration-300 flex items-center overflow-hidden ${sidebarOpen ? "opacity-100 w-auto" : "opacity-0 w-0"
               }`}
           >
-            <span className="text-xl font-bold text-gray-900 tracking-tight whitespace-nowrap">
-              Word<span className="text-blue-600">Mashup</span>
+            <span className="text-xl font-bold text-gray-900 dark:text-white tracking-tight whitespace-nowrap">
+              Word<span className="text-blue-600 dark:text-blue-400">Mashup</span>
             </span>
           </div>
           <div className="ml-auto">
             {onToggle && (
               <button
                 onClick={onToggle}
-                className="p-2 rounded-lg text-gray-400 hover:bg-gray-100 transition-colors"
+                className="p-2 rounded-lg text-gray-400 dark:text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
               >
                 {sidebarOpen ? (
                   <ChevronLeft size={23} />
@@ -62,19 +62,19 @@ export default function Sidebar({ user, isTester, activePage, onLogout, sidebarO
         </div>
       </div>
 
-      <div className="p-4 bg-gray-50/50 border-b border-gray-100 overflow-hidden">
+      <div className="p-4 bg-gray-50/50 dark:bg-gray-800/50 border-b border-gray-100 dark:border-gray-700 overflow-hidden">
         <div className="flex items-center ml-1 ">
-          <div className="w-10 h-10 rounded-xl flex-shrink-0 bg-blue-600 flex items-center justify-center text-white font-bold shadow-lg shadow-blue-100">
+          <div className="w-10 h-10 rounded-xl flex-shrink-0 bg-blue-600 flex items-center justify-center text-white font-bold shadow-lg shadow-blue-100 dark:shadow-blue-900/30">
             {isTester ? "T" : user.name.charAt(0).toUpperCase()}
           </div>
           <div
             className={`transition-all duration-300 overflow-hidden whitespace-nowrap ${sidebarOpen ? "opacity-100 max-w-xs ml-3" : "opacity-0 max-w-0 ml-0"
               }`}
           >
-            <p className="text-sm font-bold text-gray-700 truncate">
+            <p className="text-sm font-bold text-gray-700 dark:text-gray-200 truncate">
               {isTester ? "Deneme Hesabı" : user.name}
             </p>
-            <p className="text-[13px] text-gray-500 truncate font-medium">
+            <p className="text-[13px] text-gray-500 dark:text-gray-400 truncate font-medium">
               {isTester ? "" : user.email}
             </p>
           </div>
@@ -103,15 +103,15 @@ export default function Sidebar({ user, isTester, activePage, onLogout, sidebarO
                 }}
                 className={`w-full flex items-center px-3 py-3 rounded-xl transition-all font-semibold text-sm overflow-hidden 
                 ${isActive
-                    ? "bg-blue-50 text-blue-600"
-                    : "text-gray-500 hover:bg-gray-50 hover:text-gray-900"
+                    ? "bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400"
+                    : "text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white"
                   }
                 ${isDisabled ? "opacity-40 cursor-not-allowed pointer-events-auto" : ""}`}
               >
                 <div className="relative flex items-center justify-center ml-1.5">
                   <Icon
                     size={21}
-                    className={`flex-shrink-0 ${isActive ? "text-blue-600" : "text-gray-400"
+                    className={`flex-shrink-0 ${isActive ? "text-blue-600 dark:text-blue-400" : "text-gray-400 dark:text-gray-500"
                       }`}
                   />
                 </div>
@@ -127,10 +127,10 @@ export default function Sidebar({ user, isTester, activePage, onLogout, sidebarO
         })}
       </nav>
 
-      <div className="p-4 border-t border-gray-100">
+      <div className="p-4 border-t border-gray-100 dark:border-gray-700">
         <button
           onClick={onLogout}
-          className="w-full flex items-center px-3 py-2.5 rounded-xl text-gray-500 hover:bg-red-50 hover:text-red-600 transition-all font-bold text-sm overflow-hidden"
+          className="w-full flex items-center px-3 py-2.5 rounded-xl text-gray-500 dark:text-gray-400 hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-600 dark:hover:text-red-400 transition-all font-bold text-sm overflow-hidden"
         >
           <LogOut size={21} className="flex-shrink-0" />
           <span

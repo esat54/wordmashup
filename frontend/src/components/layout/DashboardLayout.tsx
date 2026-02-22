@@ -1,8 +1,7 @@
-"use client";
-
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import { AnimatePresence } from "framer-motion";
+import { useAuth } from "@/context/AuthContext";
 
 import Sidebar from "@/components/layout/Sidebar";
 import DashboardHeader from "@/components/layout/Header";
@@ -27,7 +26,8 @@ interface DashboardLayoutProps {
 
 export default function DashboardLayout({ activePage, children, }: DashboardLayoutProps) {
   const router = useRouter();
-  const [user, setUser] = useState<DashboardUser | null>(null);
+  const { user, isTester, isLoggedIn, logout } = useAuth();
+
   const [sidebarOpen, setSidebarOpen] = useState(() => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('sidebarOpen');
@@ -38,50 +38,42 @@ export default function DashboardLayout({ activePage, children, }: DashboardLayo
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    const userData = localStorage.getItem("user");
-    const token = localStorage.getItem("token");
-
-    if (!token || !userData) {
-      handleLogout();
-      return;
-    }
-
-    try {
-      setUser(JSON.parse(userData));
-    } catch {
-      handleLogout();
-    }
-  }, []);
-
-  useEffect(() => {
     localStorage.setItem('sidebarOpen', JSON.stringify(sidebarOpen));
   }, [sidebarOpen]);
 
   const handleLogout = () => {
-    localStorage.removeItem("user");
-    localStorage.removeItem("token");
+    logout();
     router.push("/login");
   };
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
-        <div className="text-gray-600 animate-pulse">Yükleniyor...</div>
+      <div className="min-h-screen bg-white dark:bg-gray-900 flex items-center justify-center">
+        <div className="text-gray-600 dark:text-gray-400 animate-pulse">Yükleniyor...</div>
       </div>
     );
   }
 
-  const isTester = user.email === "tester@gmail.com";
+  const dashboardUser: DashboardUser = { name: user.name || '', email: user.email || '' };
+
+  const pageTitles: Record<DashboardPageKey, string> = {
+    home: "Genel Bakış",
+    words: "Kelimelerim",
+    dictionary: "Sözlük",
+    grammar: "Gramer",
+    oxford: "Oxford Liste",
+    settings: "Ayarlar"
+  };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex">
       <AnimatePresence>
         <Sidebar
           variant="mobile"
           open={mobileMenuOpen}
           onClose={() => setMobileMenuOpen(false)}
           sidebarOpen={true}
-          user={user}
+          user={dashboardUser}
           isTester={isTester}
           activePage={activePage}
           onLogout={handleLogout}
@@ -93,7 +85,7 @@ export default function DashboardLayout({ activePage, children, }: DashboardLayo
         open={true}
         sidebarOpen={sidebarOpen}
         onToggle={() => setSidebarOpen((prev: boolean) => !prev)}
-        user={user}
+        user={dashboardUser}
         isTester={isTester}
         activePage={activePage}
         onLogout={handleLogout}
@@ -101,14 +93,14 @@ export default function DashboardLayout({ activePage, children, }: DashboardLayo
 
       <div className="flex-1 flex flex-col min-w-0">
         <DashboardHeader
-          user={user}
+          user={dashboardUser}
           isTester={isTester}
-          onLogout={handleLogout}
           onOpenMobileMenu={() => setMobileMenuOpen(true)}
+          pageTitle={pageTitles[activePage]}
         />
 
         <main className="flex-1 p-4 sm:p-6 lg:p-7 overflow-y-auto">
-          {children(user)}
+          {children(dashboardUser)}
         </main>
       </div>
     </div>

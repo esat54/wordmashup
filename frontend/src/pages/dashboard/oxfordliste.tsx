@@ -1,4 +1,3 @@
-"use client";
 
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import OxfordListPage from "@/components/dashboard/OxfordListPage";

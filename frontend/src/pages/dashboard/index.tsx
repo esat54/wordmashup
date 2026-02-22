@@ -1,4 +1,3 @@
-"use client";
 
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import DashboardHero from "@/components/dashboard/DashboardHero";

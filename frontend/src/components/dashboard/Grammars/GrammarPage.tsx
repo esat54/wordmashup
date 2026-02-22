@@ -1,25 +1,17 @@
-"use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Plus, List } from "lucide-react";
 import AllGrammarList from "./AllGrammarList";
 import AddGrammar from "./AddGrammar";
+import { useAuth } from "@/context/AuthContext";
 
 export default function GrammarPage() {
   const [currentView, setCurrentView] = useState<"list" | "add">("list");
-  const [user, setUser] = useState<{ email: string } | null>(null);
-
-  useEffect(() => {
-    const userData = localStorage.getItem("user");
-    if (userData) setUser(JSON.parse(userData));
-  }, []);
-
-  const isTester = user?.email === "tester@gmail.com";
+  const { isTester } = useAuth();
 
   return (
     <div className="max-w-7xl mx-auto">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
-        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Gramer</h1>
         <div className="flex items-center gap-2 w-full sm:w-auto">
           {currentView === "list" ? (
             <div className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-3 py-2.5 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm font-medium bg-blue-600 text-white shadow-md cursor-default">
@@ -29,7 +21,7 @@ export default function GrammarPage() {
           ) : (
             <button
               onClick={() => setCurrentView("list")}
-              className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-3 py-2.5 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm font-medium bg-gray-200 text-gray-700 hover:bg-gray-300 transition-all"
+              className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-3 py-2.5 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm font-medium bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 transition-all"
             >
               <List className="w-4 h-4 sm:w-5 sm:h-5" />
               <span className="whitespace-nowrap">Gramer listesi</span>
@@ -38,7 +30,7 @@ export default function GrammarPage() {
 
           {isTester ? (
             <div className="relative group flex-1 sm:flex-none">
-              <div className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-3 py-2.5 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm font-medium bg-gray-100 text-gray-400 border border-gray-200 cursor-not-allowed">
+              <div className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-3 py-2.5 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm font-medium bg-gray-100 dark:bg-gray-800 text-gray-400 border border-gray-200 dark:border-gray-700 cursor-not-allowed">
                 <Plus className="w-4 h-4 sm:w-5 sm:h-5" />
                 <span className="whitespace-nowrap">Yeni Konu Ekle</span>
               </div>
@@ -54,7 +46,7 @@ export default function GrammarPage() {
               onClick={() => setCurrentView("add")}
               className={`flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-3 py-2.5 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-all ${currentView === "add"
                 ? "bg-blue-600 text-white shadow-md"
-                : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                : "bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600"
                 }`}
             >
               <Plus className="w-4 h-4 sm:w-5 sm:h-5" />

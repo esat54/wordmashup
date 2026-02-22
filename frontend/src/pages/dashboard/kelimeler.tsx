@@ -1,4 +1,3 @@
-"use client";
 
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import WordsPage from "@/components/dashboard/Words/WordsPage";
