@@ -36,7 +36,6 @@ export function useQuizLogic({ fetchFn, saveFn, wordField = "text", displayCount
         if (userData) setUser(JSON.parse(userData));
     }, []);
 
-    /** Select a random subset from allWords and reset answers/results */
     const shuffleFromPool = useCallback((pool: any[]) => {
         const selected = pickRandom(pool, displayCount);
         setWords(selected);
@@ -47,13 +46,11 @@ export function useQuizLogic({ fetchFn, saveFn, wordField = "text", displayCount
     const fetchWords = async () => {
         const requestId = ++requestCounter.current;
         setLoading(true);
-        // Clear current words to avoid "flash" of old content
         setWords([]);
 
         try {
             const data = await fetchFn();
 
-            // Only update if this is still the most recent request
             if (requestId === requestCounter.current) {
                 setAllWords(data);
                 shuffleFromPool(data);
@@ -83,11 +80,21 @@ export function useQuizLogic({ fetchFn, saveFn, wordField = "text", displayCount
 
     const handleSpeech = (index: number) => {
         const textToSpeak = getWordText(words[index]);
-        if (textToSpeak) {
-            const utterance = new SpeechSynthesisUtterance(textToSpeak);
-            utterance.lang = "en-US";
-            speechSynthesis.speak(utterance);
+        if (!textToSpeak) return;
+
+        if (!window.speechSynthesis) {
+            alert("Tarayıcınız seslendirme özelliğini desteklemiyor.");
+            return;
         }
+
+        window.speechSynthesis.cancel();
+
+        const utterance = new SpeechSynthesisUtterance(textToSpeak);
+        utterance.lang = "en-US";
+        utterance.rate = 0.7;
+        utterance.pitch = 1;
+
+        window.speechSynthesis.speak(utterance);
     };
 
     const handleCheck = (index: number) => {
