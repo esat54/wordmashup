@@ -134,7 +134,8 @@ export default function DashboardHero({ user }: { user: { name: string; email: s
 
   return (
     <div className="max-w-7xl mx-auto space-y-4 antialiased">
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-5 px-6">
+      {/* Name and Badge */}
+      <div className="bg-red-100 dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-5 px-6">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           {isLoading ? (
             <div className="flex-1">
@@ -438,9 +439,7 @@ export default function DashboardHero({ user }: { user: { name: string; email: s
                     Toplam: {totalWords}
                   </div>
                   <div
-                    className={`grid ${typeStats.length > 5
-                      ? "grid-cols-2"
-                      : "grid-cols-1"
+                    className={`grid ${typeStats.length > 3 ? "grid-cols-2" : "grid-cols-1"
                       } gap-x-3 gap-y-1 max-h-24 overflow-y-auto`}
                   >
                     {typeStats.map((stat, index) => {
