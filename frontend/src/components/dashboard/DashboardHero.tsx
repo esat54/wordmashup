@@ -135,7 +135,7 @@ export default function DashboardHero({ user }: { user: { name: string; email: s
   return (
     <div className="max-w-7xl mx-auto space-y-4 antialiased">
       {/* Name and Badge */}
-      <div className="bg-red-100 dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-5 px-6">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-5 px-6">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           {isLoading ? (
             <div className="flex-1">
