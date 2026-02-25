@@ -29,12 +29,14 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     }, []);
 
     useEffect(() => {
+        if (!mounted) return;
+
         if (isDarkDisabled) {
             document.documentElement.classList.remove("dark");
         } else {
             document.documentElement.classList.toggle("dark", darkMode);
         }
-    }, [isDarkDisabled, darkMode]);
+    }, [isDarkDisabled, darkMode, mounted]);
 
     const toggleDarkMode = () => {
         const next = !darkMode;

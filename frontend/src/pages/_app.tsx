@@ -30,31 +30,6 @@ export default function App({ Component, pageProps }: AppProps) {
 
         {/* Favicon */}
         <link rel="icon" href="/favicon.ico" />
-
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                try {
-                  var path = window.location.pathname;
-                  var allowDark = path !== '/' && path !== '/login' && path !== '/register';
-                  if (allowDark) {
-                    var saved = localStorage.getItem('theme');
-                    var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                    var isDark = saved === 'dark' || (!saved && prefersDark);
-                    if (isDark) {
-                      document.documentElement.classList.add('dark');
-                    } else {
-                      document.documentElement.classList.remove('dark');
-                    }
-                  } else {
-                    document.documentElement.classList.remove('dark');
-                  }
-                } catch (e) {}
-              })();
-            `,
-          }}
-        />
       </Head>
       <AuthProvider>
         <ThemeProvider>
