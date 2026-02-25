@@ -67,13 +67,13 @@ export default function GlobalQuiz() {
 
                     <div className="grid grid-cols-3 lg:flex lg:items-center gap-1.5 sm:gap-2 w-full sm:flex-1 md:flex-none md:w-[520px] lg:w-auto">
                         {/* category select */}
-                        <div className="relative w-full lg:hidden z-30">
+                        <div className="relative w-full lg:w-32 lg:hidden z-30">
                             <button
                                 type="button"
                                 onClick={() => { setIsCategoryOpen(!isCategoryOpen); setIsLevelOpen(false); setIsTypeOpen(false); }}
                                 className="grid w-full cursor-pointer grid-cols-1 rounded-md bg-white dark:bg-gray-800 py-1 sm:py-1.5 px-1.5 sm:px-3 text-left text-gray-900 dark:text-gray-300 border border-slate-200 dark:border-gray-700 shadow-sm outline-none focus:outline-none focus:border-blue-300 sm:text-xs"
                             >
-                                <span className="col-start-1 row-start-1 flex items-center gap-1 sm:gap-3 pr-4 sm:pr-6">
+                                <span className="col-start-1 row-start-1 flex items-center justify-between gap-1 sm:gap-3 pr-4 sm:pr-6">
                                     <span className="block text-[9px] sm:text-[11px] font-bold uppercase tracking-tight text-slate-600 dark:text-gray-400 truncate">{category || "Kategori"}</span>
                                 </span>
                                 <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" className="col-start-1 row-start-1 size-5 self-center justify-self-end text-gray-400 dark:text-gray-500 sm:size-4">
@@ -124,13 +124,13 @@ export default function GlobalQuiz() {
                         </div>
 
                         {/* level select */}
-                        <div className="relative w-full z-20">
+                        <div className="relative w-full lg:w-32 z-20">
                             <button
                                 type="button"
                                 onClick={() => { setIsLevelOpen(!isLevelOpen); setIsCategoryOpen(false); setIsTypeOpen(false); }}
                                 className="grid w-full cursor-pointer grid-cols-1 rounded-md bg-white dark:bg-gray-800 py-1 sm:py-1.5 px-1.5 sm:px-3 text-left text-gray-900 dark:text-gray-300 border border-slate-200 dark:border-gray-700 shadow-sm outline-none focus:outline-none focus:border-blue-300 sm:text-xs"
                             >
-                                <span className="col-start-1 row-start-1 flex items-center gap-1 sm:gap-3 pr-4 sm:pr-6">
+                                <span className="col-start-1 row-start-1 flex items-center justify-between gap-1 sm:gap-3 pr-4 sm:pr-6">
                                     <span className="block text-[9px] sm:text-[11px] font-bold uppercase tracking-tight text-slate-600 dark:text-gray-400 truncate">{level}</span>
                                 </span>
                                 <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" className="col-start-1 row-start-1 size-5 self-center justify-self-end text-gray-400 dark:text-gray-500 sm:size-4">
@@ -166,13 +166,13 @@ export default function GlobalQuiz() {
                         </div>
 
                         {/* type select */}
-                        <div className="relative w-full z-10">
+                        <div className="relative w-full lg:w-32 z-10">
                             <button
                                 type="button"
                                 onClick={() => { setIsTypeOpen(!isTypeOpen); setIsCategoryOpen(false); setIsLevelOpen(false); }}
                                 className="grid w-full cursor-pointer grid-cols-1 rounded-md bg-white dark:bg-gray-800 py-1 sm:py-1.5 px-1.5 sm:px-3 text-left text-gray-900 dark:text-gray-300 border border-slate-200 dark:border-gray-700 shadow-sm outline-none focus:outline-none focus:border-blue-300 sm:text-xs"
                             >
-                                <span className="col-start-1 row-start-1 flex items-center gap-1 sm:gap-3 pr-4 sm:pr-6">
+                                <span className="col-start-1 row-start-1 flex items-center justify-between gap-1 sm:gap-3 pr-4 sm:pr-6">
                                     <span className="block text-[9px] sm:text-[11px] font-bold uppercase tracking-tight text-slate-600 dark:text-gray-400 truncate">
                                         {wordType ? TYPES.find(t => t.value === wordType)?.label : "Tür"}
                                     </span>
