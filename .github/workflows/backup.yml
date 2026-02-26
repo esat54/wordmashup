@@ -11,11 +11,13 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
-        with:
-          ref: main 
 
       - name: Install MongoDB Tools
         run: |
+          sudo apt-get update
+          sudo apt-get install -y gnupg wget
+          wget -qO - https://www.mongodb.org/static/pgp/server-7.0.asc | gpg --dearmor | sudo tee /usr/share/keyrings/mongodb-server-7.0.gpg > /dev/null
+          echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-7.0.gpg ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/7.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list
           sudo apt-get update
           sudo apt-get install -y mongodb-database-tools
 
@@ -29,12 +31,9 @@ jobs:
             mongoexport --uri="$MONGO_URI" --collection=$col --out="backups/$col.json" --jsonArray
           done
 
-      - name: Commit and Push to Separate Branch
+      - name: Commit and Push Changes
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          
-          git checkout -B database-backups
-          
           git add backups/*.json
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Backup: $(date +'%Y-%m-%d')" && git push origin database-backups --force)
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Backup: $(date +'%Y-%m-%d')" && git push)
