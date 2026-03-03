@@ -12,16 +12,16 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Install MongoDB Tools
+      - name: Install MongoDB Tools and jq
         run: |
           sudo apt-get update
-          sudo apt-get install -y gnupg wget
+          sudo apt-get install -y gnupg wget jq
           wget -qO - https://www.mongodb.org/static/pgp/server-7.0.asc | gpg --dearmor | sudo tee /usr/share/keyrings/mongodb-server-7.0.gpg > /dev/null
           echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-7.0.gpg ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/7.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list
           sudo apt-get update
           sudo apt-get install -y mongodb-database-tools
 
-      - name: Export Collections
+      - name: Export and Format Collections
         env:
           MONGO_URI: ${{ secrets.MONGODB_URI }}
         run: |
@@ -29,11 +29,12 @@ jobs:
           collections=("grammars" "oxforduserprogresses" "oxfordwords" "savedquizwords" "users" "wordquizzes" "words")
           for col in "${collections[@]}"; do
             mongoexport --uri="$MONGO_URI" --collection=$col --out="backups/$col.json" --jsonArray
+            cat "backups/$col.json" | jq . > "backups/temp.json" && mv "backups/temp.json" "backups/$col.json"
           done
 
       - name: Commit and Push Changes
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "esat54"
+          git config --global user.email "esatsprx77@gmail.com"
           git add backups/*.json
           git diff --quiet && git diff --staged --quiet || (git commit -m "Backup: $(date +'%Y-%m-%d')" && git push)
