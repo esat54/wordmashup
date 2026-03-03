@@ -1,1 +1,1204 @@
-[{"_id":{"$oid":"69512f75dc6765cb3c11f7b8"},"text":"Attract","translation":"Cezbetmek, çekmek","exampleSentence":"Clean codes always attracts attention","sentenceTranslation":"Temiz kodlar her zaman dikkat çeker","type":"verb","favorite":false,"addedBy":{"$oid":"693c815cfc20c13ed3e93c96"},"createdAt":{"$date":"2025-12-28T13:24:05.848Z"},"updatedAt":{"$date":"2025-12-31T16:00:13.802Z"},"__v":0},{"_id":{"$oid":"69512facdc6765cb3c11f7c0"},"text":"Improve","translation":"Geliştirmek, İyileştirmek","exampleSentence":"Regular training improves your stamina","sentenceTranslation":"Düzenli antrenman dayanıklılığınızı arttırır","type":"verb","favorite":false,"addedBy":{"$oid":"693c815cfc20c13ed3e93c96"},"createdAt":{"$date":"2025-12-28T13:25:00.73Z"},"updatedAt":{"$date":"2026-01-03T15:22:17.908Z"},"__v":0,"isUnknown":false},{"_id":{"$oid":"69512fe1dc6765cb3c11f7c2"},"text":"Expire","translation":"Süresi Dolmak","exampleSentence":"My subscription to the database will expire next week","sentenceTranslation":"Veritabanı aboneliğim yakında sona erecek","type":"verb","favorite":false,"addedBy":{"$oid":"693c815cfc20c13ed3e93c96"},"createdAt":{"$date":"2025-12-28T13:25:53.514Z"},"updatedAt":{"$date":"2025-12-28T13:25:53.514Z"},"__v":0},{"_id":{"$oid":"69513049dc6765cb3c11f7c4"},"text":"Examina - Inspect","translation":"İncelemek","exampleSentence":"A detective examines the clues at the crime scene carefully","sentenceTranslation":"Dedektif suç mahalindeki ipucuları dikkatlice inceliyor","type":"verb","favorite":false,"addedBy":{"$oid":"693c815cfc20c13ed3e93c96"},"createdAt":{"$date":"2025-12-28T13:27:37.652Z"},"updatedAt":{"$date":"2025-12-28T13:27:37.652Z"},"__v":0},{"_id":{"$oid":"6951307fdc6765cb3c11f7c6"},"text":"Distract","translation":"Dikkat dağıtmak","exampleSentence":"He is trying to distract everyone during the exam","sentenceTranslation":"Sınav sırasında herkesin dikkatını dağıtmaya çalışıyor","type":"verb","favorite":false,"addedBy":{"$oid":"693c815cfc20c13ed3e93c96"},"createdAt":{"$date":"2025-12-28T13:28:31.384Z"},"updatedAt":{"$date":"2025-12-28T13:28:31.384Z"},"__v":0},{"_id":{"$oid":"695130dedc6765cb3c11f7c8"},"text":"Suspend","translation":"Askıya Almak","exampleSentence":"We suspend the deployment until the bug is fixed","sentenceTranslation":"Hatayı düzeltene kadar deploy’u askıya aldık.","type":"verb","favorite":false,"addedBy":{"$oid":"693c815cfc20c13ed3e93c96"},"createdAt":{"$date":"2025-12-28T13:30:06.683Z"},"updatedAt":{"$date":"2025-12-28T13:30:06.683Z"},"__v":0},{"_id":{"$oid":"69513130dc6765cb3c11f7ca"},"text":"Demand","translation":"Talep Etmek","exampleSentence":"The new feature demands more processing power from the server","sentenceTranslation":"Yeni özellik, sunucudan daha fazla işlem gücü talep ediyor","type":"verb","favorite":false,"addedBy":{"$oid":"693c815cfc20c13ed3e93c96"},"createdAt":{"$date":"2025-12-28T13:31:28.561Z"},"updatedAt":{"$date":"2025-12-28T13:31:28.561Z"},"__v":0},{"_id":{"$oid":"695132b2dc6765cb3c11f7cc"},"text":"Processing","translation":"İşleme, İşlem","exampleSentence":"Data processing in this pipeline takes only a few milliseconds.","sentenceTranslation":"Boru hattındaki veri işleme sadece bir kaç saniye sürer.","type":"noun","favorite":false,"addedBy":{"$oid":"693c815cfc20c13ed3e93c96"},"createdAt":{"$date":"2025-12-28T13:37:54.69Z"},"updatedAt":{"$date":"2026-02-12T11:17:49.141Z"},"__v":0,"isUnknown":false},{"_id":{"$oid":"695132f5dc6765cb3c11f7ce"},"text":"Compare","translation":"Karşılaştırmak","exampleSentence":"Before deploying, we compared AWS and Google Cloud","sentenceTranslation":"Dağıtımdan önce aws ile cloudu karşılaşırdık","type":"verb","favorite":false,"addedBy":{"$oid":"693c815cfc20c13ed3e93c96"},"createdAt":{"$date":"2025-12-28T13:39:01.967Z"},"updatedAt":{"$date":"2025-12-28T13:39:01.967Z"},"__v":0},{"_id":{"$oid":"6951363adc6765cb3c11f806"},"text":"Contribute","translation":"Katkı Sağlamak","exampleSentence":"Anyone can contribute to this open-source project by submitting a pull request.","sentenceTranslation":"Herkes bir pull request göndererek bu açık kaynak projeye katkıda bulunabilir","type":"verb","favorite":false,"addedBy":{"$oid":"693c815cfc20c13ed3e93c96"},"createdAt":{"$date":"2025-12-28T13:52:58.209Z"},"updatedAt":{"$date":"2026-01-05T18:11:16.496Z"},"__v":0,"isUnknown":false},{"_id":{"$oid":"69513cbcdc6765cb3c11f84d"},"text":"Complete","translation":"Tamamlamak","exampleSentence":"I've been trying to complete this project for about two months.","sentenceTranslation":"Bu projeyi 2 ay a yakın bir süredir tamamlamaya çalışıyorum","type":"verb","favorite":false,"addedBy":{"$oid":"693c815cfc20c13ed3e93c96"},"createdAt":{"$date":"2025-12-28T14:20:44.819Z"},"updatedAt":{"$date":"2026-01-01T06:39:53.595Z"},"__v":0,"isUnknown":false},{"_id":{"$oid":"69561d62cb84de66036339d0"},"text":"Prove","translation":"Kanıtlamak","exampleSentence":"She proved her innocence in court","sentenceTranslation":"Mahkemede masumiyetini kanıtladı","type":"verb","isUnknown":false,"favorite":false,"addedBy":{"$oid":"693c815cfc20c13ed3e93c96"},"createdAt":{"$date":"2026-01-01T07:08:18.093Z"},"updatedAt":{"$date":"2026-01-05T18:09:17.539Z"},"__v":0},{"_id":{"$oid":"69595ef1ea53097959698ee6"},"text":"Assigment","translation":"Atama, Görevlendirme","exampleSentence":"My new assignment is to develop the login module.","sentenceTranslation":"Yeni görevim; giriş modülü geliştirmek","type":"noun","isUnknown":true,"favorite":false,"addedBy":{"$oid":"693c815cfc20c13ed3e93c96"},"createdAt":{"$date":"2026-01-03T18:24:49.912Z"},"updatedAt":{"$date":"2026-01-05T18:11:17.721Z"},"__v":0},{"_id":{"$oid":"69595fb7ea53097959698f14"},"text":"Assign","translation":"Atamak","exampleSentence":"In Python, we assign a value using the \"=\" operator","sentenceTranslation":"Pythonda \"=\" operatörü ile bir değişkene değer atıyoruz","type":"verb","isUnknown":true,"favorite":true,"addedBy":{"$oid":"693c815cfc20c13ed3e93c96"},"createdAt":{"$date":"2026-01-03T18:28:07.968Z"},"updatedAt":{"$date":"2026-01-03T18:28:14.536Z"},"__v":0},{"_id":{"$oid":"695bfdba43f443663f011b36"},"text":"Condition","translation":"Koşul, Durum","exampleSentence":"The \"if\" statement checks a condition before executing the code.","sentenceTranslation":"\"IF\" ifadesi, kodu çalıştırmadan önce bir koşulu kontrol eder.","type":"noun","isUnknown":true,"favorite":false,"addedBy":{"$oid":"693c815cfc20c13ed3e93c96"},"createdAt":{"$date":"2026-01-05T18:06:50.648Z"},"updatedAt":{"$date":"2026-01-05T18:10:14.122Z"},"__v":0},{"_id":{"$oid":"695bfe3f43f443663f011b38"},"text":"Statement","translation":"İfade , Açıklama","exampleSentence":"Every line in this block is an executable statement.","sentenceTranslation":"Bu bloktaki her satır çalıştırılabilir bir ifadedir.","type":"noun","isUnknown":true,"favorite":false,"addedBy":{"$oid":"693c815cfc20c13ed3e93c96"},"createdAt":{"$date":"2026-01-05T18:09:03.415Z"},"updatedAt":{"$date":"2026-01-05T18:09:07.892Z"},"__v":0},{"_id":{"$oid":"695d3b1a59e88cbd265f1b8d"},"text":"Direction","translation":"Yön","exampleSentence":"The app supports both LTR and RTL directions for Arabic users.","sentenceTranslation":"Uygulama, Arapça kullanıcılar için hem LTR hem RTL yönlerini destekliyor.","type":"noun","isUnknown":false,"favorite":false,"addedBy":{"$oid":"693c815cfc20c13ed3e93c96"},"createdAt":{"$date":"2026-01-06T16:40:58.834Z"},"updatedAt":{"$date":"2026-01-06T16:40:58.834Z"},"__v":0},{"_id":{"$oid":"695d7165af755fa50126ef37"},"text":"Apply for something","translation":"Bir şeye başvurmak","exampleSentence":"I can't decide which course to apply for","sentenceTranslation":"Hangi kursa başvuracağıma karar veremiyorum","type":"verb","isUnknown":false,"favorite":false,"addedBy":{"$oid":"693c815cfc20c13ed3e93c96"},"createdAt":{"$date":"2026-01-06T20:32:37.284Z"},"updatedAt":{"$date":"2026-02-01T10:46:04.821Z"},"__v":0},{"_id":{"$oid":"695e20991421a1bc48c10971"},"text":"Reduce","translation":"Azaltmak, düşürmek","exampleSentence":"We need to reduce our expenses.","sentenceTranslation":"Giderlerimizi azaltmamız gerekiyor.","type":"verb","isUnknown":true,"favorite":false,"addedBy":{"$oid":"693c815cfc20c13ed3e93c96"},"createdAt":{"$date":"2026-01-07T09:00:09.808Z"},"updatedAt":{"$date":"2026-01-07T10:29:05.549Z"},"__v":0},{"_id":{"$oid":"695e35b3ef81257643c76373"},"text":"Replace","translation":"Yerine koymak, Değiştirmek","exampleSentence":"Artificial Intelligence will never replace developers.","sentenceTranslation":"Yapay zeka hiçbir zaman geliştiricilerin yerini alamayacak","type":"verb","isUnknown":true,"favorite":false,"addedBy":{"$oid":"693c815cfc20c13ed3e93c96"},"createdAt":{"$date":"2026-01-07T10:30:11.689Z"},"updatedAt":{"$date":"2026-01-07T10:30:18.343Z"},"__v":0},{"_id":{"$oid":"6964d2f990de2338507e972d"},"text":"Durable","translation":"Dayanıklı","exampleSentence":"We need more durable components if we want to improve our microservices architecture.","sentenceTranslation":"Mikroservis mimarimizi geliştirmek istiyorsak daha dayanıklı bileşenlere ihtiyacımız var.","type":"adjective","isUnknown":true,"favorite":false,"addedBy":{"$oid":"693c815cfc20c13ed3e93c96"},"createdAt":{"$date":"2026-01-12T10:54:49.957Z"},"updatedAt":{"$date":"2026-01-12T10:54:55.331Z"},"__v":0},{"_id":{"$oid":"6964d45b3773130fd8badf7e"},"text":"Durability","translation":"Dayanıklılık","exampleSentence":"Good durability means the data is safe even if the computer turns off suddenly.","sentenceTranslation":"İyi dayanıklılık, bilgisayar birden kapansa bile verilerin güvende olması demektir.","type":"noun","isUnknown":true,"favorite":false,"addedBy":{"$oid":"693c815cfc20c13ed3e93c96"},"createdAt":{"$date":"2026-01-12T11:00:43.483Z"},"updatedAt":{"$date":"2026-01-12T11:00:48.025Z"},"__v":0},{"_id":{"$oid":"6964e19cf1876d8fb0481bc9"},"text":"Reliable","translation":"Güvenilir","exampleSentence":"We chose AWS because it’s the most reliable cloud provider.","sentenceTranslation":"En güvenilir bulut sağlayıcısı olduğu için AWS’yi seçtik.","type":"adjective","isUnknown":false,"favorite":false,"addedBy":{"$oid":"693c815cfc20c13ed3e93c96"},"createdAt":{"$date":"2026-01-12T11:57:16.667Z"},"updatedAt":{"$date":"2026-01-12T11:57:16.667Z"},"__v":0},{"_id":{"$oid":"6965d6c222dd34c32a587316"},"text":"Automation","translation":"Otomasyon","exampleSentence":"In a busy tech company, the team built an automation tool that saved hours every day.","sentenceTranslation":"Yoğun bir teknoloji şirketinde, ekip her gün saatlerce zaman kazandıran bir otomasyon aracı geliştirdi.","type":"noun","isUnknown":false,"favorite":false,"addedBy":{"$oid":"693c815cfc20c13ed3e93c96"},"createdAt":{"$date":"2026-01-13T05:23:14.701Z"},"updatedAt":{"$date":"2026-01-13T05:23:14.701Z"},"__v":0},{"_id":{"$oid":"6965d8a922dd34c32a587333"},"text":"Significant","translation":"Önemli / Kayda değer","exampleSentence":"This change had a significant impact on the whole project speed.","sentenceTranslation":"Bu değişiklik, projenin genel hızını önemli ölçüde etkiledi.","type":"adjective","isUnknown":false,"favorite":false,"addedBy":{"$oid":"693c815cfc20c13ed3e93c96"},"createdAt":{"$date":"2026-02-10T00:00:00Z"},"updatedAt":{"$date":"2026-02-10T00:00:00Z"},"__v":0},{"_id":{"$oid":"6965dad422dd34c32a587350"},"text":"Testable","translation":"Test edilebilir","exampleSentence":"Every new feature was carefully designed to be testable, so bugs were caught early.","sentenceTranslation":"Her yeni özellik test edilebilir olmalı için dikkatlice tasarlandı, böylece hatalar erkenden tespit edildi.","type":"adjective","isUnknown":false,"favorite":false,"addedBy":{"$oid":"693c815cfc20c13ed3e93c96"},"createdAt":{"$date":"2026-01-13T05:40:36.49Z"},"updatedAt":{"$date":"2026-01-13T05:40:36.49Z"},"__v":0},{"_id":{"$oid":"6965db6222dd34c32a58735a"},"text":"Collaborative","translation":"İş birlikçi","exampleSentence":"And the best part, Everyone on the team was very collaborative","sentenceTranslation":"Ve en güzel yanı, takımdaki herkes çok işbirlikçiydi.","type":"adjective","isUnknown":false,"favorite":false,"addedBy":{"$oid":"693c815cfc20c13ed3e93c96"},"createdAt":{"$date":"2026-01-13T05:42:58.065Z"},"updatedAt":{"$date":"2026-01-13T05:42:58.065Z"},"__v":0},{"_id":{"$oid":"6965e518149c9a0fe8337d89"},"text":"Maintainable","translation":"Sürdürülebilir / Bakımı yapılabilir","exampleSentence":"We always try to write maintainable code so the team can update it easily later.","sentenceTranslation":"Ekibin daha sonra kolayca güncelleyebilmesi için her zaman bakımı kolay kod yazmaya çalışıyoruz.","type":"adjective","isUnknown":false,"favorite":false,"addedBy":{"$oid":"693c815cfc20c13ed3e93c96"},"createdAt":{"$date":"2026-01-13T06:24:24.365Z"},"updatedAt":{"$date":"2026-01-13T06:24:24.365Z"},"__v":0},{"_id":{"$oid":"6968bb3236c81c9c437b395d"},"text":"Aligment","translation":"Hizalama","exampleSentence":"The button's alignment looks off on mobile devices.","sentenceTranslation":"Butonun hizalanması mobil cihazlar da bozuk gözüküyor.","type":"noun","isUnknown":false,"favorite":false,"addedBy":{"$oid":"693c815cfc20c13ed3e93c96"},"createdAt":{"$date":"2026-01-15T10:02:26.726Z"},"updatedAt":{"$date":"2026-01-15T10:02:26.726Z"},"__v":0},{"_id":{"$oid":"697a6009594189d92600b5d8"},"text":"Review","translation":"Gözden Geçirmek","exampleSentence":"Please review this document and tell me if there are any mistakes.","sentenceTranslation":"Lütfen belgeyi gözden geçirin ve bir hata varsa bana söyleyin.","type":"verb","isUnknown":true,"favorite":true,"addedBy":{"$oid":"693c815cfc20c13ed3e93c96"},"createdAt":{"$date":"2026-01-28T19:14:17.777Z"},"updatedAt":{"$date":"2026-01-30T07:28:15.581Z"},"__v":0},{"_id":{"$oid":"697c6e7a64495b30fc7d689e"},"text":"Troubleshooting","translation":"Sorun giderme","exampleSentence":"Troubleshooting is a very important skill when something goes wrong in software.","sentenceTranslation":"Yazılımda bir sorun çıktığında, sorun giderme çok önemli bir beceridir.","type":"noun","isUnknown":false,"favorite":false,"addedBy":{"$oid":"693c815cfc20c13ed3e93c96"},"createdAt":{"$date":"2026-01-30T08:40:26.788Z"},"updatedAt":{"$date":"2026-01-30T08:40:26.788Z"},"__v":0},{"_id":{"$oid":"697f2b1f6e732da94046efe0"},"text":"Consequence","translation":"Sonuç","exampleSentence":"Global warming is a serious consequence of pollution.","sentenceTranslation":"Küresel ısınma, kirliliğin ciddi bir sonucudur","type":"noun","isUnknown":true,"favorite":false,"addedBy":{"$oid":"693c815cfc20c13ed3e93c96"},"createdAt":{"$date":"2026-02-01T10:29:51.027Z"},"updatedAt":{"$date":"2026-02-01T12:25:27.856Z"},"__v":0},{"_id":{"$oid":"697f2ccd6e732da94046efe6"},"text":"Debt","translation":"Borç","exampleSentence":"The company is struggling with a huge debt","sentenceTranslation":"Şirket devasa bir borçla mücadele ediyor","type":"noun","isUnknown":false,"favorite":false,"addedBy":{"$oid":"693c815cfc20c13ed3e93c96"},"createdAt":{"$date":"2026-02-01T10:37:01.72Z"},"updatedAt":{"$date":"2026-02-12T11:17:13.563Z"},"__v":0},{"_id":{"$oid":"697f2ee26e732da94046efe8"},"text":"Efficient","translation":"Verimli","exampleSentence":"The new machines are much more efficient than the old ones.","sentenceTranslation":"Yeni makineler eskilerinden çok daha verimli","type":"adjective","isUnknown":true,"favorite":false,"addedBy":{"$oid":"693c815cfc20c13ed3e93c96"},"createdAt":{"$date":"2026-02-01T10:45:54.379Z"},"updatedAt":{"$date":"2026-02-01T10:45:58.082Z"},"__v":0},{"_id":{"$oid":"697f30c46e732da94046effe"},"text":"Impact","translation":"Etki","exampleSentence":"We need to reduce our impact on the environment. 🌱","sentenceTranslation":"Çevre üzerindeki etkimizi azaltmamız gerekiyor.","type":"noun","isUnknown":true,"favorite":false,"addedBy":{"$oid":"693c815cfc20c13ed3e93c96"},"createdAt":{"$date":"2026-02-01T10:53:56.817Z"},"updatedAt":{"$date":"2026-02-01T12:25:24.069Z"},"__v":0},{"_id":{"$oid":"697f3ff0e5aeb5fe3b0f4a04"},"text":"Maintain","translation":"Sürdürmek","exampleSentence":"We are looking for developers who can maintain and scale our applications.💻","sentenceTranslation":"Uygulamalarımızı sürdürebilecek/bakımını yapabilecek ve ölçeklendirebilecek geliştiriciler arıyoruz.","type":"verb","isUnknown":true,"favorite":false,"addedBy":{"$oid":"693c815cfc20c13ed3e93c96"},"createdAt":{"$date":"2026-02-01T11:58:40.598Z"},"updatedAt":{"$date":"2026-02-01T12:25:22.783Z"},"__v":0},{"_id":{"$oid":"697f455de5aeb5fe3b0f4a0a"},"text":"Notion","translation":"Fikir, kavram, düşünce","exampleSentence":"I have no notion of what you're talking about.","sentenceTranslation":"Senin ne konuştuğun hakkımda fikrim yok.","type":"noun","isUnknown":true,"favorite":false,"addedBy":{"$oid":"693c815cfc20c13ed3e93c96"},"createdAt":{"$date":"2026-02-01T12:21:49.614Z"},"updatedAt":{"$date":"2026-02-01T12:25:25.29Z"},"__v":0},{"_id":{"$oid":"697f49f7e5aeb5fe3b0f4a70"},"text":"objective","translation":"Amaç , Objektif","exampleSentence":"My objective is learning new words every day. In my objective opinion, this is the best method. 🚀","sentenceTranslation":"Amacım her gün yeni kelimeler öğrenmek. Bana göre bu en iyi yöntem.","type":"noun","isUnknown":false,"favorite":false,"addedBy":{"$oid":"693c815cfc20c13ed3e93c96"},"createdAt":{"$date":"2026-02-01T12:41:27.766Z"},"updatedAt":{"$date":"2026-02-01T12:41:27.766Z"},"__v":0},{"_id":{"$oid":"697f4b6ee5aeb5fe3b0f4a79"},"text":"Persuade","translation":"İkna etmek","exampleSentence":"It was difficult to persuade him to change his mind. 🧠","sentenceTranslation":"Onu fikrini değiştirmeye ikna etmek zordu.","type":"verb","isUnknown":true,"favorite":false,"addedBy":{"$oid":"693c815cfc20c13ed3e93c96"},"createdAt":{"$date":"2026-02-01T12:47:42.51Z"},"updatedAt":{"$date":"2026-02-01T12:47:45.231Z"},"__v":0},{"_id":{"$oid":"697f4c96e5aeb5fe3b0f4a85"},"text":"Quoted","translation":"Alıntı yapmak","exampleSentence":"She quoted a famous line from the movie.🎭","sentenceTranslation":"Filmden ünlü bir replik alıntıladı.","type":"verb","isUnknown":true,"favorite":false,"addedBy":{"$oid":"693c815cfc20c13ed3e93c96"},"createdAt":{"$date":"2026-02-01T12:52:38.545Z"},"updatedAt":{"$date":"2026-02-01T12:59:55.828Z"},"__v":0},{"_id":{"$oid":"697f518ae5aeb5fe3b0f4ab5"},"text":"Relevant","translation":"İlgili","exampleSentence":"I provide most of the relevant features you are looking for. 🚀","sentenceTranslation":"Aradığınız ilgili özelliklerin çoğunu sağlıyorum.","type":"adjective","isUnknown":true,"favorite":false,"addedBy":{"$oid":"693c815cfc20c13ed3e93c96"},"createdAt":{"$date":"2026-02-01T13:13:46.546Z"},"updatedAt":{"$date":"2026-02-01T17:57:20.83Z"},"__v":0},{"_id":{"$oid":"697f97612b382d08623c8b5d"},"text":"Sufficient","translation":"Yeterli, Kafi","exampleSentence":"I have dont sufficient experience for this job, but if you give me time, I can prove myself to you.","sentenceTranslation":"Bu iş için yeterli deneyimim yok, ama bana zaman verirseniz kendimi size kanıtlayabilirim.","type":"adjective","isUnknown":true,"favorite":false,"addedBy":{"$oid":"693c815cfc20c13ed3e93c96"},"createdAt":{"$date":"2026-02-01T18:11:45.279Z"},"updatedAt":{"$date":"2026-02-22T19:58:09.629Z"},"__v":0},{"_id":{"$oid":"697fcb7c401acbe084375e40"},"text":"Condition","translation":"Koşul, Durum","exampleSentence":"The \"if\" statement checks a condition before executing the code.","sentenceTranslation":"\"IF\" ifadesi, kodu çalıştırmadan önce bir koşulu kontrol eder.","type":"noun","isUnknown":true,"favorite":true,"addedBy":{"$oid":"697e264da46bb6a334ebeba4"},"createdAt":{"$date":"2026-01-05T18:06:50.648Z"},"updatedAt":{"$date":"2026-02-01T21:54:30.945Z"},"__v":0},{"_id":{"$oid":"697fcbba401acbe084375e41"},"text":"Improve","translation":"Geliştirmek, İyileştirmek","exampleSentence":"Regular training improves your stamina","sentenceTranslation":"Düzenli antrenman dayanıklılığınızı arttırır","type":"verb","favorite":false,"addedBy":{"$oid":"697e264da46bb6a334ebeba4"},"createdAt":{"$date":"2025-12-28T13:25:00.73Z"},"updatedAt":{"$date":"2026-01-03T15:22:17.908Z"},"__v":0,"isUnknown":false},{"_id":{"$oid":"697fcbdf401acbe084375e42"},"text":"Demand","translation":"Talep Etmek","exampleSentence":"The new feature demands more processing power from the server","sentenceTranslation":"Yeni özellik, sunucudan daha fazla işlem gücü talep ediyor","type":"verb","favorite":false,"addedBy":{"$oid":"697e264da46bb6a334ebeba4"},"createdAt":{"$date":"2026-01-01T13:31:28.561Z"},"updatedAt":{"$date":"2025-12-28T13:31:28.561Z"},"__v":0},{"_id":{"$oid":"697fcc50401acbe084375e43"},"text":"Reduce","translation":"Azaltmak, düşürmek","exampleSentence":"We need to reduce our expenses.","sentenceTranslation":"Giderlerimizi azaltmamız gerekiyor.","type":"verb","isUnknown":true,"favorite":false,"addedBy":{"$oid":"697e264da46bb6a334ebeba4"},"createdAt":{"$date":"2026-02-13T00:00:00Z"},"updatedAt":{"$date":"2026-02-13T00:00:00Z"},"__v":0},{"_id":{"$oid":"697fcca8401acbe084375e44"},"text":"Significant","translation":"Önemli / Kayda değer","exampleSentence":"This change had a significant impact on the whole project speed.","sentenceTranslation":"Bu değişiklik, projenin genel hızını önemli ölçüde etkiledi.","type":"adjective","isUnknown":false,"favorite":false,"addedBy":{"$oid":"697e264da46bb6a334ebeba4"},"createdAt":{"$date":"2026-02-10T00:00:00Z"},"updatedAt":{"$date":"2026-02-10T00:00:00Z"},"__v":0},{"_id":{"$oid":"697fcce6401acbe084375e45"},"text":"Persuade","translation":"İkna etmek","exampleSentence":"It was difficult to persuade him to change his mind. 🧠","sentenceTranslation":"Onu fikrini değiştirmeye ikna etmek zordu.","type":"verb","isUnknown":true,"favorite":false,"addedBy":{"$oid":"697e264da46bb6a334ebeba4"},"createdAt":{"$date":"2026-02-01T00:00:00Z"},"updatedAt":{"$date":"2026-02-01T00:00:00Z"},"__v":0},{"_id":{"$oid":"699da963d41a4b4980dc9faa"},"text":"Opponent","translation":"Rakip","exampleSentence":"Our football team lost to their strongest opponent this season.","sentenceTranslation":"Futbol takımımız bu sezon en güçlü rakiplerine yenildi.","type":"noun","isUnknown":true,"favorite":false,"addedBy":{"$oid":"693c815cfc20c13ed3e93c96"},"createdAt":{"$date":"2026-02-24T13:36:35.568Z"},"updatedAt":{"$date":"2026-02-24T13:36:43.229Z"},"__v":0},{"_id":{"$oid":"699f2bcdbba01981991ef966"},"text":"Revive","translation":"Canlandırmak, Hayata Döndürmek","exampleSentence":"Your teammate will revive you at the next checkpoint.","sentenceTranslation":"Takım arkadaşın bir sonraki kontrol noktasında seni kaldıracak.","type":"verb","isUnknown":true,"favorite":false,"addedBy":{"$oid":"693c815cfc20c13ed3e93c96"},"createdAt":{"$date":"2026-02-25T17:05:17.66Z"},"updatedAt":{"$date":"2026-02-25T17:05:21.373Z"},"__v":0},{"_id":{"$oid":"699f468ebba01981991ef99e"},"text":"Well-being","translation":"Refah - Esenlik","exampleSentence":"The government is responsible for the well-being of its citizens.","sentenceTranslation":"Hükümet, vatandaşlarının refahından sorumludur.","type":"noun","isUnknown":false,"favorite":false,"addedBy":{"$oid":"693c815cfc20c13ed3e93c96"},"createdAt":{"$date":"2026-02-25T18:59:26.333Z"},"updatedAt":{"$date":"2026-02-25T18:59:26.333Z"},"__v":0},{"_id":{"$oid":"699f53a3bba01981991efa90"},"text":"Acquire","translation":"Edinmek-Satın almak","exampleSentence":"The company has acquired a new headquarters in the city center.","sentenceTranslation":"Şirket, şehir merkezinde yeni bir genel merkez edindi.","type":"other","isUnknown":true,"favorite":false,"addedBy":{"$oid":"693c815cfc20c13ed3e93c96"},"createdAt":{"$date":"2026-02-25T19:55:15.971Z"},"updatedAt":{"$date":"2026-03-01T07:09:48.993Z"},"__v":0},{"_id":{"$oid":"699f5527bba01981991efa9e"},"text":"Surpass","translation":"Aşmak-Geçmek","exampleSentence":"His performance surpassed all expectations.","sentenceTranslation":"Onun performansı tüm beklentileri aştı.","type":"other","isUnknown":false,"favorite":false,"addedBy":{"$oid":"693c815cfc20c13ed3e93c96"},"createdAt":{"$date":"2026-02-25T20:01:43.273Z"},"updatedAt":{"$date":"2026-02-25T20:01:43.273Z"},"__v":0},{"_id":{"$oid":"69a0b1fabba01981991f0aa3"},"text":"Exclude","translation":"Hariç tutmak","exampleSentence":"Should you need to optimize the build size, you must exclude all unnecessary dependencies from the final bundle","sentenceTranslation":"Yapı boyutunu optimize etmeniz gerekiyorsa, tüm gereksiz bağımlılıları son paketten hariç tutmalısınız","type":"verb","isUnknown":true,"favorite":false,"addedBy":{"$oid":"693c815cfc20c13ed3e93c96"},"createdAt":{"$date":"2026-02-26T20:50:02.64Z"},"updatedAt":{"$date":"2026-02-26T20:50:16.624Z"},"__v":0},{"_id":{"$oid":"69a0b367bba01981991f0ab1"},"text":"Issue","translation":"Sorun","exampleSentence":"Resolving the memory leak issue should have been our top priority this week.","sentenceTranslation":"Bellek sızıntısı sorununu çözmek, bu hafta en büyük önceliğimiz olmalıydı.","type":"noun","isUnknown":true,"favorite":false,"addedBy":{"$oid":"693c815cfc20c13ed3e93c96"},"createdAt":{"$date":"2026-02-26T20:56:07.558Z"},"updatedAt":{"$date":"2026-02-26T20:56:10.279Z"},"__v":0}]
+[
+  {
+    "_id": {
+      "$oid": "69512f75dc6765cb3c11f7b8"
+    },
+    "text": "Attract",
+    "translation": "Cezbetmek, çekmek",
+    "exampleSentence": "Clean codes always attracts attention",
+    "sentenceTranslation": "Temiz kodlar her zaman dikkat çeker",
+    "type": "verb",
+    "favorite": false,
+    "addedBy": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "createdAt": {
+      "$date": "2025-12-28T13:24:05.848Z"
+    },
+    "updatedAt": {
+      "$date": "2025-12-31T16:00:13.802Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "69512facdc6765cb3c11f7c0"
+    },
+    "text": "Improve",
+    "translation": "Geliştirmek, İyileştirmek",
+    "exampleSentence": "Regular training improves your stamina",
+    "sentenceTranslation": "Düzenli antrenman dayanıklılığınızı arttırır",
+    "type": "verb",
+    "favorite": false,
+    "addedBy": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "createdAt": {
+      "$date": "2025-12-28T13:25:00.73Z"
+    },
+    "updatedAt": {
+      "$date": "2026-01-03T15:22:17.908Z"
+    },
+    "__v": 0,
+    "isUnknown": false
+  },
+  {
+    "_id": {
+      "$oid": "69512fe1dc6765cb3c11f7c2"
+    },
+    "text": "Expire",
+    "translation": "Süresi Dolmak",
+    "exampleSentence": "My subscription to the database will expire next week",
+    "sentenceTranslation": "Veritabanı aboneliğim yakında sona erecek",
+    "type": "verb",
+    "favorite": false,
+    "addedBy": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "createdAt": {
+      "$date": "2025-12-28T13:25:53.514Z"
+    },
+    "updatedAt": {
+      "$date": "2025-12-28T13:25:53.514Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "69513049dc6765cb3c11f7c4"
+    },
+    "text": "Examina - Inspect",
+    "translation": "İncelemek",
+    "exampleSentence": "A detective examines the clues at the crime scene carefully",
+    "sentenceTranslation": "Dedektif suç mahalindeki ipucuları dikkatlice inceliyor",
+    "type": "verb",
+    "favorite": false,
+    "addedBy": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "createdAt": {
+      "$date": "2025-12-28T13:27:37.652Z"
+    },
+    "updatedAt": {
+      "$date": "2025-12-28T13:27:37.652Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6951307fdc6765cb3c11f7c6"
+    },
+    "text": "Distract",
+    "translation": "Dikkat dağıtmak",
+    "exampleSentence": "He is trying to distract everyone during the exam",
+    "sentenceTranslation": "Sınav sırasında herkesin dikkatını dağıtmaya çalışıyor",
+    "type": "verb",
+    "favorite": false,
+    "addedBy": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "createdAt": {
+      "$date": "2025-12-28T13:28:31.384Z"
+    },
+    "updatedAt": {
+      "$date": "2025-12-28T13:28:31.384Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "695130dedc6765cb3c11f7c8"
+    },
+    "text": "Suspend",
+    "translation": "Askıya Almak",
+    "exampleSentence": "We suspend the deployment until the bug is fixed",
+    "sentenceTranslation": "Hatayı düzeltene kadar deploy’u askıya aldık.",
+    "type": "verb",
+    "favorite": false,
+    "addedBy": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "createdAt": {
+      "$date": "2025-12-28T13:30:06.683Z"
+    },
+    "updatedAt": {
+      "$date": "2025-12-28T13:30:06.683Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "69513130dc6765cb3c11f7ca"
+    },
+    "text": "Demand",
+    "translation": "Talep Etmek",
+    "exampleSentence": "The new feature demands more processing power from the server",
+    "sentenceTranslation": "Yeni özellik, sunucudan daha fazla işlem gücü talep ediyor",
+    "type": "verb",
+    "favorite": false,
+    "addedBy": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "createdAt": {
+      "$date": "2025-12-28T13:31:28.561Z"
+    },
+    "updatedAt": {
+      "$date": "2025-12-28T13:31:28.561Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "695132b2dc6765cb3c11f7cc"
+    },
+    "text": "Processing",
+    "translation": "İşleme, İşlem",
+    "exampleSentence": "Data processing in this pipeline takes only a few milliseconds.",
+    "sentenceTranslation": "Boru hattındaki veri işleme sadece bir kaç saniye sürer.",
+    "type": "noun",
+    "favorite": false,
+    "addedBy": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "createdAt": {
+      "$date": "2025-12-28T13:37:54.69Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-12T11:17:49.141Z"
+    },
+    "__v": 0,
+    "isUnknown": false
+  },
+  {
+    "_id": {
+      "$oid": "695132f5dc6765cb3c11f7ce"
+    },
+    "text": "Compare",
+    "translation": "Karşılaştırmak",
+    "exampleSentence": "Before deploying, we compared AWS and Google Cloud",
+    "sentenceTranslation": "Dağıtımdan önce aws ile cloudu karşılaşırdık",
+    "type": "verb",
+    "favorite": false,
+    "addedBy": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "createdAt": {
+      "$date": "2025-12-28T13:39:01.967Z"
+    },
+    "updatedAt": {
+      "$date": "2025-12-28T13:39:01.967Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6951363adc6765cb3c11f806"
+    },
+    "text": "Contribute",
+    "translation": "Katkı Sağlamak",
+    "exampleSentence": "Anyone can contribute to this open-source project by submitting a pull request.",
+    "sentenceTranslation": "Herkes bir pull request göndererek bu açık kaynak projeye katkıda bulunabilir",
+    "type": "verb",
+    "favorite": false,
+    "addedBy": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "createdAt": {
+      "$date": "2025-12-28T13:52:58.209Z"
+    },
+    "updatedAt": {
+      "$date": "2026-01-05T18:11:16.496Z"
+    },
+    "__v": 0,
+    "isUnknown": false
+  },
+  {
+    "_id": {
+      "$oid": "69513cbcdc6765cb3c11f84d"
+    },
+    "text": "Complete",
+    "translation": "Tamamlamak",
+    "exampleSentence": "I've been trying to complete this project for about two months.",
+    "sentenceTranslation": "Bu projeyi 2 ay a yakın bir süredir tamamlamaya çalışıyorum",
+    "type": "verb",
+    "favorite": false,
+    "addedBy": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "createdAt": {
+      "$date": "2025-12-28T14:20:44.819Z"
+    },
+    "updatedAt": {
+      "$date": "2026-01-01T06:39:53.595Z"
+    },
+    "__v": 0,
+    "isUnknown": false
+  },
+  {
+    "_id": {
+      "$oid": "69561d62cb84de66036339d0"
+    },
+    "text": "Prove",
+    "translation": "Kanıtlamak",
+    "exampleSentence": "She proved her innocence in court",
+    "sentenceTranslation": "Mahkemede masumiyetini kanıtladı",
+    "type": "verb",
+    "isUnknown": false,
+    "favorite": false,
+    "addedBy": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "createdAt": {
+      "$date": "2026-01-01T07:08:18.093Z"
+    },
+    "updatedAt": {
+      "$date": "2026-01-05T18:09:17.539Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "69595ef1ea53097959698ee6"
+    },
+    "text": "Assigment",
+    "translation": "Atama, Görevlendirme",
+    "exampleSentence": "My new assignment is to develop the login module.",
+    "sentenceTranslation": "Yeni görevim; giriş modülü geliştirmek",
+    "type": "noun",
+    "isUnknown": true,
+    "favorite": false,
+    "addedBy": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "createdAt": {
+      "$date": "2026-01-03T18:24:49.912Z"
+    },
+    "updatedAt": {
+      "$date": "2026-01-05T18:11:17.721Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "69595fb7ea53097959698f14"
+    },
+    "text": "Assign",
+    "translation": "Atamak",
+    "exampleSentence": "In Python, we assign a value using the \"=\" operator",
+    "sentenceTranslation": "Pythonda \"=\" operatörü ile bir değişkene değer atıyoruz",
+    "type": "verb",
+    "isUnknown": true,
+    "favorite": true,
+    "addedBy": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "createdAt": {
+      "$date": "2026-01-03T18:28:07.968Z"
+    },
+    "updatedAt": {
+      "$date": "2026-01-03T18:28:14.536Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "695bfdba43f443663f011b36"
+    },
+    "text": "Condition",
+    "translation": "Koşul, Durum",
+    "exampleSentence": "The \"if\" statement checks a condition before executing the code.",
+    "sentenceTranslation": "\"IF\" ifadesi, kodu çalıştırmadan önce bir koşulu kontrol eder.",
+    "type": "noun",
+    "isUnknown": true,
+    "favorite": false,
+    "addedBy": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "createdAt": {
+      "$date": "2026-01-05T18:06:50.648Z"
+    },
+    "updatedAt": {
+      "$date": "2026-01-05T18:10:14.122Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "695bfe3f43f443663f011b38"
+    },
+    "text": "Statement",
+    "translation": "İfade , Açıklama",
+    "exampleSentence": "Every line in this block is an executable statement.",
+    "sentenceTranslation": "Bu bloktaki her satır çalıştırılabilir bir ifadedir.",
+    "type": "noun",
+    "isUnknown": true,
+    "favorite": false,
+    "addedBy": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "createdAt": {
+      "$date": "2026-01-05T18:09:03.415Z"
+    },
+    "updatedAt": {
+      "$date": "2026-01-05T18:09:07.892Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "695d3b1a59e88cbd265f1b8d"
+    },
+    "text": "Direction",
+    "translation": "Yön",
+    "exampleSentence": "The app supports both LTR and RTL directions for Arabic users.",
+    "sentenceTranslation": "Uygulama, Arapça kullanıcılar için hem LTR hem RTL yönlerini destekliyor.",
+    "type": "noun",
+    "isUnknown": false,
+    "favorite": false,
+    "addedBy": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "createdAt": {
+      "$date": "2026-01-06T16:40:58.834Z"
+    },
+    "updatedAt": {
+      "$date": "2026-01-06T16:40:58.834Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "695d7165af755fa50126ef37"
+    },
+    "text": "Apply for something",
+    "translation": "Bir şeye başvurmak",
+    "exampleSentence": "I can't decide which course to apply for",
+    "sentenceTranslation": "Hangi kursa başvuracağıma karar veremiyorum",
+    "type": "verb",
+    "isUnknown": false,
+    "favorite": false,
+    "addedBy": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "createdAt": {
+      "$date": "2026-01-06T20:32:37.284Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-01T10:46:04.821Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "695e20991421a1bc48c10971"
+    },
+    "text": "Reduce",
+    "translation": "Azaltmak, düşürmek",
+    "exampleSentence": "We need to reduce our expenses.",
+    "sentenceTranslation": "Giderlerimizi azaltmamız gerekiyor.",
+    "type": "verb",
+    "isUnknown": true,
+    "favorite": false,
+    "addedBy": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "createdAt": {
+      "$date": "2026-01-07T09:00:09.808Z"
+    },
+    "updatedAt": {
+      "$date": "2026-01-07T10:29:05.549Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "695e35b3ef81257643c76373"
+    },
+    "text": "Replace",
+    "translation": "Yerine koymak, Değiştirmek",
+    "exampleSentence": "Artificial Intelligence will never replace developers.",
+    "sentenceTranslation": "Yapay zeka hiçbir zaman geliştiricilerin yerini alamayacak",
+    "type": "verb",
+    "isUnknown": true,
+    "favorite": false,
+    "addedBy": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "createdAt": {
+      "$date": "2026-01-07T10:30:11.689Z"
+    },
+    "updatedAt": {
+      "$date": "2026-01-07T10:30:18.343Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6964d2f990de2338507e972d"
+    },
+    "text": "Durable",
+    "translation": "Dayanıklı",
+    "exampleSentence": "We need more durable components if we want to improve our microservices architecture.",
+    "sentenceTranslation": "Mikroservis mimarimizi geliştirmek istiyorsak daha dayanıklı bileşenlere ihtiyacımız var.",
+    "type": "adjective",
+    "isUnknown": true,
+    "favorite": false,
+    "addedBy": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "createdAt": {
+      "$date": "2026-01-12T10:54:49.957Z"
+    },
+    "updatedAt": {
+      "$date": "2026-01-12T10:54:55.331Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6964d45b3773130fd8badf7e"
+    },
+    "text": "Durability",
+    "translation": "Dayanıklılık",
+    "exampleSentence": "Good durability means the data is safe even if the computer turns off suddenly.",
+    "sentenceTranslation": "İyi dayanıklılık, bilgisayar birden kapansa bile verilerin güvende olması demektir.",
+    "type": "noun",
+    "isUnknown": true,
+    "favorite": false,
+    "addedBy": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "createdAt": {
+      "$date": "2026-01-12T11:00:43.483Z"
+    },
+    "updatedAt": {
+      "$date": "2026-01-12T11:00:48.025Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6964e19cf1876d8fb0481bc9"
+    },
+    "text": "Reliable",
+    "translation": "Güvenilir",
+    "exampleSentence": "We chose AWS because it’s the most reliable cloud provider.",
+    "sentenceTranslation": "En güvenilir bulut sağlayıcısı olduğu için AWS’yi seçtik.",
+    "type": "adjective",
+    "isUnknown": false,
+    "favorite": false,
+    "addedBy": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "createdAt": {
+      "$date": "2026-01-12T11:57:16.667Z"
+    },
+    "updatedAt": {
+      "$date": "2026-01-12T11:57:16.667Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6965d6c222dd34c32a587316"
+    },
+    "text": "Automation",
+    "translation": "Otomasyon",
+    "exampleSentence": "In a busy tech company, the team built an automation tool that saved hours every day.",
+    "sentenceTranslation": "Yoğun bir teknoloji şirketinde, ekip her gün saatlerce zaman kazandıran bir otomasyon aracı geliştirdi.",
+    "type": "noun",
+    "isUnknown": false,
+    "favorite": false,
+    "addedBy": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "createdAt": {
+      "$date": "2026-01-13T05:23:14.701Z"
+    },
+    "updatedAt": {
+      "$date": "2026-01-13T05:23:14.701Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6965d8a922dd34c32a587333"
+    },
+    "text": "Significant",
+    "translation": "Önemli / Kayda değer",
+    "exampleSentence": "This change had a significant impact on the whole project speed.",
+    "sentenceTranslation": "Bu değişiklik, projenin genel hızını önemli ölçüde etkiledi.",
+    "type": "adjective",
+    "isUnknown": false,
+    "favorite": false,
+    "addedBy": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "createdAt": {
+      "$date": "2026-02-10T00:00:00Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-10T00:00:00Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6965dad422dd34c32a587350"
+    },
+    "text": "Testable",
+    "translation": "Test edilebilir",
+    "exampleSentence": "Every new feature was carefully designed to be testable, so bugs were caught early.",
+    "sentenceTranslation": "Her yeni özellik test edilebilir olmalı için dikkatlice tasarlandı, böylece hatalar erkenden tespit edildi.",
+    "type": "adjective",
+    "isUnknown": false,
+    "favorite": false,
+    "addedBy": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "createdAt": {
+      "$date": "2026-01-13T05:40:36.49Z"
+    },
+    "updatedAt": {
+      "$date": "2026-01-13T05:40:36.49Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6965db6222dd34c32a58735a"
+    },
+    "text": "Collaborative",
+    "translation": "İş birlikçi",
+    "exampleSentence": "And the best part, Everyone on the team was very collaborative",
+    "sentenceTranslation": "Ve en güzel yanı, takımdaki herkes çok işbirlikçiydi.",
+    "type": "adjective",
+    "isUnknown": false,
+    "favorite": false,
+    "addedBy": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "createdAt": {
+      "$date": "2026-01-13T05:42:58.065Z"
+    },
+    "updatedAt": {
+      "$date": "2026-01-13T05:42:58.065Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6965e518149c9a0fe8337d89"
+    },
+    "text": "Maintainable",
+    "translation": "Sürdürülebilir / Bakımı yapılabilir",
+    "exampleSentence": "We always try to write maintainable code so the team can update it easily later.",
+    "sentenceTranslation": "Ekibin daha sonra kolayca güncelleyebilmesi için her zaman bakımı kolay kod yazmaya çalışıyoruz.",
+    "type": "adjective",
+    "isUnknown": false,
+    "favorite": false,
+    "addedBy": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "createdAt": {
+      "$date": "2026-01-13T06:24:24.365Z"
+    },
+    "updatedAt": {
+      "$date": "2026-01-13T06:24:24.365Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6968bb3236c81c9c437b395d"
+    },
+    "text": "Aligment",
+    "translation": "Hizalama",
+    "exampleSentence": "The button's alignment looks off on mobile devices.",
+    "sentenceTranslation": "Butonun hizalanması mobil cihazlar da bozuk gözüküyor.",
+    "type": "noun",
+    "isUnknown": false,
+    "favorite": false,
+    "addedBy": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "createdAt": {
+      "$date": "2026-01-15T10:02:26.726Z"
+    },
+    "updatedAt": {
+      "$date": "2026-01-15T10:02:26.726Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "697a6009594189d92600b5d8"
+    },
+    "text": "Review",
+    "translation": "Gözden Geçirmek",
+    "exampleSentence": "Please review this document and tell me if there are any mistakes.",
+    "sentenceTranslation": "Lütfen belgeyi gözden geçirin ve bir hata varsa bana söyleyin.",
+    "type": "verb",
+    "isUnknown": true,
+    "favorite": true,
+    "addedBy": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "createdAt": {
+      "$date": "2026-01-28T19:14:17.777Z"
+    },
+    "updatedAt": {
+      "$date": "2026-01-30T07:28:15.581Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "697c6e7a64495b30fc7d689e"
+    },
+    "text": "Troubleshooting",
+    "translation": "Sorun giderme",
+    "exampleSentence": "Troubleshooting is a very important skill when something goes wrong in software.",
+    "sentenceTranslation": "Yazılımda bir sorun çıktığında, sorun giderme çok önemli bir beceridir.",
+    "type": "noun",
+    "isUnknown": false,
+    "favorite": false,
+    "addedBy": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "createdAt": {
+      "$date": "2026-01-30T08:40:26.788Z"
+    },
+    "updatedAt": {
+      "$date": "2026-01-30T08:40:26.788Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "697f2b1f6e732da94046efe0"
+    },
+    "text": "Consequence",
+    "translation": "Sonuç",
+    "exampleSentence": "Global warming is a serious consequence of pollution.",
+    "sentenceTranslation": "Küresel ısınma, kirliliğin ciddi bir sonucudur",
+    "type": "noun",
+    "isUnknown": true,
+    "favorite": false,
+    "addedBy": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "createdAt": {
+      "$date": "2026-02-01T10:29:51.027Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-01T12:25:27.856Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "697f2ccd6e732da94046efe6"
+    },
+    "text": "Debt",
+    "translation": "Borç",
+    "exampleSentence": "The company is struggling with a huge debt",
+    "sentenceTranslation": "Şirket devasa bir borçla mücadele ediyor",
+    "type": "noun",
+    "isUnknown": false,
+    "favorite": false,
+    "addedBy": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "createdAt": {
+      "$date": "2026-02-01T10:37:01.72Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-12T11:17:13.563Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "697f2ee26e732da94046efe8"
+    },
+    "text": "Efficient",
+    "translation": "Verimli",
+    "exampleSentence": "The new machines are much more efficient than the old ones.",
+    "sentenceTranslation": "Yeni makineler eskilerinden çok daha verimli",
+    "type": "adjective",
+    "isUnknown": true,
+    "favorite": false,
+    "addedBy": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "createdAt": {
+      "$date": "2026-02-01T10:45:54.379Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-01T10:45:58.082Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "697f30c46e732da94046effe"
+    },
+    "text": "Impact",
+    "translation": "Etki",
+    "exampleSentence": "We need to reduce our impact on the environment. 🌱",
+    "sentenceTranslation": "Çevre üzerindeki etkimizi azaltmamız gerekiyor.",
+    "type": "noun",
+    "isUnknown": true,
+    "favorite": false,
+    "addedBy": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "createdAt": {
+      "$date": "2026-02-01T10:53:56.817Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-01T12:25:24.069Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "697f3ff0e5aeb5fe3b0f4a04"
+    },
+    "text": "Maintain",
+    "translation": "Sürdürmek",
+    "exampleSentence": "We are looking for developers who can maintain and scale our applications.💻",
+    "sentenceTranslation": "Uygulamalarımızı sürdürebilecek/bakımını yapabilecek ve ölçeklendirebilecek geliştiriciler arıyoruz.",
+    "type": "verb",
+    "isUnknown": true,
+    "favorite": false,
+    "addedBy": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "createdAt": {
+      "$date": "2026-02-01T11:58:40.598Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-01T12:25:22.783Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "697f455de5aeb5fe3b0f4a0a"
+    },
+    "text": "Notion",
+    "translation": "Fikir, kavram, düşünce",
+    "exampleSentence": "I have no notion of what you're talking about.",
+    "sentenceTranslation": "Senin ne konuştuğun hakkımda fikrim yok.",
+    "type": "noun",
+    "isUnknown": true,
+    "favorite": false,
+    "addedBy": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "createdAt": {
+      "$date": "2026-02-01T12:21:49.614Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-01T12:25:25.29Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "697f49f7e5aeb5fe3b0f4a70"
+    },
+    "text": "objective",
+    "translation": "Amaç , Objektif",
+    "exampleSentence": "My objective is learning new words every day. In my objective opinion, this is the best method. 🚀",
+    "sentenceTranslation": "Amacım her gün yeni kelimeler öğrenmek. Bana göre bu en iyi yöntem.",
+    "type": "noun",
+    "isUnknown": false,
+    "favorite": false,
+    "addedBy": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "createdAt": {
+      "$date": "2026-02-01T12:41:27.766Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-01T12:41:27.766Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "697f4b6ee5aeb5fe3b0f4a79"
+    },
+    "text": "Persuade",
+    "translation": "İkna etmek",
+    "exampleSentence": "It was difficult to persuade him to change his mind. 🧠",
+    "sentenceTranslation": "Onu fikrini değiştirmeye ikna etmek zordu.",
+    "type": "verb",
+    "isUnknown": true,
+    "favorite": false,
+    "addedBy": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "createdAt": {
+      "$date": "2026-02-01T12:47:42.51Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-01T12:47:45.231Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "697f4c96e5aeb5fe3b0f4a85"
+    },
+    "text": "Quoted",
+    "translation": "Alıntı yapmak",
+    "exampleSentence": "She quoted a famous line from the movie.🎭",
+    "sentenceTranslation": "Filmden ünlü bir replik alıntıladı.",
+    "type": "verb",
+    "isUnknown": true,
+    "favorite": false,
+    "addedBy": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "createdAt": {
+      "$date": "2026-02-01T12:52:38.545Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-01T12:59:55.828Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "697f518ae5aeb5fe3b0f4ab5"
+    },
+    "text": "Relevant",
+    "translation": "İlgili",
+    "exampleSentence": "I provide most of the relevant features you are looking for. 🚀",
+    "sentenceTranslation": "Aradığınız ilgili özelliklerin çoğunu sağlıyorum.",
+    "type": "adjective",
+    "isUnknown": true,
+    "favorite": false,
+    "addedBy": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "createdAt": {
+      "$date": "2026-02-01T13:13:46.546Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-01T17:57:20.83Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "697f97612b382d08623c8b5d"
+    },
+    "text": "Sufficient",
+    "translation": "Yeterli, Kafi",
+    "exampleSentence": "I have dont sufficient experience for this job, but if you give me time, I can prove myself to you.",
+    "sentenceTranslation": "Bu iş için yeterli deneyimim yok, ama bana zaman verirseniz kendimi size kanıtlayabilirim.",
+    "type": "adjective",
+    "isUnknown": true,
+    "favorite": false,
+    "addedBy": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "createdAt": {
+      "$date": "2026-02-01T18:11:45.279Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-22T19:58:09.629Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "697fcb7c401acbe084375e40"
+    },
+    "text": "Condition",
+    "translation": "Koşul, Durum",
+    "exampleSentence": "The \"if\" statement checks a condition before executing the code.",
+    "sentenceTranslation": "\"IF\" ifadesi, kodu çalıştırmadan önce bir koşulu kontrol eder.",
+    "type": "noun",
+    "isUnknown": true,
+    "favorite": true,
+    "addedBy": {
+      "$oid": "697e264da46bb6a334ebeba4"
+    },
+    "createdAt": {
+      "$date": "2026-01-05T18:06:50.648Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-01T21:54:30.945Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "697fcbba401acbe084375e41"
+    },
+    "text": "Improve",
+    "translation": "Geliştirmek, İyileştirmek",
+    "exampleSentence": "Regular training improves your stamina",
+    "sentenceTranslation": "Düzenli antrenman dayanıklılığınızı arttırır",
+    "type": "verb",
+    "favorite": false,
+    "addedBy": {
+      "$oid": "697e264da46bb6a334ebeba4"
+    },
+    "createdAt": {
+      "$date": "2025-12-28T13:25:00.73Z"
+    },
+    "updatedAt": {
+      "$date": "2026-01-03T15:22:17.908Z"
+    },
+    "__v": 0,
+    "isUnknown": false
+  },
+  {
+    "_id": {
+      "$oid": "697fcbdf401acbe084375e42"
+    },
+    "text": "Demand",
+    "translation": "Talep Etmek",
+    "exampleSentence": "The new feature demands more processing power from the server",
+    "sentenceTranslation": "Yeni özellik, sunucudan daha fazla işlem gücü talep ediyor",
+    "type": "verb",
+    "favorite": false,
+    "addedBy": {
+      "$oid": "697e264da46bb6a334ebeba4"
+    },
+    "createdAt": {
+      "$date": "2026-01-01T13:31:28.561Z"
+    },
+    "updatedAt": {
+      "$date": "2025-12-28T13:31:28.561Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "697fcc50401acbe084375e43"
+    },
+    "text": "Reduce",
+    "translation": "Azaltmak, düşürmek",
+    "exampleSentence": "We need to reduce our expenses.",
+    "sentenceTranslation": "Giderlerimizi azaltmamız gerekiyor.",
+    "type": "verb",
+    "isUnknown": true,
+    "favorite": false,
+    "addedBy": {
+      "$oid": "697e264da46bb6a334ebeba4"
+    },
+    "createdAt": {
+      "$date": "2026-02-13T00:00:00Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-13T00:00:00Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "697fcca8401acbe084375e44"
+    },
+    "text": "Significant",
+    "translation": "Önemli / Kayda değer",
+    "exampleSentence": "This change had a significant impact on the whole project speed.",
+    "sentenceTranslation": "Bu değişiklik, projenin genel hızını önemli ölçüde etkiledi.",
+    "type": "adjective",
+    "isUnknown": false,
+    "favorite": false,
+    "addedBy": {
+      "$oid": "697e264da46bb6a334ebeba4"
+    },
+    "createdAt": {
+      "$date": "2026-02-10T00:00:00Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-10T00:00:00Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "697fcce6401acbe084375e45"
+    },
+    "text": "Persuade",
+    "translation": "İkna etmek",
+    "exampleSentence": "It was difficult to persuade him to change his mind. 🧠",
+    "sentenceTranslation": "Onu fikrini değiştirmeye ikna etmek zordu.",
+    "type": "verb",
+    "isUnknown": true,
+    "favorite": false,
+    "addedBy": {
+      "$oid": "697e264da46bb6a334ebeba4"
+    },
+    "createdAt": {
+      "$date": "2026-02-01T00:00:00Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-01T00:00:00Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "699da963d41a4b4980dc9faa"
+    },
+    "text": "Opponent",
+    "translation": "Rakip",
+    "exampleSentence": "Our football team lost to their strongest opponent this season.",
+    "sentenceTranslation": "Futbol takımımız bu sezon en güçlü rakiplerine yenildi.",
+    "type": "noun",
+    "isUnknown": true,
+    "favorite": false,
+    "addedBy": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "createdAt": {
+      "$date": "2026-02-24T13:36:35.568Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-24T13:36:43.229Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "699f2bcdbba01981991ef966"
+    },
+    "text": "Revive",
+    "translation": "Canlandırmak, Hayata Döndürmek",
+    "exampleSentence": "Your teammate will revive you at the next checkpoint.",
+    "sentenceTranslation": "Takım arkadaşın bir sonraki kontrol noktasında seni kaldıracak.",
+    "type": "verb",
+    "isUnknown": true,
+    "favorite": false,
+    "addedBy": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "createdAt": {
+      "$date": "2026-02-25T17:05:17.66Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-25T17:05:21.373Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "699f468ebba01981991ef99e"
+    },
+    "text": "Well-being",
+    "translation": "Refah - Esenlik",
+    "exampleSentence": "The government is responsible for the well-being of its citizens.",
+    "sentenceTranslation": "Hükümet, vatandaşlarının refahından sorumludur.",
+    "type": "noun",
+    "isUnknown": false,
+    "favorite": false,
+    "addedBy": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "createdAt": {
+      "$date": "2026-02-25T18:59:26.333Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-25T18:59:26.333Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "699f53a3bba01981991efa90"
+    },
+    "text": "Acquire",
+    "translation": "Edinmek-Satın almak",
+    "exampleSentence": "The company has acquired a new headquarters in the city center.",
+    "sentenceTranslation": "Şirket, şehir merkezinde yeni bir genel merkez edindi.",
+    "type": "other",
+    "isUnknown": true,
+    "favorite": false,
+    "addedBy": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "createdAt": {
+      "$date": "2026-02-25T19:55:15.971Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-01T07:09:48.993Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "699f5527bba01981991efa9e"
+    },
+    "text": "Surpass",
+    "translation": "Aşmak-Geçmek",
+    "exampleSentence": "His performance surpassed all expectations.",
+    "sentenceTranslation": "Onun performansı tüm beklentileri aştı.",
+    "type": "other",
+    "isUnknown": false,
+    "favorite": false,
+    "addedBy": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "createdAt": {
+      "$date": "2026-02-25T20:01:43.273Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-25T20:01:43.273Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "69a0b1fabba01981991f0aa3"
+    },
+    "text": "Exclude",
+    "translation": "Hariç tutmak",
+    "exampleSentence": "Should you need to optimize the build size, you must exclude all unnecessary dependencies from the final bundle",
+    "sentenceTranslation": "Yapı boyutunu optimize etmeniz gerekiyorsa, tüm gereksiz bağımlılıları son paketten hariç tutmalısınız",
+    "type": "verb",
+    "isUnknown": true,
+    "favorite": false,
+    "addedBy": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "createdAt": {
+      "$date": "2026-02-26T20:50:02.64Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-26T20:50:16.624Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "69a0b367bba01981991f0ab1"
+    },
+    "text": "Issue",
+    "translation": "Sorun",
+    "exampleSentence": "Resolving the memory leak issue should have been our top priority this week.",
+    "sentenceTranslation": "Bellek sızıntısı sorununu çözmek, bu hafta en büyük önceliğimiz olmalıydı.",
+    "type": "noun",
+    "isUnknown": true,
+    "favorite": false,
+    "addedBy": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "createdAt": {
+      "$date": "2026-02-26T20:56:07.558Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-26T20:56:10.279Z"
+    },
+    "__v": 0
+  }
+]

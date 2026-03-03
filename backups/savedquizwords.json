@@ -1,1 +1,462 @@
-[{"_id":{"$oid":"699828ded6887deec7174fb3"},"userId":{"$oid":"693c815cfc20c13ed3e93c96"},"word":"Demand","translation":"Talep Etmek","savedAt":{"$date":"2026-02-20T09:26:54.624Z"},"createdAt":{"$date":"2026-02-20T09:26:54.624Z"},"updatedAt":{"$date":"2026-02-20T09:26:54.624Z"},"__v":0},{"_id":{"$oid":"699828e1d6887deec7174fb6"},"userId":{"$oid":"693c815cfc20c13ed3e93c96"},"word":"Notion","translation":"Fikir, kavram, düşünce","savedAt":{"$date":"2026-02-20T09:26:57.29Z"},"createdAt":{"$date":"2026-02-20T09:26:57.29Z"},"updatedAt":{"$date":"2026-02-20T09:26:57.29Z"},"__v":0},{"_id":{"$oid":"6998290dd6887deec7174fbb"},"userId":{"$oid":"693c815cfc20c13ed3e93c96"},"word":"Distract","translation":"Dikkat dağıtmak","savedAt":{"$date":"2026-02-20T09:27:41.595Z"},"createdAt":{"$date":"2026-02-20T09:27:41.595Z"},"updatedAt":{"$date":"2026-02-20T09:27:41.595Z"},"__v":0},{"_id":{"$oid":"69982917d6887deec7174fbe"},"userId":{"$oid":"693c815cfc20c13ed3e93c96"},"word":"Relevant","translation":"İlgili","savedAt":{"$date":"2026-02-20T09:27:51.643Z"},"createdAt":{"$date":"2026-02-20T09:27:51.644Z"},"updatedAt":{"$date":"2026-02-20T09:27:51.644Z"},"__v":0},{"_id":{"$oid":"69982973d6887deec7174fc1"},"userId":{"$oid":"693c815cfc20c13ed3e93c96"},"word":"Aligment","translation":"Hizalama","savedAt":{"$date":"2026-02-20T09:29:23.16Z"},"createdAt":{"$date":"2026-02-20T09:29:23.16Z"},"updatedAt":{"$date":"2026-02-20T09:29:23.16Z"},"__v":0},{"_id":{"$oid":"6998297ad6887deec7174fc4"},"userId":{"$oid":"693c815cfc20c13ed3e93c96"},"word":"Compare","translation":"Karşılaştırmak","savedAt":{"$date":"2026-02-20T09:29:30.865Z"},"createdAt":{"$date":"2026-02-20T09:29:30.866Z"},"updatedAt":{"$date":"2026-02-20T09:29:30.866Z"},"__v":0},{"_id":{"$oid":"69982a1cd6887deec7174fc8"},"userId":{"$oid":"693c815cfc20c13ed3e93c96"},"word":"Statement","translation":"İfade , Açıklama","savedAt":{"$date":"2026-02-20T09:32:12.485Z"},"createdAt":{"$date":"2026-02-20T09:32:12.486Z"},"updatedAt":{"$date":"2026-02-20T09:32:12.486Z"},"__v":0},{"_id":{"$oid":"69982ae0d6887deec7174fd3"},"userId":{"$oid":"693c815cfc20c13ed3e93c96"},"word":"Reduce","translation":"Azaltmak, düşürmek","savedAt":{"$date":"2026-02-20T09:35:28.396Z"},"createdAt":{"$date":"2026-02-20T09:35:28.397Z"},"updatedAt":{"$date":"2026-02-20T09:35:28.397Z"},"__v":0},{"_id":{"$oid":"69986b9cc4828ff9ba8cdec7"},"userId":{"$oid":"693c815cfc20c13ed3e93c96"},"word":"Persuade","translation":"İkna etmek","savedAt":{"$date":"2026-02-20T14:11:40.75Z"},"createdAt":{"$date":"2026-02-20T14:11:40.755Z"},"updatedAt":{"$date":"2026-02-20T14:11:40.755Z"},"__v":0},{"_id":{"$oid":"69987ec266aaf223f0ac0f4e"},"userId":{"$oid":"693c815cfc20c13ed3e93c96"},"word":"visit","translation":"ziyaret etmek","savedAt":{"$date":"2026-02-20T15:33:22.688Z"},"createdAt":{"$date":"2026-02-20T15:33:22.693Z"},"updatedAt":{"$date":"2026-02-20T15:33:22.693Z"},"__v":0},{"_id":{"$oid":"69989bf53e12866581ce2d9e"},"userId":{"$oid":"693c815cfc20c13ed3e93c96"},"word":"go","translation":"gitmek","savedAt":{"$date":"2026-02-20T17:37:57.2Z"},"createdAt":{"$date":"2026-02-20T17:37:57.206Z"},"updatedAt":{"$date":"2026-02-20T17:37:57.206Z"},"__v":0},{"_id":{"$oid":"6999f496854d6b9e25c97b4b"},"userId":{"$oid":"693c815cfc20c13ed3e93c96"},"word":"implement","translation":"uygulamak","savedAt":{"$date":"2026-02-21T18:08:22.854Z"},"createdAt":{"$date":"2026-02-21T18:08:22.857Z"},"updatedAt":{"$date":"2026-02-21T18:08:22.857Z"},"__v":0},{"_id":{"$oid":"699a2ba5bb9dab388862b0f8"},"userId":{"$oid":"693c815cfc20c13ed3e93c96"},"word":"object-oriented","translation":"nesne yönelimli","savedAt":{"$date":"2026-02-21T22:03:17.122Z"},"createdAt":{"$date":"2026-02-21T22:03:17.128Z"},"updatedAt":{"$date":"2026-02-21T22:03:17.128Z"},"__v":0},{"_id":{"$oid":"699a3e4a5f964ade7678476e"},"userId":{"$oid":"693c815cfc20c13ed3e93c96"},"word":"initialize","translation":"başlatmak","savedAt":{"$date":"2026-02-21T23:22:50.171Z"},"createdAt":{"$date":"2026-02-21T23:22:50.175Z"},"updatedAt":{"$date":"2026-02-21T23:22:50.175Z"},"__v":0},{"_id":{"$oid":"699a3e575f964ade76784771"},"userId":{"$oid":"693c815cfc20c13ed3e93c96"},"word":"immutably","translation":"değiştirilemez şekilde","savedAt":{"$date":"2026-02-21T23:23:03.342Z"},"createdAt":{"$date":"2026-02-21T23:23:03.342Z"},"updatedAt":{"$date":"2026-02-21T23:23:03.342Z"},"__v":0},{"_id":{"$oid":"699ad7cd001b434aee7da6c2"},"userId":{"$oid":"693c815cfc20c13ed3e93c96"},"word":"executable","translation":"çalıştırılabilir","savedAt":{"$date":"2026-02-22T10:17:49.821Z"},"createdAt":{"$date":"2026-02-22T10:17:49.827Z"},"updatedAt":{"$date":"2026-02-22T10:17:49.827Z"},"__v":0},{"_id":{"$oid":"699c3f7ed41a4b4980dc98b5"},"userId":{"$oid":"693c815cfc20c13ed3e93c96"},"word":"premier","translation":"birinci sınıf","savedAt":{"$date":"2026-02-23T11:52:30.177Z"},"createdAt":{"$date":"2026-02-23T11:52:30.179Z"},"updatedAt":{"$date":"2026-02-23T11:52:30.179Z"},"__v":0},{"_id":{"$oid":"699c696fd41a4b4980dc9bbb"},"userId":{"$oid":"697e264da46bb6a334ebeba4"},"word":"innovative","translation":"yenilikçi","savedAt":{"$date":"2026-02-23T14:51:27.144Z"},"createdAt":{"$date":"2026-02-23T14:51:27.146Z"},"updatedAt":{"$date":"2026-02-23T14:51:27.146Z"},"__v":0},{"_id":{"$oid":"699d58d6d41a4b4980dc9e4d"},"userId":{"$oid":"693c815cfc20c13ed3e93c96"},"word":"encryption","translation":"şifreleme","savedAt":{"$date":"2026-02-24T07:52:54.675Z"},"createdAt":{"$date":"2026-02-24T07:52:54.676Z"},"updatedAt":{"$date":"2026-02-24T07:52:54.676Z"},"__v":0},{"_id":{"$oid":"699d5aefd41a4b4980dc9e51"},"userId":{"$oid":"693c815cfc20c13ed3e93c96"},"word":"responsive","translation":"duyarlı","savedAt":{"$date":"2026-02-24T08:01:51.63Z"},"createdAt":{"$date":"2026-02-24T08:01:51.631Z"},"updatedAt":{"$date":"2026-02-24T08:01:51.631Z"},"__v":0},{"_id":{"$oid":"699dbd03d41a4b4980dca00d"},"userId":{"$oid":"693c815cfc20c13ed3e93c96"},"word":"Maintainable","translation":"Sürdürülebilir / Bakımı yapılabilir","savedAt":{"$date":"2026-02-24T15:00:19.274Z"},"createdAt":{"$date":"2026-02-24T15:00:19.274Z"},"updatedAt":{"$date":"2026-02-24T15:00:19.274Z"},"__v":0},{"_id":{"$oid":"699ffbfcbba01981991f082f"},"userId":{"$oid":"693c815cfc20c13ed3e93c96"},"word":"Surpass","translation":"Aşmak-Geçmek","savedAt":{"$date":"2026-02-26T07:53:32.142Z"},"createdAt":{"$date":"2026-02-26T07:53:32.142Z"},"updatedAt":{"$date":"2026-02-26T07:53:32.142Z"},"__v":0},{"_id":{"$oid":"699ffc30bba01981991f0832"},"userId":{"$oid":"693c815cfc20c13ed3e93c96"},"word":"Quoted","translation":"Alıntı yapmak","savedAt":{"$date":"2026-02-26T07:54:24.053Z"},"createdAt":{"$date":"2026-02-26T07:54:24.053Z"},"updatedAt":{"$date":"2026-02-26T07:54:24.053Z"},"__v":0}]
+[
+  {
+    "_id": {
+      "$oid": "699828ded6887deec7174fb3"
+    },
+    "userId": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "word": "Demand",
+    "translation": "Talep Etmek",
+    "savedAt": {
+      "$date": "2026-02-20T09:26:54.624Z"
+    },
+    "createdAt": {
+      "$date": "2026-02-20T09:26:54.624Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-20T09:26:54.624Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "699828e1d6887deec7174fb6"
+    },
+    "userId": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "word": "Notion",
+    "translation": "Fikir, kavram, düşünce",
+    "savedAt": {
+      "$date": "2026-02-20T09:26:57.29Z"
+    },
+    "createdAt": {
+      "$date": "2026-02-20T09:26:57.29Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-20T09:26:57.29Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6998290dd6887deec7174fbb"
+    },
+    "userId": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "word": "Distract",
+    "translation": "Dikkat dağıtmak",
+    "savedAt": {
+      "$date": "2026-02-20T09:27:41.595Z"
+    },
+    "createdAt": {
+      "$date": "2026-02-20T09:27:41.595Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-20T09:27:41.595Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "69982917d6887deec7174fbe"
+    },
+    "userId": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "word": "Relevant",
+    "translation": "İlgili",
+    "savedAt": {
+      "$date": "2026-02-20T09:27:51.643Z"
+    },
+    "createdAt": {
+      "$date": "2026-02-20T09:27:51.644Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-20T09:27:51.644Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "69982973d6887deec7174fc1"
+    },
+    "userId": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "word": "Aligment",
+    "translation": "Hizalama",
+    "savedAt": {
+      "$date": "2026-02-20T09:29:23.16Z"
+    },
+    "createdAt": {
+      "$date": "2026-02-20T09:29:23.16Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-20T09:29:23.16Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6998297ad6887deec7174fc4"
+    },
+    "userId": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "word": "Compare",
+    "translation": "Karşılaştırmak",
+    "savedAt": {
+      "$date": "2026-02-20T09:29:30.865Z"
+    },
+    "createdAt": {
+      "$date": "2026-02-20T09:29:30.866Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-20T09:29:30.866Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "69982a1cd6887deec7174fc8"
+    },
+    "userId": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "word": "Statement",
+    "translation": "İfade , Açıklama",
+    "savedAt": {
+      "$date": "2026-02-20T09:32:12.485Z"
+    },
+    "createdAt": {
+      "$date": "2026-02-20T09:32:12.486Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-20T09:32:12.486Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "69982ae0d6887deec7174fd3"
+    },
+    "userId": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "word": "Reduce",
+    "translation": "Azaltmak, düşürmek",
+    "savedAt": {
+      "$date": "2026-02-20T09:35:28.396Z"
+    },
+    "createdAt": {
+      "$date": "2026-02-20T09:35:28.397Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-20T09:35:28.397Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "69986b9cc4828ff9ba8cdec7"
+    },
+    "userId": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "word": "Persuade",
+    "translation": "İkna etmek",
+    "savedAt": {
+      "$date": "2026-02-20T14:11:40.75Z"
+    },
+    "createdAt": {
+      "$date": "2026-02-20T14:11:40.755Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-20T14:11:40.755Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "69987ec266aaf223f0ac0f4e"
+    },
+    "userId": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "word": "visit",
+    "translation": "ziyaret etmek",
+    "savedAt": {
+      "$date": "2026-02-20T15:33:22.688Z"
+    },
+    "createdAt": {
+      "$date": "2026-02-20T15:33:22.693Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-20T15:33:22.693Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "69989bf53e12866581ce2d9e"
+    },
+    "userId": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "word": "go",
+    "translation": "gitmek",
+    "savedAt": {
+      "$date": "2026-02-20T17:37:57.2Z"
+    },
+    "createdAt": {
+      "$date": "2026-02-20T17:37:57.206Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-20T17:37:57.206Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6999f496854d6b9e25c97b4b"
+    },
+    "userId": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "word": "implement",
+    "translation": "uygulamak",
+    "savedAt": {
+      "$date": "2026-02-21T18:08:22.854Z"
+    },
+    "createdAt": {
+      "$date": "2026-02-21T18:08:22.857Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-21T18:08:22.857Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "699a2ba5bb9dab388862b0f8"
+    },
+    "userId": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "word": "object-oriented",
+    "translation": "nesne yönelimli",
+    "savedAt": {
+      "$date": "2026-02-21T22:03:17.122Z"
+    },
+    "createdAt": {
+      "$date": "2026-02-21T22:03:17.128Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-21T22:03:17.128Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "699a3e4a5f964ade7678476e"
+    },
+    "userId": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "word": "initialize",
+    "translation": "başlatmak",
+    "savedAt": {
+      "$date": "2026-02-21T23:22:50.171Z"
+    },
+    "createdAt": {
+      "$date": "2026-02-21T23:22:50.175Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-21T23:22:50.175Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "699a3e575f964ade76784771"
+    },
+    "userId": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "word": "immutably",
+    "translation": "değiştirilemez şekilde",
+    "savedAt": {
+      "$date": "2026-02-21T23:23:03.342Z"
+    },
+    "createdAt": {
+      "$date": "2026-02-21T23:23:03.342Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-21T23:23:03.342Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "699ad7cd001b434aee7da6c2"
+    },
+    "userId": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "word": "executable",
+    "translation": "çalıştırılabilir",
+    "savedAt": {
+      "$date": "2026-02-22T10:17:49.821Z"
+    },
+    "createdAt": {
+      "$date": "2026-02-22T10:17:49.827Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-22T10:17:49.827Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "699c3f7ed41a4b4980dc98b5"
+    },
+    "userId": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "word": "premier",
+    "translation": "birinci sınıf",
+    "savedAt": {
+      "$date": "2026-02-23T11:52:30.177Z"
+    },
+    "createdAt": {
+      "$date": "2026-02-23T11:52:30.179Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-23T11:52:30.179Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "699c696fd41a4b4980dc9bbb"
+    },
+    "userId": {
+      "$oid": "697e264da46bb6a334ebeba4"
+    },
+    "word": "innovative",
+    "translation": "yenilikçi",
+    "savedAt": {
+      "$date": "2026-02-23T14:51:27.144Z"
+    },
+    "createdAt": {
+      "$date": "2026-02-23T14:51:27.146Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-23T14:51:27.146Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "699d58d6d41a4b4980dc9e4d"
+    },
+    "userId": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "word": "encryption",
+    "translation": "şifreleme",
+    "savedAt": {
+      "$date": "2026-02-24T07:52:54.675Z"
+    },
+    "createdAt": {
+      "$date": "2026-02-24T07:52:54.676Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-24T07:52:54.676Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "699d5aefd41a4b4980dc9e51"
+    },
+    "userId": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "word": "responsive",
+    "translation": "duyarlı",
+    "savedAt": {
+      "$date": "2026-02-24T08:01:51.63Z"
+    },
+    "createdAt": {
+      "$date": "2026-02-24T08:01:51.631Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-24T08:01:51.631Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "699dbd03d41a4b4980dca00d"
+    },
+    "userId": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "word": "Maintainable",
+    "translation": "Sürdürülebilir / Bakımı yapılabilir",
+    "savedAt": {
+      "$date": "2026-02-24T15:00:19.274Z"
+    },
+    "createdAt": {
+      "$date": "2026-02-24T15:00:19.274Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-24T15:00:19.274Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "699ffbfcbba01981991f082f"
+    },
+    "userId": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "word": "Surpass",
+    "translation": "Aşmak-Geçmek",
+    "savedAt": {
+      "$date": "2026-02-26T07:53:32.142Z"
+    },
+    "createdAt": {
+      "$date": "2026-02-26T07:53:32.142Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-26T07:53:32.142Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "699ffc30bba01981991f0832"
+    },
+    "userId": {
+      "$oid": "693c815cfc20c13ed3e93c96"
+    },
+    "word": "Quoted",
+    "translation": "Alıntı yapmak",
+    "savedAt": {
+      "$date": "2026-02-26T07:54:24.053Z"
+    },
+    "createdAt": {
+      "$date": "2026-02-26T07:54:24.053Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-26T07:54:24.053Z"
+    },
+    "__v": 0
+  }
+]
