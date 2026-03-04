@@ -9,8 +9,12 @@ jobs:
   backup:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository
+      - name: Checkout Backup Repository
         uses: actions/checkout@v4
+        with:
+          repository: esat54/wordmashup-backup 
+          token: ${{ secrets.BACKUP_TOKEN }}     
+          path: backup-repo                    
 
       - name: Install MongoDB Tools and jq
         run: |
@@ -25,14 +29,15 @@ jobs:
         env:
           MONGO_URI: ${{ secrets.MONGODB_URI }}
         run: |
-          mkdir -p backups
+          mkdir -p backup-repo/backups
           collections=("grammars" "oxforduserprogresses" "oxfordwords" "savedquizwords" "users" "wordquizzes" "words")
           for col in "${collections[@]}"; do
-            mongoexport --uri="$MONGO_URI" --collection=$col --out="backups/$col.json" --jsonArray
-            cat "backups/$col.json" | jq . > "backups/temp.json" && mv "backups/temp.json" "backups/$col.json"
+            mongoexport --uri="$MONGO_URI" --collection=$col --out="backup-repo/backups/$col.json" --jsonArray
+            cat "backup-repo/backups/$col.json" | jq . > "backup-repo/backups/temp.json" && mv "backup-repo/backups/temp.json" "backup-repo/backups/$col.json"
           done
 
-      - name: Commit and Push Changes
+      - name: Commit and Push to Backup Repo
+        working-directory: backup-repo 
         run: |
           git config --global user.name "esat54"
           git config --global user.email "esatsprx77@gmail.com"
