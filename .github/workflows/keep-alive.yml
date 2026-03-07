@@ -6,8 +6,25 @@ on:
   workflow_dispatch:
 
 jobs:
-  ping:
+  keep-alive:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Send Request
-        run: curl -L https://www.wordmashup.xyz/dashboard
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Playwright & dependencies
+        run: |
+          npm install playwright@latest
+          npx playwright install chromium --with-deps
+
+      - name: Login to WordMashup
+        env:
+          KEEPALIVE_EMAIL: ${{ secrets.KEEPALIVE_EMAIL }}
+          KEEPALIVE_PASSWORD: ${{ secrets.KEEPALIVE_PASSWORD }}
+        run: node .github/scripts/keep_alive_login.js
