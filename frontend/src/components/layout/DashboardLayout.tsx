@@ -26,7 +26,7 @@ interface DashboardLayoutProps {
 
 export default function DashboardLayout({ activePage, children, }: DashboardLayoutProps) {
   const router = useRouter();
-  const { user, isTester, isLoggedIn, logout } = useAuth();
+  const { user, isTester, isLoggedIn, ready, logout } = useAuth();
 
   const [sidebarOpen, setSidebarOpen] = useState(() => {
     if (typeof window !== 'undefined') {
@@ -46,7 +46,13 @@ export default function DashboardLayout({ activePage, children, }: DashboardLayo
     router.push("/login");
   };
 
-  if (!user) {
+  useEffect(() => {
+    if (ready && !user) {
+      router.replace("/login");
+    }
+  }, [ready, user]);
+
+  if (!ready || !user) {
     return (
       <div className="min-h-screen bg-white dark:bg-gray-900 flex items-center justify-center">
         <div className="text-gray-600 dark:text-gray-400 animate-pulse">Yükleniyor...</div>

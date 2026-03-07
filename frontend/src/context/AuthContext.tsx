@@ -1,4 +1,6 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import { createContext, useContext, useState, useEffect, useLayoutEffect, ReactNode } from "react";
+
+const useIsomorphicLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
 interface AuthContextType {
     user: any;
@@ -22,14 +24,24 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const [user, setUser] = useState<any>(null);
     const [ready, setReady] = useState(false);
 
-    useEffect(() => {
+    useIsomorphicLayoutEffect(() => {
         try {
             const token = localStorage.getItem("token");
             const userData = localStorage.getItem("user");
             if (token && userData) {
-                setUser(JSON.parse(userData));
+                const payload = JSON.parse(atob(token.split('.')[1]));
+                const isExpired = payload.exp * 1000 < Date.now();
+                if (isExpired) {
+                    localStorage.removeItem("token");
+                    localStorage.removeItem("user");
+                } else {
+                    setUser(JSON.parse(userData));
+                }
             }
-        } catch (e) { }
+        } catch (e) {
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+        }
         setReady(true);
     }, []);
 
