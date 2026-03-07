@@ -53,33 +53,6 @@ export default function QuizPage() {
             <div className="min-h-screen bg-slate-50 dark:bg-gray-900 py-6 px-4 font-sans antialiased text-slate-900 dark:text-white">
                 <div className="max-w-5xl mx-auto">
                     <QuizHeader />
-
-                    <section
-                        className="mt-16 border-t border-slate-200 dark:border-gray-700 pt-10 pb-6 animate-[fadeInSeo_0.5s_ease-out_1s_both]"
-                    >
-                        <h2 className="text-lg font-bold text-slate-800 dark:text-gray-100 mb-4">
-                            İngilizce Kelime Quiz ile Öğreniminizi Test Edin
-                        </h2>
-                        <div className="space-y-3 text-sm leading-relaxed text-slate-600 dark:text-gray-400">
-                            <p>
-                                WordMashup Kelime Quiz modülü, İngilizce kelime bilginizi interaktif testlerle pekiştirmenizi sağlar.
-                                Kategorilere ayrılmış genel kelime listelerine dayalı quizler ile en sık kullanılan
-                                kelimeleri öğrenirken, kişisel kelime listenizden oluşturulan quizlerle
-                                kendi öğrenme hedefinize odaklanabilirsiniz.
-                            </p>
-                            <p>
-                                Her quiz sorusunda İngilizce bir kelime görüntülenir ve doğru Türkçe karşılığını
-                                seçmeniz istenir. Doğru ve yanlış cevaplarınız anlık olarak takip edilir;
-                                quiz sonunda detaylı istatistiklerinizi görebilirsiniz. Bu sistem, <strong>spaced repetition</strong> (aralıklı tekrar)
-                                mantığıyla sürekli pratik yapmanızı kolaylaştırır.
-                            </p>
-                            <p>
-                                Kendi kelime listenizle quiz oluşturabilmek için ücretsiz bir hesap oluşturmanız yeterlidir.
-                                Hesabınızla eklediğiniz kelimeleri quizlere dahil edebilir, öğrenme sürecinizi
-                                kişiselleştirebilirsiniz. Genel quiz listesi ise giriş yapmadan herkes tarafından kullanılabilir.
-                            </p>
-                        </div>
-                    </section>
                 </div>
             </div>
         </>

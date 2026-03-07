@@ -2,6 +2,7 @@
 User-agent: *
 Allow: /
 Allow: /api/sitemap
+Allow: /quiz
 
 Disallow: /admin
 Disallow: /api/
@@ -12,4 +13,4 @@ Disallow: /_next/
 Disallow: /404
 Disallow: /500
 
-Sitemap: https://www.wordmashup.xyz/sitemap.xml
+Sitemap: https://www.wordmashup.xyz/api/sitemap

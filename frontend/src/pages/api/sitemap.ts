@@ -5,13 +5,8 @@ async function generateSitemap() {
 
   const pages = [
     { loc: "", priority: "1.0", changefreq: "weekly" },
-    { loc: "/login", priority: "0.8", changefreq: "yearly" },
-    { loc: "/register", priority: "0.8", changefreq: "yearly" },
-    { loc: "/dashboard", priority: "0.9", changefreq: "daily" },
-    { loc: "/dashboard/kelimeler", priority: "0.9", changefreq: "daily" },
-    { loc: "/dashboard/sozluk", priority: "0.9", changefreq: "weekly" },
-    { loc: "/dashboard/oxfordliste", priority: "0.95", changefreq: "weekly" },
-    { loc: "/dashboard/gramer", priority: "0.9", changefreq: "monthly" },
+    { loc: "/login", priority: "0.7", changefreq: "yearly" },
+    { loc: "/register", priority: "0.7", changefreq: "yearly" },
     { loc: "/quiz", priority: "0.9", changefreq: "daily" },
   ];
 
