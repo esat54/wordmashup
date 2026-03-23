@@ -20,25 +20,13 @@
   ],
   "icons": [
     {
-      "src": "/favicon.ico",
-      "sizes": "32x32",
-      "type": "image/x-icon",
-      "purpose": "any"
-    },
-    {
-      "src": "/apple-touch-icon.png",
-      "sizes": "192x192",
+      "src": "/wordmashuplogo.png",
+      "sizes": "any",
       "type": "image/png",
-      "purpose": "maskable any"
+      "purpose": "any maskable"
     }
   ],
-  "screenshots": [
-    {
-      "src": "/og-image.webp",
-      "sizes": "1200x630",
-      "type": "image/webp"
-    }
-  ],
+
   "shortcuts": [
     {
       "name": "Kelimelerim",

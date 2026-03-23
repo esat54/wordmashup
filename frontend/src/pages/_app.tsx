@@ -29,7 +29,8 @@ export default function App({ Component, pageProps }: AppProps) {
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet" />
 
         {/* Favicon */}
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/wordmashuplogo.png" />
+        <link rel="apple-touch-icon" href="/wordmashuplogo.png" />
       </Head>
       <AuthProvider>
         <ThemeProvider>
