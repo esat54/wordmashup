@@ -159,8 +159,8 @@ export default function AllWords() {
         </div>
 
         <div className="grid grid-cols-3 md:flex md:items-center md:justify-end gap-2 sm:gap-3 w-full md:w-auto pb-1 sm:pb-0">
-          {/* Tür Filter */}
-          <div className="relative w-full md:w-[150px] z-30">
+          {/* Type Filter */}
+          <div className="relative w-full md:w-[150px] z-20">
             <button
               type="button"
               onClick={() => { setIsTypeOpen(!isTypeOpen); setIsFavOpen(false); setIsUnknownOpen(false); }}
@@ -203,7 +203,7 @@ export default function AllWords() {
             )}
           </div>
 
-          {/* Favori Filter */}
+          {/* Favorite Filter */}
           <div className="relative w-full md:w-[170px] z-20">
             <button
               type="button"
@@ -251,7 +251,7 @@ export default function AllWords() {
             )}
           </div>
 
-          {/* Bilinmeyen Filter */}
+          {/* Unknown Filter */}
           <div className="relative w-full md:w-[170px] z-10">
             <button
               type="button"
