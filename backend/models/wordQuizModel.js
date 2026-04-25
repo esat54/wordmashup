@@ -27,7 +27,7 @@ const wordQuizSchema = new mongoose.Schema({
     type: {
         type: String,
         required: true,
-        enum: ['Noun', 'Verb', 'Adjective', 'Adverb', 'Other'],
+        enum: ['Noun', 'Verb', 'Adjective', 'Adverb', 'Phrasal Verb', 'Other'],
         default: 'Other'
     },
     usageCount: {

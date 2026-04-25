@@ -259,17 +259,17 @@ export default function Features() {
                                                             <div className="flex-1 min-w-0">
                                                                 <ResponsiveContainer width="100%" height="100%">
                                                                     <RechartsPieChart>
-                                                                        <Pie data={[{ name: 'İsim', count: 17, color: '#8b5cf6' }, { name: 'Fiil', count: 21, color: '#ef4444' }, { name: 'Sıfat', count: 9, color: '#10b981' }, { name: 'Diğer', count: 2, color: '#f59e0b' }]} cx="50%" cy="50%" innerRadius={0} outerRadius={65} paddingAngle={2} dataKey="count" isAnimationActive={false} style={{ outline: 'none' }}>
-                                                                            {[{ color: '#8b5cf6' }, { color: '#ef4444' }, { color: '#10b981' }, { color: '#f59e0b' }].map((entry, index) => <Cell key={`cell-${index}`} fill={entry.color} stroke="none" style={{ outline: 'none' }} />)}
+                                                                        <Pie data={[{ name: 'İsim', count: 17, color: '#8b5cf6' }, { name: 'Fiil', count: 21, color: '#ef4444' }, { name: 'Fiil Öbeği', count: 5, color: '#f87171' }, { name: 'Sıfat', count: 9, color: '#10b981' }, { name: 'Diğer', count: 2, color: '#f59e0b' }]} cx="50%" cy="50%" innerRadius={0} outerRadius={65} paddingAngle={2} dataKey="count" isAnimationActive={false} style={{ outline: 'none' }}>
+                                                                            {[{ color: '#8b5cf6' }, { color: '#ef4444' }, { color: '#f87171' }, { color: '#10b981' }, { color: '#f59e0b' }].map((entry, index) => <Cell key={`cell-${index}`} fill={entry.color} stroke="none" style={{ outline: 'none' }} />)}
                                                                         </Pie>
                                                                         <Tooltip />
                                                                     </RechartsPieChart>
                                                                 </ResponsiveContainer>
                                                             </div>
                                                             <div className="flex flex-col justify-center lg:justify-start gap-2 w-[90px] lg:w-auto flex-shrink-0 lg:flex-shrink lg:border-t lg:border-slate-50 lg:pt-4 lg:mt-4">
-                                                                <div className="text-xs font-bold text-slate-700 mb-1">Toplam: 49</div>
+                                                                <div className="text-xs font-bold text-slate-700 mb-1">Toplam: 54</div>
                                                                 <div className="lg:grid lg:grid-cols-2 flex flex-col gap-2">
-                                                                    {[{ label: "İsim", value: 17, color: "bg-purple-500" }, { label: "Fiil", value: 21, color: "bg-red-500" }, { label: "Sıfat", value: 9, color: "bg-emerald-500" }, { label: "Diğer", value: 2, color: "bg-amber-500" }].map((item, i) => (
+                                                                    {[{ label: "İsim", value: 17, color: "bg-purple-500" }, { label: "Fiil", value: 21, color: "bg-red-500" }, { label: "Fiil Öbeği", value: 5, color: "bg-red-400" }, { label: "Sıfat", value: 9, color: "bg-emerald-500" }, { label: "Diğer", value: 2, color: "bg-amber-500" }].map((item, i) => (
                                                                         <div key={i} className="flex items-center justify-between text-[10px]">
                                                                             <div className="flex items-center gap-1.5"><div className={`w-2 h-2 rounded-full flex-shrink-0 ${item.color}`} /><span className="text-slate-500 font-medium">{item.label}:</span></div>
                                                                             <span className="text-slate-800 font-bold">{item.value}</span>

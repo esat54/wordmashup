@@ -147,7 +147,7 @@ export default function Sidebar({ user, isTester, activePage, onLogout, sidebarO
   if (variant === "desktop") {
     return (
       <aside
-        className={`hidden lg:block sticky top-0 h-screen transition-all duration-300 ease-in-out ${sidebarOpen ? "w-64" : "w-20"
+        className={`hidden lg:block sticky z-50 top-0 h-screen transition-all duration-300 ease-in-out ${sidebarOpen ? "w-64" : "w-20"
           }`}
       >
         {content}

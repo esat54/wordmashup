@@ -1,7 +1,7 @@
 
 
 import { useState } from "react";
-import { Search, Loader2, Volume2, Plus, BookOpen, X, Info } from "lucide-react";
+import { Search, Loader2, Volume2, Plus, BookOpen, Info } from "lucide-react";
 import { dictionaryApi } from "@/lib/api";
 
 export default function DictionaryPage() {
@@ -20,14 +20,13 @@ export default function DictionaryPage() {
     try {
       const data = (await dictionaryApi.analyzeWord(word)) as any;
       setResults(data);
+      setLoading(false);
     } catch (error: any) {
       console.error("AI Analiz Hatası:", error);
       setMessage(
         error.message ||
         "Analiz sırasında bir hata oluştu. Lütfen giriş yaptığınızdan emin olun.",
       );
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -41,15 +40,6 @@ export default function DictionaryPage() {
 
   return (
     <div className="max-w-7xl mx-auto">
-
-      {message && (
-        <div className="fixed top-5 right-5 z-[9999] flex items-center gap-2 bg-gray-800 dark:bg-gray-700 text-white px-4 py-3 rounded-lg shadow-2xl border border-gray-700 dark:border-gray-600">
-          <span className="text-sm font-medium">{message}</span>
-          <button onClick={() => setMessage("")} className="hover:text-gray-400">
-            <X className="w-4 h-4" />
-          </button>
-        </div>
-      )}
 
       <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6 mb-6">
         <div className="flex flex-col sm:flex-row gap-3">
@@ -79,7 +69,7 @@ export default function DictionaryPage() {
           <div className="flex-1 flex flex-col items-center justify-center py-20">
             <Loader2 className="w-12 h-12 animate-spin text-blue-600 mb-4" />
             <p className="text-gray-500 dark:text-gray-400 text-sm font-medium animate-pulse uppercase tracking-wider">
-              Kelime Çözümleniyor...
+              {message || "Kelime Çözümleniyor..."}
             </p>
           </div>
         ) : results ? (

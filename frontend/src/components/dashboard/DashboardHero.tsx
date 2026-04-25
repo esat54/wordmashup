@@ -45,6 +45,18 @@ const COLORS = [
   "#6366f1",
 ];
 
+const TYPE_COLORS: { [key: string]: string } = {
+  noun: "#8b5cf6",
+  verb: "#ef4444",
+  adjective: "#10b981",
+  adverb: "#f59e0b",
+  other: "#3b82f6",
+  conjunction: "#ec4899",
+  pronoun: "#06b6d4",
+  phrasal_verb: "#f87171",
+  preposition: "#9ca3af",
+};
+
 export default function DashboardHero({ user }: { user: { name: string; email: string } }) {
   const router = useRouter();
   const { isTester } = useAuth();
@@ -404,10 +416,7 @@ export default function DashboardHero({ user }: { user: { name: string; email: s
                         style={{ outline: "none" }}
                       >
                         {typeStats.map((entry, index) => {
-                          let color = COLORS[index % COLORS.length];
-                          if (entry.type === "verb") color = "#ef4444";
-                          else if (entry.type === "preposition")
-                            color = "#3b82f6";
+                          const color = TYPE_COLORS[entry.type] || COLORS[index % COLORS.length];
                           return (
                             <Cell key={`cell-${index}`} fill={color} style={{ outline: "none" }} />
                           );
@@ -443,10 +452,7 @@ export default function DashboardHero({ user }: { user: { name: string; email: s
                       } gap-x-3 gap-y-1 max-h-24 overflow-y-auto`}
                   >
                     {typeStats.map((stat, index) => {
-                      let color = COLORS[index % COLORS.length];
-                      if (stat.type === "verb") color = "#ef4444";
-                      else if (stat.type === "preposition")
-                        color = "#3b82f6";
+                      const color = TYPE_COLORS[stat.type] || COLORS[index % COLORS.length];
                       return (
                         <div
                           key={stat.type}
@@ -544,6 +550,7 @@ export default function DashboardHero({ user }: { user: { name: string; email: s
                     preposition: "Edat",
                     conjunction: "Bağlaç",
                     pronoun: "Zamir",
+                    phrasal_verb: "Fiil Öbeği",
                     other: "Diğer",
                   };
                   const typeName = typeNames[word.type] || word.type;

@@ -10,6 +10,7 @@ const wordTypes = [
   { value: "preposition", label: "Edat" },
   { value: "conjunction", label: "Bağlaç" },
   { value: "pronoun", label: "Zamir" },
+  { value: "phrasal_verb", label: "Fiil Öbeği" },
   { value: "other", label: "Diğer" },
 ];
 
@@ -125,46 +126,22 @@ export default function AddWords() {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Kelime Türü *</label>
-          <div className="relative w-full z-30">
-            <button
-              type="button"
-              onClick={() => setIsTypeOpen(!isTypeOpen)}
-              className="w-full flex items-center justify-between px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg transition hover:shadow-[0_0_3px_0_rgba(0,0,0,0.12)] focus:outline-none focus:ring-1 focus:ring-blue-500 cursor-pointer text-left"
-            >
-              <span className={`block truncate ${!formData.type ? 'text-gray-500 dark:text-gray-400' : ''}`}>
-                {formData.type ? wordTypes.find(t => t.value === formData.type)?.label : "Seçiniz"}
-              </span>
-              <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" className="w-4 h-4 text-gray-400 dark:text-gray-500 pointer-events-none">
-                <path d="M5.22 10.22a.75.75 0 0 1 1.06 0L8 11.94l1.72-1.72a.75.75 0 1 1 1.06 1.06l-2.25 2.25a.75.75 0 0 1-1.06 0l-2.25-2.25a.75.75 0 0 1 0-1.06ZM10.78 5.78a.75.75 0 0 1-1.06 0L8 4.06 6.28 5.78a.75.75 0 0 1-1.06-1.06l2.25-2.25a.75.75 0 0 1 1.06 0l2.25 2.25a.75.75 0 0 1 0 1.06Z" clipRule="evenodd" fillRule="evenodd" />
-              </svg>
-            </button>
-
-            {isTypeOpen && (
-              <>
-                <div className="fixed inset-0 z-10" onClick={() => setIsTypeOpen(false)}></div>
-                <ul className="absolute z-20 left-0 mt-1 max-h-60 w-full overflow-auto rounded-lg bg-white dark:bg-gray-800 py-1 text-base shadow-lg ring-1 ring-black/5 dark:ring-white/10 outline-none sm:text-sm border border-gray-100 dark:border-gray-700">
-                  {wordTypes.map((t) => (
-                    <li
-                      key={t.value}
-                      className={`relative cursor-pointer select-none py-2 pl-3 pr-9 ${formData.type === t.value ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400' : 'text-gray-900 dark:text-gray-300 hover:bg-slate-50 dark:hover:bg-gray-700'}`}
-                      onClick={() => { setFormData({ ...formData, type: t.value }); setIsTypeOpen(false); }}
-                    >
-                      <div className="flex items-center">
-                        <span className={`block truncate ${formData.type === t.value ? 'font-semibold' : 'font-medium'}`}>{t.label}</span>
-                      </div>
-                      {formData.type === t.value && (
-                        <span className="absolute inset-y-0 right-0 flex items-center pr-3 text-blue-600">
-                          <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" className="size-4">
-                            <path fillRule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clipRule="evenodd" />
-                          </svg>
-                        </span>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-              </>
-            )}
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Kelime Türü *</label>
+          <div className="flex flex-wrap gap-2.5">
+            {wordTypes.map((t) => (
+              <button
+                key={t.value}
+                type="button"
+                onClick={() => setFormData({ ...formData, type: formData.type === t.value ? "" : t.value })}
+                className={`flex-1 whitespace-nowrap min-w-[30%] sm:min-w-[18%] lg:min-w-[10%] px-2 sm:px-3 py-2.5 rounded-lg text-sm font-medium transition-colors duration-200 border ${
+                  formData.type === t.value
+                    ? "bg-slate-800 text-white border-slate-800 dark:bg-white dark:text-slate-900 dark:border-white shadow-sm"
+                    : "bg-gray-100 dark:bg-gray-700/80 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 border-transparent hover:border-gray-300 dark:border-gray-600/50 dark:hover:border-gray-500"
+                }`}
+              >
+                {t.label}
+              </button>
+            ))}
           </div>
         </div>
 

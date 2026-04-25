@@ -13,7 +13,7 @@ export default function DashboardHeader({ user, isTester, onOpenMobileMenu, page
   const { darkMode, toggleDarkMode, mounted } = useTheme();
 
   return (
-    <header className="sticky top-0 z-30 px-4 sm:px-6 lg:px-7 pt-4 pb-4 lg:pb-0">
+    <header className="sticky top-0 z-50 px-4 sm:px-6 lg:px-7 pt-4 pb-4 lg:pb-0">
       <div className="max-w-7xl mx-auto bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm rounded-xl h-16 px-4 flex items-center justify-between">
         <div className="flex items-center gap-4 flex-1">
           <button

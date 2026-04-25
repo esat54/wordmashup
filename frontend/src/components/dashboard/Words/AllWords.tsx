@@ -12,6 +12,7 @@ const wordTypes = [
   { value: "preposition", label: "Edat" },
   { value: "conjunction", label: "Bağlaç" },
   { value: "pronoun", label: "Zamir" },
+  { value: "phrasal_verb", label: "Fiil Öbeği" },
   { value: "other", label: "Diğer" },
 ];
 
