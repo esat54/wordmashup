@@ -35,6 +35,7 @@ export default function OxfordListPage() {
   const [editedNotes, setEditedNotes] = useState("");
   const [saving, setSaving] = useState(false);
   const [isStatusOpen, setIsStatusOpen] = useState(false);
+  const [globalStats, setGlobalStats] = useState<{ totalWords: number; learning: number; mastered: number } | null>(null);
 
   useEffect(() => {
     const userData = localStorage.getItem("user");
@@ -48,6 +49,19 @@ export default function OxfordListPage() {
   }, []);
 
   const { isTester } = useAuth();
+
+  const loadStats = async () => {
+    try {
+      const stats = (await oxfordApi.getStats()) as any;
+      setGlobalStats(stats);
+    } catch (err) {
+      console.error("Stats yüklenirken hata:", err);
+    }
+  };
+
+  useEffect(() => {
+    loadStats();
+  }, []);
 
   useEffect(() => {
     loadWords(selectedCategory);
@@ -134,6 +148,8 @@ export default function OxfordListPage() {
       if (selectedWord && selectedWord._id === wordId) {
         setSelectedWord({ ...selectedWord, status: newStatus });
       }
+
+      loadStats();
     } catch (err: any) {
       console.error("Durum güncellenirken hata:", err);
       alert("Durum güncellenirken bir hata oluştu");
@@ -171,36 +187,55 @@ export default function OxfordListPage() {
         </div>
 
         {!loading && !error && allWords.length > 0 && (
-          <div className="flex items-center justify-center gap-2 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 px-3 py-1.5">
-            <button
-              onClick={handlePreviousPage}
-              disabled={currentPage === 1}
-              className={`
-                p-1 rounded transition-colors
-                ${currentPage === 1
-                  ? "text-gray-300 dark:text-gray-600 cursor-not-allowed"
-                  : "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700"
-                }
-              `}
-            >
-              <ChevronLeft className="w-4 h-4" />
-            </button>
-            <span className="text-xs text-gray-600 dark:text-gray-400 px-2">
-              {currentPage} / {totalPages}
-            </span>
-            <button
-              onClick={handleNextPage}
-              disabled={currentPage === totalPages}
-              className={`
-                p-1 rounded transition-colors
-                ${currentPage === totalPages
-                  ? "text-gray-300 dark:text-gray-600 cursor-not-allowed"
-                  : "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700"
-                }
-              `}
-            >
-              <ChevronRight className="w-4 h-4" />
-            </button>
+          <div className="flex flex-col md:flex-row items-stretch md:items-center bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden divide-y md:divide-y-0 md:divide-x divide-gray-200 dark:divide-gray-700">
+
+            <div className="flex items-center justify-center gap-1 px-3 py-2 flex-1 md:ml-64">
+              <button
+                onClick={handlePreviousPage}
+                disabled={currentPage === 1}
+                className={`p-1 rounded transition-colors ${
+                  currentPage === 1
+                    ? "text-gray-300 dark:text-gray-600 cursor-not-allowed"
+                    : "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700"
+                }`}
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+              <span className="text-xs text-gray-600 dark:text-gray-400 px-1.5 whitespace-nowrap tabular-nums min-w-[60px] text-center">
+                {currentPage} / {totalPages}
+              </span>
+              <button
+                onClick={handleNextPage}
+                disabled={currentPage === totalPages}
+                className={`p-1 rounded transition-colors ${
+                  currentPage === totalPages
+                    ? "text-gray-300 dark:text-gray-600 cursor-not-allowed"
+                    : "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700"
+                }`}
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
+
+            <div className="flex items-stretch divide-x divide-gray-200 dark:divide-gray-700 bg-gray-50/50 dark:bg-gray-800/50 md:bg-transparent">
+              <div className="flex items-center justify-center gap-1.5 px-4 py-2 shrink-0 flex-1 md:w-[130px]">
+                <Clock className="w-3.5 h-3.5 text-yellow-500 shrink-0" />
+                <span className="text-xs text-yellow-600 dark:text-yellow-400 font-semibold whitespace-nowrap tabular-nums">
+                  {globalStats?.learning ?? "—"}
+                </span>
+                <span className="text-[10px] text-gray-400 dark:text-gray-500 hidden sm:inline">öğreniyorum</span>
+              </div>
+
+              <div className="flex items-center justify-center gap-1.5 px-4 py-2 shrink-0 flex-1 md:w-[150px]">
+                <CheckCircle2 className="w-3.5 h-3.5 text-green-500 shrink-0" />
+                <span className="text-xs font-semibold whitespace-nowrap tabular-nums">
+                  <span className="text-green-600 dark:text-green-400">{globalStats?.mastered ?? "—"}</span>
+                  <span className="text-gray-400 dark:text-gray-500"> / {globalStats?.totalWords ?? "—"}</span>
+                </span>
+                <span className="text-[10px] text-gray-400 dark:text-gray-500 hidden sm:inline">öğrenildi</span>
+              </div>
+            </div>
+
           </div>
         )}
       </div>
@@ -233,19 +268,18 @@ export default function OxfordListPage() {
         ) : (
           <div className="flex-1 overflow-y-auto">
             <div className="overflow-x-auto">
-              <table className="w-full text-sm">
+              <table className="w-full text-sm table-fixed">
                 <thead className="bg-gray-50 dark:bg-gray-800/50 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-10">
                   <tr>
-                    <th className="px-3 py-2 text-left font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider text-xs">
+                    <th className="px-3 py-2 text-left font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider text-xs w-1/3 md:w-[calc(50%-182px)]">
                       Kelime
                     </th>
-                    <th className="px-3 py-2 text-left font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider text-xs">
+                    <th className="px-3 py-2 text-center md:text-left font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider text-xs w-1/3 md:w-auto">
                       Çeviri
                     </th>
-                    <th className="px-3 py-2 text-center font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider text-xs w-20">
+                    <th className="px-3 py-2 text-right md:text-center font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider text-xs w-1/3 md:w-24 pr-4">
                       Durum
                     </th>
-                    <th className="px-3 py-2 text-center font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider text-xs w-12" />
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
@@ -278,45 +312,46 @@ export default function OxfordListPage() {
                         <td className="px-3 py-2">
                           <span className="font-medium text-gray-900 dark:text-white text-sm">{word.word}</span>
                         </td>
-                        <td className="px-3 py-2 text-gray-700 dark:text-gray-300 text-sm">{word.translation}</td>
-                        <td className="px-3 py-2 text-center">
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              const nextStatus =
+                        <td className="px-3 py-2 text-center md:text-left text-gray-700 dark:text-gray-300 text-sm">{word.translation}</td>
+                        <td className="px-3 py-2">
+                          <div className="flex items-center justify-end md:justify-center gap-4">
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                const nextStatus =
+                                  word.status === "new"
+                                    ? "learning"
+                                    : word.status === "learning"
+                                      ? "mastered"
+                                      : "new";
+                                handleStatusChange(word._id, nextStatus);
+                              }}
+                              className="inline-flex items-center justify-center transition-transform hover:scale-110"
+                              title={
                                 word.status === "new"
-                                  ? "learning"
+                                  ? "Yeni"
                                   : word.status === "learning"
-                                    ? "mastered"
-                                    : "new";
-                              handleStatusChange(word._id, nextStatus);
-                            }}
-                            className="inline-flex items-center justify-center"
-                            title={
-                              word.status === "new"
-                                ? "Yeni"
-                                : word.status === "learning"
-                                  ? "Öğreniyorum"
-                                  : "Öğrendim"
-                            }
-                          >
-                            <StatusIcon className={`w-5 h-5 ${statusIconColor}`} />
-                          </button>
-                        </td>
-                        <td className="px-3 py-2 text-center">
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              handleEditClick(word);
-                            }}
-                            className={`p-1 transition-colors ${hasNotes
-                              ? "text-blue-500 hover:text-blue-600"
-                              : "text-gray-400 dark:text-gray-500 hover:text-blue-600 dark:hover:text-blue-400"
-                              }`}
-                            title="Notları düzenle"
-                          >
-                            <Edit2 className="w-4 h-4" />
-                          </button>
+                                    ? "Öğreniyorum"
+                                    : "Öğrendim"
+                              }
+                            >
+                              <StatusIcon className={`w-5 h-5 ${statusIconColor}`} />
+                            </button>
+
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleEditClick(word);
+                              }}
+                              className={`p-1 transition-all hover:scale-110 ${hasNotes
+                                ? "text-blue-500 hover:text-blue-600"
+                                : "text-gray-400 dark:text-gray-500 hover:text-blue-600 dark:hover:text-blue-400"
+                                }`}
+                              title="Notları düzenle"
+                            >
+                              <Edit2 className="w-4 h-4" />
+                            </button>
+                          </div>
                         </td>
                       </tr>
                     );
@@ -464,18 +499,6 @@ export default function OxfordListPage() {
                                   Kaydet
                                 </>
                               )}
-                            </button>
-
-                            <button
-                              onClick={() => {
-                                if (selectedWord) {
-                                  setEditedNotes(selectedWord.userNotes || "");
-                                }
-                              }}
-                              disabled={saving}
-                              className="px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-sm font-medium rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 disabled:opacity-50 transition-colors"
-                            >
-                              İptal
                             </button>
                           </>
                         )}

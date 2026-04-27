@@ -206,6 +206,12 @@ export const oxfordApi = {
             body: JSON.stringify({ status }),
         });
     },
+
+    getStats: () => {
+        return apiRequest("/api/oxford/stats", {
+            method: "GET",
+        });
+    },
 };
 
 

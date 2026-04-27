@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { BookOpen, ChevronLeft, ChevronRight, FileMinus, FileSearch, FileText, Home, LogOut, Settings, } from "lucide-react";
+import { BookOpen, ChevronLeft, ChevronRight, FileMinus, FileSearch, FileText, Home, LogOut, Settings, Sparkles } from "lucide-react";
 
 import type { DashboardPageKey } from "@/components/layout/DashboardLayout";
 
@@ -82,6 +82,21 @@ export default function Sidebar({ user, isTester, activePage, onLogout, sidebarO
       </div>
 
       <nav className="flex-1 overflow-y-auto p-3 space-y-1">
+        {variant === "mobile" && (
+          <div className="pb-2 mb-2 border-b border-gray-100 dark:border-gray-700">
+            <Link
+              href="/quiz"
+              onClick={onClose}
+              className="w-full flex items-center px-4 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-500/20 hover:shadow-lg transition-all font-bold text-sm overflow-hidden"
+            >
+              <div className="relative flex items-center justify-center">
+                <Sparkles size={20} className="text-white" />
+              </div>
+              <span className="ml-3">Quiz'e Git</span>
+            </Link>
+          </div>
+        )}
+
         {menuItems.map((item) => {
           const Icon = item.icon;
           const isDisabled = isTester && item.key === "settings";
@@ -164,14 +179,14 @@ export default function Sidebar({ user, isTester, activePage, onLogout, sidebarO
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         onClick={onClose}
-        className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+        className="fixed inset-0 bg-black/50 z-[60] lg:hidden"
       />
       <motion.div
         initial={{ x: -300 }}
         animate={{ x: 0 }}
         exit={{ x: -300 }}
         transition={{ type: "spring", damping: 25, stiffness: 200 }}
-        className="fixed left-0 top-0 bottom-0 w-64 shadow-xl z-50 lg:hidden"
+        className="fixed left-0 top-0 bottom-0 w-64 shadow-xl z-[70] lg:hidden"
       >
         {content}
       </motion.div>

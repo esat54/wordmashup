@@ -151,3 +151,21 @@ exports.updateWordStatus = async (req, res) => {
     }
 };
 
+exports.getStats = async (req, res) => {
+    try {
+        const userId = req.userId;
+
+        const [totalWords, userProgress] = await Promise.all([
+            OxfordWord.countDocuments(),
+            OxfordUserProgress.find({ userId }).select('status'),
+        ]);
+
+        const learning = userProgress.filter(p => p.status === 'learning').length;
+        const mastered = userProgress.filter(p => p.status === 'mastered').length;
+
+        res.status(200).json({ totalWords, learning, mastered });
+    } catch (error) {
+        console.error("getStats error:", error);
+        res.status(500).json({ message: "İstatistikler getirilirken hata oluştu" });
+    }
+};

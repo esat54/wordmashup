@@ -47,7 +47,7 @@ export default function DashboardHeader({ user, isTester, onOpenMobileMenu, page
           </Link>
 
           {isTester ? (
-            <div className="hidden sm:flex items-center gap-2.5 px-3 py-1.5 lg:px-4 lg:py-2 bg-indigo-50 dark:bg-indigo-900/30 border border-indigo-100 dark:border-indigo-800 rounded-xl shadow-sm select-none">
+            <div className="hidden md:flex items-center gap-2.5 px-3 py-1.5 lg:px-4 lg:py-2 bg-indigo-50 dark:bg-indigo-900/30 border border-indigo-100 dark:border-indigo-800 rounded-xl shadow-sm select-none">
               <div className="relative flex items-center justify-center">
                 <div className="w-2 h-2 bg-indigo-500 rounded-full" />
                 <div className="absolute w-2 h-2 bg-indigo-400 rounded-full" />
@@ -58,7 +58,7 @@ export default function DashboardHeader({ user, isTester, onOpenMobileMenu, page
             </div>
           ) : (
             <>
-              <div className="hidden sm:flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 px-3 py-1.5 bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-100 dark:border-gray-600">
+              <div className="hidden md:flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 px-3 py-1.5 bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-100 dark:border-gray-600">
                 <User size={14} className="text-gray-400 dark:text-gray-500" />
                 <span className="font-semibold text-gray-900 dark:text-white">{user.name}</span>
               </div>
