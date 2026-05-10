@@ -210,7 +210,7 @@ export default function GrammarDetailPage({ grammarId, onBack }: GrammarDetailPa
               if (onBack) {
                 onBack();
               } else {
-                router.push("/dashboard/gramer");
+                router.push("/dashboard/grammar");
               }
             }}
             className="p-2 hover:bg-slate-50 dark:hover:bg-gray-700 rounded-lg transition-colors border border-slate-100 dark:border-gray-600 shadow-sm group"

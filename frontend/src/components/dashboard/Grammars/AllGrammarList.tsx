@@ -110,8 +110,8 @@ export default function AllGrammarList() {
     e.stopPropagation();
     const slug = buildSlug(grammar);
     const basePath = grammar.isGlobal
-      ? "/dashboard/gramer/ortak"
-      : "/dashboard/gramer";
+      ? "/dashboard/grammar/shared"
+      : "/dashboard/grammar";
     router.push(`${basePath}/${slug}`);
   };
 
@@ -139,7 +139,7 @@ export default function AllGrammarList() {
   };
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
       <div className="flex flex-col md:flex-row gap-4 mb-6">
         <div className="flex-1 relative">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500 w-5 h-5" />

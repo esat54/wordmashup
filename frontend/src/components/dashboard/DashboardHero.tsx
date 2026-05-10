@@ -146,8 +146,8 @@ export default function DashboardHero({ user }: { user: { name: string; email: s
 
   return (
     <div className="max-w-7xl mx-auto space-y-4 antialiased">
-      {/* Name and Badge */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-5 px-6">
+      {/* name and badge */}
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-5 px-6">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           {isLoading ? (
             <div className="flex-1">
@@ -233,7 +233,7 @@ export default function DashboardHero({ user }: { user: { name: string; email: s
         </div>
       </div>
 
-      {/* Top cards */}
+      {/* top cards */}
       {isLoading ? (
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {[1, 2, 3, 4].map((i) => (
@@ -255,7 +255,7 @@ export default function DashboardHero({ user }: { user: { name: string; email: s
         </div>
       ) : (
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm p-4 hover:shadow transition-all group">
+          <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm p-4 hover:shadow transition-all group">
             <div className="flex items-center gap-3">
               <div className="p-2.5 bg-gray-50 dark:bg-gray-700 rounded-lg group-hover:bg-gray-100 dark:group-hover:bg-gray-600 transition-colors flex-shrink-0">
                 <BookOpen size={20} className="text-gray-700 dark:text-gray-300" />
@@ -271,7 +271,7 @@ export default function DashboardHero({ user }: { user: { name: string; email: s
             </div>
           </div>
 
-          <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm p-4 hover:shadow transition-all group">
+          <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm p-4 hover:shadow transition-all group">
             <div className="flex items-center gap-3">
               <div className="p-2.5 bg-gray-50 dark:bg-gray-700 rounded-lg group-hover:bg-gray-100 dark:group-hover:bg-gray-600 transition-colors flex-shrink-0">
                 <Heart size={20} className="text-gray-700 dark:text-gray-300" />
@@ -287,7 +287,7 @@ export default function DashboardHero({ user }: { user: { name: string; email: s
             </div>
           </div>
 
-          <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm p-4 hover:shadow transition-all group">
+          <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm p-4 hover:shadow transition-all group">
             <div className="flex items-center gap-3">
               <div className="p-2.5 bg-gray-50 dark:bg-gray-700 rounded-lg group-hover:bg-gray-100 dark:group-hover:bg-gray-600 transition-colors flex-shrink-0">
                 <FileText size={20} className="text-gray-700 dark:text-gray-300" />
@@ -303,7 +303,7 @@ export default function DashboardHero({ user }: { user: { name: string; email: s
             </div>
           </div>
 
-          <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm p-4 hover:shadow transition-all group">
+          <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm p-4 hover:shadow transition-all group">
             <div className="flex items-center gap-3">
               <div className="p-2.5 bg-gray-50 dark:bg-gray-700 rounded-lg group-hover:bg-gray-100 dark:group-hover:bg-gray-600 transition-colors flex-shrink-0">
                 <Calendar size={20} className="text-gray-700 dark:text-gray-300" />
@@ -321,21 +321,21 @@ export default function DashboardHero({ user }: { user: { name: string; email: s
         </div>
       )}
 
-      {/* Charts and lists */}
+      {/* charts and lists */}
       {isLoading ? (
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div className="sm:col-span-2 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm p-5 h-[320px] flex flex-col">
+          <div className="sm:col-span-2 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm p-5 h-[320px] flex flex-col">
             <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse w-32 mb-4" />
             <div className="flex-1 bg-gray-50 dark:bg-gray-700 rounded-lg animate-pulse" />
           </div>
-          <div className="sm:col-span-1 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm p-5 h-[320px] flex flex-col">
+          <div className="sm:col-span-1 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm p-5 h-[320px] flex flex-col">
             <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse w-24 mb-4" />
             <div className="flex-1 bg-gray-50 dark:bg-gray-700 rounded-lg animate-pulse" />
           </div>
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div className="sm:col-span-2 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm p-5 h-[320px] flex flex-col">
+          <div className="sm:col-span-2 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm p-5 h-[320px] flex flex-col">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-[11px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-[0.2em] flex items-center gap-2">
                 <BarChart3 size={14} className="text-blue-500" /> 7 GÜNLÜK ANALİZ
@@ -392,7 +392,7 @@ export default function DashboardHero({ user }: { user: { name: string; email: s
             )}
           </div>
 
-          <div className="sm:col-span-1 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm p-5 h-[320px] flex flex-col">
+          <div className="sm:col-span-1 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm p-5 h-[320px] flex flex-col">
             <div className="mb-4">
               <h3 className="text-[11px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-[0.2em] flex items-center gap-2">
                 <PieChart size={14} className="text-purple-500" /> TÜR DAĞILIMI
@@ -485,10 +485,10 @@ export default function DashboardHero({ user }: { user: { name: string; email: s
         </div>
       )}
 
-      {/* Recent lists + quick links */}
+      {/* recents lists + quick links */}
       {isLoading ? (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-          <div className="lg:col-span-2 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm p-5">
+          <div className="lg:col-span-2 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm p-5">
             <div className="h-5 bg-gray-200 dark:bg-gray-700 rounded animate-pulse w-40 mb-4" />
             <div className="space-y-2">
               {[1, 2, 3, 4, 5].map((i) => (
@@ -500,7 +500,7 @@ export default function DashboardHero({ user }: { user: { name: string; email: s
             </div>
           </div>
           <div className="space-y-4">
-            <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm p-5">
+            <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm p-5">
               <div className="h-5 bg-gray-200 dark:bg-gray-700 rounded animate-pulse w-32 mb-4" />
               <div className="space-y-2">
                 {[1, 2, 3].map((i) => (
@@ -511,7 +511,7 @@ export default function DashboardHero({ user }: { user: { name: string; email: s
                 ))}
               </div>
             </div>
-            <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm p-5">
+            <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm p-5">
               <div className="h-5 bg-gray-200 dark:bg-gray-700 rounded animate-pulse w-24 mb-4" />
               <div className="space-y-2">
                 {[1, 2, 3, 4].map((i) => (
@@ -526,7 +526,7 @@ export default function DashboardHero({ user }: { user: { name: string; email: s
         </div>
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-          <div className="lg:col-span-2 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm p-5">
+          <div className="lg:col-span-2 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm p-5">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-2">
                 <BookOpen size={16} className="text-blue-500" /> Son Eklenen
@@ -589,14 +589,14 @@ export default function DashboardHero({ user }: { user: { name: string; email: s
           </div>
 
           <div className="space-y-4">
-            <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm p-5">
+            <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm p-5">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-2">
                   <FileText size={16} className="text-gray-500 dark:text-gray-400" /> Son Gramer
                   Kartları
                 </h3>
                 <button
-                  onClick={() => router.push("/dashboard/gramer")}
+                  onClick={() => router.push("/dashboard/grammar")}
                   className="text-xs text-gray-600 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 font-medium flex items-center gap-1"
                 >
                   Tümünü Gör <ArrowRight size={12} />
@@ -608,7 +608,7 @@ export default function DashboardHero({ user }: { user: { name: string; email: s
                     <div
                       key={grammar._id}
                       className="p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors cursor-pointer"
-                      onClick={() => router.push("/dashboard/gramer")}
+                      onClick={() => router.push("/dashboard/grammar")}
                     >
                       <div className="font-semibold text-gray-900 dark:text-white text-sm mb-1">
                         {grammar.title}
@@ -626,7 +626,7 @@ export default function DashboardHero({ user }: { user: { name: string; email: s
               )}
             </div>
 
-            <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm p-5">
+            <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm p-5">
               <h3 className="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-2 mb-4">
                 <BookMarked size={16} className="text-gray-500 dark:text-gray-400" /> Hızlı Linkler
               </h3>
@@ -641,7 +641,7 @@ export default function DashboardHero({ user }: { user: { name: string; email: s
                   <ArrowRight size={14} className="text-gray-600 dark:text-gray-400" />
                 </button>
                 <button
-                  onClick={() => router.push("/dashboard/gramer")}
+                  onClick={() => router.push("/dashboard/grammar")}
                   className="w-full flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700/50 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors text-left"
                 >
                   <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
