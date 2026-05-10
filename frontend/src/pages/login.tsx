@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Mail, Lock, Eye, EyeOff, ArrowRight } from "lucide-react";
@@ -11,16 +11,14 @@ import { useAuth } from "@/context/AuthContext";
 export default function LoginPage() {
   const { login } = useAuth();
   const router = useRouter();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
-
-  useEffect(() => {
-    document.documentElement.classList.remove("dark");
-  }, []);
 
   const validateForm = () => {
     const newErrors: { email?: string; password?: string } = {};
@@ -102,9 +100,9 @@ export default function LoginPage() {
         description="WordMashup hesabınıza giriş yapın. AI destekli İngilizce öğrenme platformuna erişim sağlayın."
         noindex={true}
       />
-      <div className="min-h-screen bg-white flex">
+      <div className="light-page min-h-screen bg-white flex">
 
-        <div className="flex-1 flex flex-col justify-center px-4 lg:px-8 py-12 sm:px-16">
+        <div className="flex-1 flex flex-col justify-center px-6 py-16 sm:px-16 sm:py-12 lg:px-6 lg:py-10">
           <div className="mx-auto w-full max-w-sm">
 
             <motion.div
@@ -166,7 +164,7 @@ export default function LoginPage() {
                       setEmail(e.target.value);
                       if (errors.email) setErrors({ ...errors, email: undefined });
                     }}
-                    className={`block w-full pl-10 pr-3 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all 
+                    className={`block w-full pl-10 pr-3 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all text-gray-900
                     ${errors.email ? "border-red-300 bg-red-50" : "border-gray-300 bg-white hover:border-gray-400"}`}
                     placeholder="ornek@email.com"
                   />
@@ -197,7 +195,7 @@ export default function LoginPage() {
                       setPassword(e.target.value);
                       if (errors.password) setErrors({ ...errors, password: undefined });
                     }}
-                    className={`block w-full pl-10 pr-12 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all 
+                    className={`block w-full pl-10 pr-12 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all text-gray-900
           ${errors.password ? "border-red-300 bg-red-50" : "border-gray-300 bg-white hover:border-gray-400"}`}
                     placeholder="••••••••"
                   />
@@ -251,7 +249,7 @@ export default function LoginPage() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.6, delay: 0.55 }}
-                className="flex flex-col items-center gap-4 py-2"
+                className="flex flex-col items-center gap-3 pt-0 pb-2 -mt-2"
               >
                 <div className="flex items-center gap-3 w-full">
                   <div className="h-[1px] flex-1 bg-gray-100"></div>

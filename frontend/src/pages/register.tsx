@@ -1,6 +1,6 @@
 
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { Mail, Lock, User, Eye, EyeOff, ArrowRight } from "lucide-react";
 import Image from "next/image";
@@ -19,10 +19,6 @@ export default function RegisterPage() {
     email?: string;
     password?: string;
   }>({});
-
-  useEffect(() => {
-    document.documentElement.classList.remove("dark");
-  }, []);
 
   const validateForm = () => {
     const newErrors: {
@@ -77,8 +73,8 @@ export default function RegisterPage() {
         description="WordMashup'ta hesap oluşturun. AI destekli İngilizce öğrenme platformuna katılıp öğrenmeye başlayın."
         noindex={true}
       />
-      <div className="min-h-screen bg-white flex">
-        <div className="flex-1 flex flex-col justify-center px-4 lg:px-8 py-8 sm:px-16">
+      <div className="light-page min-h-screen bg-white flex">
+        <div className="flex-1 flex flex-col justify-center px-6 py-16 sm:px-16 sm:py-12 lg:px-6 lg:py-10">
           <div className="mx-auto w-full max-w-sm">
             <motion.div
               initial={{ opacity: 0, y: -20 }}
@@ -138,7 +134,7 @@ export default function RegisterPage() {
                       setName(e.target.value);
                       if (errors.name) setErrors({ ...errors, name: undefined });
                     }}
-                    className={`block w-full pl-10 pr-3 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all 
+                    className={`block w-full pl-10 pr-3 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all text-gray-900
                     ${errors.name ? "border-red-300 bg-red-50" : "border-gray-300 bg-white hover:border-gray-400"}`}
                     placeholder="Tam adınızı giriniz"
                   />
@@ -171,7 +167,7 @@ export default function RegisterPage() {
                       setEmail(e.target.value);
                       if (errors.email) setErrors({ ...errors, email: undefined });
                     }}
-                    className={`block w-full pl-10 pr-3 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all ${errors.email
+                    className={`block w-full pl-10 pr-3 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all text-gray-900 ${errors.email
                       ? "border-red-300 bg-red-50" : "border-gray-300 bg-white hover:border-gray-400"}`}
                     placeholder="ornek@email.com"
                   />
@@ -205,7 +201,7 @@ export default function RegisterPage() {
                       if (errors.password)
                         setErrors({ ...errors, password: undefined });
                     }}
-                    className={`block w-full pl-10 pr-12 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all ${errors.password
+                    className={`block w-full pl-10 pr-12 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all text-gray-900 ${errors.password
                       ? "border-red-300 bg-red-50" : "border-gray-300 bg-white hover:border-gray-400"}`}
                     placeholder="••••••••"
                   />
