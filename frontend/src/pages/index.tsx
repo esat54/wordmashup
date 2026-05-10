@@ -1,14 +1,10 @@
-import { useEffect } from "react";
-import Header from "@/components/header";
-import HeroArea from "@/components/hero";
-import Features from "@/components/features";
+import Header from "@/components/home/header";
+import HeroArea from "@/components/home/hero";
+import Features from "@/components/home/features";
+import HomeFooter from "@/components/home/footer";
 import SeoHead from "@/components/SeoHead";
 
 export default function Home() {
-  useEffect(() => {
-    document.documentElement.classList.remove("dark");
-  }, []);
-
   return (
     <>
       <SeoHead
@@ -16,7 +12,7 @@ export default function Home() {
         description="Oxford 3000 kelimeler, akıllı sözlük ve gramer dersleriyle İngilizce öğreniminizi başlatın."
       />
 
-      <div className="min-h-screen bg-white relative">
+      <div className="light-page min-h-screen bg-white relative">
         <div className="absolute top-0 left-0 w-full h-screen bg-dot-grid bg-white"></div>
 
         <div
@@ -37,6 +33,7 @@ export default function Home() {
               <Features />
             </section>
           </main>
+          <HomeFooter />
         </div>
       </div>
     </>

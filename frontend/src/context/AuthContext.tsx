@@ -60,6 +60,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const isTester = user?.email === "tester@gmail.com";
     const isLoggedIn = !!user && !isTester;
 
+    useEffect(() => {
+        if (typeof document !== "undefined") {
+            if (user) {
+                document.documentElement.classList.add("is-logged-in");
+                document.documentElement.classList.remove("not-logged-in");
+            } else {
+                document.documentElement.classList.add("not-logged-in");
+                document.documentElement.classList.remove("is-logged-in");
+            }
+        }
+    }, [user]);
+
     return (
         <AuthContext.Provider value={{ user, isTester, isLoggedIn, ready, login, logout }}>
             {children}

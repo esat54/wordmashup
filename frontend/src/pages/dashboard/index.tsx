@@ -1,5 +1,5 @@
 
-import DashboardLayout from "@/components/layout/DashboardLayout";
+import DashboardLayout from "@/components/dashboard/layout/DashboardLayout";
 import DashboardHero from "@/components/dashboard/DashboardHero";
 
 export default function DashboardHomePage() {

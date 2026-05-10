@@ -81,8 +81,8 @@ export default function SettingsPage({ user }: SettingsProps) {
       setDeleteLoading(true);
       await authApi.deleteAccount({ password: deletePassword });
 
+      await router.push("/login");
       logout();
-      router.push("/login");
     } catch (err: any) {
       setDeleteError(err.message || "Hesap silinirken bir hata oluştu.");
       setDeleteLoading(false);

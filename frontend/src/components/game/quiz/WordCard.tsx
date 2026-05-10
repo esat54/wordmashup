@@ -1,6 +1,6 @@
 
 
-import { Check, RotateCw, Save, Loader, Volume2 } from "lucide-react";
+import { Check, RotateCw, Volume2 } from "lucide-react";
 
 interface WordCardProps {
     word: any;
@@ -8,22 +8,20 @@ interface WordCardProps {
     showLang: "TR" | "EN";
     answer: string;
     result: null | boolean;
-    saving: boolean;
     onInputChange: (index: number, value: string) => void;
     onCheck: (index: number) => void;
     onRetry: (index: number) => void;
-    onSave: (index: number) => void;
     onSpeak: (index: number) => void;
     normalize: (str?: string) => string;
 }
 
-export default function WordCard({ word, index, showLang, answer, result, saving, onInputChange, onCheck, onRetry, onSave, onSpeak, normalize }: WordCardProps) {
+export default function WordCard({ word, index, showLang, answer, result, onInputChange, onCheck, onRetry, onSpeak, normalize }: WordCardProps) {
     return (
-        <div className="group flex items-center justify-between bg-white dark:bg-gray-800 border border-slate-200 dark:border-gray-700 hover:border-slate-300 dark:hover:border-gray-700 rounded p-1.5 shadow-sm">
+        <div className="group h-[52px] flex items-center justify-between bg-white dark:bg-gray-800 border border-slate-200 dark:border-gray-700 hover:border-slate-300 dark:hover:border-gray-700 rounded-lg p-1.5 shadow-sm">
             {/* source word */}
             <div className="flex flex-col flex-1 min-w-0 px-2">
-                <span className="text-[13px] font-bold text-slate-700 dark:text-gray-300 truncate leading-relaxed">
-                    {showLang === "TR" ? (word?.translation || "") : (word?.text || "")}
+                <span className="text-[13px] font-bold text-slate-700 dark:text-gray-300 truncate leading-relaxed lowercase">
+                    {showLang === "TR" ? (word?.translation || "").toLowerCase() : (word?.text || "").toLowerCase()}
                 </span>
             </div>
 
@@ -48,7 +46,7 @@ export default function WordCard({ word, index, showLang, answer, result, saving
                         }
                     }}
                     readOnly={result === true}
-                    className={`w-full px-2 py-1 rounded border text-[13px] font-bold tracking-tight outline-none disabled:cursor-not-allowed 
+                    className={`w-full px-2 py-1 rounded border text-xs font-bold tracking-tight outline-none disabled:cursor-not-allowed 
                         ${result === true
                             ? "bg-emerald-50 dark:bg-emerald-900/30 border-emerald-500 dark:border-emerald-400 text-emerald-700 dark:text-emerald-300"
                             : result === false
@@ -64,7 +62,7 @@ export default function WordCard({ word, index, showLang, answer, result, saving
                         className="ml-2 p-1.5 bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-400 rounded-full hover:bg-orange-200 dark:hover:bg-orange-800/40"
                         onClick={() => onRetry(index)}
                     >
-                        <RotateCw className="w-3.5 h-3.5" />
+                        <RotateCw className="w-3 h-3" />
                     </button>
                 ) : (
                     <button
@@ -72,27 +70,15 @@ export default function WordCard({ word, index, showLang, answer, result, saving
                         onMouseDown={(e) => e.preventDefault()}
                         onClick={() => onCheck(index)}
                     >
-                        <Check className="w-3.5 h-3.5" />
+                        <Check className="w-3 h-3" />
                     </button>
                 )}
-
-                <button
-                    className="ml-2 p-1.5 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 rounded-full hover:bg-emerald-200 dark:hover:bg-emerald-800/40 disabled:opacity-50 disabled:cursor-not-allowed"
-                    onClick={() => onSave(index)}
-                    disabled={saving}
-                >
-                    {saving ? (
-                        <Loader className="w-3.5 h-3.5 animate-spin" />
-                    ) : (
-                        <Save className="w-3.5 h-3.5" />
-                    )}
-                </button>
 
                 <button
                     className="ml-2 p-1.5 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-400 rounded-full hover:bg-indigo-200 dark:hover:bg-indigo-800/40"
                     onClick={() => onSpeak(index)}
                 >
-                    <Volume2 className="w-3.5 h-3.5" />
+                    <Volume2 className="w-3 h-3" />
                 </button>
             </div>
         </div>

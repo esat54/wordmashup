@@ -1,4 +1,4 @@
-import DashboardLayout from "@/components/layout/DashboardLayout";
+import DashboardLayout from "@/components/dashboard/layout/DashboardLayout";
 import SettingsPage from "@/components/dashboard/SettingsPage";
 import SeoHead from "@/components/SeoHead";
 import { useAuth } from "@/context/AuthContext";

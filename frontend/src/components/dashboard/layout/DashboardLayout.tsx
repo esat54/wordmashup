@@ -3,8 +3,8 @@ import { useRouter } from "next/router";
 import { AnimatePresence } from "framer-motion";
 import { useAuth } from "@/context/AuthContext";
 
-import Sidebar from "@/components/layout/Sidebar";
-import DashboardHeader from "@/components/layout/Header";
+import Sidebar from "@/components/dashboard/layout/Sidebar";
+import DashboardHeader from "@/components/dashboard/layout/Header";
 
 export type DashboardPageKey =
   | "home"
@@ -41,9 +41,12 @@ export default function DashboardLayout({ activePage, children, }: DashboardLayo
     localStorage.setItem('sidebarOpen', JSON.stringify(sidebarOpen));
   }, [sidebarOpen]);
 
-  const handleLogout = () => {
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
+
+  const handleLogout = async () => {
+    setIsLoggingOut(true);
+    await router.push("/login");
     logout();
-    router.push("/login");
   };
 
   useEffect(() => {
@@ -52,7 +55,7 @@ export default function DashboardLayout({ activePage, children, }: DashboardLayo
     }
   }, [ready, user]);
 
-  if (!ready || !user) {
+  if (!ready || (!user && !isLoggingOut)) {
     return (
       <div className="min-h-screen bg-white dark:bg-gray-900 flex items-center justify-center">
         <div className="text-gray-600 dark:text-gray-400 animate-pulse">Yükleniyor...</div>
@@ -60,7 +63,10 @@ export default function DashboardLayout({ activePage, children, }: DashboardLayo
     );
   }
 
-  const dashboardUser: DashboardUser = { name: user.name || '', email: user.email || '' };
+  const dashboardUser: DashboardUser = { 
+    name: user?.name || '', 
+    email: user?.email || '' 
+  };
 
   const pageTitles: Record<DashboardPageKey, string> = {
     home: "Genel Bakış",

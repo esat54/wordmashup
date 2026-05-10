@@ -1,10 +1,8 @@
-
-
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { BookOpen, ChevronLeft, ChevronRight, FileMinus, FileSearch, FileText, Home, LogOut, Settings, Sparkles } from "lucide-react";
 
-import type { DashboardPageKey } from "@/components/layout/DashboardLayout";
+import type { DashboardPageKey } from "@/components/dashboard/layout/DashboardLayout";
 
 interface SidebarProps {
   user: { name: string; email: string };
@@ -25,11 +23,11 @@ const menuItems: {
   key: DashboardPageKey;
 }[] = [
     { icon: Home, label: "Anasayfa", href: "/dashboard", key: "home" },
-    { icon: BookOpen, label: "Kelimelerim", href: "/dashboard/kelimeler", key: "words" },
-    { icon: FileText, label: "Oxford Liste", href: "/dashboard/oxfordliste", key: "oxford" },
-    { icon: FileSearch, label: "Sözlük", href: "/dashboard/sozluk", key: "dictionary" },
-    { icon: FileMinus, label: "Gramer", href: "/dashboard/gramer", key: "grammar" },
-    { icon: Settings, label: "Ayarlar", href: "/dashboard/ayarlar", key: "settings" },
+    { icon: BookOpen, label: "Kelimelerim", href: "/dashboard/words", key: "words" },
+    { icon: FileText, label: "Oxford Liste", href: "/dashboard/oxford", key: "oxford" },
+    { icon: FileSearch, label: "Sözlük", href: "/dashboard/dictionary", key: "dictionary" },
+    { icon: FileMinus, label: "Gramer", href: "/dashboard/grammar", key: "grammar" },
+    { icon: Settings, label: "Ayarlar", href: "/dashboard/settings", key: "settings" },
   ];
 
 export default function Sidebar({ user, isTester, activePage, onLogout, sidebarOpen = true, onToggle, variant, open, onClose, }: SidebarProps) {
@@ -38,10 +36,10 @@ export default function Sidebar({ user, isTester, activePage, onLogout, sidebarO
       <div className="h-16 flex-shrink-0 flex items-center px-4 border-b border-gray-100 dark:border-gray-700 overflow-hidden">
         <div className="flex items-center min-w-0 w-full">
           <div
-            className={`transition-all duration-300 flex items-center overflow-hidden ${sidebarOpen ? "opacity-100 w-auto" : "opacity-0 w-0"
+            className={`transition-all duration-300 flex items-center overflow-hidden whitespace-nowrap ${sidebarOpen ? "opacity-100 max-w-xs ml-1" : "opacity-0 max-w-0 ml-0"
               }`}
           >
-            <span className="text-xl font-bold text-gray-900 dark:text-white tracking-tight whitespace-nowrap">
+            <span className="text-xl font-bold text-gray-900 dark:text-white tracking-tight">
               Word<span className="text-blue-600 dark:text-blue-400">Mashup</span>
             </span>
           </div>
@@ -85,14 +83,14 @@ export default function Sidebar({ user, isTester, activePage, onLogout, sidebarO
         {variant === "mobile" && (
           <div className="pb-2 mb-2 border-b border-gray-100 dark:border-gray-700">
             <Link
-              href="/quiz"
+              href="/game"
               onClick={onClose}
               className="w-full flex items-center px-4 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-500/20 hover:shadow-lg transition-all font-bold text-sm overflow-hidden"
             >
               <div className="relative flex items-center justify-center">
                 <Sparkles size={20} className="text-white" />
               </div>
-              <span className="ml-3">Quiz'e Git</span>
+              <span className="ml-3">Oyunlara Git</span>
             </Link>
           </div>
         )}

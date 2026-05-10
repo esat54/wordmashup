@@ -14,7 +14,7 @@ export default function DashboardHeader({ user, isTester, onOpenMobileMenu, page
 
   return (
     <header className="sticky top-0 z-50 px-4 sm:px-6 lg:px-7 pt-4 pb-4 lg:pb-0">
-      <div className="max-w-7xl mx-auto bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm rounded-xl h-16 px-4 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm rounded-lg h-16 px-4 flex items-center justify-between">
         <div className="flex items-center gap-4 flex-1">
           <button
             onClick={onOpenMobileMenu}
@@ -36,14 +36,13 @@ export default function DashboardHeader({ user, isTester, onOpenMobileMenu, page
           </span>
         </div>
 
-        {/* Right side - Quiz Button, Test Badge/User Badge, Dark Mode Toggle */}
         <div className="flex items-center justify-end gap-3 flex-1">
           <Link
-            href="/quiz"
+            href="/game"
             className="hidden lg:inline-flex items-center gap-2 px-4 py-1.5 lg:px-5 lg:py-2 rounded-lg text-sm font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-md shadow-blue-500/20 hover:shadow-lg hover:shadow-blue-500/30 transition-all duration-200 hover:-translate-y-[1px] active:translate-y-0"
           >
             <Sparkles className="w-4 h-4" />
-            Quiz'e Git
+            Oyunlara Git
           </Link>
 
           {isTester ? (
@@ -67,32 +66,21 @@ export default function DashboardHeader({ user, isTester, onOpenMobileMenu, page
 
           <button
             onClick={toggleDarkMode}
-            className={`relative inline-flex items-center w-[52px] h-7 rounded-full focus:outline-none flex-shrink-0 border-2 transition-all duration-300 ${!mounted ? "opacity-0" : "opacity-100"
+            className={`inline-flex items-center justify-center w-[32px] h-[32px] rounded-lg transition-colors outline-none focus:outline-none focus-visible:outline-none ring-0 focus:ring-0 ${!mounted ? "opacity-0" : "opacity-100"
               } ${darkMode
-                ? "bg-gray-700 border-gray-600"
-                : "bg-slate-200 border-slate-300"
+                ? "bg-gray-700 text-blue-400 hover:bg-blue-400 hover:text-gray-900"
+                : "bg-gray-200 text-yellow-600 hover:bg-yellow-500 hover:text-white"
               }`}
             title={darkMode ? "Açık Tema" : "Koyu Tema"}
             aria-pressed={darkMode}
             aria-label="Tema Değiştir"
           >
             <span className="sr-only">Tema Değiştir</span>
-
-            <div className="flex w-full justify-between items-center px-1.5 z-0 pointer-events-none">
-              <Sun className={`w-3 h-3 transition-opacity ${darkMode ? "opacity-30 text-gray-500" : "opacity-100 text-yellow-500"}`} />
-              <Moon className={`w-3 h-3 transition-opacity ${darkMode ? "opacity-100 text-blue-400" : "opacity-30 text-gray-400"}`} />
-            </div>
-
-            <span
-              className={`absolute left-0.5 top-0.5 w-5 h-5 bg-white rounded-full shadow-md transform transition-transform duration-300 flex items-center justify-center z-10 ${darkMode ? "translate-x-[25px]" : "translate-x-0"
-                }`}
-            >
-              {darkMode ? (
-                <Moon className="w-3 h-3 text-gray-800 fill-gray-800" />
-              ) : (
-                <Sun className="w-3 h-3 text-yellow-500 fill-yellow-500" />
-              )}
-            </span>
+            {darkMode ? (
+              <Moon className="w-5 h-5" />
+            ) : (
+              <Sun className="w-5 h-5" />
+            )}
           </button>
         </div>
       </div>

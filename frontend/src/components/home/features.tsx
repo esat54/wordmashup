@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Search, Volume2, Info, Plus, CheckCircle2, Clock, Circle, Pencil, ChevronLeft, ChevronRight, Lightbulb, Layout, FileText, TextQuote, BookOpen, BookMarked, BarChart3, PieChart, Heart, Calendar } from "lucide-react";
 import { BarChart as ReBarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart as RechartsPieChart, Pie, Cell } from "recharts";
 
@@ -11,6 +11,15 @@ const features = [
 
 export default function Features() {
     const [activeTab, setActiveTab] = useState(0);
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            if (window.innerWidth >= 1024) {
+                setActiveTab((prev) => (prev + 1) % features.length);
+            }
+        }, 4000);
+        return () => clearInterval(timer);
+    }, []);
 
     return (
         <div className="bg-white">
@@ -46,7 +55,9 @@ export default function Features() {
                 <div className="relative w-full overflow-x-hidden">
                     <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
                         <div className="grid grid-cols-1 lg:grid-cols-12 lg:items-center">
-                            <div className="lg:col-span-4">
+
+
+                            <div className="lg:col-span-4"> 
                                 <div className="lg:hidden mb-6">
                                     <div className="flex items-center justify-between gap-3">
                                         <button onClick={() => setActiveTab((activeTab - 1 + features.length) % features.length)} aria-label="Önceki" className="flex-shrink-0 w-9 h-9 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 border border-white/15 transition-all"><ChevronLeft className="w-4 h-4 text-white" /></button>
@@ -68,13 +79,13 @@ export default function Features() {
                                         </div>
                                     ))}
                                 </div>
-                            </div>
+                            </div>  
 
                             <div className="lg:col-span-8">
                                 <div className="relative w-full lg:w-[880px] max-w-none">
                                     <div className="relative overflow-hidden rounded-[1.5rem] lg:rounded-[2rem] bg-white shadow-2xl">
                                         <div className="relative w-full flex flex-col overflow-hidden p-[3%] gap-[2%] min-h-[320px] sm:min-h-[380px] lg:aspect-[2174/1464] lg:min-h-0">
-                                            {/* AI dictionary */}
+                                            {/* aI dictionary */}
                                             <div className={`flex-1 rounded-xl ${activeTab === 0 ? "block" : "hidden"}`}>
                                                 <div className="flex items-center gap-3 mb-8 bg-slate-100 p-2 rounded-lg border border-slate-200">
                                                     <div className="relative flex-1">

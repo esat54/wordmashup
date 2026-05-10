@@ -1,5 +1,5 @@
 
-import DashboardLayout from "@/components/layout/DashboardLayout";
+import DashboardLayout from "@/components/dashboard/layout/DashboardLayout";
 import WordsPage from "@/components/dashboard/Words/WordsPage";
 import SeoHead from "@/components/SeoHead";
 

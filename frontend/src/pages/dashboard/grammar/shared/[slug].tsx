@@ -1,6 +1,6 @@
 import type { GetServerSideProps } from "next";
 
-import DashboardLayout from "@/components/layout/DashboardLayout";
+import DashboardLayout from "@/components/dashboard/layout/DashboardLayout";
 import GrammarDetailPage from "@/components/dashboard/Grammars/GrammarDetailPage";
 
 interface GlobalGrammarDetailRouteProps {

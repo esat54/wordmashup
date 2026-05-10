@@ -120,7 +120,7 @@ export default function AddGrammar() {
     "w-full px-4 py-2.5 text-sm text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg transition-colors focus:outline-none hover:shadow-[0_0_3px_0_rgba(0,0,0,0.12)]";
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
 
       <h2 className="text-xl font-bold text-gray-800 dark:text-white tracking-tight mb-4">
         Yeni Gramer Konusu Ekle

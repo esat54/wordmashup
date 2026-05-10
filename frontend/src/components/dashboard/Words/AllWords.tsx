@@ -138,7 +138,7 @@ export default function AllWords() {
   };
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 relative">
+    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6 relative">
       {message && (
         <div className="fixed top-5 right-5 z-[9999] flex items-center gap-2 bg-gray-800 dark:bg-gray-700 text-white px-4 py-3 rounded-lg shadow-2xl border border-gray-700 dark:border-gray-600 transition-all">
           <span className="text-sm font-medium">{message}</span>

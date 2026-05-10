@@ -1,7 +1,32 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import { useAuth } from "@/context/AuthContext";
+import { authApi } from "@/lib/api";
+import { Loader2 } from "lucide-react";
 
 export default function HeroArea() {
+  const router = useRouter();
+  const { isLoggedIn, login } = useAuth();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleDemoClick = async () => {
+    if (isLoggedIn) {
+      router.push("/dashboard");
+      return;
+    }
+
+    try {
+      setIsLoading(true);
+      const data = await authApi.testerLogin() as any;
+      login(data.user, data.token);
+      router.push("/dashboard");
+    } catch (error) {
+      console.error("Tester login error:", error);
+      setIsLoading(false);
+    }
+  };
   return (
     <div className="relative min-h-[calc(100vh-5rem)] sm:min-h-[calc(100vh-4rem)] flex items-center pt-[calc(2.5rem+4px)] pb-8 sm:pt-14 sm:pb-12">
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 w-full text-center">
@@ -34,9 +59,13 @@ export default function HeroArea() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12 sm:mb-16"
         >
-          <Link href="/login" className="inline-flex items-center justify-center px-6 py-3 text-base font-semibold text-white bg-gray-900 hover:bg-gray-800 rounded-lg transition-colors">
+          <button 
+            onClick={handleDemoClick}
+            disabled={isLoading}
+            className="inline-flex items-center justify-center px-6 py-3 text-base font-semibold text-white bg-gray-900 hover:bg-gray-800 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          >
             Kayıt olmadan deneyin
-          </Link>
+          </button>
           <Link href="/register" className="inline-flex items-center justify-center px-6 py-3 text-base font-semibold text-blue-600 bg-white hover:bg-gray-50 rounded-lg border-2 border-gray-300 transition-colors">
             Kayıt Ol
           </Link>

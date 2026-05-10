@@ -193,11 +193,10 @@ export default function OxfordListPage() {
               <button
                 onClick={handlePreviousPage}
                 disabled={currentPage === 1}
-                className={`p-1 rounded transition-colors ${
-                  currentPage === 1
-                    ? "text-gray-300 dark:text-gray-600 cursor-not-allowed"
-                    : "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700"
-                }`}
+                className={`p-1 rounded transition-colors ${currentPage === 1
+                  ? "text-gray-300 dark:text-gray-600 cursor-not-allowed"
+                  : "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700"
+                  }`}
               >
                 <ChevronLeft className="w-4 h-4" />
               </button>
@@ -207,11 +206,10 @@ export default function OxfordListPage() {
               <button
                 onClick={handleNextPage}
                 disabled={currentPage === totalPages}
-                className={`p-1 rounded transition-colors ${
-                  currentPage === totalPages
-                    ? "text-gray-300 dark:text-gray-600 cursor-not-allowed"
-                    : "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700"
-                }`}
+                className={`p-1 rounded transition-colors ${currentPage === totalPages
+                  ? "text-gray-300 dark:text-gray-600 cursor-not-allowed"
+                  : "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700"
+                  }`}
               >
                 <ChevronRight className="w-4 h-4" />
               </button>
