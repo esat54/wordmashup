@@ -1,6 +1,6 @@
 
-import { useEffect, useState } from "react";
-import { Trash2, Star, Search, Loader2, X, Volume2, MessageCircleQuestionMark, ChevronLeft, ChevronRight, SlidersHorizontal, ChevronDown } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { Trash2, Star, Search, Loader2, X, Volume2, MessageCircleQuestionMark, ChevronLeft, ChevronRight, SlidersHorizontal, ChevronDown, Pencil, RotateCcw } from "lucide-react";
 import { wordsApi } from "@/lib/api";
 
 const wordTypes = [
@@ -32,6 +32,10 @@ export default function AllWords() {
   const [isFilterGroupOpen, setIsFilterGroupOpen] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [message, setMessage] = useState<string>("");
+  const [flippedCards, setFlippedCards] = useState<Set<string>>(new Set());
+  const [noteTexts, setNoteTexts] = useState<Record<string, string>>({});
+  const saveTimers = useRef<Record<string, ReturnType<typeof setTimeout>>>({});
+
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -56,8 +60,14 @@ export default function AllWords() {
       const response = (await wordsApi.getWords({ limit, skip, type, favoriteFilter, unknownFilter, searchTerm: debouncedSearchTerm, })) as any;
 
       setTimeout(() => {
-        setWords(response.words || []);
+        const fetchedWords = response.words || [];
+        setWords(fetchedWords);
         setTotalWords(response.totalWords || 0);
+        const notes: Record<string, string> = {};
+        fetchedWords.forEach((w: any) => {
+          notes[w._id] = w.note || '';
+        });
+        setNoteTexts(prev => ({ ...prev, ...notes }));
         setLoading(false);
       }, 50);
     } catch (error: any) {
@@ -115,12 +125,43 @@ export default function AllWords() {
 
       setWords((prevWords) => prevWords.filter((word) => word._id !== wordId));
       setTotalWords((prev) => prev - 1);
+      setFlippedCards(prev => { const next = new Set(prev); next.delete(wordId); return next; });
     } catch (error: any) {
       console.error("Silme hatası:", error);
       setMessage(error.message || "Silme işlemi sırasında bir hata oluştu");
       setTimeout(() => setMessage(""), 3000);
     }
   };
+
+  const toggleFlip = (wordId: string, word: any) => {
+    setFlippedCards(prev => {
+      const next = new Set(prev);
+      if (next.has(wordId)) {
+        next.delete(wordId);
+      } else {
+        next.add(wordId);
+        if (noteTexts[wordId] === undefined) {
+          setNoteTexts(p => ({ ...p, [wordId]: word.note || '' }));
+        }
+      }
+      return next;
+    });
+  };
+
+  const handleNoteChange = (wordId: string, value: string) => {
+    setNoteTexts(prev => ({ ...prev, [wordId]: value }));
+
+    if (saveTimers.current[wordId]) clearTimeout(saveTimers.current[wordId]);
+    saveTimers.current[wordId] = setTimeout(async () => {
+      try {
+        await wordsApi.updateNote(wordId, value);
+        setWords(prev => prev.map(w => w._id === wordId ? { ...w, note: value } : w));
+      } catch (e) {
+        console.error('Not kaydedilemedi:', e);
+      }
+    }, 700);
+  };
+
 
   const speak = (text: string) => {
     if (!window.speechSynthesis) {
@@ -520,63 +561,139 @@ export default function AllWords() {
         </div>
       ) : words.length > 0 ? (
         <>
+          <style>{`
+            .word-card-scene {
+              perspective: 1000px;
+            }
+            .word-card-inner {
+              position: relative;
+              width: 100%;
+              height: 100%;
+              transition: transform 0.55s cubic-bezier(0.4, 0.2, 0.2, 1);
+              transform-style: preserve-3d;
+            }
+            .word-card-inner.flipped {
+              transform: rotateY(180deg);
+            }
+            .word-card-face {
+              -webkit-backface-visibility: hidden;
+              backface-visibility: hidden;
+              height: 100%;
+            }
+            .word-card-back {
+              transform: rotateY(180deg);
+            }
+            .word-card-back.absolute-back {
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+            }
+            .note-textarea {
+              resize: none;
+              flex: 1;
+              min-height: 0;
+            }
+          `}</style>
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-            {words.map((word) => (
-              <div key={word._id} className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4 border border-gray-200 dark:border-gray-600">
-                <div className="flex items-start justify-between mb-2">
-                  <div>
-                    <h3 className="font-semibold text-gray-900 dark:text-white">{word.text}</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">{word.translation}</p>
-                  </div>
-                  <div className="flex flex-row gap-1 mt-[2px]">
-                    <button
-                      onClick={() => toggleFavorite(word._id)}
-                      className="text-gray-400 dark:text-gray-500 hover:text-yellow-500 transition-colors"
-                    >
-                      <Star
-                        className={`w-[18px] h-[18px] ${word.favorite ? "fill-current text-yellow-500" : "text-gray-400 dark:text-gray-500"
-                          }`}
+            {words.map((word) => {
+              const isFlipped = flippedCards.has(word._id);
+              const noteVal = noteTexts[word._id] ?? word.note ?? '';
+              const hasNote = !!noteVal.trim();
+              return (
+                <div key={word._id} className="word-card-scene" style={{ display: 'flex' }}>
+                  <div className={`word-card-inner ${isFlipped ? 'flipped' : ''}`}>
+
+                    <div className="word-card-face bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4 border border-gray-200 dark:border-gray-600 relative group">
+                      <div className="flex items-start justify-between mb-2">
+                        <div>
+                          <h3 className="font-semibold text-gray-900 dark:text-white">{word.text}</h3>
+                          <p className="text-sm text-gray-600 dark:text-gray-400">{word.translation}</p>
+                        </div>
+                        <div className="flex flex-row gap-1 mt-[2px]">
+                          <button
+                            onClick={() => toggleFavorite(word._id)}
+                            className="text-gray-400 dark:text-gray-500 hover:text-yellow-500 transition-colors"
+                          >
+                            <Star
+                              className={`w-[18px] h-[18px] ${word.favorite ? "fill-current text-yellow-500" : "text-gray-400 dark:text-gray-500"
+                                }`}
+                            />
+                          </button>
+                          <button
+                            onClick={() => toggleUnknown(word._id)}
+                            className={`transition-colors ${word.isUnknown ? "text-blue-500" : "text-gray-400 dark:text-gray-500 hover:text-blue-500"
+                              }`}
+                            title="Bilinmeyen"
+                          >
+                            <MessageCircleQuestionMark
+                              className={`w-[18px] h-[18px] ${word.isUnknown ? "text-blue-500" : ""}`}
+                            />
+                          </button>
+                          <button
+                            onClick={() => speak(word.text)}
+                            className="text-gray-400 dark:text-gray-500 hover:text-blue-500 transition-colors"
+                            title="Dinle"
+                          >
+                            <Volume2 className="w-[18px] h-[18px]" />
+                          </button>
+                          <button
+                            onClick={() => removeWord(word._id)}
+                            className="text-gray-400 dark:text-gray-500 hover:text-red-500 transition-colors"
+                          >
+                            <Trash2 className="w-[18px] h-[18px]" />
+                          </button>
+                        </div>
+                      </div>
+                      <div className="text-xs text-gray-500 dark:text-gray-400 mb-2">
+                        Tür: {wordTypes.find((t) => t.value === word.type)?.label || word.type}
+                      </div>
+                      <hr className="my-2 border-gray-200 dark:border-gray-600" />
+                      <div className="text-sm text-gray-700 dark:text-gray-300">
+                        <p className="mb-1">
+                          <strong>Örnek:</strong> {word.exampleSentence}
+                        </p>
+                        <p>
+                          <strong>Çeviri:</strong> {word.sentenceTranslation}
+                        </p>
+                      </div>
+
+                      <button
+                        onClick={() => toggleFlip(word._id, word)}
+                        className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-200 text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 z-10 w-[18px] h-[18px] flex items-center justify-center bg-transparent border-0 shadow-none"
+                        title="Not ekle"
+                      >
+                        <Pencil className="w-[18px] h-[18px]" />
+                      </button>
+                    </div>
+                    <div className="word-card-face word-card-back absolute-back bg-gray-50 dark:bg-gray-700/50 rounded-lg p-2.5 border border-gray-200 dark:border-gray-600 flex flex-col relative group">
+                      <textarea
+                        className="note-textarea w-full h-full rounded-lg bg-white dark:bg-gray-600/60 border border-gray-200 dark:border-gray-600 p-2 text-sm text-gray-700 dark:text-gray-200 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-0 focus:border-indigo-500/50 dark:focus:border-indigo-400/50 transition leading-relaxed"
+                        placeholder="Not giriniz"
+                        value={noteVal}
+                        onChange={(e) => handleNoteChange(word._id, e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter') {
+                            e.stopPropagation();
+                          }
+                        }}
                       />
-                    </button>
-                    <button
-                      onClick={() => toggleUnknown(word._id)}
-                      className={`transition-colors ${word.isUnknown ? "text-blue-500" : "text-gray-400 dark:text-gray-500 hover:text-blue-500"
-                        }`}
-                      title="Bilinmeyen"
-                    >
-                      <MessageCircleQuestionMark
-                        className={`w-[18px] h-[18px] ${word.isUnknown ? "text-blue-500" : ""}`}
-                      />
-                    </button>
-                    <button
-                      onClick={() => speak(word.text)}
-                      className="text-gray-400 dark:text-gray-500 hover:text-blue-500 transition-colors"
-                      title="Dinle"
-                    >
-                      <Volume2 className="w-[18px] h-[18px]" />
-                    </button>
-                    <button
-                      onClick={() => removeWord(word._id)}
-                      className="text-gray-400 dark:text-gray-500 hover:text-red-500 transition-colors"
-                    >
-                      <Trash2 className="w-[18px] h-[18px]" />
-                    </button>
+
+                      <button
+                        onClick={() => toggleFlip(word._id, word)}
+                        className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-200 text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 z-10 w-[18px] h-[18px] flex items-center justify-center bg-transparent border-0 shadow-none"
+                        title="Geri dön"
+                      >
+                        <RotateCcw className="w-[18px] h-[18px]" />
+                      </button>
+                    </div>
+
                   </div>
                 </div>
-                <div className="text-xs text-gray-500 dark:text-gray-400 mb-2">
-                  Tür: {wordTypes.find((t) => t.value === word.type)?.label || word.type}
-                </div>
-                <hr className="my-2 border-gray-200 dark:border-gray-600" />
-                <div className="text-sm text-gray-700 dark:text-gray-300">
-                  <p className="mb-1">
-                    <strong>Örnek:</strong> {word.exampleSentence}
-                  </p>
-                  <p>
-                    <strong>Çeviri:</strong> {word.sentenceTranslation}
-                  </p>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
           {totalPages > 1 && (

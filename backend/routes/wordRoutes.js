@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { addWord, getWords, addtoFavorites, addtoUnknown, deleteWord, getLast7DaysStats, getTypeStats, getStreak } = require('../controllers/wordController');
+const { addWord, getWords, addtoFavorites, addtoUnknown, deleteWord, updateNote, getLast7DaysStats, getTypeStats, getStreak } = require('../controllers/wordController');
 const { authenticate } = require('../middleware/authMiddleware');
 
 
@@ -12,6 +12,7 @@ router.get('/stats/types', authenticate, getTypeStats);
 router.get('/stats/streak', authenticate, getStreak);
 router.post('/:wordId/favorite', authenticate, addtoFavorites);
 router.post('/:wordId/unknown', authenticate, addtoUnknown);
+router.patch('/:wordId/note', authenticate, updateNote);
 router.delete('/:wordId', authenticate, deleteWord);
 
 module.exports = router;

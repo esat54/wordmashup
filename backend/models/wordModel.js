@@ -35,6 +35,10 @@ const wordSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    note: {
+        type: String,
+        default: ''
+    },
     addedBy: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',

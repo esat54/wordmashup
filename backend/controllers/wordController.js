@@ -146,6 +146,29 @@ exports.deleteWord = async (req, res) => {
 };
 
 
+exports.updateNote = async (req, res) => {
+    try {
+        const { wordId } = req.params;
+        const { note } = req.body;
+
+        const word = await Word.findOneAndUpdate(
+            { _id: wordId, addedBy: req.userId },
+            { note: note ?? '' },
+            { new: true }
+        );
+
+        if (!word) {
+            return res.status(404).json({ message: 'Kelime bulunamadı' });
+        }
+
+        return res.status(200).json({ word });
+    } catch (error) {
+        console.error('Not güncelleme hatası:', error);
+        return res.status(500).json({ message: 'Sunucu hatası' });
+    }
+};
+
+
 exports.getLast7DaysStats = async (req, res) => {
     try {
         const userId = req.userId;

@@ -170,7 +170,14 @@ export const wordsApi = {
         return apiRequest("/api/words/stats/streak", {
             method: "GET",
         });
-    }
+    },
+
+    updateNote: (wordId: string, note: string) => {
+        return apiRequest(`/api/words/${wordId}/note`, {
+            method: "PATCH",
+            body: JSON.stringify({ note }),
+        });
+    },
 }
 
 
