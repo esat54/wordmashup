@@ -11,10 +11,10 @@ exports.analyzeWord = async (req, res) => {
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
     const model = genAI.getGenerativeModel({
-      model: "gemini-3-flash-preview",
+      model: "gemini-2.5-flash",
       generationConfig: {
         responseMimeType: "application/json",
-        temperature: 0.7
+        temperature: 0.2,
       }
     });
 
@@ -36,7 +36,6 @@ Format:
 
 Word: ${word}`;
 
-
     const result = await model.generateContent(prompt);
     const response = result.response;
     const text = response.text();
@@ -47,18 +46,24 @@ Word: ${word}`;
     try {
       data = JSON.parse(text);
     } catch (e) {
-      console.error("JSON parse hatası:", e.message);
-      return res.status(200).json();
+      console.error("AI JSON parse hatası:", e.message, "Ham yanıt:", text);
+      return res.status(500).json({ message: "AI yanıtı işlenirken hata oluştu." });
     }
 
     if (!Array.isArray(data) || data.length === 0) {
       console.error("Geçersiz format");
-      return res.status(200).json();
+      return res.status(500).json({ message: "Geçersiz format" });
     }
 
     res.status(200).json(data);
 
   } catch (error) {
     console.error("Gemini API Hatası:", error.message);
+    const isQuota = error.message && error.message.includes('429');
+    res.status(500).json({
+      message: isQuota
+        ? "AI şu an yoğun, lütfen birkaç saniye bekleyip tekrar deneyin."
+        : "AI yanıtı alınırken hata oluştu."
+    });
   }
 };
