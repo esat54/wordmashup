@@ -369,7 +369,7 @@ export default function DashboardHero({ user }: { user: { name: string; email: s
                       contentStyle={tooltipStyle}
                       labelStyle={tooltipLabelStyle}
                       itemStyle={{ color: darkMode ? '#e5e7eb' : '#374151' }}
-                      formatter={(value: number | undefined) => [
+                      formatter={(value: any) => [
                         value || 0,
                         "Eklenen Kelime",
                       ]}
@@ -426,7 +426,7 @@ export default function DashboardHero({ user }: { user: { name: string; email: s
                         contentStyle={tooltipStyle}
                         itemStyle={{ color: darkMode ? '#e5e7eb' : '#374151' }}
                         formatter={(
-                          value: number | undefined,
+                          value:  any,
                           _name,
                           props: any,
                         ) => {
