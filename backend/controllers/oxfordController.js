@@ -17,10 +17,10 @@ exports.getWordAiSummary = async (req, res) => {
 
         const genAI = new GoogleGenerativeAI(process.env.OXFORD_GEMINI_API_KEY);
         const model = genAI.getGenerativeModel({
-            model: "gemini-3-flash-preview",
+            model: "gemini-2.5-flash",
             generationConfig: {
                 responseMimeType: "application/json",
-                temperature: 0.4,
+                temperature: 0.2,
             }
         });
 
@@ -87,13 +87,13 @@ exports.getWordsByCategory = async (req, res) => {
 
         const words = await OxfordWord.find({
             word: { $regex: `^${targetLetter}`, $options: 'i' }
-        }).sort({ word: 1 });
+        }).sort({ word: 1 }).lean();
 
         const wordIds = words.map(w => w._id);
         const userProgress = await OxfordUserProgress.find({
             userId: userId,
             oxfordWordId: { $in: wordIds }
-        });
+        }).lean();
 
         const progressMap = {};
         userProgress.forEach(p => {
@@ -109,7 +109,7 @@ exports.getWordsByCategory = async (req, res) => {
                 userNotes: ''
             };
             return {
-                ...word.toObject(),
+                ...word,
                 status: progress.status,
                 userNotes: progress.userNotes
             };
@@ -223,13 +223,11 @@ exports.getStats = async (req, res) => {
     try {
         const userId = req.userId;
 
-        const [totalWords, userProgress] = await Promise.all([
+        const [totalWords, learning, mastered] = await Promise.all([
             OxfordWord.countDocuments(),
-            OxfordUserProgress.find({ userId }).select('status'),
+            OxfordUserProgress.countDocuments({ userId, status: 'learning' }),
+            OxfordUserProgress.countDocuments({ userId, status: 'mastered' }),
         ]);
-
-        const learning = userProgress.filter(p => p.status === 'learning').length;
-        const mastered = userProgress.filter(p => p.status === 'mastered').length;
 
         res.status(200).json({ totalWords, learning, mastered });
     } catch (error) {
