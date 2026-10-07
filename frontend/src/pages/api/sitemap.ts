@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
 async function generateSitemap() {
-  const baseUrl = "https://www.wordmashup.xyz";
+  const baseUrl = "https://www.wordmashup.online";
 
   const pages = [
     { loc: "", priority: "1.0", changefreq: "weekly" },

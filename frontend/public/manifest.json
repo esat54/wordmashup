@@ -2,13 +2,17 @@
   "name": "WordMashup - AI Destekli İngilizce Öğrenme Platformu",
   "short_name": "WordMashup",
   "description": "AI destekli akıllı sözlük, Oxford 3000 kelime listesi ve kişiselleştirilmiş gramer notları ile İngilizce öğreniminizi dijitalleştirin.",
-  "start_url": "https://www.wordmashup.xyz",
+  "start_url": "https://www.wordmashup.online",
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait-primary",
   "theme_color": "#0F172A",
   "background_color": "#ffffff",
-  "categories": ["education", "language", "learning"],
+  "categories": [
+    "education",
+    "language",
+    "learning"
+  ],
   "screenshots": [
     {
       "src": "/og-image.webp",
@@ -26,7 +30,6 @@
       "purpose": "any maskable"
     }
   ],
-
   "shortcuts": [
     {
       "name": "Kelimelerim",

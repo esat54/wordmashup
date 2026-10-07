@@ -1,11 +1,79 @@
 const OxfordWord = require('../models/OxfordWord');
 const OxfordUserProgress = require('../models/OxfordUserProgress');
+const { GoogleGenerativeAI } = require("@google/generative-ai");
+
+exports.getWordAiSummary = async (req, res) => {
+    try {
+        const { wordId } = req.params;
+
+        const word = await OxfordWord.findById(wordId);
+        if (!word) {
+            return res.status(404).json({ message: 'Kelime bulunamadı' });
+        }
+
+        if (word.aiSummary) {
+            return res.status(200).json(word.aiSummary);
+        }
+
+        const genAI = new GoogleGenerativeAI(process.env.OXFORD_GEMINI_API_KEY);
+        const model = genAI.getGenerativeModel({
+            model: "gemini-3-flash-preview",
+            generationConfig: {
+                responseMimeType: "application/json",
+                temperature: 0.4,
+            }
+        });
+
+        const prompt = `Analyze the English word "${word.word}" (Turkish meaning: "${word.translation}").
+Return ONLY a valid JSON object. No markdown, no code blocks, no extra text.
+
+Format:
+{
+  "wordType": "word type in Turkish (e.g. sıfat, isim, fiil, phrasal verb, edat, zarf, bağlaç)",
+  "summary": "Short Turkish explanation of the word's core meaning and nuance (2-3 sentences max).",
+  "ipa": "/phonetic transcription/",
+  "isMostCommon": true or false (is this word the most natural/common choice for this meaning in English?),
+  "commonUsageNotes": "Turkish explanation about whether this word is the most common for this meaning, its register (formal/informal/neutral), and any important usage tips.",
+  "alternatives": ["alternative1", "alternative2", "alternative3"],
+  "examples": [
+    {"en": "Medium length B1-B2 level English sentence using '${word.word}'.", "tr": "Turkish translation of that sentence."},
+    {"en": "Another B1-B2 level English sentence.", "tr": "Turkish translation."},
+    {"en": "Third B1-B2 level English sentence.", "tr": "Turkish translation."}
+  ]
+}`;
+
+        const result = await model.generateContent(prompt);
+        const text = result.response.text();
+
+        let data;
+        try {
+            data = JSON.parse(text);
+        } catch (e) {
+            console.error("AI JSON parse hatası:", e.message, "Ham yanıt:", text);
+            return res.status(500).json({ message: "AI yanıtı işlenirken hata oluştu." });
+        }
+
+        // Cache the result in DB
+        await OxfordWord.findByIdAndUpdate(wordId, { aiSummary: data });
+
+        return res.status(200).json(data);
+
+    } catch (error) {
+        console.error("getWordAiSummary error:", error.message);
+        const isQuota = error.message && error.message.includes('429');
+        res.status(500).json({
+            message: isQuota
+                ? "AI şu an yoğun, lütfen birkaç saniye bekleyip tekrar deneyin."
+                : "AI özeti alınırken hata oluştu."
+        });
+    }
+};
 
 exports.getWordsByCategory = async (req, res) => {
     try {
         const { categoryId } = req.params;
         const userId = req.userId;
-        
+
         if (!categoryId) {
             return res.status(400).json({ message: 'categoryId gereklidir' });
         }
@@ -15,11 +83,11 @@ exports.getWordsByCategory = async (req, res) => {
             return res.status(400).json({ message: 'Geçersiz categoryId' });
         }
 
-        const targetLetter = String.fromCharCode(64 + categoryIdNum); 
-        
+        const targetLetter = String.fromCharCode(64 + categoryIdNum);
+
         const words = await OxfordWord.find({
             word: { $regex: `^${targetLetter}`, $options: 'i' }
-        }).sort({ word: 1 }); 
+        }).sort({ word: 1 });
 
         const wordIds = words.map(w => w._id);
         const userProgress = await OxfordUserProgress.find({

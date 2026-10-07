@@ -10,7 +10,7 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
 [![Google Gemini](https://img.shields.io/badge/Google-Gemini_AI-orange?style=for-the-badge&logo=google)](https://deepmind.google/technologies/gemini/)
 
-[🌐 Canlı Demo](https://www.wordmashup.xyz) · [🐛 Hata Bildir](https://github.com/esat54/wordmashup/issues) · [💡 Özellik İste](https://github.com/esat54/wordmashup/issues)
+[🌐 Canlı Demo](https://www.wordmashup.online) · [🐛 Hata Bildir](https://github.com/esat54/wordmashup/issues) · [💡 Özellik İste](https://github.com/esat54/wordmashup/issues)
 
 </div>
 
@@ -18,224 +18,156 @@
 
 ## 🌟 WordMashup Nedir?
 
-WordMashup; kelime defteri, akıllı sözlük, gramer rehberi ve kelime testi özelliklerini tek çatı altında sunan, yapay zekâ destekli bir **İngilizce öğrenme platformudur**.
+**WordMashup**; kişisel kelime defteri, Google Gemini destekli akıllı sözlük, kapsamlı gramer rehberi, Oxford 3000 entegrasyonu ve oyunlaştırılmış alıştırma modüllerini tek çatı altında buluşturan yeni nesil bir **İngilizce öğrenme platformudur**.
 
-Kendi cümlelerinizle öğrenin, flashcard sistemiyle pekiştirin, Oxford'un 3000 kelimelik listesini takip edin ve ilerlemenizi istatistiklerle izleyin.
+Kendi cümleleriniz ve notlarınızla kelimeleri kaydedin, 3D çevrilebilir Flashcard sistemiyle ezberinizi güçlendirin, seviyeli quizlerle bilginizi sınayın, Oxford'un temel 3000 kelimelik listesinde ilerlemenizi izleyin ve günlük çalışma serinizi (streak) koruyarak dil öğrenimini sürdürülebilir bir alışkanlığa dönüştürün.
 
 ---
 
 ## ✨ Özellikler
 
 ### 📝 Kişisel Kelime Defteri
-- Kelimelerinizi **anlam, örnek cümle ve çevirisiyle** birlikte kaydedin
-- Tüm kelimelerinizi tek listede görüntüleyin; **türe, favoriye veya öğrenme durumuna** göre filtreleyin
-- Kelimelerinizi **favori** olarak işaretleyin
+- **Zengin Kelime Kaydı**: Kelimelerinizi Türkçe anlamı, türü (isim, fiil, sıfat vb.), örnek cümlesi, Türkçe çevirisi ve kişisel notlarınızla birlikte kaydedin.
+- **Akıllı Filtreleme & Arama**: Kelimeleri türe, öğrenilme durumuna (öğrenildi / bilinmiyor) ve favorilere göre anlık olarak filtreleyin.
+- **Favoriler & Durum Yönetimi**: Önemli kelimeleri tek tıkla favorileyin ya da tekrar çalışmak üzere "bilinmiyor" olarak işaretleyin.
+- **Kişisel Notlar**: Her kelimeye özel açıklamalar veya hatırlatıcı ipuçları ekleyin.
 
-### 🃏 Flashcard Sistemi
-- Kaydettiğiniz kelimeleri **kart çevirme** yöntemiyle tekrar edin
-- Günlük tekrar alışkanlığı edinerek **streak (seri)** oluşturun
-- Bildiğiniz ve bilmediğiniz kelimeleri ayrıştırarak öğrenmeyi hızlandırın
+### 🃏 3D İnteraktif Flashcard Sistemi
+- **Kart Çevirme Deneyimi**: Kelimelerinizi gerçekçi 3D kart çevirme efektiyle pratik yaparak ezberleyin.
+- **Sesli Okuma (Telaffuz Desteği)**: Web Speech API entegrasyonu ile kelimelerin doğru İngilizce telaffuzunu anında dinleyin.
+- **Kartları Karıştırma & Filtreleme**: Kart destesini rastgele sıralayın, yalnızca favori veya öğrenilmemiş kelimelere odaklanın.
+- **İlerleme Takibi**: Her kartta "Biliyorum" veya "Öğreniyorum" seçimleriyle kelime durumunu doğrudan güncelleyin.
 
-### 📚 Gramer Rehberi
-- Kendi **gramer yapılarınızı** ekleyin: formül, kural, notlar ve İngilizce/Türkçe örneklerle
-- Platform tarafından sunulan **hazır gramer içeriklerini** inceleyin
-- Önemli yapıları **sabitleyin** ve dilediğiniz zaman hızlıca erişin
+### 🎮 Oyun & Alıştırma Merkezi (`/game`)
+- **Word Quiz**: CEFR seviyelerine (Basic, Intermediate, Advanced) ve ilgi alanlarına (Teknoloji, İş Dünyası, Seyahat, Günlük Hayat vb.) göre çoktan seçmeli kelime sınavları.
+- **Kişisel Quiz**: Kendi kelime defterinizdeki kelimelerden otomatik oluşturulan özel quizler çözün.
+- **Oyun İçi Kelime Kaydetme**: Quiz sırasında karşılaştığınız bilmediğiniz kelimeleri tek tıkla defterinize ekleyin.
+- **Anlık Görsel Geri Bildirim**: Doğru/yanlış cevaplarda açıklayıcı renkli ipuçları ve puanlama.
 
-### 🤖 Yapay Zekâ Destekli Sözlük
-- Bir kelime girin, Yapay zekâ sizin için **3 farklı açıklama ve örnek cümle** üretsin
-- Anlamları derinlemesine kavramanıza yardımcı olacak bağlamsal açıklamalar
-- Sözlük sonuçlarını doğrudan kelime defterinize ekleyebilme imkânı
+### 🤖 Google Gemini Destekli Akıllı Sözlük
+- **Derinlemesine Kelime Analizi**: Aradığınız kelimenin anlamını, fonetik okunuşunu ve farklı kullanım bağlamlarını yapay zekâ ile öğrenin.
+- **Seviyelendirilmiş Örnek Cümleler**: Yapay zekâ tarafından üretilen 3 farklı seviyede örnek cümle ve Türkçe çevirileri.
+- **Tek Tıkla Deftere Ekleme**: AI analiz sonuçlarını ve örnek cümleleri doğrudan kelime defterinize aktarın.
+- **Akıllı Önbellekleme**: Sorgulanan analizleri veritabanında saklayarak hızlı ve maliyetsiz yanıt performansı.
 
-### 🎓 Oxford 3000 Kelime Listesi
-- Oxford'un belirlediği **3000 temel İngilizce kelimeyi** takip edin
-- Her kelimeyi **öğrenildi / öğreniliyor / öğrenilmedi** olarak işaretleyin
-- Her kelime için **kişisel not** ekleyin
-- Kelimeleri **seviye (A1–C1)** ve **kategori** bazında filtreleyin
+### 🎓 Oxford 3000™ Kelime Entegrasyonu
+- **Temel Kelime Listesi**: Oxford tarafından belirlenen en önemli 3000 İngilizce kelimeyi kategoriler ve CEFR seviyeleri (A1–C1) bazında inceleyin.
+- **Bireysel İlerleme Durumu**: Her Oxford kelimesini *Öğrenildi*, *Öğreniliyor* veya *Öğrenilmedi* olarak işaretleyin.
+- **Kişisel Not & AI Özeti**: Oxford kelimeleri için kişisel çalışma notları ekleyin ve tek tıkla yapay zekâ özetine ulaşın.
+- **Detaylı İlerleme İstatistiği**: Toplam ve kategori bazlı tamamlanma yüzdelerini izleyin.
 
-### 🎮 Kelime Quizi
-- **Seviye** (Basic / Intermediate / Advanced) ve **kategoriye** (Teknoloji, İş, Spor vb.) göre quiz oluşturun
-- Kişisel kelime listenizden **özelleştirilmiş sınav** alın
-- Doğru/yanlış cevaplarınızı renkli geri bildirimlerle görüntüleyin
+### 📚 Dinamik Gramer Rehberi
+- **Kişisel Konu Ekleme**: Kendi gramer notlarınızı formül, kullanım kuralı ve iki dilli örneklerle yapılandırın.
+- **Kategori Yönetimi**: Gramer başlıklarını özel kategoriler altında organize edin.
+- **Sabitleme (Pin)**: Sık çalıştığınız veya kritik gramer konularını başa sabitleyin.
+- **Global Gramer Kütüphanesi**: Platform tarafından sunulan hazır gramer konularından faydalanın.
 
-### 📊 İstatistikler & İlerleme Takibi
-- Günlük çalışma serinizi (streak) takip edin
-- Kaç kelime öğrendiğinizi, kaç quiz çözdüğünüzü **grafiklerle** görüntüleyin
-- Oxford listesindeki ilerlemenizi yüzde olarak izleyin
+### 📊 İstatistikler, Seri (Streak) & Analitik
+- **Günlük Seri (Streak)**: Her gün aktif olarak çalışarak çalışma serinizi ve motivasyonunuzu koruyun.
+- **Haftalık Aktivite Grafiği**: Son 7 günde kaydedilen kelime ve çalışma temposunu görsel grafiklerle takip edin.
+- **Kelime Türü Dağılımı**: Kaydettiğiniz kelimelerin tür bazlı dağılımını grafiksel olarak analiz edin.
+
+### 🔐 Güvenlik & Kullanıcı Yönetimi
+- **JWT & Şifreleme**: JSON Web Token tabanlı güvenli oturum yönetimi ve bcrypt ile korunan şifreler.
+- **Hızlı Demo Girişi (Tester Login)**: Kayıt olmadan platformu deneyimlemek isteyenler için tek tıkla test kullanıcısı oturumu.
+- **Hesap & Parola Yönetimi**: Parola değiştirme ve hesap silme desteği.
+
+### 🎨 Tasarım & SEO Optimizasyonları
+- **Dark / Light Mod**: Gözü yormayan modern karanlık ve aydınlık tema desteği.
+- **Modern UI/UX**: Tailwind CSS, Lucide ikonları ve Framer Motion geçişleri.
+- **SEO & Google Sitelinks**: Breadcrumb, robots.txt, dinamik XML sitemap (`/api/sitemap`) ve Schema.org JSON-LD yapılandırılmış veri entegrasyonu.
 
 ---
 
 ## 🛠️ Teknoloji Yığını
 
-| Katman | Teknoloji |
-|--------|-----------|
-| **Frontend** | Next.js 16, React 19, TypeScript |
-| **Stil** | Tailwind CSS, Framer Motion |
-| **Backend** | Node.js, Express.js |
-| **Veritabanı** | MongoDB, Mongoose |
-| **Yapay Zekâ** | Google Gemini API (`@google/generative-ai`) |
-| **Auth** | JWT (JSON Web Token), bcrypt |
-| **Grafikler** | Recharts |
-| **İkonlar** | Lucide React |
-| **Güvenlik** | Helmet, express-rate-limit, CORS |
-
----
-
-## 📁 Proje Yapısı
-
-```
-wordmashup/
-├── frontend/                   # Next.js uygulaması
-│   └── src/
-│       ├── pages/
-│       │   ├── index.tsx       # Ana sayfa (Landing)
-│       │   ├── login.tsx       # Giriş sayfası
-│       │   ├── register.tsx    # Kayıt sayfası
-│       │   ├── quiz/           # Kelime quiz sayfası
-│       │   └── dashboard/      # Uygulama paneli
-│       │       ├── index.tsx   # Genel bakış & İstatistikler
-│       │       ├── kelimeler.tsx    # Kelime defteri
-│       │       ├── gramer/          # Gramer rehberi
-│       │       ├── sozluk.tsx       # AI Sözlük
-│       │       ├── oxfordliste.tsx  # Oxford 3000 listesi
-│       │       └── ayarlar.tsx      # Kullanıcı ayarları
-│       └── components/
-│           ├── dashboard/
-│           │   ├── Words/           # Kelime bileşenleri
-│           │   ├── Grammars/        # Gramer bileşenleri
-│           │   ├── DashboardHero.tsx
-│           │   ├── DictionaryPage.tsx
-│           │   ├── OxfordListPage.tsx
-│           │   └── SettingsPage.tsx
-│           └── WordQuiz/            # Quiz bileşenleri
-│
-└── backend/                    # Express.js API
-    ├── server.js               # Sunucu giriş noktası
-    ├── config/
-    │   └── db.js               # MongoDB bağlantısı
-    ├── models/
-    │   ├── authModel.js        # Kullanıcı modeli (streak dahil)
-    │   ├── wordModel.js        # Kelime modeli
-    │   ├── grammarModel.js     # Gramer modeli
-    │   ├── OxfordWord.js       # Oxford kelime modeli
-    │   ├── OxfordUserProgress.js  # Oxford ilerleme takibi
-    │   ├── wordQuizModel.js    # Quiz kelime modeli
-    │   └── SavedQuizWord.js    # Kaydedilen quiz kelimeleri
-    ├── routes/
-    │   ├── authRoutes.js
-    │   ├── wordRoutes.js
-    │   ├── dictionaryRoutes.js
-    │   ├── grammarRoutes.js
-    │   ├── oxfordRoutes.js
-    │   └── quizRoutes.js
-    ├── controllers/            # İş mantığı
-    └── middleware/             # Auth middleware
-```
-
----
-
-## 🚀 Kurulum
-
-### Gereksinimler
-
-Aşağıdakilerin bilgisayarınızda yüklü olduğundan emin olun:
-
-- [Node.js](https://nodejs.org/) v18 veya üzeri
-- [npm](https://www.npmjs.com/) v9 veya üzeri
-- [MongoDB](https://www.mongodb.com/) (yerel kurulum veya [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) ücretsiz hesabı)
-- [Google Gemini API Key](https://aistudio.google.com/app/apikey) (yapay zekâ sözlük özelliği için)
-
----
-
-### 1. Depoyu Klonlayın
-
-```bash
-git clone https://github.com/esat54/wordmashup.git
-cd wordmashup
-```
-
----
-
-### 2. Bağımlılıkları Kurun
-
-Tüm bağımlılıkları (frontend + backend) tek komutla kurun:
-
-```bash
-npm install
-```
-
----
-
-### 3. Ortam Değişkenlerini Ayarlayın
-
-#### Backend `.env` dosyası
-
-`backend/` klasörünün içinde `.env` adlı bir dosya oluşturun:
-
-```env
-PORT=3001
-MONGO_URI=mongodb_url_yazınız
-JWT_SECRET=gizli_bir_anahtar_yazınız
-GEMINI_API_KEY=your_google_gemini_api_key
-```
-
-> **Not:** `GEMINI_API_KEY` için [Google AI Studio](https://aistudio.google.com/app/apikey) adresinden ücretsiz API anahtarı alabilirsiniz.
-
-#### Frontend `.env.local` dosyası
-
-`frontend/` klasörünün içinde `.env.local` adlı bir dosya oluşturun:
-
-```env
-NEXT_PUBLIC_API_URL=http://localhost:3001
-```
-
----
-
-### 4. Uygulamayı Başlatın
-
-#### Her iki uygulamayı aynı anda başlatın (kök dizinden):
-
-```bash
-npm run dev
-```
-
-#### Ya da ayrı ayrı başlatın:
-
-```bash
-# Sadece backend (http://localhost:3001)
-npm run dev:backend
-
-# Sadece frontend (http://localhost:3000)
-npm run dev:frontend
-```
-
-Uygulama açıldıktan sonra tarayıcınızda **http://localhost:3000** adresini açın. 🎉
+| Katman | Teknoloji | Açıklama |
+|---|---|---|
+| **Frontend** | [Next.js 16](https://nextjs.org/) · [React 19](https://react.dev/) · [TypeScript](https://www.typescriptlang.org/) | Hızlı, tip güvenli ve SEO dostu modern mimari |
+| **Stil & Animasyon** | [Tailwind CSS](https://tailwindcss.com/) · [Framer Motion](https://www.framer.com/motion/) | Esnek tasarım sistemi ve akıcı kullanıcı deneyimi |
+| **Backend** | [Node.js](https://nodejs.org/) · [Express.js](https://expressjs.com/) | RESTful API sunucusu |
+| **Veritabanı** | [MongoDB](https://www.mongodb.com/) · [Mongoose](https://mongoosejs.com/) | Doküman tabanlı NoSQL veri modeli |
+| **Yapay Zekâ** | [Google Gemini API](https://ai.google.dev/) (`@google/generative-ai`) | Akıllı sözlük, bağlamsal açıklamalar ve kelime özetleri |
+| **Kimlik Doğrulama** | JWT (JSON Web Token) · bcryptjs | Güvenli token ve parola yönetimi |
+| **Veri Görselleştirme** | [Recharts](https://recharts.org/) | İlerleme ve analiz grafikleri |
+| **İkonlar** | [Lucide React](https://lucide.dev/) | Tutarlı ve minimalist ikon seti |
+| **Güvenlik & Log** | CORS · Morgan | Güvenli kaynak paylaşımı ve istek loglama |
 
 ---
 
 ## 🔌 API Rotaları
 
-| Yöntem | Rota | Açıklama |
-|--------|------|----------|
-| `POST` | `/api/auth/register` | Yeni kullanıcı kaydı |
-| `POST` | `/api/auth/login` | Kullanıcı girişi |
-| `GET/POST/DELETE` | `/api/words` | Kelime CRUD işlemleri |
-| `GET/POST` | `/api/grammar` | Gramer CRUD işlemleri |
-| `POST` | `/api/dictionary` | AI sözlük (Gemini) |
-| `GET` | `/api/oxford` | Oxford kelime listesi |
-| `GET/POST` | `/api/quiz` | Quiz işlemleri |
-| `GET` | `/api/health` | Sunucu sağlık kontrolü |
+Tüm korumalı rotalar istek başlığında `Authorization: Bearer <token>` gerektirir.
 
----
+### 🔐 Kimlik Doğrulama (`/api/auth`)
 
-## 📜 Kullanılabilir Komutlar
+| Yöntem | Rota | Auth | Açıklama |
+|---|---|:---:|---|
+| `POST` | `/api/auth/register` | ❌ | Yeni kullanıcı hesabı oluşturur |
+| `POST` | `/api/auth/login` | ❌ | Kullanıcı girişi yapar ve JWT döndürür |
+| `POST` | `/api/auth/tester-login` | ❌ | Demo/test kullanıcısı ile doğrudan giriş sağlar |
+| `GET` | `/api/auth/me` | 🔒 | Oturum açmış kullanıcının profil ve streak bilgilerini getirir |
+| `POST` | `/api/auth/change-password` | 🔒 | Kullanıcı şifresini günceller |
+| `DELETE` | `/api/auth/account` | 🔒 | Kullanıcı hesabını ve ilişkili verilerini siler |
 
-| Komut | Açıklama |
-|-------|----------|
-| `npm run dev` | Frontend + Backend'i birlikte başlatır |
-| `npm run dev:backend` | Yalnızca backend'i başlatır |
-| `npm run dev:frontend` | Yalnızca frontend'i başlatır |
-| `npm run build` | Production build alır |
-| `npm run clean` | Tüm `node_modules` ve build çıktılarını temizler |
+### 📝 Kelimeler (`/api/words`)
+
+| Yöntem | Rota | Auth | Açıklama |
+|---|---|:---:|---|
+| `GET` | `/api/words` | 🔒 | Kullanıcının kelimelerini listeler (filtreleme, arama ve sayfalama) |
+| `POST` | `/api/words` | 🔒 | Deftere yeni kelime ekler |
+| `DELETE` | `/api/words/:wordId` | 🔒 | Belirtilen kelimeyi defterden siler |
+| `POST` | `/api/words/:wordId/favorite` | 🔒 | Kelimenin favori durumunu değiştirir (toggle) |
+| `POST` | `/api/words/:wordId/unknown` | 🔒 | Kelimenin bilinmeyen/öğrenilme durumunu değiştirir (toggle) |
+| `PATCH` | `/api/words/:wordId/note` | 🔒 | Kelimeye eklenen kişisel notu günceller |
+| `GET` | `/api/words/stats/last7days` | 🔒 | Son 7 günün kelime ekleme ve aktivite istatistiklerini getirir |
+| `GET` | `/api/words/stats/types` | 🔒 | Kelime türlerine göre dağılım istatistiklerini getirir |
+| `GET` | `/api/words/stats/streak` | 🔒 | Güncel çalışma serisi (streak) bilgilerini getirir |
+
+### 🤖 Yapay Zekâ Sözlük (`/api/dictionary`)
+
+| Yöntem | Rota | Auth | Açıklama |
+|---|---|:---:|---|
+| `POST` | `/api/dictionary/analyze` | 🔒 | Google Gemini ile kelime analizi, tanımlar ve örnek cümleler üretir |
+
+### 🎓 Oxford 3000™ (`/api/oxford`)
+
+| Yöntem | Rota | Auth | Açıklama |
+|---|---|:---:|---|
+| `GET` | `/api/oxford/category/:categoryId` | 🔒 | Seçilen kategoriye ait Oxford kelimelerini getirir |
+| `GET` | `/api/oxford/stats` | 🔒 | Oxford listesi genel ilerleme ve tamamlanma oranlarını getirir |
+| `GET` | `/api/oxford/:wordId/ai-summary` | 🔒 | Oxford kelimesi için Gemini destekli AI açıklamasını getirir/üretir |
+| `PATCH` | `/api/oxford/:wordId/status` | 🔒 | Oxford kelimesinin öğrenilme durumunu günceller (`learned`, `learning`, `not_learned`) |
+| `PATCH` | `/api/oxford/:wordId/note` | 🔒 | Oxford kelimesine ait kişisel notu günceller |
+
+### 📚 Gramer (`/api/grammar`)
+
+| Yöntem | Rota | Auth | Açıklama |
+|---|---|:---:|---|
+| `GET` | `/api/grammar` | 🔒 | Kullanıcının oluşturduğu gramer konularını listeler |
+| `POST` | `/api/grammar` | 🔒 | Yeni gramer konusu ekler |
+| `GET` | `/api/grammar/global` | ❌ | Platformun sunduğu hazır/genel gramer konularını listeler |
+| `GET` | `/api/grammar/categories` | 🔒 | Kullanıcının gramer kategorilerini getirir |
+| `DELETE` | `/api/grammar/categories` | 🔒 | Belirtilen gramer kategorisini siler |
+| `GET` | `/api/grammar/:id` | 🔒 | Belirtilen gramer konusunun ayrıntılarını getirir |
+| `PUT` | `/api/grammar/:id` | 🔒 | Belirtilen gramer konusunu günceller |
+| `DELETE` | `/api/grammar/:id` | 🔒 | Belirtilen gramer konusunu siler |
+| `POST` | `/api/grammar/:id/toggle-pin` | 🔒 | Gramer konusunun sabitlenme durumunu değiştirir (toggle) |
+
+### 🎮 Quiz & Oyunlar (`/api/quiz`)
+
+| Yöntem | Rota | Auth | Açıklama |
+|---|---|:---:|---|
+| `GET` | `/api/quiz/user` | 🔒 | Kullanıcının kendi kelime defterinden quiz soruları üretir |
+| `GET` | `/api/quiz/global` | ❌ | Seviye ve kategoriye göre genel kelime havuzundan quiz soruları getirir |
+| `POST` | `/api/quiz/save` | 🔒 | Quiz esnasında bilmediğiniz bir kelimeyi deftere kaydeder |
+
+### 🩺 Sistem Durumu
+
+| Yöntem | Rota | Auth | Açıklama |
+|---|---|:---:|---|
+| `GET` | `/api/health` | ❌ | API sunucusunun çalışma ve sağlık durumunu kontrol eder |
+| `GET` | `/api/sitemap` | ❌ | Dinamik XML site haritasını (sitemap.xml) döndürür |
 
 ---
 
@@ -254,10 +186,3 @@ Katkılarınızı memnuniyetle karşılıyoruz! Şu adımları izleyin:
 ## 📄 Lisans
 
 Bu proje [MIT Lisansı](LICENSE) ile lisanslanmıştır.
-
-
----
-
-
-
-</div>

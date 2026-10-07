@@ -13,4 +13,4 @@ Disallow: /_next/
 Disallow: /404
 Disallow: /500
 
-Sitemap: https://www.wordmashup.xyz/api/sitemap
+Sitemap: https://www.wordmashup.online/api/sitemap

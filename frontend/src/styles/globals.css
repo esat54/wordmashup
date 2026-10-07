@@ -132,5 +132,10 @@ div[data-next-badge="true"] {
   transition-delay: 0s !important;
 }
 
-html.is-logged-in .show-if-logged-out { display: none !important; }
-html.not-logged-in .show-if-logged-in { display: none !important; }
+html.is-logged-in .show-if-logged-out {
+  display: none !important;
+}
+
+html.not-logged-in .show-if-logged-in {
+  display: none !important;
+}

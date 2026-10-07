@@ -2,7 +2,6 @@ const jwt = require('jsonwebtoken');
 
 exports.authenticate = async (req, res, next) => {
     try {
-        // 1. Header'dan tokeni al
         const authHeader = req.headers.authorization;
 
         if (!authHeader || !authHeader.startsWith('Bearer ')) {

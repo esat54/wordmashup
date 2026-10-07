@@ -13,7 +13,7 @@
 
 const { chromium } = require('playwright');
 
-const LOGIN_URL = 'https://www.wordmashup.xyz/login';
+const LOGIN_URL = 'https://www.wordmashup.online/login';
 const EMAIL = process.env.KEEPALIVE_EMAIL;
 const PASSWORD = process.env.KEEPALIVE_PASSWORD;
 

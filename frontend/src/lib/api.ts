@@ -219,6 +219,12 @@ export const oxfordApi = {
             method: "GET",
         });
     },
+
+    getAiSummary: (wordId: string) => {
+        return apiRequest(`/api/oxford/${wordId}/ai-summary`, {
+            method: "GET",
+        });
+    },
 };
 
 

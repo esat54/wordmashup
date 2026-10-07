@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { Edit2, X, Save, Loader2, AlertCircle, ChevronLeft, ChevronRight, Circle, Clock, CheckCircle2, User } from "lucide-react";
+import { Edit2, X, Save, Loader2, AlertCircle, ChevronLeft, ChevronRight, Circle, Clock, CheckCircle2, User, Sparkles, BookOpen, ArrowRightLeft } from "lucide-react";
 import { oxfordApi } from "@/lib/api";
 import { useAuth } from "@/context/AuthContext";
 
@@ -13,6 +13,16 @@ interface OxfordWord {
   status: "new" | "learning" | "mastered";
   userNotes: string;
   categoryId: number;
+}
+
+interface AiSummary {
+  wordType: string;
+  summary: string;
+  ipa: string;
+  isMostCommon: boolean;
+  commonUsageNotes: string;
+  alternatives: string[];
+  examples: { en: string; tr: string }[];
 }
 
 const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
@@ -35,6 +45,11 @@ export default function OxfordListPage() {
   const [editedNotes, setEditedNotes] = useState("");
   const [saving, setSaving] = useState(false);
   const [isStatusOpen, setIsStatusOpen] = useState(false);
+  const [isAiModalOpen, setIsAiModalOpen] = useState(false);
+  const [aiWord, setAiWord] = useState<OxfordWord | null>(null);
+  const [aiSummary, setAiSummary] = useState<AiSummary | null>(null);
+  const [aiLoading, setAiLoading] = useState(false);
+  const [aiError, setAiError] = useState<string | null>(null);
   const [globalStats, setGlobalStats] = useState<{ totalWords: number; learning: number; mastered: number } | null>(null);
 
   useEffect(() => {
@@ -98,6 +113,29 @@ export default function OxfordListPage() {
     setIsModalOpen(false);
     setSelectedWord(null);
     setEditedNotes("");
+  };
+
+  const handleAiClick = async (word: OxfordWord) => {
+    setAiWord(word);
+    setAiSummary(null);
+    setAiError(null);
+    setIsAiModalOpen(true);
+    setAiLoading(true);
+    try {
+      const data = await oxfordApi.getAiSummary(word._id) as AiSummary;
+      setAiSummary(data);
+    } catch (err: any) {
+      setAiError(err.message || "AI özeti alınamadı.");
+    } finally {
+      setAiLoading(false);
+    }
+  };
+
+  const handleCloseAiModal = () => {
+    setIsAiModalOpen(false);
+    setAiWord(null);
+    setAiSummary(null);
+    setAiError(null);
   };
 
   const handlePreviousPage = () => {
@@ -275,7 +313,7 @@ export default function OxfordListPage() {
                     <th className="px-3 py-2 text-center md:text-left font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider text-xs w-1/3 md:w-auto">
                       Çeviri
                     </th>
-                    <th className="px-3 py-2 text-right md:text-center font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider text-xs w-1/3 md:w-24 pr-4">
+                    <th className="px-3 py-2 text-right md:text-center font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider text-xs w-1/3 md:w-32 pr-4">
                       Durum
                     </th>
                   </tr>
@@ -349,6 +387,17 @@ export default function OxfordListPage() {
                             >
                               <Edit2 className="w-4 h-4" />
                             </button>
+
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleAiClick(word);
+                              }}
+                              className="p-1 transition-all hover:scale-110 text-violet-500 dark:text-violet-400 hover:text-violet-600 dark:hover:text-violet-300"
+                              title="AI Özeti"
+                            >
+                              <Sparkles className="w-4 h-4" />
+                            </button>
                           </div>
                         </td>
                       </tr>
@@ -369,7 +418,7 @@ export default function OxfordListPage() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={handleCloseModal}
-              className="fixed inset-0 bg-black/30 dark:bg-black/50 z-40"
+              className="fixed inset-0 bg-black/30 dark:bg-black/50 z-[100]"
             />
 
             <motion.div
@@ -378,7 +427,7 @@ export default function OxfordListPage() {
               exit={{ opacity: 0, scale: 0.95 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
               onClick={(e: any) => e.stopPropagation()}
-              className="fixed inset-0 flex items-center justify-center z-50 p-4"
+              className="fixed inset-0 flex items-center justify-center z-[110] p-4"
             >
               <div className="bg-white dark:bg-gray-800 rounded-lg shadow-2xl w-full max-w-md max-h-[85vh] flex flex-col">
                 <div className="flex-shrink-0 px-5 py-4 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
@@ -503,6 +552,99 @@ export default function OxfordListPage() {
                       </div>
                     </div>
                   </div>
+                </div>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {isAiModalOpen && aiWord && (
+          <>
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={handleCloseAiModal} className="fixed inset-0 bg-black/30 dark:bg-black/50 z-[100]" />
+            <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} transition={{ type: "spring", damping: 25, stiffness: 300 }} onClick={(e: any) => e.stopPropagation()} className="fixed inset-0 flex items-center justify-center z-[110] p-4">
+              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-2xl w-full max-w-md max-h-[85vh] flex flex-col">
+                <div className="flex-shrink-0 px-5 py-4 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <h2 className="text-lg font-bold text-gray-900 dark:text-white truncate">{aiWord.word}</h2>
+                      {aiSummary && (
+                        <>
+                          <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-violet-100 dark:bg-violet-900/40 text-violet-700 dark:text-violet-300">{aiSummary.wordType}</span>
+                          {aiSummary.ipa && <span className="text-xs text-gray-400 dark:text-gray-500 font-mono">{aiSummary.ipa}</span>}
+                        </>
+                      )}
+                    </div>
+                    <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">{aiWord.translation}</p>
+                  </div>
+                  <div className="flex items-center gap-2 ml-4">
+                    <div className="p-1.5 rounded-lg bg-violet-100 dark:bg-violet-900/40">
+                      <Sparkles className="w-4 h-4 text-violet-500" />
+                    </div>
+                    <button onClick={handleCloseAiModal} className="p-1.5 rounded-lg text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                      <X className="w-5 h-5" />
+                    </button>
+                  </div>
+                </div>
+
+                <div className="flex-1 overflow-y-auto p-5 space-y-4">
+                  {aiLoading && (
+                    <div className="flex flex-col items-center justify-center py-12 gap-3">
+                      <div className="relative">
+                        <div className="w-12 h-12 rounded-full border-4 border-violet-100 dark:border-violet-900/40" />
+                        <div className="w-12 h-12 rounded-full border-4 border-t-violet-500 animate-spin absolute inset-0" />
+                      </div>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">AI analiz ediyor...</p>
+                    </div>
+                  )}
+                  {aiError && !aiLoading && (
+                    <div className="flex flex-col items-center gap-3 py-8 text-center">
+                      <AlertCircle className="w-8 h-8 text-red-400" />
+                      <p className="text-sm text-red-600 dark:text-red-400">{aiError}</p>
+                      <button onClick={() => handleAiClick(aiWord)} className="mt-1 px-4 py-2 bg-violet-600 text-white rounded-lg text-xs hover:bg-violet-700 transition-colors">Tekrar Dene</button>
+                    </div>
+                  )}
+                  {aiSummary && !aiLoading && (
+                    <>
+                      <div className="bg-violet-50 dark:bg-violet-900/20 rounded-lg p-4 border border-violet-100 dark:border-violet-800/30">
+                        <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">{aiSummary.summary}</p>
+                      </div>
+                      <div className={`rounded-lg p-3 border flex items-start gap-2.5 ${aiSummary.isMostCommon ? "bg-emerald-50 dark:bg-emerald-900/20 border-emerald-100 dark:border-emerald-800/30" : "bg-amber-50 dark:bg-amber-900/20 border-amber-100 dark:border-amber-800/30"}`}>
+                        <span className="mt-0.5 shrink-0 text-base">{aiSummary.isMostCommon ? "✅" : "⚠️"}</span>
+                        <p className="text-xs text-gray-700 dark:text-gray-300 leading-relaxed">{aiSummary.commonUsageNotes}</p>
+                      </div>
+                      {aiSummary.alternatives?.length > 0 && (
+                        <div>
+                          <div className="flex items-center gap-1.5 mb-2">
+                            <ArrowRightLeft className="w-3.5 h-3.5 text-gray-400" />
+                            <span className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">Alternatifler</span>
+                          </div>
+                          <div className="flex flex-wrap gap-2">
+                            {aiSummary.alternatives.map((alt, i) => (
+                              <span key={i} className="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300">{alt}</span>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                      {aiSummary.examples?.length > 0 && (
+                        <div>
+                          <div className="flex items-center gap-1.5 mb-2.5">
+                            <BookOpen className="w-3.5 h-3.5 text-gray-400" />
+                            <span className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">Örnek Cümleler (B1–B2)</span>
+                          </div>
+                          <div className="space-y-2.5">
+                            {aiSummary.examples.map((ex, i) => (
+                              <div key={i} className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-3 border border-gray-100 dark:border-gray-700">
+                                <p className="text-sm font-medium text-gray-900 dark:text-white leading-relaxed">{ex.en}</p>
+                                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1 leading-relaxed">{ex.tr}</p>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </>
+                  )}
                 </div>
               </div>
             </motion.div>

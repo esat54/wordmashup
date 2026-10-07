@@ -10,11 +10,11 @@ export default function QuizPage() {
     name: "İngilizce Kelime Quiz | WordMashup",
     description:
       "İngilizce kelime bilginizi test edin. İster kategorilere ayrılmış genel quizler, isterseniz kişisel kelime listenizden oluşturulan quizlerle, doğru-yanlış istatistiklerinizi takip edin.",
-    url: "https://www.wordmashup.xyz/game/quiz",
+    url: "https://www.wordmashup.online/game/quiz",
     isPartOf: {
       "@type": "WebSite",
       name: "WordMashup",
-      url: "https://www.wordmashup.xyz",
+      url: "https://www.wordmashup.online",
     },
     breadcrumb: {
       "@type": "BreadcrumbList",
@@ -23,19 +23,19 @@ export default function QuizPage() {
           "@type": "ListItem",
           position: 1,
           name: "Ana Sayfa",
-          item: "https://www.wordmashup.xyz",
+          item: "https://www.wordmashup.online",
         },
         {
           "@type": "ListItem",
           position: 2,
           name: "Oyunlar",
-          item: "https://www.wordmashup.xyz/game",
+          item: "https://www.wordmashup.online/game",
         },
         {
           "@type": "ListItem",
           position: 3,
           name: "Kelime Quiz",
-          item: "https://www.wordmashup.xyz/game/quiz",
+          item: "https://www.wordmashup.online/game/quiz",
         },
       ],
     },
@@ -46,7 +46,7 @@ export default function QuizPage() {
       <SeoHead
         title="İngilizce Kelime Quiz"
         description="İngilizce kelime bilginizi test edin. İster kategorilere ayrılmış genel quizler, isterseniz kişisel kelime listenizden oluşturulan quizlerle, doğru-yanlış istatistiklerinizi takip edin ve öğrenme sürecinizi hızlandırın."
-        canonical="https://www.wordmashup.xyz/game/quiz"
+        canonical="https://www.wordmashup.online/game/quiz"
         ogType="website"
       />
       <Head>

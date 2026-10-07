@@ -1,9 +1,9 @@
 export const SEO_CONFIG = {
   // Site Information
-  siteUrl: "https://www.wordmashup.xyz",
+  siteUrl: "https://www.wordmashup.online",
   siteName: "WordMashup",
   locale: "tr_TR",
-  
+
   // Default SEO
   title: "WordMashup | AI Destekli Kişisel İngilizce Notebook & Sözlük",
   description:
@@ -18,17 +18,17 @@ export const SEO_CONFIG = {
     "İngilizce notebook",
     "WordMashup"
   ],
-  
+
   // OG & Social
   image: "/og-image.webp",
   imageAlt: "WordMashup - AI Destekli İngilizce Öğrenme Platformu",
   twitterHandle: "",
-  
+
   // Author
   creator: "WordMashup Team",
-  
+
   // Default canonical function
-  getCanonical: (path: string) => `https://www.wordmashup.xyz${path}`,
+  getCanonical: (path: string) => `https://www.wordmashup.online${path}`,
 };
 
 export type SeoMetadata = {
