@@ -3,7 +3,6 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Mail, Lock, Eye, EyeOff, ArrowRight } from "lucide-react";
-import Image from "next/image";
 import { authApi } from "@/lib/api";
 import SeoHead from "@/components/SeoHead";
 import { useAuth } from "@/context/AuthContext";
@@ -100,31 +99,41 @@ export default function LoginPage() {
         description="WordMashup hesabınıza giriş yapın. AI destekli İngilizce öğrenme platformuna erişim sağlayın."
         noindex={true}
       />
-      <div className="light-page min-h-screen bg-white flex">
+      <div className="light-page min-h-screen bg-white relative flex flex-col justify-center items-center py-12 px-4 sm:px-6 lg:px-8">
+        {/* Dot grid background */}
+        <div className="absolute inset-0 bg-dot-grid bg-white pointer-events-none" />
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "linear-gradient(to bottom, transparent 0%, transparent 40%, rgba(255,255,255,0.3) 60%, rgba(255,255,255,0.7) 80%, white 100%)",
+          }}
+        />
 
-        <div className="flex-1 flex flex-col justify-center px-6 py-16 sm:px-16 sm:py-12 lg:px-6 lg:py-10">
-          <div className="mx-auto w-full max-w-sm">
+        <div className="relative z-10 w-full max-w-md mx-auto">
+          {/* Logo */}
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="flex justify-center mb-6"
+          >
+            <Link href="/" className="inline-flex items-center">
+              <span className="text-3xl font-bold text-gray-900">
+                Word<span className="text-blue-600">Mashup</span>
+              </span>
+            </Link>
+          </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="mb-8"
-            >
-              <Link href="/" className="flex items-center">
-                <span className="text-2xl font-bold text-gray-900">
-                  Word<span className="text-blue-600">Mashup</span>
-                </span>
-              </Link>
-            </motion.div>
-
+          {/* Form Card */}
+          <div className="bg-white/90 backdrop-blur-md border border-gray-200/80 rounded-2xl p-6 sm:p-8 shadow-xl shadow-gray-200/50">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="mb-8"
+              className="mb-8 text-center"
             >
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">
+              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
                 Hesabınıza giriş yapın
               </h1>
               <p className="text-sm text-gray-600">
@@ -139,11 +148,11 @@ export default function LoginPage() {
             </motion.div>
 
             <form onSubmit={handleSubmit} className="space-y-6">
-
-              <motion.div           // email alanı
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
+              {/* email alanı */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
               >
                 <label
                   htmlFor="email"
@@ -172,10 +181,11 @@ export default function LoginPage() {
                 {errors.email && (<p className="mt-1 text-sm text-red-600">{errors.email}</p>)}
               </motion.div>
 
-              <motion.div       // şifre alanı
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
+              {/* şifre alanı */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.3 }}
               >
                 <label
                   htmlFor="password"
@@ -210,13 +220,14 @@ export default function LoginPage() {
                 {errors.password && (<p className="mt-1 text-sm text-red-600">{errors.password}</p>)}
               </motion.div>
 
-              <motion.div          // Beni hatırla ve Şifremi unuttum
+              {/* Beni hatırla ve Şifremi unuttum */}
+              <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
                 className="flex items-center justify-between"
               >
-                <label className="flex items-center">
+                <label className="flex items-center cursor-pointer">
                   <input
                     type="checkbox"
                     checked={rememberMe}
@@ -233,10 +244,11 @@ export default function LoginPage() {
                 </Link>
               </motion.div>
 
-              <motion.button     // Giriş yap butonu
+              {/* Giriş yap butonu */}
+              <motion.button
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ duration: 0.6, delay: 0.5 }}
+                transition={{ duration: 0.5, delay: 0.45 }}
                 type="submit"
                 disabled={isLoading}
                 className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 disabled:cursor-not-allowed text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-blue-600/30"
@@ -245,24 +257,25 @@ export default function LoginPage() {
                 {!isLoading && <ArrowRight className="h-5 w-5" />}
               </motion.button>
 
-              <motion.div     // Tester hesabı 
+              {/* Tester hesabı */}
+              <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ duration: 0.6, delay: 0.55 }}
-                className="flex flex-col items-center gap-3 pt-0 pb-2 -mt-2"
+                transition={{ duration: 0.5, delay: 0.5 }}
+                className="flex flex-col items-center gap-3 pt-1"
               >
                 <div className="flex items-center gap-3 w-full">
-                  <div className="h-[1px] flex-1 bg-gray-100"></div>
-                  <span className="text-[10px] font-bold text-gray-300 uppercase tracking-[0.2em]">Veya</span>
-                  <div className="h-[1px] flex-1 bg-gray-100"></div>
+                  <div className="h-[1px] flex-1 bg-gray-200"></div>
+                  <span className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em]">Veya</span>
+                  <div className="h-[1px] flex-1 bg-gray-200"></div>
                 </div>
 
                 <button
                   type="button"
                   onClick={handleTesterLogin}
-                  className="group w-full py-3 px-4 rounded-xl border border-dashed border-gray-200 bg-gray-50/30 hover:bg-white hover:border-blue-300 hover:shadow-sm transition-all duration-300 flex flex-col items-center text-center"
+                  className="group w-full py-3 px-4 rounded-xl border border-dashed border-gray-300 bg-gray-50/50 hover:bg-white hover:border-blue-400 hover:shadow-sm transition-all duration-300 flex flex-col items-center text-center"
                 >
-                  <span className="text-sm font-bold text-gray-500 group-hover:text-blue-600 transition-colors">
+                  <span className="text-sm font-bold text-gray-600 group-hover:text-blue-600 transition-colors">
                     Tester Hesabı ile Başla
                   </span>
                   <span className="text-[11px] text-gray-400 font-medium mt-0.5">
@@ -272,18 +285,6 @@ export default function LoginPage() {
               </motion.div>
 
             </form>
-          </div>
-        </div>
-
-        <div className="hidden lg:block relative w-0 lg:flex-1">
-          <div className="absolute inset-0">
-            <Image
-              src="/login-image.jpg"
-              alt="Login illustration"
-              fill
-              className="object-cover"
-              priority
-            />
           </div>
         </div>
       </div>

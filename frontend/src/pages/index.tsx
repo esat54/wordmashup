@@ -1,7 +1,7 @@
 import Header from "@/components/home/header";
 import HeroArea from "@/components/home/hero";
 import Features from "@/components/home/features";
-import HomeFooter from "@/components/home/footer";
+import Footer from "@/components/Footer";
 import SeoHead from "@/components/SeoHead";
 
 export default function Home() {
@@ -33,7 +33,7 @@ export default function Home() {
               <Features />
             </section>
           </main>
-          <HomeFooter />
+          <Footer />
         </div>
       </div>
     </>

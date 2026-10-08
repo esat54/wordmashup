@@ -3,6 +3,10 @@ User-agent: *
 Allow: /
 Allow: /api/sitemap
 Allow: /quiz
+Allow: /oxfordlist
+Allow: /words
+Allow: /about
+Allow: /contact
 
 Disallow: /admin
 Disallow: /api/

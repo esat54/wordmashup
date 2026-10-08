@@ -23,40 +23,60 @@ export default function Footer() {
       className="border-t border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-900"
       aria-label="Site Altbilgisi"
     >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4 flex flex-wrap items-center justify-between gap-3">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pb-4 border-b border-gray-100 dark:border-gray-800">
+          <div className="flex items-center gap-2.5">
+            <Link href="/" className="text-sm font-bold text-gray-900 dark:text-white tracking-tight">
+              Word<span className="text-blue-600 dark:text-blue-400">Mashup</span>
+            </Link>
+            <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 leading-none">
+              Beta
+            </span>
+          </div>
 
-        <div className="flex items-center gap-2.5">
-          <span className="text-sm font-bold text-gray-900 dark:text-white tracking-tight">
-            Word<span className="text-blue-600 dark:text-blue-400">Mashup</span>
-          </span>
-          <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 leading-none">
-            Beta
-          </span>
-          <span className="hidden sm:block text-xs text-gray-400 dark:text-gray-500">
-            © {year}
-          </span>
+          <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs font-medium text-gray-500 dark:text-gray-400" aria-label="Altbilgi Gezinti">
+            <Link href="/oxfordlist" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+              Oxford 3000
+            </Link>
+            <Link href="/words" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+              Kelimelerim
+            </Link>
+            <Link href="/game" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+              Oyunlar & Pratik
+            </Link>
+            <Link href="/about" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+              Hakkımızda
+            </Link>
+            <Link href="/contact" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+              İletişim
+            </Link>
+          </nav>
+
+          <div className="flex items-center gap-2">
+            <a
+              href="https://github.com/esat54/wordmashup/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub"
+              className="w-8 h-8 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 flex items-center justify-center transition-colors text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+            >
+              <GitHubIcon className="w-4 h-4" />
+            </a>
+            <a
+              href="https://www.linkedin.com/in/esatdlkc/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+              className="w-8 h-8 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-blue-100 dark:hover:bg-blue-900/40 flex items-center justify-center transition-colors text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400"
+            >
+              <LinkedInIcon className="w-4 h-4" />
+            </a>
+          </div>
         </div>
 
-
-        <div className="flex items-center gap-2">
-          <a
-            href="https://github.com/esat54/wordmashup/"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="GitHub"
-            className="w-8 h-8 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 flex items-center justify-center transition-colors text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
-          >
-            <GitHubIcon className="w-4 h-4" />
-          </a>
-          <a
-            href="https://www.linkedin.com/in/esatdlkc/"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="LinkedIn"
-            className="w-8 h-8 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-blue-100 dark:hover:bg-blue-900/40 flex items-center justify-center transition-colors text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400"
-          >
-            <LinkedInIcon className="w-4 h-4" />
-          </a>
+        <div className="pt-4 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-400 dark:text-gray-500 gap-2">
+          <span>© {year} WordMashup. Tüm hakları saklıdır.</span>
+          <span>AI Destekli İngilizce Öğrenme Platformu</span>
         </div>
       </div>
     </footer>

@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import Link from "next/link";
 import { Mail, Lock, User, Eye, EyeOff, ArrowRight } from "lucide-react";
-import Image from "next/image";
 import { authApi } from "@/lib/api";
 import SeoHead from "@/components/SeoHead";
 
@@ -73,29 +72,41 @@ export default function RegisterPage() {
         description="WordMashup'ta hesap oluşturun. AI destekli İngilizce öğrenme platformuna katılıp öğrenmeye başlayın."
         noindex={true}
       />
-      <div className="light-page min-h-screen bg-white flex">
-        <div className="flex-1 flex flex-col justify-center px-6 py-16 sm:px-16 sm:py-12 lg:px-6 lg:py-10">
-          <div className="mx-auto w-full max-w-sm">
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="mb-6"
-            >
-              <Link href="/" className="flex items-center">
-                <span className="text-2xl font-bold text-gray-900">
-                  Word<span className="text-blue-600">Mashup</span>
-                </span>
-              </Link>
-            </motion.div>
+      <div className="light-page min-h-screen bg-white relative flex flex-col justify-center items-center py-12 px-4 sm:px-6 lg:px-8">
+        {/* Dot grid background */}
+        <div className="absolute inset-0 bg-dot-grid bg-white pointer-events-none" />
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "linear-gradient(to bottom, transparent 0%, transparent 40%, rgba(255,255,255,0.3) 60%, rgba(255,255,255,0.7) 80%, white 100%)",
+          }}
+        />
 
+        <div className="relative z-10 w-full max-w-md mx-auto">
+          {/* Logo */}
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="flex justify-center mb-6"
+          >
+            <Link href="/" className="inline-flex items-center">
+              <span className="text-3xl font-bold text-gray-900">
+                Word<span className="text-blue-600">Mashup</span>
+              </span>
+            </Link>
+          </motion.div>
+
+          {/* Form Card */}
+          <div className="bg-white/90 backdrop-blur-md border border-gray-200/80 rounded-2xl p-6 sm:p-8 shadow-xl shadow-gray-200/50">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="mb-6"
+              className="mb-6 text-center"
             >
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">
+              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
                 Hesap oluşturun
               </h1>
               <p className="text-sm text-gray-600">
@@ -109,12 +120,18 @@ export default function RegisterPage() {
               </p>
             </motion.div>
 
-            <form onSubmit={handleSubmit} className="space-y-4">
+            {isSuccess && (
+              <div className="mb-4 p-3 bg-green-50 border border-green-200 text-green-700 rounded-lg text-sm text-center font-medium">
+                Kayıt başarılı! Giriş sayfasına yönlendiriliyorsunuz...
+              </div>
+            )}
 
-              <motion.div      // isim alanı
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
+            <form onSubmit={handleSubmit} className="space-y-4">
+              {/* isim alanı */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
               >
                 <label
                   htmlFor="name"
@@ -144,10 +161,11 @@ export default function RegisterPage() {
                 )}
               </motion.div>
 
-              <motion.div   // email alanı
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
+              {/* email alanı */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.3 }}
               >
                 <label
                   htmlFor="email"
@@ -177,10 +195,11 @@ export default function RegisterPage() {
                 )}
               </motion.div>
 
-              <motion.div   // şifre alanı
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
+              {/* şifre alanı */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
               >
                 <label
                   htmlFor="password"
@@ -219,31 +238,21 @@ export default function RegisterPage() {
                 )}
               </motion.div>
 
-              <motion.button    // submit butonu
+              {/* submit butonu */}
+              <motion.button
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ duration: 0.6, delay: 0.5 }}
+                transition={{ duration: 0.5, delay: 0.45 }}
                 type="submit"
                 disabled={isLoading || isSuccess}
-                className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 disabled:cursor-not-allowed text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-blue-600/30"
+                className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 disabled:cursor-not-allowed text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-blue-600/30 mt-2"
               >
                 {isLoading
-                  ? "Kaydediliyor..." : isSuccess ? "Kayıt başarılı, giriş sayfasına yönlendiriliyorsunuz" : "Kayıt Ol"}
+                  ? "Kaydediliyor..." : isSuccess ? "Kayıt başarılı, yönlendiriliyorsunuz" : "Kayıt Ol"}
+                {!isLoading && !isSuccess && <ArrowRight className="h-5 w-5" />}
               </motion.button>
 
             </form>
-          </div>
-        </div>
-
-        <div className="hidden lg:block relative w-0 lg:flex-1">
-          <div className="absolute inset-0">
-            <Image
-              src="/login-image.jpg"
-              alt="Register illustration"
-              fill
-              className="object-cover"
-              priority
-            />
           </div>
         </div>
       </div>
