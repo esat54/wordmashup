@@ -533,7 +533,7 @@ export default function DashboardHero({ user }: { user: { name: string; email: s
                 Kelimeler
               </h3>
               <button
-                onClick={() => router.push("/dashboard/kelimeler")}
+                onClick={() => router.push("/dashboard/words")}
                 className="text-xs text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium flex items-center gap-1"
               >
                 Tümünü Gör <ArrowRight size={12} />
@@ -632,7 +632,7 @@ export default function DashboardHero({ user }: { user: { name: string; email: s
               </h3>
               <div className="space-y-2">
                 <button
-                  onClick={() => router.push("/dashboard/kelimeler")}
+                  onClick={() => router.push("/dashboard/words")}
                   className="w-full flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700/50 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors text-left"
                 >
                   <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
@@ -650,7 +650,7 @@ export default function DashboardHero({ user }: { user: { name: string; email: s
                   <ArrowRight size={14} className="text-gray-600 dark:text-gray-400" />
                 </button>
                 <button
-                  onClick={() => router.push("/dashboard/sozluk")}
+                  onClick={() => router.push("/dashboard/dictionary")}
                   className="w-full flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700/50 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors text-left"
                 >
                   <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
@@ -659,7 +659,7 @@ export default function DashboardHero({ user }: { user: { name: string; email: s
                   <ArrowRight size={14} className="text-gray-600 dark:text-gray-400" />
                 </button>
                 <button
-                  onClick={() => router.push("/dashboard/oxfordliste")}
+                  onClick={() => router.push("/dashboard/oxford")}
                   className="w-full flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700/50 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors text-left"
                 >
                   <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
