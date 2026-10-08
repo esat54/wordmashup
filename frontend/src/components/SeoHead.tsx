@@ -4,6 +4,7 @@ import { SEO_CONFIG, SeoMetadata } from "@/lib/seo.config";
 
 interface SeoHeadProps extends SeoMetadata {
   children?: React.ReactNode;
+  keywords?: string[];
 }
 
 export function SeoHead({
@@ -13,6 +14,8 @@ export function SeoHead({
   canonical,
   noindex = false,
   ogType = "website",
+  keywords,
+  children,
 }: SeoHeadProps) {
   const router = useRouter();
 
@@ -30,7 +33,7 @@ export function SeoHead({
     <Head>
       <title>{pageTitle}</title>
       <meta name="description" content={pageDescription} />
-      <meta name="keywords" content={SEO_CONFIG.keywords.join(", ")} />
+      <meta name="keywords" content={(keywords || SEO_CONFIG.keywords).join(", ")} />
 
       {noindex && <meta name="robots" content="noindex, nofollow" />}
 
@@ -51,6 +54,7 @@ export function SeoHead({
 
       {/* Canonical */}
       <link rel="canonical" href={pageCanonical} />
+      {children}
     </Head>
   );
 }

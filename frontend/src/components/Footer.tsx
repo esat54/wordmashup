@@ -36,7 +36,7 @@ export default function Footer() {
 
           <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs font-medium text-gray-500 dark:text-gray-400" aria-label="Altbilgi Gezinti">
             <Link href="/oxfordlist" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-              Oxford 3000
+              Oxford Liste
             </Link>
             <Link href="/words" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
               Kelimelerim
