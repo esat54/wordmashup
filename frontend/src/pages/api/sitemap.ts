@@ -7,7 +7,6 @@ async function generateSitemap() {
     { loc: "", priority: "1.0", changefreq: "weekly" },
     { loc: "/oxfordlist", priority: "0.9", changefreq: "weekly" },
     { loc: "/words", priority: "0.9", changefreq: "weekly" },
-    { loc: "/about", priority: "0.8", changefreq: "monthly" },
     { loc: "/contact", priority: "0.8", changefreq: "monthly" },
     { loc: "/game", priority: "0.9", changefreq: "daily" },
     { loc: "/game/quiz", priority: "0.9", changefreq: "daily" },

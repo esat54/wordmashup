@@ -44,9 +44,6 @@ export default function Footer() {
             <Link href="/game" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
               Oyunlar & Pratik
             </Link>
-            <Link href="/about" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-              Hakkımızda
-            </Link>
             <Link href="/contact" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
               İletişim
             </Link>
