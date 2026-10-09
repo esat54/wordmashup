@@ -42,6 +42,49 @@ export type SeoMetadata = {
 
 export const OXFORD_LIST_URL = `${SEO_CONFIG.siteUrl}/oxfordlist`;
 
+export const WORDS_PAGE_URL = `${SEO_CONFIG.siteUrl}/words`;
+
+export const WORDS_PAGE_SEO = {
+  title: "Kişisel Kelime Defteri",
+  description:
+    "İngilizce kelimelerinizi Türkçe karşılıkları, örnek cümleleri ve kişisel notlarıyla saklayın. Favorilerinizi ve öğrenmekte olduğunuz kelimeleri filtreleyerek kendi kelime defterinizle çalışın.",
+  canonical: WORDS_PAGE_URL,
+  keywords: [
+    "kişisel kelime defteri",
+    "İngilizce kelime öğrenme",
+    "İngilizce kelime kartları",
+    "örnek cümlelerle İngilizce kelime",
+    "kişisel İngilizce kelime listesi",
+    "WordMashup",
+  ],
+};
+
+export const wordsPageJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": `${WORDS_PAGE_URL}#webpage`,
+      url: WORDS_PAGE_URL,
+      name: `${WORDS_PAGE_SEO.title} | WordMashup`,
+      description: WORDS_PAGE_SEO.description,
+      inLanguage: "tr-TR",
+      isPartOf: {
+        "@type": "WebSite",
+        name: SEO_CONFIG.siteName,
+        url: SEO_CONFIG.siteUrl,
+      },
+    },
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Ana sayfa", item: SEO_CONFIG.siteUrl },
+        { "@type": "ListItem", position: 2, name: WORDS_PAGE_SEO.title, item: WORDS_PAGE_URL },
+      ],
+    },
+  ],
+};
+
 export const OXFORD_LIST_SEO = {
   title: "Oxford 3000 Kelime Listesi",
   description:
