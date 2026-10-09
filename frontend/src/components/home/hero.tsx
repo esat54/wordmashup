@@ -8,11 +8,12 @@ import { Loader2 } from "lucide-react";
 
 export default function HeroArea() {
   const router = useRouter();
-  const { isLoggedIn, login } = useAuth();
+  const { user, ready, login } = useAuth();
+  const hasUser = ready && !!user;
   const [isLoading, setIsLoading] = useState(false);
 
   const handleDemoClick = async () => {
-    if (isLoggedIn) {
+    if (hasUser) {
       router.push("/dashboard");
       return;
     }
@@ -59,16 +60,27 @@ export default function HeroArea() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12 sm:mb-16"
         >
-          <button 
+          <button
             onClick={handleDemoClick}
             disabled={isLoading}
             className="inline-flex items-center justify-center px-6 py-3 text-base font-semibold text-white bg-gray-900 hover:bg-gray-800 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Kayıt olmadan deneyin
+            {isLoading ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" aria-hidden="true" />
+                Açılıyor...
+              </>
+            ) : hasUser ? (
+              "Panele git"
+            ) : (
+              "Kayıt olmadan deneyin"
+            )}
           </button>
-          <Link href="/register" className="inline-flex items-center justify-center px-6 py-3 text-base font-semibold text-blue-600 bg-white hover:bg-gray-50 rounded-lg border-2 border-gray-300 transition-colors">
-            Kayıt Ol
-          </Link>
+          {!hasUser && (
+            <Link href="/register" className="inline-flex items-center justify-center px-6 py-3 text-base font-semibold text-blue-600 bg-white hover:bg-gray-50 rounded-lg border-2 border-gray-300 transition-colors">
+              Kayıt Ol
+            </Link>
+          )}
         </motion.div>
       </div>
     </div>

@@ -9,7 +9,7 @@ export default function Home() {
     <>
       <SeoHead
         title="AI Destekli İngilizce Öğrenme"
-        description="Oxford 3000 kelimeler, akıllı sözlük ve gramer dersleriyle İngilizce öğreniminizi başlatın."
+        description="Oxford kelime listesi, akıllı sözlük ve gramer dersleriyle İngilizce öğreniminizi başlatın."
       />
 
       <div className="light-page min-h-screen bg-white relative">
