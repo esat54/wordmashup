@@ -311,7 +311,7 @@ export default function GlobalQuiz({ currentView, setCurrentView, canAccessUserQ
                                     Kontrol Paneline Dön
                                 </h3>
                                 <p className="text-[12px] leading-relaxed text-slate-500 dark:text-slate-400">
-                                    Kendi kelime listelerini oluştur, Oxford 3000 serisiyle çalış, sözlükte kelime ara ve gramer konularını keşfet.
+                                    Kendi kelime listelerini oluştur, Oxford listesiyle çalış, sözlükte kelime ara ve gramer konularını keşfet.
                                 </p>
                             </div>
 
