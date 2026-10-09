@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useTheme } from "@/context/ThemeContext";
 
 function GitHubIcon({ className }: { className?: string }) {
   return (
@@ -18,33 +20,52 @@ function LinkedInIcon({ className }: { className?: string }) {
 
 export default function Footer() {
   const year = new Date().getFullYear();
+  const router = useRouter();
+  const { darkMode } = useTheme();
+  const isDarkGame = router.pathname.startsWith("/game") && darkMode;
+
   return (
     <footer
-      className="border-t border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-900"
+      className={`border-t ${
+        isDarkGame ? "border-gray-800 bg-gray-900" : "border-gray-100 bg-white"
+      }`}
       aria-label="Site Altbilgisi"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6">
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pb-4 border-b border-gray-100 dark:border-gray-800">
+        <div className={`flex flex-col sm:flex-row items-center justify-between gap-4 pb-4 border-b ${
+          isDarkGame ? "border-gray-800" : "border-gray-100"
+        }`}>
           <div className="flex items-center gap-2.5">
-            <Link href="/" className="text-sm font-bold text-gray-900 dark:text-white tracking-tight">
-              Word<span className="text-blue-600 dark:text-blue-400">Mashup</span>
+            <Link
+              href="/"
+              className={`text-sm font-bold tracking-tight ${
+                isDarkGame ? "text-white" : "text-gray-900"
+              }`}
+            >
+              Word<span className={isDarkGame ? "text-blue-400" : "text-blue-600"}>Mashup</span>
             </Link>
-            <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 leading-none">
+            <span className={`inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider leading-none ${
+              isDarkGame
+                ? "bg-blue-900/40 text-blue-400"
+                : "bg-blue-100 text-blue-600"
+            }`}>
               Beta
             </span>
           </div>
 
-          <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs font-medium text-gray-500 dark:text-gray-400" aria-label="Altbilgi Gezinti">
-            <Link href="/oxfordlist" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+          <nav className={`flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs font-medium ${
+            isDarkGame ? "text-gray-400" : "text-gray-500"
+          }`} aria-label="Altbilgi Gezinti">
+            <Link href="/oxfordlist" className={`transition-colors ${isDarkGame ? "hover:text-blue-400" : "hover:text-blue-600"}`}>
               Oxford Liste
             </Link>
-            <Link href="/words" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+            <Link href="/words" className={`transition-colors ${isDarkGame ? "hover:text-blue-400" : "hover:text-blue-600"}`}>
               Kelimelerim
             </Link>
-            <Link href="/game" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+            <Link href="/game" className={`transition-colors ${isDarkGame ? "hover:text-blue-400" : "hover:text-blue-600"}`}>
               Oyunlar & Pratik
             </Link>
-            <Link href="/contact" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+            <Link href="/contact" className={`transition-colors ${isDarkGame ? "hover:text-blue-400" : "hover:text-blue-600"}`}>
               İletişim
             </Link>
           </nav>
@@ -55,7 +76,11 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="GitHub"
-              className="w-8 h-8 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 flex items-center justify-center transition-colors text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+              className={`w-8 h-8 rounded-lg flex items-center justify-center transition-colors ${
+                isDarkGame
+                  ? "bg-gray-800 text-gray-400 hover:bg-gray-700 hover:text-white"
+                  : "bg-gray-100 text-gray-500 hover:bg-gray-200 hover:text-gray-900"
+              }`}
             >
               <GitHubIcon className="w-4 h-4" />
             </a>
@@ -64,14 +89,20 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn"
-              className="w-8 h-8 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-blue-100 dark:hover:bg-blue-900/40 flex items-center justify-center transition-colors text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400"
+              className={`w-8 h-8 rounded-lg flex items-center justify-center transition-colors ${
+                isDarkGame
+                  ? "bg-gray-800 text-gray-400 hover:bg-blue-900/40 hover:text-blue-400"
+                  : "bg-gray-100 text-gray-500 hover:bg-blue-100 hover:text-blue-600"
+              }`}
             >
               <LinkedInIcon className="w-4 h-4" />
             </a>
           </div>
         </div>
 
-        <div className="pt-4 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-400 dark:text-gray-500 gap-2">
+        <div className={`pt-4 flex flex-col sm:flex-row items-center justify-between text-xs gap-2 ${
+          isDarkGame ? "text-gray-500" : "text-gray-400"
+        }`}>
           <span>© {year} WordMashup. Tüm hakları saklıdır.</span>
           <span>AI Destekli İngilizce Öğrenme Platformu</span>
         </div>
