@@ -1,5 +1,6 @@
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useRouter } from "next/router";
 import { Trash2, Star, Search, Loader2, X, Volume2, MessageCircleQuestionMark, ChevronLeft, ChevronRight, SlidersHorizontal, ChevronDown, Pencil, RotateCcw } from "lucide-react";
 import { wordsApi } from "@/lib/api";
 
@@ -17,6 +18,7 @@ const wordTypes = [
 ];
 
 export default function AllWords() {
+  const router = useRouter();
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState<string>("");
   const [totalWords, setTotalWords] = useState<number>(0);
@@ -35,58 +37,157 @@ export default function AllWords() {
   const [flippedCards, setFlippedCards] = useState<Set<string>>(new Set());
   const [noteTexts, setNoteTexts] = useState<Record<string, string>>({});
   const saveTimers = useRef<Record<string, ReturnType<typeof setTimeout>>>({});
-
+  const requestId = useRef(0);
+  const [isInitialized, setIsInitialized] = useState(false);
 
   useEffect(() => {
+    if (!router.isReady) return;
+
+    const query = router.query;
+    const getParam = (value: string | string[] | undefined) =>
+      Array.isArray(value) ? value[0] || "" : value || "";
+    const queryLimit = Number.parseInt(getParam(query.limit), 10);
+    const queryPage = Number.parseInt(getParam(query.page), 10);
+    const queryType = getParam(query.type);
+    const queryFavorite = getParam(query.favorite);
+    const queryUnknown = getParam(query.unknown);
+    const querySearch = getParam(query.search);
+
+    setSearchTerm(querySearch);
+    if (!isInitialized) setDebouncedSearchTerm(querySearch);
+    setLimit(Number.isFinite(queryLimit) && queryLimit > 0 ? queryLimit : 50);
+    setCurrentPage(Number.isFinite(queryPage) && queryPage > 0 ? queryPage : 1);
+    setType(wordTypes.some((wordType) => wordType.value === queryType) ? queryType : "");
+    setFavoriteFilter(["true", "false"].includes(queryFavorite) ? queryFavorite : "");
+    setUnknownFilter(["true", "false"].includes(queryUnknown) ? queryUnknown : "");
+    setIsInitialized(true);
+  }, [router.isReady, router.query, isInitialized]);
+
+  const updateUrl = useCallback((
+    updates: Partial<{
+      search: string;
+      type: string;
+      favorite: string;
+      unknown: string;
+      limit: number;
+      page: number;
+    }>,
+    resetPage = false,
+  ) => {
+    const values = {
+      search: updates.search ?? searchTerm,
+      type: updates.type ?? type,
+      favorite: updates.favorite ?? favoriteFilter,
+      unknown: updates.unknown ?? unknownFilter,
+      limit: updates.limit ?? limit,
+      page: resetPage ? 1 : updates.page ?? currentPage,
+    };
+    const query: Record<string, string> = {
+      limit: String(values.limit),
+      page: String(values.page),
+    };
+
+    if (values.search) query.search = values.search;
+    if (values.type) query.type = values.type;
+    if (values.favorite) query.favorite = values.favorite;
+    if (values.unknown) query.unknown = values.unknown;
+
+    void router.replace(
+      { pathname: router.pathname, query },
+      undefined,
+      { shallow: true, scroll: false },
+    );
+  }, [router, searchTerm, type, favoriteFilter, unknownFilter, limit, currentPage]);
+
+  const handleSearchChange = (value: string) => {
+    setSearchTerm(value);
+    setCurrentPage(1);
+    updateUrl({ search: value }, true);
+  };
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    updateUrl({ page });
+  };
+
+  useEffect(() => {
+    if (!isInitialized) return;
     const timer = setTimeout(() => {
       setDebouncedSearchTerm(searchTerm);
     }, 500);
 
     return () => clearTimeout(timer);
-  }, [searchTerm]);
+  }, [isInitialized, searchTerm]);
 
   useEffect(() => {
-    setCurrentPage(1);
-  }, [limit, type, favoriteFilter, unknownFilter, debouncedSearchTerm]);
+    if (!isInitialized) return;
+    const currentRequestId = ++requestId.current;
 
-  useEffect(() => {
-    loadData();
-  }, [limit, currentPage, type, favoriteFilter, unknownFilter, debouncedSearchTerm]);
-
-  const loadData = async () => {
-    try {
+    const loadData = async () => {
       setLoading(true);
       const skip = (currentPage - 1) * limit;
-      const response = (await wordsApi.getWords({ limit, skip, type, favoriteFilter, unknownFilter, searchTerm: debouncedSearchTerm, })) as any;
-
-      setTimeout(() => {
+      try {
+        const response = (await wordsApi.getWords({
+          limit,
+          skip,
+          type,
+          favoriteFilter,
+          unknownFilter,
+          searchTerm: debouncedSearchTerm,
+        })) as any;
+        if (currentRequestId !== requestId.current) return;
+        const resultTotal = response.totalWords || 0;
+        const lastPage = Math.max(1, Math.ceil(resultTotal / limit));
+        if (currentPage > lastPage) {
+          setCurrentPage(lastPage);
+          const query: Record<string, string> = {
+            limit: String(limit),
+            page: String(lastPage),
+          };
+          if (debouncedSearchTerm) query.search = debouncedSearchTerm;
+          if (type) query.type = type;
+          if (favoriteFilter) query.favorite = favoriteFilter;
+          if (unknownFilter) query.unknown = unknownFilter;
+          void router.replace(
+            { pathname: router.pathname, query },
+            undefined,
+            { shallow: true, scroll: false },
+          );
+          return;
+        }
         const fetchedWords = response.words || [];
         setWords(fetchedWords);
-        setTotalWords(response.totalWords || 0);
+        setTotalWords(resultTotal);
         const notes: Record<string, string> = {};
         fetchedWords.forEach((w: any) => {
           notes[w._id] = w.note || '';
         });
         setNoteTexts(prev => ({ ...prev, ...notes }));
         setLoading(false);
-      }, 50);
-    } catch (error: any) {
-      console.error("Veri yükleme hatası:", error);
-      setLoading(false);
-    }
-  };
+      } catch (error: any) {
+        if (currentRequestId !== requestId.current) return;
+        console.error("Veri yükleme hatası:", error);
+        setLoading(false);
+      }
+    };
+
+    void loadData();
+    return () => {
+      requestId.current += 1;
+    };
+  }, [isInitialized, limit, currentPage, type, favoriteFilter, unknownFilter, debouncedSearchTerm, router]);
 
   const totalPages = Math.ceil(totalWords / limit);
 
   const handlePreviousPage = () => {
     if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
+      handlePageChange(currentPage - 1);
     }
   };
 
   const handleNextPage = () => {
     if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
+      handlePageChange(currentPage + 1);
     }
   };
 
@@ -215,7 +316,7 @@ export default function AllWords() {
                 type="text"
                 placeholder="Kelime ara (EN/TR)..."
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                onChange={(e) => handleSearchChange(e.target.value)}
                 className="w-full pl-9 pr-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white text-sm placeholder:text-gray-400 dark:placeholder:text-gray-500"
               />
             </div>
@@ -243,7 +344,7 @@ export default function AllWords() {
                       <li
                         key={t.value}
                         className={`relative cursor-pointer select-none py-2 pl-3 pr-9 ${type === t.value ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400' : 'text-gray-900 dark:text-gray-300 hover:bg-slate-50 dark:hover:bg-gray-700'}`}
-                        onClick={() => { setType(t.value); setIsTypeOpen(false); }}
+                        onClick={() => { setType(t.value); setCurrentPage(1); updateUrl({ type: t.value }, true); setIsTypeOpen(false); }}
                       >
                         <span className={`block truncate ${type === t.value ? 'font-semibold' : 'font-medium'}`}>{t.label}</span>
                         {type === t.value && (
@@ -287,7 +388,7 @@ export default function AllWords() {
                       <li
                         key={f.value}
                         className={`relative cursor-pointer select-none py-2 pl-3 pr-9 ${favoriteFilter === f.value ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400' : 'text-gray-900 dark:text-gray-300 hover:bg-slate-50 dark:hover:bg-gray-700'}`}
-                        onClick={() => { setFavoriteFilter(f.value); setIsFavOpen(false); }}
+                        onClick={() => { setFavoriteFilter(f.value); setCurrentPage(1); updateUrl({ favorite: f.value }, true); setIsFavOpen(false); }}
                       >
                         <span className={`block truncate ${favoriteFilter === f.value ? 'font-semibold' : 'font-medium'}`}>{f.label}</span>
                         {favoriteFilter === f.value && (
@@ -312,7 +413,7 @@ export default function AllWords() {
               >
                 <span className="col-start-1 row-start-1 flex items-center pr-4">
                   <span className="block text-[13px] font-semibold text-gray-700 dark:text-gray-300 truncate">
-                    {unknownFilter === "true" ? "Bilinmeyenler" : "Bilinmeyen Durumu"}
+                    {unknownFilter === "true" ? "Bilinmeyenler" : unknownFilter === "false" ? "Bilinmeyen Olmayanlar" : "Bilinmeyen Durumu"}
                   </span>
                 </span>
                 <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" className="col-start-1 row-start-1 size-4 self-center justify-self-end text-gray-400 dark:text-gray-500">
@@ -325,12 +426,13 @@ export default function AllWords() {
                   <ul className="absolute z-20 mt-1 max-h-60 w-full overflow-auto rounded-lg bg-white dark:bg-gray-800 py-1 text-sm shadow-lg ring-1 ring-black/5 dark:ring-white/10 border border-gray-100 dark:border-gray-700">
                     {[
                       { value: "", label: "Bilinmeyen Durumu" },
-                      { value: "true", label: "Sadece Bilinmeyenler" }
+                      { value: "true", label: "Sadece Bilinmeyenler" },
+                      { value: "false", label: "Bilinmeyen Olmayanlar" }
                     ].map((u) => (
                       <li
                         key={u.value}
                         className={`relative cursor-pointer select-none py-2 pl-3 pr-9 ${unknownFilter === u.value ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400' : 'text-gray-900 dark:text-gray-300 hover:bg-slate-50 dark:hover:bg-gray-700'}`}
-                        onClick={() => { setUnknownFilter(u.value); setIsUnknownOpen(false); }}
+                        onClick={() => { setUnknownFilter(u.value); setCurrentPage(1); updateUrl({ unknown: u.value }, true); setIsUnknownOpen(false); }}
                       >
                         <span className={`block truncate ${unknownFilter === u.value ? 'font-semibold' : 'font-medium'}`}>{u.label}</span>
                         {unknownFilter === u.value && (
@@ -352,8 +454,8 @@ export default function AllWords() {
                 {[10, 20, 50, 100].map((item) => (
                   <button
                     key={item}
-                    onClick={() => { setLimit(item); setCurrentPage(1); }}
-                    className={`flex-1 py-1.5 text-xs font-medium rounded-lg transition-all duration-200 ${limit === item ? 'bg-blue-600 text-white shadow-sm' : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'}`}
+                    onClick={() => { setLimit(item); setCurrentPage(1); updateUrl({ limit: item }, true); }}
+                    className={`flex-1 py-1.5 text-xs font-medium rounded-lg ${isInitialized && limit === item ? 'bg-blue-600 text-white shadow-sm' : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'}`}
                   >
                     {item}
                   </button>
@@ -379,7 +481,7 @@ export default function AllWords() {
             type="text"
             placeholder="Kelime ara (EN/TR)..."
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={(e) => handleSearchChange(e.target.value)}
             className="w-full pl-10 pr-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 transition hover:shadow-[0_0_3px_0_rgba(0,0,0,0.12)]"
           />
         </div>
@@ -409,7 +511,7 @@ export default function AllWords() {
                     <li
                       key={t.value}
                       className={`relative cursor-pointer select-none py-2 pl-3 pr-9 ${type === t.value ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400' : 'text-gray-900 dark:text-gray-300 hover:bg-slate-50 dark:hover:bg-gray-700'}`}
-                      onClick={() => { setType(t.value); setIsTypeOpen(false); }}
+                      onClick={() => { setType(t.value); setCurrentPage(1); updateUrl({ type: t.value }, true); setIsTypeOpen(false); }}
                     >
                       <div className="flex items-center">
                         <span className={`block truncate ${type === t.value ? 'font-semibold' : 'font-medium'}`}>{t.label}</span>
@@ -457,7 +559,7 @@ export default function AllWords() {
                     <li
                       key={f.value}
                       className={`relative cursor-pointer select-none py-2 pl-3 pr-9 ${favoriteFilter === f.value ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400' : 'text-gray-900 dark:text-gray-300 hover:bg-slate-50 dark:hover:bg-gray-700'}`}
-                      onClick={() => { setFavoriteFilter(f.value); setIsFavOpen(false); }}
+                      onClick={() => { setFavoriteFilter(f.value); setCurrentPage(1); updateUrl({ favorite: f.value }, true); setIsFavOpen(false); }}
                     >
                       <div className="flex items-center">
                         <span className={`block truncate ${favoriteFilter === f.value ? 'font-semibold' : 'font-medium'}`}>{f.label}</span>
@@ -485,7 +587,7 @@ export default function AllWords() {
             >
               <span className="col-start-1 row-start-1 flex items-center pr-4">
                 <span className="block text-[11px] sm:text-[13px] font-semibold text-gray-700 dark:text-gray-300 truncate">
-                  {unknownFilter === "true" ? "Bilinmeyenler" : "Bilinmeyen Durumu"}
+                  {unknownFilter === "true" ? "Bilinmeyenler" : unknownFilter === "false" ? "Bilinmeyen Olmayanlar" : "Bilinmeyen Durumu"}
                 </span>
               </span>
               <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" className="col-start-1 row-start-1 size-4 self-center justify-self-end text-gray-400 dark:text-gray-500">
@@ -499,12 +601,13 @@ export default function AllWords() {
                 <ul className="absolute z-20 mt-1 max-h-60 w-full min-w-[145px] right-0 sm:right-auto overflow-auto rounded-lg bg-white dark:bg-gray-800 py-1 text-base shadow-lg ring-1 ring-black/5 dark:ring-white/10 outline-none sm:text-sm border border-gray-100 dark:border-gray-700">
                   {[
                     { value: "", label: "Bilinmeyen Durumu" },
-                    { value: "true", label: "Sadece Bilinmeyenler" }
+                    { value: "true", label: "Sadece Bilinmeyenler" },
+                    { value: "false", label: "Bilinmeyen Olmayanlar" }
                   ].map((u) => (
                     <li
                       key={u.value}
                       className={`relative cursor-pointer select-none py-2 pl-3 pr-9 ${unknownFilter === u.value ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400' : 'text-gray-900 dark:text-gray-300 hover:bg-slate-50 dark:hover:bg-gray-700'}`}
-                      onClick={() => { setUnknownFilter(u.value); setIsUnknownOpen(false); }}
+                      onClick={() => { setUnknownFilter(u.value); setCurrentPage(1); updateUrl({ unknown: u.value }, true); setIsUnknownOpen(false); }}
                     >
                       <div className="flex items-center">
                         <span className={`block truncate ${unknownFilter === u.value ? 'font-semibold' : 'font-medium'}`}>{u.label}</span>
@@ -534,8 +637,8 @@ export default function AllWords() {
             {[10, 20, 50, 100].map((item) => (
               <button
                 key={item}
-                onClick={() => { setLimit(item); setCurrentPage(1); }}
-                className={`px-4 py-2 text-xs sm:text-sm font-medium rounded-lg transition-all duration-200 ${limit === item ? 'bg-blue-600 text-white shadow-sm' : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 hover:shadow-sm'}`}
+                onClick={() => { setLimit(item); setCurrentPage(1); updateUrl({ limit: item }, true); }}
+                className={`px-4 py-2 text-xs sm:text-sm font-medium rounded-lg ${isInitialized && limit === item ? 'bg-blue-600 text-white shadow-sm' : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 hover:shadow-sm'}`}
               >
                 {item}
               </button>
@@ -548,7 +651,7 @@ export default function AllWords() {
             {loading && words.length === 0 ? (
               <Loader2 className="w-5 h-5 animate-spin text-blue-500" />
             ) : (
-              <span className="ml-3">Tüm kelimeler: {totalWords}</span>
+              <span className="ml-3">Sonuç: {totalWords}</span>
             )}
           </div>
         </div>

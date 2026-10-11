@@ -52,6 +52,8 @@ exports.getWords = async (req, res) => {
 
         if (unknownFilter === "true") {
             filterConditions.push({ isUnknown: true });
+        } else if (unknownFilter === "false") {
+            filterConditions.push({ isUnknown: false });
         }
 
         if (search && search.trim() !== "") {
@@ -71,7 +73,7 @@ exports.getWords = async (req, res) => {
             .skip(skipNum)
             .limit(limitNum);
 
-        const totalWords = await Word.countDocuments({ addedBy: userId });
+        const totalWords = await Word.countDocuments(query);
         const favoriteWords = await Word.countDocuments({ addedBy: userId, favorite: true });
         const unknownWords = await Word.countDocuments({ addedBy: userId, isUnknown: true });
 

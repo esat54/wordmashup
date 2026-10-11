@@ -136,10 +136,15 @@ export const wordsApi = {
         limit?: number; skip?: number; type?: string; favoriteFilter?: string; unknownFilter?: string; searchTerm?: string;
     } = {}) => {
         const { limit = 20, skip = 0, type = "", favoriteFilter = "", unknownFilter = "", searchTerm = "", } = params;
-        return apiRequest(
-            `/api/words?limit=${limit}&skip=${skip}&type=${type}&favoriteFilter=${favoriteFilter}&unknownFilter=${unknownFilter}&search=${searchTerm}`,
-            { method: "GET" }
-        );
+        const query = new URLSearchParams({
+            limit: String(limit),
+            skip: String(skip),
+            type,
+            favoriteFilter,
+            unknownFilter,
+            search: searchTerm,
+        });
+        return apiRequest(`/api/words?${query.toString()}`, { method: "GET" });
     },
 
     addtoFavorites: (wordId: string) => {
