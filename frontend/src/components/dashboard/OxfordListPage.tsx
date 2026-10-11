@@ -1,6 +1,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { motion, AnimatePresence } from "framer-motion";
 import { Edit2, X, Save, Loader2, AlertCircle, ChevronLeft, ChevronRight, Circle, Clock, CheckCircle2, User, Sparkles, BookOpen, ArrowRightLeft } from "lucide-react";
 import { oxfordApi } from "@/lib/api";
@@ -34,11 +35,14 @@ const getCategoryIdForLetter = (letter: string): number => {
 };
 
 export default function OxfordListPage() {
+  const router = useRouter();
   const [user, setUser] = useState<{ name: string; email: string } | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<number>(1);
   const [allWords, setAllWords] = useState<OxfordWord[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [loading, setLoading] = useState(false);
+  const [isInitialized, setIsInitialized] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [reloadKey, setReloadKey] = useState(0);
   const [error, setError] = useState<string | null>(null);
   const [selectedWord, setSelectedWord] = useState<OxfordWord | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -79,29 +83,74 @@ export default function OxfordListPage() {
   }, []);
 
   useEffect(() => {
-    loadWords(selectedCategory);
-    setCurrentPage(1);
-  }, [selectedCategory]);
+    if (!router.isReady) return;
+
+    const getParam = (value: string | string[] | undefined) =>
+      Array.isArray(value) ? value[0] || "" : value || "";
+    const letter = getParam(router.query.letter).toUpperCase();
+    const letterIndex = letters.indexOf(letter);
+    const requestedPage = Number.parseInt(getParam(router.query.page), 10);
+    const categoryId = letterIndex >= 0 ? letterIndex + 1 : 1;
+    const page = Number.isFinite(requestedPage) && requestedPage > 0 ? requestedPage : 1;
+
+    setSelectedCategory(categoryId);
+    setCurrentPage(page);
+    setIsInitialized(true);
+
+    if (letterIndex < 0 || getParam(router.query.letter) !== letter || !getParam(router.query.page)) {
+      void router.replace(
+        { pathname: router.pathname, query: { letter: letters[categoryId - 1], page: String(page) } },
+        undefined,
+        { shallow: true, scroll: false },
+      );
+    }
+  }, [router.isReady, router.asPath]);
+
+  useEffect(() => {
+    if (!isInitialized) return;
+
+    let isCurrentRequest = true;
+    const loadWords = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        const response = (await oxfordApi.getWordsByCategory(selectedCategory)) as any;
+        if (isCurrentRequest) setAllWords(response.words || []);
+      } catch (err: any) {
+        if (!isCurrentRequest) return;
+        console.error("Kelimeler yüklenirken hata:", err);
+        setError(err.message || "Kelimeler yüklenirken bir hata oluştu");
+        setAllWords([]);
+      } finally {
+        if (isCurrentRequest) setLoading(false);
+      }
+    };
+
+    void loadWords();
+    return () => {
+      isCurrentRequest = false;
+    };
+  }, [isInitialized, selectedCategory, reloadKey]);
 
   const totalPages = Math.ceil(allWords.length / WORDS_PER_PAGE);
   const startIndex = (currentPage - 1) * WORDS_PER_PAGE;
   const endIndex = startIndex + WORDS_PER_PAGE;
   const words = allWords.slice(startIndex, endIndex);
 
-  const loadWords = async (categoryId: number) => {
-    try {
-      setLoading(true);
-      setError(null);
-      const response = (await oxfordApi.getWordsByCategory(categoryId)) as any;
-      setAllWords(response.words || []);
-    } catch (err: any) {
-      console.error("Kelimeler yüklenirken hata:", err);
-      setError(err.message || "Kelimeler yüklenirken bir hata oluştu");
-      setAllWords([]);
-    } finally {
-      setLoading(false);
-    }
-  };
+  useEffect(() => {
+    if (!isInitialized || loading || totalPages === 0 || currentPage <= totalPages) return;
+
+    const page = Math.max(1, totalPages);
+    setCurrentPage(page);
+    void router.replace(
+      {
+        pathname: router.pathname,
+        query: { letter: letters[selectedCategory - 1], page: String(page) },
+      },
+      undefined,
+      { shallow: true, scroll: false },
+    );
+  }, [isInitialized, loading, currentPage, totalPages, router, selectedCategory]);
 
   const handleEditClick = (word: OxfordWord) => {
     setSelectedWord(word);
@@ -140,14 +189,38 @@ export default function OxfordListPage() {
 
   const handlePreviousPage = () => {
     if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
+      handlePageChange(currentPage - 1);
     }
   };
 
   const handleNextPage = () => {
     if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
+      handlePageChange(currentPage + 1);
     }
+  };
+
+  const updateUrl = (categoryId: number, page: number) => {
+    void router.replace(
+      {
+        pathname: router.pathname,
+        query: { letter: letters[categoryId - 1], page: String(page) },
+      },
+      undefined,
+      { shallow: true, scroll: false },
+    );
+  };
+
+  const handleLetterChange = (categoryId: number) => {
+    setSelectedCategory(categoryId);
+    setCurrentPage(1);
+    setAllWords([]);
+    setLoading(true);
+    updateUrl(categoryId, 1);
+  };
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    updateUrl(selectedCategory, page);
   };
 
   const handleSaveNotes = async () => {
@@ -202,15 +275,15 @@ export default function OxfordListPage() {
           <div className="grid grid-cols-9 gap-1.5 justify-items-center sm:flex sm:justify-between sm:gap-1 sm:flex-nowrap">
             {letters.map((letter) => {
               const categoryId = getCategoryIdForLetter(letter);
-              const isActive = selectedCategory === categoryId;
+              const isActive = isInitialized && selectedCategory === categoryId;
               return (
                 <button
                   key={letter}
-                  onClick={() => setSelectedCategory(categoryId)}
+                  onClick={() => handleLetterChange(categoryId)}
                   className={`
                     h-8 w-8 sm:flex-1 flex items-center justify-center
                     rounded text-xs font-semibold
-                    transition-all duration-200
+                    transition-colors duration-200
                     ${isActive
                       ? "bg-blue-600 text-white shadow-md"
                       : "bg-gray-50 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600"
@@ -290,7 +363,7 @@ export default function OxfordListPage() {
               <AlertCircle className="w-6 h-6 text-red-500" />
               <p className="text-xs text-red-600 dark:text-red-400">{error}</p>
               <button
-                onClick={() => loadWords(selectedCategory)}
+                onClick={() => setReloadKey((key) => key + 1)}
                 className="mt-2 px-4 py-2 bg-blue-600 text-white rounded-lg text-xs hover:bg-blue-700 transition-colors"
               >
                 Tekrar Dene
