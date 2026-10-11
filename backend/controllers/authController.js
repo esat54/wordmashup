@@ -84,7 +84,8 @@ exports.login = async (req, res) => {
             user: {
                 name: user.name,
                 email: user.email,
-                role: user.role || 'user'
+                role: user.role || 'user',
+                avatar: user.avatar || null
             }
         };
 
@@ -128,7 +129,8 @@ exports.testerLogin = async (req, res) => {
             user: {
                 name: user.name,
                 email: user.email,
-                role: user.role || 'tester'
+                role: user.role || 'tester',
+                avatar: user.avatar || null
             }
         };
 
@@ -213,6 +215,7 @@ exports.getUserInfo = async (req, res) => {
             user: {
                 name: user.name,
                 email: user.email,
+                avatar: user.avatar || null,
                 streakCount: user.streakCount || 0,
                 lastActivityDate: user.lastActivityDate
             }
@@ -222,6 +225,54 @@ exports.getUserInfo = async (req, res) => {
         res.status(500).json({
             error: 'Internal server error',
             message: 'Kullanıcı bilgileri getirilirken bir hata oluştu'
+        });
+    }
+};
+
+exports.updateAvatar = async (req, res) => {
+    const { avatar } = req.body;
+
+    if (avatar !== null && typeof avatar !== 'string') {
+        return res.status(400).json({
+            error: 'Validation error',
+            message: 'Geçerli bir avatar seçin'
+        });
+    }
+
+    const presetAvatars = ['🦊', '🐼', '🐨', '🐸', '🦁', '🐯', '🐧', '🐙', '🦋', '🌻'];
+    const isPresetAvatar = typeof avatar === 'string' && presetAvatars.includes(avatar);
+    const isUploadedAvatar = typeof avatar === 'string'
+        && avatar.length <= 350000
+        && /^data:image\/jpeg;base64,[A-Za-z0-9+/]+={0,2}$/.test(avatar);
+
+    if (avatar !== null && !isPresetAvatar && !isUploadedAvatar) {
+        return res.status(400).json({
+            error: 'Validation error',
+            message: 'Avatar görseli geçersiz veya izin verilen boyutu aşıyor'
+        });
+    }
+
+    try {
+        const user = await authModel.findUserById(req.userId);
+        if (!user) {
+            return res.status(404).json({
+                error: 'Not found',
+                message: 'Kullanıcı bulunamadı'
+            });
+        }
+
+        user.avatar = avatar;
+        await user.save();
+
+        res.status(200).json({
+            success: true,
+            avatar: user.avatar
+        });
+    } catch (error) {
+        console.error('Update avatar error:', error);
+        res.status(500).json({
+            error: 'Internal server error',
+            message: 'Avatar kaydedilirken bir hata oluştu'
         });
     }
 };

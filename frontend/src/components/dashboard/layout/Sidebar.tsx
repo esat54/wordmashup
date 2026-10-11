@@ -3,9 +3,10 @@ import Link from "next/link";
 import { BookOpen, ChevronLeft, ChevronRight, FileMinus, FileSearch, FileText, Home, LogOut, Settings, Sparkles } from "lucide-react";
 
 import type { DashboardPageKey } from "@/components/dashboard/layout/DashboardLayout";
+import { isPresetAvatar } from "@/lib/avatars";
 
 interface SidebarProps {
-  user: { name: string; email: string };
+  user: { name: string; email: string; avatar?: string | null };
   isTester: boolean;
   activePage: DashboardPageKey;
   onLogout: () => void;
@@ -62,8 +63,14 @@ export default function Sidebar({ user, isTester, activePage, onLogout, sidebarO
 
       <div className="p-4 bg-gray-50/50 dark:bg-gray-800/50 border-b border-gray-100 dark:border-gray-700 overflow-hidden">
         <div className="flex items-center ml-1 ">
-          <div className="w-10 h-10 rounded-xl flex-shrink-0 bg-blue-600 flex items-center justify-center text-white font-bold shadow-lg shadow-blue-100 dark:shadow-blue-900/30">
-            {isTester ? "T" : user.name.charAt(0).toUpperCase()}
+          <div className={`w-10 h-10 rounded-xl flex-shrink-0 flex items-center justify-center text-white font-bold shadow-lg shadow-blue-100 dark:shadow-blue-900/30 overflow-hidden ${user.avatar && !isPresetAvatar(user.avatar) ? "bg-gray-100 dark:bg-gray-700" : "bg-blue-600"}`}>
+            {!isTester && user.avatar && !isPresetAvatar(user.avatar) ? (
+              <img src={user.avatar} alt="" className="w-full h-full object-cover" />
+            ) : !isTester && isPresetAvatar(user.avatar) ? (
+              <span className="text-2xl leading-none" aria-hidden="true">{user.avatar}</span>
+            ) : (
+              isTester ? "T" : user.name.charAt(0).toUpperCase()
+            )}
           </div>
           <div
             className={`transition-all duration-300 overflow-hidden whitespace-nowrap ${sidebarOpen ? "opacity-100 max-w-xs ml-3" : "opacity-0 max-w-0 ml-0"

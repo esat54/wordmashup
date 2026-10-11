@@ -101,6 +101,12 @@ export const authApi = {
         });
     },
 
+    updateAvatar: (avatar: string | null) =>
+        apiRequest("/api/auth/avatar", {
+            method: "PATCH",
+            body: JSON.stringify({ avatar }),
+        }),
+
     deleteAccount: (data: { password: string }) => {
         return apiRequest("/api/auth/account", {
             method: "DELETE",

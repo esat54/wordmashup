@@ -17,6 +17,7 @@ export type DashboardPageKey =
 interface DashboardUser {
   name: string;
   email: string;
+  avatar?: string | null;
 }
 
 interface DashboardLayoutProps {
@@ -63,9 +64,10 @@ export default function DashboardLayout({ activePage, children, }: DashboardLayo
     );
   }
 
-  const dashboardUser: DashboardUser = { 
+  const dashboardUser: DashboardUser = {
     name: user?.name || '', 
-    email: user?.email || '' 
+    email: user?.email || '',
+    avatar: user?.avatar || null,
   };
 
   const pageTitles: Record<DashboardPageKey, string> = {

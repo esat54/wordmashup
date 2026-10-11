@@ -23,6 +23,11 @@ const userSchema = new mongoose.Schema({
         enum: ['user', 'admin', 'tester'],
         default: 'user'
     },
+    avatar: {
+        type: String,
+        default: null,
+        maxlength: 350000
+    },
     lastActivityDate: {
         type: Date,
         default: null
