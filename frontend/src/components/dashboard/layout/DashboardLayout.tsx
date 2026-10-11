@@ -57,11 +57,7 @@ export default function DashboardLayout({ activePage, children, }: DashboardLayo
   }, [ready, user]);
 
   if (!ready || (!user && !isLoggingOut)) {
-    return (
-      <div className="min-h-screen bg-white dark:bg-gray-900 flex items-center justify-center">
-        <div className="text-gray-600 dark:text-gray-400 animate-pulse">Yükleniyor...</div>
-      </div>
-    );
+    return <div className="min-h-screen bg-white dark:bg-gray-900" />;
   }
 
   const dashboardUser: DashboardUser = {
