@@ -1,7 +1,7 @@
-
 import { useEffect, useState } from "react";
 import { X, Loader2, Plus, Trash2 } from "lucide-react";
 import { grammarApi } from "@/lib/api";
+import GrammarFieldsGroup from "./RichTextEditor";
 
 interface GrammarExample {
   en: string;
@@ -111,7 +111,13 @@ export default function AddGrammar() {
   };
 
   const handleFormKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter" && (e.target as HTMLElement).tagName !== "TEXTAREA") {
+    const target = e.target as HTMLElement;
+    if (
+      e.key === "Enter" &&
+      target.tagName !== "TEXTAREA" &&
+      !target.isContentEditable &&
+      !target.closest("[contenteditable='true']")
+    ) {
       e.preventDefault();
     }
   };
@@ -121,11 +127,9 @@ export default function AddGrammar() {
 
   return (
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
-
       <h2 className="text-xl font-bold text-gray-800 dark:text-white tracking-tight mb-4">
         Yeni Gramer Konusu Ekle
       </h2>
-
 
       <form
         onSubmit={handleSubmit}
@@ -259,70 +263,19 @@ export default function AddGrammar() {
               />
             </div>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
-                Kısa açıklama
-              </label>
-              <input
-                type="text"
-                value={formData.description}
-                onChange={(e) =>
-                  setFormData({ ...formData, description: e.target.value })
-                }
-                placeholder="Kartta görünecek özet"
-                className={inputBase}
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
-                Formül
-              </label>
-              <input
-                type="text"
-                value={formData.formula}
-                onChange={(e) =>
-                  setFormData({ ...formData, formula: e.target.value })
-                }
-                placeholder="Örn: If + Past Perfect, would + have + V3"
-                className={`${inputBase} font-mono text-sm`}
-              />
-            </div>
-          </div>
         </section>
 
-        <section className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
-              Kurallar
-            </label>
-            <textarea
-              value={formData.rules}
-              onChange={(e) =>
-                setFormData({ ...formData, rules: e.target.value })
-              }
-              placeholder="Temel kuralları madde veya paragraf olarak yazın..."
-              rows={6}
-              className={`${inputBase} resize-y min-h-[120px]`}
-              style={{ whiteSpace: "pre-wrap" }}
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
-              Notlar
-            </label>
-            <textarea
-              value={formData.notes}
-              onChange={(e) =>
-                setFormData({ ...formData, notes: e.target.value })
-              }
-              placeholder="İpuçları, istisnalar, sık hatalar..."
-              rows={6}
-              className={`${inputBase} resize-y min-h-[120px]`}
-              style={{ whiteSpace: "pre-wrap" }}
-            />
-          </div>
-        </section>
+        <GrammarFieldsGroup
+          values={{
+            description: formData.description,
+            formula: formData.formula,
+            rules: formData.rules,
+            notes: formData.notes,
+          }}
+          onChange={(field, val) =>
+            setFormData((prev) => ({ ...prev, [field]: val }))
+          }
+        />
 
         <section className="space-y-4">
           <div className="flex flex-wrap items-center justify-between gap-3">

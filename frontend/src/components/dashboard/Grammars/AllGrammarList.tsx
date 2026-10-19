@@ -23,6 +23,11 @@ interface Grammar {
   isGlobal?: boolean;
 }
 
+const stripHtml = (html?: string) => {
+  if (!html) return "";
+  return html.replace(/<[^>]*>/g, "").replace(/&nbsp;/g, " ").trim();
+};
+
 export default function AllGrammarList() {
   const router = useRouter();
   const { isTester } = useAuth();
@@ -236,7 +241,7 @@ export default function AllGrammarList() {
                         </h3>
                         {grammar.description && (
                           <p className="text-sm text-gray-600 dark:text-gray-400 mt-1 line-clamp-2">
-                            {grammar.description}
+                            {stripHtml(grammar.description)}
                           </p>
                         )}
                       </div>
@@ -345,7 +350,7 @@ export default function AllGrammarList() {
                           </h3>
                           {global.description && (
                             <p className="text-sm text-gray-600 dark:text-gray-400 mt-1 line-clamp-2 leading-relaxed">
-                              {global.description}
+                              {stripHtml(global.description)}
                             </p>
                           )}
                         </div>
