@@ -5,6 +5,7 @@ const useIsomorphicLayoutEffect = typeof window !== "undefined" ? useLayoutEffec
 interface AuthContextType {
     user: any;
     isTester: boolean;
+    isAdmin: boolean;
     isLoggedIn: boolean;
     ready: boolean;
     login: (userData: any, token: string) => void;
@@ -15,6 +16,7 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType>({
     user: null,
     isTester: false,
+    isAdmin: false,
     isLoggedIn: false,
     ready: false,
     login: () => { },
@@ -67,6 +69,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     };
 
     const isTester = user?.email === "tester@gmail.com";
+    const isAdmin = user?.role === 'admin';
     const isLoggedIn = !!user && !isTester;
 
     useEffect(() => {
@@ -82,7 +85,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }, [user]);
 
     return (
-        <AuthContext.Provider value={{ user, isTester, isLoggedIn, ready, login, updateUser, logout }}>
+        <AuthContext.Provider value={{ user, isTester, isAdmin, isLoggedIn, ready, login, updateUser, logout }}>
             {children}
         </AuthContext.Provider>
     );

@@ -10,6 +10,7 @@ const dictionaryRoutes = require("./routes/dictionaryRoutes");
 const oxfordRoutes = require("./routes/oxfordRoutes");
 const grammarRoutes = require("./routes/grammarRoutes");
 const quizRoutes = require("./routes/quizRoutes");
+const phraseRoutes = require("./routes/phraseRoutes");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -47,5 +48,6 @@ app.use("/api/dictionary", dictionaryRoutes);
 app.use("/api/oxford", oxfordRoutes);
 app.use("/api/grammar", grammarRoutes);
 app.use("/api/quiz", quizRoutes);
+app.use("/api/phrases", phraseRoutes);
 
 app.listen(PORT, () => console.log(`Server running on ${PORT}`));

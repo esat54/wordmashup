@@ -12,7 +12,8 @@ export type DashboardPageKey =
   | "dictionary"
   | "grammar"
   | "oxford"
-  | "settings";
+  | "settings"
+  | "phrases";
 
 interface DashboardUser {
   name: string;
@@ -27,7 +28,7 @@ interface DashboardLayoutProps {
 
 export default function DashboardLayout({ activePage, children, }: DashboardLayoutProps) {
   const router = useRouter();
-  const { user, isTester, isLoggedIn, ready, logout } = useAuth();
+  const { user, isTester, isAdmin, isLoggedIn, ready, logout } = useAuth();
 
   const [sidebarOpen, setSidebarOpen] = useState(() => {
     if (typeof window !== 'undefined') {
@@ -72,7 +73,8 @@ export default function DashboardLayout({ activePage, children, }: DashboardLayo
     dictionary: "Sözlük",
     grammar: "Gramer",
     oxford: "Oxford Liste",
-    settings: "Ayarlar"
+    settings: "Ayarlar",
+    phrases: "Kalıplarım"
   };
 
   return (
@@ -85,6 +87,7 @@ export default function DashboardLayout({ activePage, children, }: DashboardLayo
           sidebarOpen={true}
           user={dashboardUser}
           isTester={isTester}
+          isAdmin={isAdmin}
           activePage={activePage}
           onLogout={handleLogout}
         />
@@ -97,6 +100,7 @@ export default function DashboardLayout({ activePage, children, }: DashboardLayo
         onToggle={() => setSidebarOpen((prev: boolean) => !prev)}
         user={dashboardUser}
         isTester={isTester}
+        isAdmin={isAdmin}
         activePage={activePage}
         onLogout={handleLogout}
       />

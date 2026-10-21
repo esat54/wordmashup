@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { BookOpen, ChevronLeft, ChevronRight, FileMinus, FileSearch, FileText, Home, LogOut, Settings, Sparkles } from "lucide-react";
+import { BookOpen, ChevronLeft, ChevronRight, FileMinus, FileSearch, FileText, Home, LogOut, MessageSquare, Settings, Sparkles } from "lucide-react";
 
 import type { DashboardPageKey } from "@/components/dashboard/layout/DashboardLayout";
 import { isPresetAvatar } from "@/lib/avatars";
@@ -8,6 +8,7 @@ import { isPresetAvatar } from "@/lib/avatars";
 interface SidebarProps {
   user: { name: string; email: string; avatar?: string | null };
   isTester: boolean;
+  isAdmin?: boolean;
   activePage: DashboardPageKey;
   onLogout: () => void;
   sidebarOpen?: boolean;
@@ -17,21 +18,23 @@ interface SidebarProps {
   onClose?: () => void;
 }
 
-const menuItems: {
-  icon: React.ComponentType<{ size?: number | string; className?: string }>;
-  label: string;
-  href: string;
-  key: DashboardPageKey;
-}[] = [
+export default function Sidebar({ user, isTester, isAdmin = false, activePage, onLogout, sidebarOpen = true, onToggle, variant, open, onClose, }: SidebarProps) {
+  const allMenuItems: {
+    icon: React.ComponentType<{ size?: number | string; className?: string }>;
+    label: string;
+    href: string;
+    key: DashboardPageKey;
+    adminOnly?: boolean;
+  }[] = [
     { icon: Home, label: "Anasayfa", href: "/dashboard", key: "home" },
     { icon: BookOpen, label: "Kelimelerim", href: "/dashboard/words", key: "words" },
     { icon: FileText, label: "Oxford Liste", href: "/dashboard/oxford", key: "oxford" },
     { icon: FileSearch, label: "Sözlük", href: "/dashboard/dictionary", key: "dictionary" },
     { icon: FileMinus, label: "Gramer", href: "/dashboard/grammar", key: "grammar" },
+    { icon: MessageSquare, label: "Kalıplarım", href: "/dashboard/phrases", key: "phrases", adminOnly: true },
     { icon: Settings, label: "Ayarlar", href: "/dashboard/settings", key: "settings" },
   ];
-
-export default function Sidebar({ user, isTester, activePage, onLogout, sidebarOpen = true, onToggle, variant, open, onClose, }: SidebarProps) {
+  const menuItems = allMenuItems.filter(item => !item.adminOnly || isAdmin);
   const content = (
     <div className="h-full flex flex-col bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700">
       <div className="h-16 flex-shrink-0 flex items-center px-4 border-b border-gray-100 dark:border-gray-700 overflow-hidden">

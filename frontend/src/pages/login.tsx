@@ -40,7 +40,7 @@ export default function LoginPage() {
         if (response.user) {
           login(response.user, response.token);
           if (response.user.role === 'admin') {
-            router.push("/admin");
+            router.push("/dashboard");
             return;
           }
         }

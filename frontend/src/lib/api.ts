@@ -342,3 +342,26 @@ export const quizApi = {
         }),
 
 };
+
+
+export const phraseApi = {
+
+    getPhrases: () =>
+        apiRequest("/api/phrases", { method: "GET" }),
+
+    createPhrase: (data: { question: string; answer: string; note?: string; tags?: string[] }) =>
+        apiRequest("/api/phrases", {
+            method: "POST",
+            body: JSON.stringify(data),
+        }),
+
+    updatePhrase: (id: string, data: { question?: string; answer?: string; note?: string; tags?: string[] }) =>
+        apiRequest(`/api/phrases/${id}`, {
+            method: "PUT",
+            body: JSON.stringify(data),
+        }),
+
+    deletePhrase: (id: string) =>
+        apiRequest(`/api/phrases/${id}`, { method: "DELETE" }),
+
+};
