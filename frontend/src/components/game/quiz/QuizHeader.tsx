@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import { AreaChart, BookOpen, LayoutDashboard, LogIn, Moon, Sun } from "lucide-react";
 import Link from "next/link";
 import UserQuiz from "./UserQuiz";
@@ -9,18 +10,36 @@ import { useTheme } from "@/context/ThemeContext";
 type View = "user" | "global";
 
 export default function QuizHeader() {
+    const router = useRouter();
     const { user, isTester, ready } = useAuth();
     const canAccessUserQuiz = !!user && !isTester;
     const { darkMode, toggleDarkMode, mounted } = useTheme();
 
     const [currentView, setCurrentView] = useState<View>("global");
 
+    useEffect(() => {
+        if (!router.isReady) return;
+        setCurrentView(router.query.view === "user" ? "user" : "global");
+    }, [router.isReady, router.query.view]);
+
+    const changeView = (view: View) => {
+        setCurrentView(view);
+        void router.replace(
+            {
+                pathname: router.pathname,
+                query: view === "global" ? { view } : { ...router.query, view },
+            },
+            undefined,
+            { shallow: true, scroll: false },
+        );
+    };
+
     return (
         <>
             <div className="rounded-lg min-h-[500px]">
                 {currentView === "user" ? (
                     canAccessUserQuiz ? (
-                        <UserQuiz currentView={currentView} setCurrentView={setCurrentView} canAccessUserQuiz={canAccessUserQuiz} />
+                        <UserQuiz currentView={currentView} setCurrentView={changeView} canAccessUserQuiz={canAccessUserQuiz} />
                     ) : (
                         <div className="flex flex-col items-center justify-center min-h-[400px] gap-5 text-center px-4">
                             <div className="w-16 h-16 rounded-2xl bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center">
@@ -50,7 +69,7 @@ export default function QuizHeader() {
                         </div>
                     )
                 ) : (
-                    <GlobalQuiz currentView={currentView} setCurrentView={setCurrentView} canAccessUserQuiz={canAccessUserQuiz} />
+                    <GlobalQuiz currentView={currentView} setCurrentView={changeView} canAccessUserQuiz={canAccessUserQuiz} />
                 )}
             </div>
         </>

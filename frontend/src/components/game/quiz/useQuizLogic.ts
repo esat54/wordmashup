@@ -114,13 +114,13 @@ export function useQuizLogic({ fetchFn, saveFn, wordField = "text", displayCount
         setResults(newResults);
     };
 
-    const handleShuffle = () => {
-        shuffleFromPool(allWords);
-    };
+    const handleShuffle = useCallback((pool: any[] = allWords) => {
+        shuffleFromPool(pool);
+    }, [allWords, shuffleFromPool]);
 
-    const toggleLang = () => {
+    const toggleLang = (pool: any[] = allWords) => {
         setShowLang(prev => (prev === "TR" ? "EN" : "TR"));
-        handleShuffle();
+        handleShuffle(pool);
     };
 
     const mapWord = (w: any) => ({
@@ -187,4 +187,3 @@ export function useQuizLogic({ fetchFn, saveFn, wordField = "text", displayCount
         mapWord,
     };
 }
-

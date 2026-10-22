@@ -6,11 +6,9 @@ const mongoose = require('mongoose');
 exports.getUserQuizWords = async (req, res) => {
     try {
         const userId = req.userId;
-        const words = await Word.aggregate([
-            { $match: { addedBy: new mongoose.Types.ObjectId(userId) } },
-            { $sample: { size: 100 } },
-            { $project: { text: 1, translation: 1 } }
-        ]);
+        const words = await Word.find({ addedBy: new mongoose.Types.ObjectId(userId) })
+            .select('text translation type favorite isUnknown createdAt')
+            .lean();
         res.status(200).json(words)
     } catch (error) {
         console.error("getWords error:", error);
@@ -71,4 +69,3 @@ exports.saveQuizWord = async (req, res) => {
         res.status(500).json({ message: 'Sunucu hatası' });
     }
 };
-
